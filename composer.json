@@ -21,10 +21,20 @@
     ],
     "require": {
         "php": "^7.1",
-        "symfony/form": "^2.8 || ^3.2 || ^4.0"
+        "symfony/form": "^2.8 || ^3.2 || ^4.0",
+        "symfony/translation": "^2.8 || ^3.2 || ^4.0",
+        "symfony/validator": "^2.8 || ^3.2 || ^4.0"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^4.0"
+        "symfony/dependency-injection": "^2.8 || ^3.3 || ^4.0",
+        "symfony/expression-language": "^2.8 || ^3.3 || ^4.0",
+        "symfony/framework-bundle": "^2.8 || ^3.3 || ^4.0",
+        "symfony/phpunit-bridge": "^4.0",
+        "symfony/twig-bridge": "^2.8 || ^3.4 || ^4.0",
+        "symfony/twig-bundle": "^2.8 || ^3.4 || ^4.0"
+    },
+    "suggest": {
+        "symfony/framework-bundle": "If you want to use symfony"
     },
     "config": {
         "sort-packages": true
@@ -36,12 +46,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Sonata\\FormExtensions\\": "src/"
+            "Sonata\\Form\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Sonata\\FormExtensions\\Tests\\": "tests/"
+            "Sonata\\Form\\Tests\\": "tests/"
         }
     }
 }
