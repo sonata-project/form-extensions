@@ -32,37 +32,6 @@ class Configuration implements ConfigurationInterface
 
         $this->addFlashMessageSection($rootNode);
 
-        $rootNode
-            ->children()
-                ->arrayNode('form')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('mapping')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->booleanNode('enabled')
-                                    ->defaultValue(true)
-                                ->end()
-                                ->arrayNode('type')
-                                    ->useAttributeAsKey('id')
-                                    ->defaultValue([])
-                                    ->prototype('scalar')->end()
-                                ->end()
-
-                                ->arrayNode('extension')
-                                    ->useAttributeAsKey('id')
-                                    ->defaultValue([])
-                                    ->prototype('array')
-                                        ->prototype('scalar')->end()
-                                    ->end()
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end()
-        ;
-
         return $treeBuilder;
     }
 
