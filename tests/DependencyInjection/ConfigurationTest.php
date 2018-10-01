@@ -43,16 +43,12 @@ class ConfigurationTest extends TestCase
             ['form_type' => 'standard'],    // by this during the merge
         ], [
             'form_type' => 'standard',
-            'flashmessage' => [],
             'form' => [
                 'mapping' => [
                     'enabled' => true,
                     'type' => [],
                     'extension' => [],
                 ],
-            ],
-            'serializer' => [
-                'formats' => ['json', 'xml', 'yml'],
             ],
         ]);
     }
@@ -87,10 +83,6 @@ class ConfigurationTest extends TestCase
                 ],
             ],
             'form_type' => 'standard',
-            'flashmessage' => [],
-            'serializer' => [
-                'formats' => ['json', 'xml', 'yml'],
-            ],
         ]);
     }
 
@@ -107,10 +99,6 @@ class ConfigurationTest extends TestCase
                 ],
             ],
             'form_type' => 'standard',
-            'flashmessage' => [],
-            'serializer' => [
-                'formats' => ['json', 'xml', 'yml'],
-            ],
         ]);
     }
 }

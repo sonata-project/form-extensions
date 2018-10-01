@@ -31,7 +31,6 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('sonata_core');
 
         $this->addFlashMessageSection($rootNode);
-        $this->addSerializerFormats($rootNode);
 
         $rootNode
             ->children()
@@ -84,43 +83,6 @@ class Configuration implements ConfigurationInterface
                         ))
                     ->end()
                     ->info(sprintf('Must be one of %s', $validFormTypesString))
-                ->end()
-                ->arrayNode('flashmessage')
-                    ->useAttributeAsKey('message')
-                    ->prototype('array')
-                        ->children()
-                            ->scalarNode('css_class')->end()
-                            ->arrayNode('types')
-                                ->useAttributeAsKey('type')
-                                ->prototype('array')
-                                    ->children()
-                                        ->scalarNode('domain')->defaultValue('SonataCoreBundle')->end()
-                                    ->end()
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end()
-        ;
-    }
-
-    /**
-     * Returns configuration for serializer formats.
-     */
-    private function addSerializerFormats(ArrayNodeDefinition $node): void
-    {
-        $node
-            ->children()
-                ->arrayNode('serializer')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('formats')
-                            ->prototype('scalar')->end()
-                            ->defaultValue(['json', 'xml', 'yml'])
-                            ->info('Default serializer formats, will be used while getting subscribing methods.')
-                        ->end()
-                    ->end()
                 ->end()
             ->end()
         ;

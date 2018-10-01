@@ -13,16 +13,8 @@ declare(strict_types=1);
 
 namespace Sonata\CoreBundle;
 
-use Sonata\CoreBundle\DependencyInjection\Compiler\AdapterCompilerPass;
-use Sonata\CoreBundle\DependencyInjection\Compiler\StatusRendererCompilerPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class SonataCoreBundle extends Bundle
 {
-    public function build(ContainerBuilder $container): void
-    {
-        $container->addCompilerPass(new AdapterCompilerPass());
-        $container->addCompilerPass(new StatusRendererCompilerPass());
-    }
 }
