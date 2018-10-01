@@ -1,602 +1,598 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-    <file source-language="en" datatype="plaintext" original="SonataCoreBundle.en.xliff">
+    <file source-language="en" datatype="plaintext" original="SonataFormBundle.en.xliff">
         <body>
             <trans-unit id="link_add">
                 <source>link_add</source>
-                <target>Добавить новый</target>
+                <target>Додати новий</target>
             </trans-unit>
             <trans-unit id="label_type_yes">
                 <source>label_type_yes</source>
-                <target>да</target>
+                <target>так</target>
             </trans-unit>
             <trans-unit id="label_type_no">
                 <source>label_type_no</source>
-                <target>нет</target>
-            </trans-unit>
-            <trans-unit id="sonata_core_template_box_file_found_in">
-                <source>sonata_core_template_box_file_found_in</source>
-                <target>Этот файл можно найти в</target>
+                <target>немає</target>
             </trans-unit>
             <trans-unit id="label_type_equals">
                 <source>label_type_equals</source>
-                <target>равен</target>
+                <target>дорівнює</target>
             </trans-unit>
             <trans-unit id="label_type_not_equals">
                 <source>label_type_not_equals</source>
-                <target>не равен</target>
+                <target>не дорівнює</target>
             </trans-unit>
             <trans-unit id="date_range_start">
                 <source>date_range_start</source>
-                <target>С</target>
+                <target>date_range_start</target>
             </trans-unit>
             <trans-unit id="date_range_end">
                 <source>date_range_end</source>
-                <target>По</target>
+                <target>date_range_end</target>
             </trans-unit>
             <trans-unit id="aliceblue">
                 <source>aliceblue</source>
-                <target>AliceBlue</target>
+                <target>aliceblue</target>
             </trans-unit>
             <trans-unit id="antiquewhite">
                 <source>antiquewhite</source>
-                <target>AntiqueWhite</target>
+                <target>antiquewhite</target>
             </trans-unit>
             <trans-unit id="aqua">
                 <source>aqua</source>
-                <target>Aqua</target>
+                <target>aqua</target>
             </trans-unit>
             <trans-unit id="aquamarine">
                 <source>aquamarine</source>
-                <target>Aquamarine</target>
+                <target>aquamarine</target>
             </trans-unit>
             <trans-unit id="azure">
                 <source>azure</source>
-                <target>Azure</target>
+                <target>azure</target>
             </trans-unit>
             <trans-unit id="beige">
                 <source>beige</source>
-                <target>Beige</target>
+                <target>beige</target>
             </trans-unit>
             <trans-unit id="bisque">
                 <source>bisque</source>
-                <target>Bisque</target>
+                <target>bisque</target>
             </trans-unit>
             <trans-unit id="black">
                 <source>black</source>
-                <target>Black</target>
+                <target>black</target>
             </trans-unit>
             <trans-unit id="blanchedalmond">
                 <source>blanchedalmond</source>
-                <target>BlanchedAlmond</target>
+                <target>blanchedalmond</target>
             </trans-unit>
             <trans-unit id="blue">
                 <source>blue</source>
-                <target>Blue</target>
+                <target>blue</target>
             </trans-unit>
             <trans-unit id="blueviolet">
                 <source>blueviolet</source>
-                <target>BlueViolet</target>
+                <target>blueviolet</target>
             </trans-unit>
             <trans-unit id="brown">
                 <source>brown</source>
-                <target>Brown</target>
+                <target>brown</target>
             </trans-unit>
             <trans-unit id="burlywood">
                 <source>burlywood</source>
-                <target>BurlyWood</target>
+                <target>burlywood</target>
             </trans-unit>
             <trans-unit id="cadetblue">
                 <source>cadetblue</source>
-                <target>CadetBlue</target>
+                <target>cadetblue</target>
             </trans-unit>
             <trans-unit id="chartreuse">
                 <source>chartreuse</source>
-                <target>ChartReuse</target>
+                <target>chartreuse</target>
             </trans-unit>
             <trans-unit id="chocolate">
                 <source>chocolate</source>
-                <target>Chocolate</target>
+                <target>chocolate</target>
             </trans-unit>
             <trans-unit id="coral">
                 <source>coral</source>
-                <target>Coral</target>
+                <target>coral</target>
             </trans-unit>
             <trans-unit id="cornflowerblue">
                 <source>cornflowerblue</source>
-                <target>CornFlowerBlue</target>
+                <target>cornflowerblue</target>
             </trans-unit>
             <trans-unit id="cornsilk">
                 <source>cornsilk</source>
-                <target>Cornsilk</target>
+                <target>cornsilk</target>
             </trans-unit>
             <trans-unit id="crimson">
                 <source>crimson</source>
-                <target>Crimson</target>
+                <target>crimson</target>
             </trans-unit>
             <trans-unit id="cyan">
                 <source>cyan</source>
-                <target>Cyan</target>
+                <target>cyan</target>
             </trans-unit>
             <trans-unit id="darkblue">
                 <source>darkblue</source>
-                <target>DarkBlue</target>
+                <target>darkblue</target>
             </trans-unit>
             <trans-unit id="darkcyan">
                 <source>darkcyan</source>
-                <target>DarkCyan</target>
+                <target>darkcyan</target>
             </trans-unit>
             <trans-unit id="darkgoldenrod">
                 <source>darkgoldenrod</source>
-                <target>DarkGoldenRod</target>
+                <target>darkgoldenrod</target>
             </trans-unit>
             <trans-unit id="darkgray">
                 <source>darkgray</source>
-                <target>DarkGray</target>
+                <target>darkgray</target>
             </trans-unit>
             <trans-unit id="darkgreen">
                 <source>darkgreen</source>
-                <target>DarkGreen</target>
+                <target>darkgreen</target>
             </trans-unit>
             <trans-unit id="darkkhaki">
                 <source>darkkhaki</source>
-                <target>DarkKhaki</target>
+                <target>darkkhaki</target>
             </trans-unit>
             <trans-unit id="darkmagenta">
                 <source>darkmagenta</source>
-                <target>DarkMagenta</target>
+                <target>darkmagenta</target>
             </trans-unit>
             <trans-unit id="darkolivegreen">
                 <source>darkolivegreen</source>
-                <target>DarkOliveGreen</target>
+                <target>darkolivegreen</target>
             </trans-unit>
             <trans-unit id="darkorange">
                 <source>darkorange</source>
-                <target>DarkOrange</target>
+                <target>darkorange</target>
             </trans-unit>
             <trans-unit id="darkorchid">
                 <source>darkorchid</source>
-                <target>DarkOrchid</target>
+                <target>darkorchid</target>
             </trans-unit>
             <trans-unit id="darkred">
                 <source>darkred</source>
-                <target>DarkRed</target>
+                <target>darkred</target>
             </trans-unit>
             <trans-unit id="darksalmon">
                 <source>darksalmon</source>
-                <target>DarkSalmon</target>
+                <target>darksalmon</target>
             </trans-unit>
             <trans-unit id="darkseagreen">
                 <source>darkseagreen</source>
-                <target>DarkSeaGreen</target>
+                <target>darkseagreen</target>
             </trans-unit>
             <trans-unit id="darkslateblue">
                 <source>darkslateblue</source>
-                <target>DarkSlateBlue</target>
+                <target>darkslateblue</target>
             </trans-unit>
             <trans-unit id="darkslategray">
                 <source>darkslategray</source>
-                <target>DarkSlateGray</target>
+                <target>darkslategray</target>
             </trans-unit>
             <trans-unit id="darkturquoise">
                 <source>darkturquoise</source>
-                <target>DarkTurquoise</target>
+                <target>darkturquoise</target>
             </trans-unit>
             <trans-unit id="darkviolet">
                 <source>darkviolet</source>
-                <target>DarkViolet</target>
+                <target>darkviolet</target>
             </trans-unit>
             <trans-unit id="deeppink">
                 <source>deeppink</source>
-                <target>DeepPink</target>
+                <target>deeppink</target>
             </trans-unit>
             <trans-unit id="deepskyblue">
                 <source>deepskyblue</source>
-                <target>DeepSkyBlue</target>
+                <target>deepskyblue</target>
             </trans-unit>
             <trans-unit id="dimgray">
                 <source>dimgray</source>
-                <target>DimGray</target>
+                <target>dimgray</target>
             </trans-unit>
             <trans-unit id="dodgerblue">
                 <source>dodgerblue</source>
-                <target>DodgerBlue</target>
+                <target>dodgerblue</target>
             </trans-unit>
             <trans-unit id="firebrick">
                 <source>firebrick</source>
-                <target>FireBrick</target>
+                <target>firebrick</target>
             </trans-unit>
             <trans-unit id="floralwhite">
                 <source>floralwhite</source>
-                <target>FloralWhite</target>
+                <target>floralwhite</target>
             </trans-unit>
             <trans-unit id="forestgreen">
                 <source>forestgreen</source>
-                <target>ForestGreen</target>
+                <target>forestgreen</target>
             </trans-unit>
             <trans-unit id="fuchsia">
                 <source>fuchsia</source>
-                <target>Fuchsia</target>
+                <target>fuchsia</target>
             </trans-unit>
             <trans-unit id="gainsboro">
                 <source>gainsboro</source>
-                <target>Gainsboro</target>
+                <target>gainsboro</target>
             </trans-unit>
             <trans-unit id="ghostwhite">
                 <source>ghostwhite</source>
-                <target>GhostWhite</target>
+                <target>ghostwhite</target>
             </trans-unit>
             <trans-unit id="gold">
                 <source>gold</source>
-                <target>Gold</target>
+                <target>gold</target>
             </trans-unit>
             <trans-unit id="goldenrod">
                 <source>goldenrod</source>
-                <target>GoldenRod</target>
+                <target>goldenrod</target>
             </trans-unit>
             <trans-unit id="gray">
                 <source>gray</source>
-                <target>Gray</target>
+                <target>gray</target>
             </trans-unit>
             <trans-unit id="green">
                 <source>green</source>
-                <target>Green</target>
+                <target>green</target>
             </trans-unit>
             <trans-unit id="greenyellow">
                 <source>greenyellow</source>
-                <target>GreenYellow</target>
+                <target>greenyellow</target>
             </trans-unit>
             <trans-unit id="honeydew">
                 <source>honeydew</source>
-                <target>HoneyDew</target>
+                <target>honeydew</target>
             </trans-unit>
             <trans-unit id="hotpink">
                 <source>hotpink</source>
-                <target>HotPink</target>
+                <target>hotpink</target>
             </trans-unit>
             <trans-unit id="indianred">
                 <source>indianred</source>
-                <target>IndianRed</target>
+                <target>indianred</target>
             </trans-unit>
             <trans-unit id="indigo">
                 <source>indigo</source>
-                <target>Indigo</target>
+                <target>indigo</target>
             </trans-unit>
             <trans-unit id="ivory">
                 <source>ivory</source>
-                <target>Ivory</target>
+                <target>ivory</target>
             </trans-unit>
             <trans-unit id="khaki">
                 <source>khaki</source>
-                <target>Khaki</target>
+                <target>khaki</target>
             </trans-unit>
             <trans-unit id="lavender">
                 <source>lavender</source>
-                <target>Lavender</target>
+                <target>lavender</target>
             </trans-unit>
             <trans-unit id="lavenderblush">
                 <source>lavenderblush</source>
-                <target>LavenderBlush</target>
+                <target>lavenderblush</target>
             </trans-unit>
             <trans-unit id="lawngreen">
                 <source>lawngreen</source>
-                <target>LawnGreen</target>
+                <target>lawngreen</target>
             </trans-unit>
             <trans-unit id="lemonchiffon">
                 <source>lemonchiffon</source>
-                <target>LemonChiffon</target>
+                <target>lemonchiffon</target>
             </trans-unit>
             <trans-unit id="lightblue">
                 <source>lightblue</source>
-                <target>LightBlue</target>
+                <target>lightblue</target>
             </trans-unit>
             <trans-unit id="lightcoral">
                 <source>lightcoral</source>
-                <target>LightCoral</target>
+                <target>lightcoral</target>
             </trans-unit>
             <trans-unit id="lightcyan">
                 <source>lightcyan</source>
-                <target>LightCyan</target>
+                <target>lightcyan</target>
             </trans-unit>
             <trans-unit id="lightgoldenrodyellow">
                 <source>lightgoldenrodyellow</source>
-                <target>LightGoldenRodYellow</target>
+                <target>lightgoldenrodyellow</target>
             </trans-unit>
             <trans-unit id="lightgray">
                 <source>lightgray</source>
-                <target>LightGray</target>
+                <target>lightgray</target>
             </trans-unit>
             <trans-unit id="lightgreen">
                 <source>lightgreen</source>
-                <target>LightGreen</target>
+                <target>lightgreen</target>
             </trans-unit>
             <trans-unit id="lightpink">
                 <source>lightpink</source>
-                <target>LightPink</target>
+                <target>lightpink</target>
             </trans-unit>
             <trans-unit id="lightsalmon">
                 <source>lightsalmon</source>
-                <target>LightSalmon</target>
+                <target>lightsalmon</target>
             </trans-unit>
             <trans-unit id="lightseagreen">
                 <source>lightseagreen</source>
-                <target>LightSeaGreen</target>
+                <target>lightseagreen</target>
             </trans-unit>
             <trans-unit id="lightskyblue">
                 <source>lightskyblue</source>
-                <target>LightSkyBlue</target>
+                <target>lightskyblue</target>
             </trans-unit>
             <trans-unit id="lightslategray">
                 <source>lightslategray</source>
-                <target>LightSlateGray</target>
+                <target>lightslategray</target>
             </trans-unit>
             <trans-unit id="lightsteelblue">
                 <source>lightsteelblue</source>
-                <target>LightSteelBlue</target>
+                <target>lightsteelblue</target>
             </trans-unit>
             <trans-unit id="lightyellow">
                 <source>lightyellow</source>
-                <target>LightYellow</target>
+                <target>lightyellow</target>
             </trans-unit>
             <trans-unit id="lime">
                 <source>lime</source>
-                <target>Lime</target>
+                <target>lime</target>
             </trans-unit>
             <trans-unit id="limegreen">
                 <source>limegreen</source>
-                <target>LimeGreen</target>
+                <target>limegreen</target>
             </trans-unit>
             <trans-unit id="linen">
                 <source>linen</source>
-                <target>Linen</target>
+                <target>linen</target>
             </trans-unit>
             <trans-unit id="magenta">
                 <source>magenta</source>
-                <target>Magenta</target>
+                <target>magenta</target>
             </trans-unit>
             <trans-unit id="maroon">
                 <source>maroon</source>
-                <target>Maroon</target>
+                <target>maroon</target>
             </trans-unit>
             <trans-unit id="mediumaquamarine">
                 <source>mediumaquamarine</source>
-                <target>MediumAquaMarine</target>
+                <target>mediumaquamarine</target>
             </trans-unit>
             <trans-unit id="mediumblue">
                 <source>mediumblue</source>
-                <target>MediumBlue</target>
+                <target>mediumblue</target>
             </trans-unit>
             <trans-unit id="mediumorchid">
                 <source>mediumorchid</source>
-                <target>MediumOrchid</target>
+                <target>mediumorchid</target>
             </trans-unit>
             <trans-unit id="mediumpurple">
                 <source>mediumpurple</source>
-                <target>MediumPurple</target>
+                <target>mediumpurple</target>
             </trans-unit>
             <trans-unit id="mediumseagreen">
                 <source>mediumseagreen</source>
-                <target>MediumSeaGreen</target>
+                <target>mediumseagreen</target>
             </trans-unit>
             <trans-unit id="mediumslateblue">
                 <source>mediumslateblue</source>
-                <target>MediumSlateBlue</target>
+                <target>mediumslateblue</target>
             </trans-unit>
             <trans-unit id="mediumspringgreen">
                 <source>mediumspringgreen</source>
-                <target>MediumSpringGreen</target>
+                <target>mediumspringgreen</target>
             </trans-unit>
             <trans-unit id="mediumturquoise">
                 <source>mediumturquoise</source>
-                <target>MediumTurquoise</target>
+                <target>mediumturquoise</target>
             </trans-unit>
             <trans-unit id="mediumvioletred">
                 <source>mediumvioletred</source>
-                <target>MediumVioletRed</target>
+                <target>mediumvioletred</target>
             </trans-unit>
             <trans-unit id="midnightblue">
                 <source>midnightblue</source>
-                <target>MidnightBlue</target>
+                <target>midnightblue</target>
             </trans-unit>
             <trans-unit id="mintcream">
                 <source>mintcream</source>
-                <target>MintCream</target>
+                <target>mintcream</target>
             </trans-unit>
             <trans-unit id="mistyrose">
                 <source>mistyrose</source>
-                <target>MistyRose</target>
+                <target>mistyrose</target>
             </trans-unit>
             <trans-unit id="moccasin">
                 <source>moccasin</source>
-                <target>Moccasin</target>
+                <target>moccasin</target>
             </trans-unit>
             <trans-unit id="navajowhite">
                 <source>navajowhite</source>
-                <target>NavajoWhite</target>
+                <target>navajowhite</target>
             </trans-unit>
             <trans-unit id="navy">
                 <source>navy</source>
-                <target>Navy</target>
+                <target>navy</target>
             </trans-unit>
             <trans-unit id="oldlace">
                 <source>oldlace</source>
-                <target>OldLace</target>
+                <target>oldlace</target>
             </trans-unit>
             <trans-unit id="olive">
                 <source>olive</source>
-                <target>Olive</target>
+                <target>olive</target>
             </trans-unit>
             <trans-unit id="olivedrab">
                 <source>olivedrab</source>
-                <target>OliveDrab</target>
+                <target>olivedrab</target>
             </trans-unit>
             <trans-unit id="orange">
                 <source>orange</source>
-                <target>Orange</target>
+                <target>orange</target>
             </trans-unit>
             <trans-unit id="orangered">
                 <source>orangered</source>
-                <target>OrangeRed</target>
+                <target>orangered</target>
             </trans-unit>
             <trans-unit id="orchid">
                 <source>orchid</source>
-                <target>Orchid</target>
+                <target>orchid</target>
             </trans-unit>
             <trans-unit id="palegoldenrod">
                 <source>palegoldenrod</source>
-                <target>PaleGoldenRod</target>
+                <target>palegoldenrod</target>
             </trans-unit>
             <trans-unit id="palegreen">
                 <source>palegreen</source>
-                <target>PaleGreen</target>
+                <target>palegreen</target>
             </trans-unit>
             <trans-unit id="paleturquoise">
                 <source>paleturquoise</source>
-                <target>PaleTurquoise</target>
+                <target>paleturquoise</target>
             </trans-unit>
             <trans-unit id="palevioletred">
                 <source>palevioletred</source>
-                <target>PaleVioletRed</target>
+                <target>palevioletred</target>
             </trans-unit>
             <trans-unit id="papayawhip">
                 <source>papayawhip</source>
-                <target>PapayaWhip</target>
+                <target>papayawhip</target>
             </trans-unit>
             <trans-unit id="peachpuff">
                 <source>peachpuff</source>
-                <target>PeachPuff</target>
+                <target>peachpuff</target>
             </trans-unit>
             <trans-unit id="peru">
                 <source>peru</source>
-                <target>Peru</target>
+                <target>peru</target>
             </trans-unit>
             <trans-unit id="pink">
                 <source>pink</source>
-                <target>Pink</target>
+                <target>pink</target>
             </trans-unit>
             <trans-unit id="plum">
                 <source>plum</source>
-                <target>Plum</target>
+                <target>plum</target>
             </trans-unit>
             <trans-unit id="powderblue">
                 <source>powderblue</source>
-                <target>PowderBlue</target>
+                <target>powderblue</target>
             </trans-unit>
             <trans-unit id="purple">
                 <source>purple</source>
-                <target>Purple</target>
+                <target>purple</target>
             </trans-unit>
             <trans-unit id="rebeccapurple">
                 <source>rebeccapurple</source>
-                <target>RebeccaPurple</target>
+                <target>rebeccapurple</target>
             </trans-unit>
             <trans-unit id="red">
                 <source>red</source>
-                <target>Red</target>
+                <target>red</target>
             </trans-unit>
             <trans-unit id="rosybrown">
                 <source>rosybrown</source>
-                <target>RosyBrown</target>
+                <target>rosybrown</target>
             </trans-unit>
             <trans-unit id="royalblue">
                 <source>royalblue</source>
-                <target>RoyalBlue</target>
+                <target>royalblue</target>
             </trans-unit>
             <trans-unit id="saddlebrown">
                 <source>saddlebrown</source>
-                <target>SaddleBrown</target>
+                <target>saddlebrown</target>
             </trans-unit>
             <trans-unit id="salmon">
                 <source>salmon</source>
-                <target>Salmon</target>
+                <target>salmon</target>
             </trans-unit>
             <trans-unit id="sandybrown">
                 <source>sandybrown</source>
-                <target>SandyBrown</target>
+                <target>sandybrown</target>
             </trans-unit>
             <trans-unit id="seagreen">
                 <source>seagreen</source>
-                <target>SeaGreen</target>
+                <target>seagreen</target>
             </trans-unit>
             <trans-unit id="seashell">
                 <source>seashell</source>
-                <target>SeaShell</target>
+                <target>seashell</target>
             </trans-unit>
             <trans-unit id="sienna">
                 <source>sienna</source>
-                <target>Sienna</target>
+                <target>sienna</target>
             </trans-unit>
             <trans-unit id="silver">
                 <source>silver</source>
-                <target>Silver</target>
+                <target>silver</target>
             </trans-unit>
             <trans-unit id="skyblue">
                 <source>skyblue</source>
-                <target>SkyBlue</target>
+                <target>skyblue</target>
             </trans-unit>
             <trans-unit id="slateblue">
                 <source>slateblue</source>
-                <target>SlateBlue</target>
+                <target>slateblue</target>
             </trans-unit>
             <trans-unit id="slategray">
                 <source>slategray</source>
-                <target>SlateGray</target>
+                <target>slategray</target>
             </trans-unit>
             <trans-unit id="snow">
                 <source>snow</source>
-                <target>Snow</target>
+                <target>snow</target>
             </trans-unit>
             <trans-unit id="springgreen">
                 <source>springgreen</source>
-                <target>SpringGreen</target>
+                <target>springgreen</target>
             </trans-unit>
             <trans-unit id="steelblue">
                 <source>steelblue</source>
-                <target>SteelBlue</target>
+                <target>steelblue</target>
             </trans-unit>
             <trans-unit id="tan">
                 <source>tan</source>
-                <target>Tan</target>
+                <target>tan</target>
             </trans-unit>
             <trans-unit id="teal">
                 <source>teal</source>
-                <target>Teal</target>
+                <target>teal</target>
             </trans-unit>
             <trans-unit id="thistle">
                 <source>thistle</source>
-                <target>Thistle</target>
+                <target>thistle</target>
             </trans-unit>
             <trans-unit id="tomato">
                 <source>tomato</source>
-                <target>Tomato</target>
+                <target>tomato</target>
             </trans-unit>
             <trans-unit id="turquoise">
                 <source>turquoise</source>
-                <target>Turquoise</target>
+                <target>turquoise</target>
             </trans-unit>
             <trans-unit id="violet">
                 <source>violet</source>
-                <target>Violet</target>
+                <target>violet</target>
             </trans-unit>
             <trans-unit id="wheat">
                 <source>wheat</source>
-                <target>Wheat</target>
+                <target>wheat</target>
             </trans-unit>
             <trans-unit id="white">
                 <source>white</source>
-                <target>White</target>
+                <target>white</target>
             </trans-unit>
             <trans-unit id="whitesmoke">
                 <source>whitesmoke</source>
-                <target>WhiteSmoke</target>
+                <target>whitesmoke</target>
             </trans-unit>
             <trans-unit id="yellow">
                 <source>yellow</source>
-                <target>Yellow</target>
+                <target>yellow</target>
             </trans-unit>
             <trans-unit id="yellowgreen">
                 <source>yellowgreen</source>
-                <target>YellowGreen</target>
+                <target>yellowgreen</target>
             </trans-unit>
         </body>
     </file>

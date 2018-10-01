@@ -11,9 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\CoreBundle\Tests\Form\Type;
+namespace Sonata\Form\Tests\Form\Type;
 
-use Sonata\CoreBundle\Form\Type\CollectionType;
+use Sonata\Form\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Test\TypeTestCase;
@@ -44,7 +44,7 @@ class CollectionTypeTest extends TypeTestCase
             'type_options' => [],
             'pre_bind_data_callback' => null,
             'btn_add' => 'link_add',
-            'btn_catalogue' => 'SonataCoreBundle',
+            'btn_catalogue' => 'SonataFormBundle',
         ]);
     }
 
@@ -69,7 +69,7 @@ class CollectionTypeTest extends TypeTestCase
         $this->assertSame(TextType::class, $options['type']);
         $this->assertCount(0, $options['type_options']);
         $this->assertSame('link_add', $options['btn_add']);
-        $this->assertSame('SonataCoreBundle', $options['btn_catalogue']);
+        $this->assertSame('SonataFormBundle', $options['btn_catalogue']);
         $this->assertNull($options['pre_bind_data_callback']);
     }
 }

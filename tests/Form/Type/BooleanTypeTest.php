@@ -11,9 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\CoreBundle\Tests\Form\Type;
+namespace Sonata\Form\Tests\Form\Type;
 
-use Sonata\CoreBundle\Form\Type\BooleanType;
+use Sonata\Form\Form\Type\BooleanType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Test\FormBuilderInterface;
@@ -41,7 +41,7 @@ class BooleanTypeTest extends TypeTestCase
 
         $type->buildForm($formBuilder, [
             'transform' => false,
-            'translation_domain' => 'SonataCoreBundle',
+            'translation_domain' => 'SonataFormBundle',
         ]);
     }
 
@@ -114,7 +114,7 @@ class BooleanTypeTest extends TypeTestCase
 
         $expectedOptions = [
             'transform' => false,
-            'choice_translation_domain' => 'SonataCoreBundle',
+            'choice_translation_domain' => 'SonataFormBundle',
             'choices' => [1 => 'foo_yes', 2 => 'foo_no'],
             'translation_domain' => 'fooTrans',
         ];

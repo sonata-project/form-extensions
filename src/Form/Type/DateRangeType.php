@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\CoreBundle\Form\Type;
+namespace Sonata\Form\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -25,7 +25,7 @@ class DateRangeType extends AbstractType
         $options['field_options_start'] = array_merge(
             [
                 'label' => 'date_range_start',
-                'translation_domain' => 'SonataCoreBundle',
+                'translation_domain' => 'SonataFormBundle',
             ],
             $options['field_options_start']
         );
@@ -33,7 +33,7 @@ class DateRangeType extends AbstractType
         $options['field_options_end'] = array_merge(
             [
                 'label' => 'date_range_end',
-                'translation_domain' => 'SonataCoreBundle',
+                'translation_domain' => 'SonataFormBundle',
             ],
             $options['field_options_end']
         );

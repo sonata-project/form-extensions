@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\CoreBundle\Test\Validator\Constraints;
+namespace Sonata\Form\Test\Validator\Constraints;
 
 use PHPUnit\Framework\TestCase;
-use Sonata\CoreBundle\Validator\Constraints\InlineConstraint;
+use Sonata\Form\Validator\Constraints\InlineConstraint;
 
 /**
  * @author Andrej Hudec <pulzarraider@gmail.com>
@@ -24,7 +24,7 @@ class InlineConstraintTest extends TestCase
     public function testValidatedBy(): void
     {
         $constraint = new InlineConstraint(['service' => 'foo', 'method' => 'bar']);
-        $this->assertSame('sonata.core.validator.inline', $constraint->validatedBy());
+        $this->assertSame('sonata.form.validator.inline', $constraint->validatedBy());
     }
 
     public function testIsClosure(): void
@@ -76,7 +76,7 @@ class InlineConstraintTest extends TestCase
         $constraint = new InlineConstraint(['service' => 'foo', 'method' => function (): void {
         }, 'serializingWarning' => true]);
 
-        $expected = 'O:56:"Sonata\CoreBundle\Validator\Constraints\InlineConstraint":0:{}';
+        $expected = 'O:50:"Sonata\Form\Validator\Constraints\InlineConstraint":0:{}';
 
         $this->assertSame($expected, serialize($constraint));
 

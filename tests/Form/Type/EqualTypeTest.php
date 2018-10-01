@@ -11,9 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\CoreBundle\Tests\Form\Type;
+namespace Sonata\Form\Tests\Form\Type;
 
-use Sonata\CoreBundle\Form\Type\EqualType;
+use Sonata\Form\Form\Type\EqualType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Test\TypeTestCase;
@@ -73,7 +73,7 @@ class EqualTypeTest extends TypeTestCase
         $options = $resolver->resolve();
 
         $expected = [
-            'choice_translation_domain' => 'SonataCoreBundle',
+            'choice_translation_domain' => 'SonataFormBundle',
             'choices' => ['label_type_equals' => 1, 'label_type_not_equals' => 2],
         ];
 

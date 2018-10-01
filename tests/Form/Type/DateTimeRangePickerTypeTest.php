@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\CoreBundle\Tests\Form\Type;
+namespace Sonata\Form\Tests\Form\Type;
 
-use Sonata\CoreBundle\Form\Type\DateTimePickerType;
-use Sonata\CoreBundle\Form\Type\DateTimeRangePickerType;
+use Sonata\Form\Form\Type\DateTimePickerType;
+use Sonata\Form\Form\Type\DateTimeRangePickerType;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;

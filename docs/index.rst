@@ -1,7 +1,7 @@
-Core Bundle
-===========
+Form Extensions
+===============
 
-The ``SonataCoreBundle`` provided defaults elements required by the different Sonata's Bundles.
+The ``form-extensiosn`` provided defaults elements required by the different Sonata's Bundles.
 
 .. toctree::
    :caption: Reference Guide

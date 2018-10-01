@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\CoreBundle\Form\Type;
+namespace Sonata\Form\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -26,7 +26,7 @@ final class EqualType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'choice_translation_domain' => 'SonataCoreBundle',
+            'choice_translation_domain' => 'SonataFormBundle',
             'choices' => [
                 'label_type_equals' => self::TYPE_IS_EQUAL,
                 'label_type_not_equals' => self::TYPE_IS_NOT_EQUAL,

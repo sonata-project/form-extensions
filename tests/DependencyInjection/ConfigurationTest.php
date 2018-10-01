@@ -11,11 +11,11 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\CoreBundle\Tests\DependencyInjection;
+namespace Sonata\Form\Tests\DependencyInjection;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use PHPUnit\Framework\TestCase;
-use Sonata\CoreBundle\DependencyInjection\Configuration;
+use Sonata\Form\DependencyInjection\Configuration;
 
 class ConfigurationTest extends TestCase
 {

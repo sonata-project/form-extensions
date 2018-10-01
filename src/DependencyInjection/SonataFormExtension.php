@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\CoreBundle\DependencyInjection;
+namespace Sonata\Form\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
@@ -23,7 +23,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 /**
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
-final class SonataCoreExtension extends Extension implements PrependExtensionInterface
+final class SonataFormExtension extends Extension implements PrependExtensionInterface
 {
     public function prepend(ContainerBuilder $container): void
     {
@@ -50,6 +50,6 @@ final class SonataCoreExtension extends Extension implements PrependExtensionInt
         $loader->load('form_types.xml');
         $loader->load('validator.xml');
 
-        $container->setParameter('sonata.core.form_type', $config['form_type']);
+        $container->setParameter('sonata.form.form_type', $config['form_type']);
     }
 }

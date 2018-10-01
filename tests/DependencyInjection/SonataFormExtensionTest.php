@@ -11,13 +11,13 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\CoreBundle\Tests\DependencyInjection;
+namespace Sonata\Form\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use Sonata\CoreBundle\DependencyInjection\SonataCoreExtension;
+use Sonata\Form\DependencyInjection\SonataFormExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class SonataCoreExtensionTest extends AbstractExtensionTestCase
+class SonataFormExtensionTest extends AbstractExtensionTestCase
 {
     public function testAfterLoadingTheWrappingParameterIsSet(): void
     {
@@ -26,12 +26,12 @@ class SonataCoreExtensionTest extends AbstractExtensionTestCase
             'form' => ['mapping' => ['enabled' => false]],
         ]);
         $this->assertContainerBuilderHasParameter(
-            'sonata.core.form_type'
+            'sonata.form.form_type'
         );
         $this->assertSame(
             'standard',
             $this->container->getParameter(
-                'sonata.core.form_type'
+                'sonata.form.form_type'
             )
         );
     }
@@ -44,12 +44,12 @@ class SonataCoreExtensionTest extends AbstractExtensionTestCase
             'form_type' => 'horizontal',
         ]);
         $this->assertContainerBuilderHasParameter(
-            'sonata.core.form_type'
+            'sonata.form.form_type'
         );
         $this->assertSame(
             'horizontal',
             $this->container->getParameter(
-                'sonata.core.form_type'
+                'sonata.form.form_type'
             )
         );
     }
@@ -65,23 +65,23 @@ class SonataCoreExtensionTest extends AbstractExtensionTestCase
         ]);
 
         $containerBuilder->prependExtensionConfig(
-            'sonata_core',
+            'sonata_form',
             ['form_type' => 'standard']
         )->shouldBeCalled();
 
         $containerBuilder->prependExtensionConfig(
-            'sonata_core',
+            'sonata_form',
             ['form_type' => 'horizontal']
         )->shouldBeCalled();
 
-        $extension = new SonataCoreExtension();
+        $extension = new SonataFormExtension();
         $extension->prepend($containerBuilder->reveal());
     }
 
     protected function getContainerExtensions()
     {
         return [
-            new SonataCoreExtension(),
+            new SonataFormExtension(),
         ];
     }
 }

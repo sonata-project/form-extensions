@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\CoreBundle\Validator\Constraints;
+namespace Sonata\Form\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
@@ -75,7 +75,7 @@ final class InlineConstraint extends Constraint
 
     public function validatedBy(): string
     {
-        return 'sonata.core.validator.inline';
+        return 'sonata.form.validator.inline';
     }
 
     public function isClosure(): bool

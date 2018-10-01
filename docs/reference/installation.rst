@@ -4,11 +4,11 @@
 Installation
 ============
 
-The easiest way to install ``SonataCoreBundle`` is to require it with Composer:
+The easiest way to install ``SonataFormBundle`` is to require it with Composer:
 
 .. code-block:: bash
 
-    $ composer require sonata-project/core-bundle
+    $ composer require sonata-project/form-extensions
 
 Alternatively, you could add a dependency into your ``composer.json`` file directly.
 
@@ -22,7 +22,7 @@ Now, enable the bundle in ``bundles.php`` file:
 
     return [
         //...
-        Sonata\CoreBundle\SonataCoreBundle::class => ['all' => true],
+        Sonata\Form\SonataFormBundle::class => ['all' => true],
     ];
 
 .. note::
@@ -38,7 +38,7 @@ Now, enable the bundle in ``bundles.php`` file:
     {
         return array(
             // ...
-            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\Form\SonataFormBundle(),
             // ...
         );
     }
@@ -52,7 +52,7 @@ Configuration
 
         # config/packages/sonata.yaml
 
-        sonata_core:
+        sonata_form:
             form:
                 mapping:
                     enabled: false
@@ -72,9 +72,9 @@ corresponding configuration node accordingly:
 
     .. code-block:: yaml
 
-        # config/packages/sonata.yaml
+        # config/packages/sonata_form.yaml
 
-        sonata_core:
+        sonata_form:
             form_type: horizontal
 
 .. note::

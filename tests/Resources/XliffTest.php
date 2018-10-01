@@ -11,9 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\CoreBundle\Tests\Resources;
+namespace Sonata\Form\Tests\Resources;
 
-use Sonata\CoreBundle\Test\XliffValidatorTestCase;
+use Sonata\Form\Test\XliffValidatorTestCase;
 
 class XliffTest extends XliffValidatorTestCase
 {

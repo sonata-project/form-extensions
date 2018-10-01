@@ -50,7 +50,7 @@ Now, the property can be edited by setting a type for each type:
 
     <?php
     // src/AppBundle/Admin/PageAdmin.php
-    use Sonata\CoreBundle\Form\Type\ImmutableArrayType;
+    use Sonata\Form\Form\Type\ImmutableArrayType;
 
     class PageAdmin extends Admin
     {
@@ -114,7 +114,7 @@ The type has one extra parameter:
 
     <?php
     // src/AppBundle/Admin/DeliveryAdmin.php
-    use Sonata\CoreBundle\Form\Type\TranslatableChoiceType;
+    use Sonata\Form\Form\Type\TranslatableChoiceType;
 
     class DeliveryAdmin extends Admin
     {
@@ -148,7 +148,7 @@ to the underlying forms.
 
     <?php
     // src/AppBundle/Entity/ProductAdmin.php
-    use Sonata\CoreBundle\Form\Type\CollectionType;
+    use Sonata\Form\Form\Type\CollectionType;
 
     class ProductAdmin extends Admin
     {
@@ -223,7 +223,7 @@ This can be done by declaring a new service:
 
     .. code-block:: xml
 
-        <service id="sonata.order.form.status_type" class="Sonata\CoreBundle\Form\Type\StatusType">
+        <service id="sonata.order.form.status_type" class="Sonata\Form\Form\Type\StatusType">
             <tag name="form.type" />
 
             <argument>%sonata.order.order.class%</argument>
@@ -283,7 +283,7 @@ In order to use them, you'll need to perform a bit of setup:
 
         twig:
             form_themes:
-                - '@SonataCore/Form/datepicker.html.twig'
+                - '@SonataForm/Form/datepicker.html.twig'
 
 In your layout, you'll need to add the assets dependencies (feel free to
 adapt this to your needs, for instance, to use with assetic):
@@ -293,11 +293,11 @@ adapt this to your needs, for instance, to use with assetic):
     <head>
         <!-- ... -->
         <script type="text/javascript" src="path_to_jquery.min.js"></script>
-        <script type="text/javascript" src="/bundles/sonatacore/vendor/moment/min/moment-with-locales.min.js"></script>
+        <script type="text/javascript" src="/bundles/SonataForm/vendor/moment/min/moment-with-locales.min.js"></script>
         <script type="text/javascript" src="path_to_bootstrap.min.js"></script>
-        <script type="text/javascript" src="/bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <script type="text/javascript" src="/bundles/SonataForm/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
         <link rel="stylesheet" href="path_to_bootstrap.min.css" />
-        <link rel="stylesheet" href="/bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+        <link rel="stylesheet" href="/bundles/SonataForm/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
     </head>
 
 Finally, in your form, you may use the form type as follows:
@@ -306,8 +306,8 @@ Finally, in your form, you may use the form type as follows:
 
     <?php
     // src/AppBundle/Admin/PageAdmin.php
-    use Sonata\CoreBundle\Form\Type\DatePickerType;
-    use Sonata\CoreBundle\Form\Type\DateTimePickerType;
+    use Sonata\Form\Form\Type\DatePickerType;
+    use Sonata\Form\Form\Type\DateTimePickerType;
 
     class PageAdmin extends Admin
     {
@@ -330,8 +330,8 @@ Many of the `standard date picker options`_ are available by adding options with
 
     <?php
     // src/AppBundle/Admin/PageAdmin.php
-    use Sonata\CoreBundle\Form\Type\DatePickerType;
-    use Sonata\CoreBundle\Form\Type\DateTimePickerType;
+    use Sonata\Form\Form\Type\DatePickerType;
+    use Sonata\Form\Form\Type\DateTimePickerType;
 
     class PageAdmin extends Admin
     {
@@ -364,8 +364,8 @@ DateRangePickerType and DateTimeRangePickerType
 -----------------------------------------------
 
 Those types extend the basic range form field types
-(``Sonata\CoreBundle\Form\Type\DateRangeType`` and
-``Sonata\CoreBundle\Form\Type\DateTimeRangeType``).
+(``Sonata\Form\Form\Type\DateRangeType`` and
+``Sonata\Form\Form\Type\DateTimeRangeType``).
 You can use them if you need datetime picker in datetime range filters.
 
 Example with ``Sonata\DoctrineORMAdminBundle\Filter\DateRangeFilter`` filter:
@@ -374,7 +374,7 @@ Example with ``Sonata\DoctrineORMAdminBundle\Filter\DateRangeFilter`` filter:
 
     <?php
     // src/AppBundle/Admin/PostAdmin.php
-    use Sonata\CoreBundle\Form\Type\DateRangeType;
+    use Sonata\Form\Form\Type\DateRangeType;
     use Sonata\DoctrineORMAdminBundle\Filter\DateRangeFilter;
 
     class PostAdmin extends Admin
@@ -409,7 +409,7 @@ In order to use it, you'll need to perform a bit of setup:
         # app/config/config.yml
         twig:
             form_themes:
-                - '@SonataCore/Form/color.html.twig'
+                - '@SonataForm/Form/color.html.twig'
 
 Finally, in your form, you may use the form type as follows:
 
@@ -417,7 +417,7 @@ Finally, in your form, you may use the form type as follows:
 
     <?php
     // src/AppBundle/Admin/PageAdmin.php
-    use Sonata\CoreBundle\Form\Type\ColorType;
+    use Sonata\Form\Form\Type\ColorType;
 
     class PageAdmin extends Admin
     {

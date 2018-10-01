@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-    <file source-language="en" datatype="plaintext" original="SonataCoreBundle.en.xliff">
+    <file source-language="en" datatype="plaintext" original="SonataFormBundle.en.xliff">
         <body>
             <trans-unit id="link_add">
                 <source>link_add</source>
-                <target>Agregar nuevo</target>
+                <target>Dodaj</target>
             </trans-unit>
             <trans-unit id="label_type_yes">
                 <source>label_type_yes</source>
-                <target>sí</target>
+                <target>tak</target>
             </trans-unit>
             <trans-unit id="label_type_no">
                 <source>label_type_no</source>
-                <target>no</target>
+                <target>nie</target>
             </trans-unit>
             <trans-unit id="label_type_equals">
                 <source>label_type_equals</source>
-                <target>igual a</target>
+                <target>jest równe</target>
             </trans-unit>
             <trans-unit id="label_type_not_equals">
                 <source>label_type_not_equals</source>
-                <target>diferente a</target>
+                <target>nie jest równe</target>
             </trans-unit>
             <trans-unit id="date_range_start">
                 <source>date_range_start</source>
-                <target>Fecha inicial</target>
+                <target>date_range_start</target>
             </trans-unit>
             <trans-unit id="date_range_end">
                 <source>date_range_end</source>
-                <target>Fecha final</target>
+                <target>date_range_end</target>
             </trans-unit>
             <trans-unit id="aliceblue">
                 <source>aliceblue</source>
@@ -60,7 +60,7 @@
             </trans-unit>
             <trans-unit id="black">
                 <source>black</source>
-                <target>negro</target>
+                <target>black</target>
             </trans-unit>
             <trans-unit id="blanchedalmond">
                 <source>blanchedalmond</source>
@@ -68,7 +68,7 @@
             </trans-unit>
             <trans-unit id="blue">
                 <source>blue</source>
-                <target>azul</target>
+                <target>blue</target>
             </trans-unit>
             <trans-unit id="blueviolet">
                 <source>blueviolet</source>
@@ -76,7 +76,7 @@
             </trans-unit>
             <trans-unit id="brown">
                 <source>brown</source>
-                <target>marrón</target>
+                <target>brown</target>
             </trans-unit>
             <trans-unit id="burlywood">
                 <source>burlywood</source>
@@ -236,7 +236,7 @@
             </trans-unit>
             <trans-unit id="green">
                 <source>green</source>
-                <target>verde</target>
+                <target>green</target>
             </trans-unit>
             <trans-unit id="greenyellow">
                 <source>greenyellow</source>
@@ -428,7 +428,7 @@
             </trans-unit>
             <trans-unit id="orange">
                 <source>orange</source>
-                <target>naranja</target>
+                <target>orange</target>
             </trans-unit>
             <trans-unit id="orangered">
                 <source>orangered</source>
@@ -468,7 +468,7 @@
             </trans-unit>
             <trans-unit id="pink">
                 <source>pink</source>
-                <target>rosa</target>
+                <target>pink</target>
             </trans-unit>
             <trans-unit id="plum">
                 <source>plum</source>
@@ -480,7 +480,7 @@
             </trans-unit>
             <trans-unit id="purple">
                 <source>purple</source>
-                <target>púrpura</target>
+                <target>purple</target>
             </trans-unit>
             <trans-unit id="rebeccapurple">
                 <source>rebeccapurple</source>
@@ -488,7 +488,7 @@
             </trans-unit>
             <trans-unit id="red">
                 <source>red</source>
-                <target>rojo</target>
+                <target>red</target>
             </trans-unit>
             <trans-unit id="rosybrown">
                 <source>rosybrown</source>
@@ -580,7 +580,7 @@
             </trans-unit>
             <trans-unit id="white">
                 <source>white</source>
-                <target>blanco</target>
+                <target>white</target>
             </trans-unit>
             <trans-unit id="whitesmoke">
                 <source>whitesmoke</source>
@@ -588,7 +588,7 @@
             </trans-unit>
             <trans-unit id="yellow">
                 <source>yellow</source>
-                <target>amarillo</target>
+                <target>yellow</target>
             </trans-unit>
             <trans-unit id="yellowgreen">
                 <source>yellowgreen</source>

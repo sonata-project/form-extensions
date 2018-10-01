@@ -11,11 +11,11 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\CoreBundle\Tests\Validator;
+namespace Sonata\Form\Tests\Validator;
 
 use PHPUnit\Framework\TestCase;
-use Sonata\CoreBundle\Tests\Fixtures\Bundle\Entity\Foo;
-use Sonata\CoreBundle\Validator\ErrorElement;
+use Sonata\Form\Tests\Fixtures\Bundle\Entity\Foo;
+use Sonata\Form\Validator\ErrorElement;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;

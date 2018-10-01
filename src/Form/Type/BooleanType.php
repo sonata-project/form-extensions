@@ -11,9 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\CoreBundle\Form\Type;
+namespace Sonata\Form\Form\Type;
 
-use Sonata\CoreBundle\Form\DataTransformer\BooleanTypeToBooleanTransformer;
+use Sonata\Form\Form\DataTransformer\BooleanTypeToBooleanTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,12 +36,12 @@ final class BooleanType extends AbstractType
     {
         $resolver->setDefaults([
             'transform' => false,
-            'choice_translation_domain' => 'SonataCoreBundle',
+            'choice_translation_domain' => 'SonataFormBundle',
             'choices' => [
                 'label_type_yes' => self::TYPE_YES,
                 'label_type_no' => self::TYPE_NO,
             ],
-            'translation_domain' => 'SonataCoreBundle',
+            'translation_domain' => 'SonataFormBundle',
         ]);
     }
 

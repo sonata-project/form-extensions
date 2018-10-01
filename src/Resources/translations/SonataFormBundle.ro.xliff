@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-    <file source-language="en" datatype="plaintext" original="SonataCoreBundle.en.xliff">
+    <file source-language="en" datatype="plaintext" original="SonataFormBundle.en.xliff">
         <body>
             <trans-unit id="link_add">
                 <source>link_add</source>
-                <target>Novi unos</target>
+                <target>Adăugați</target>
             </trans-unit>
             <trans-unit id="label_type_yes">
                 <source>label_type_yes</source>
@@ -12,15 +12,15 @@
             </trans-unit>
             <trans-unit id="label_type_no">
                 <source>label_type_no</source>
-                <target>ne</target>
+                <target>nu</target>
             </trans-unit>
             <trans-unit id="label_type_equals">
                 <source>label_type_equals</source>
-                <target>jednak</target>
+                <target>este egal cu</target>
             </trans-unit>
             <trans-unit id="label_type_not_equals">
                 <source>label_type_not_equals</source>
-                <target>nije jednak</target>
+                <target>nu este egal cu</target>
             </trans-unit>
             <trans-unit id="date_range_start">
                 <source>date_range_start</source>

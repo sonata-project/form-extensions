@@ -51,12 +51,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Sonata\\FormExtensions\\": "src/"
+            "Sonata\\Form\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Sonata\\FormExtensions\\Tests\\": "tests/"
+            "Sonata\\Form\\Tests\\": "tests/"
         }
     }
 }

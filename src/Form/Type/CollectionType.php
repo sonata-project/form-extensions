@@ -11,9 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\CoreBundle\Form\Type;
+namespace Sonata\Form\Form\Type;
 
-use Sonata\CoreBundle\Form\EventListener\ResizeFormListener;
+use Sonata\Form\Form\EventListener\ResizeFormListener;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -47,7 +47,7 @@ final class CollectionType extends AbstractType
             'type_options' => [],
             'pre_bind_data_callback' => null,
             'btn_add' => 'link_add',
-            'btn_catalogue' => 'SonataCoreBundle',
+            'btn_catalogue' => 'SonataFormBundle',
         ]);
     }
 
