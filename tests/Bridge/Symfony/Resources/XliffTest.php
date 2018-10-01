@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\Bridge\Symfony\Resources;
 
-use Sonata\Form\Test\XliffValidatorTestCase;
-
 class XliffTest extends XliffValidatorTestCase
 {
     /**

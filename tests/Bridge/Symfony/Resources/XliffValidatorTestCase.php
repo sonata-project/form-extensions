@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\Form\Test;
+namespace Sonata\Form\Tests\Bridge\Symfony\Resources;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Translation\Exception\InvalidResourceException;
