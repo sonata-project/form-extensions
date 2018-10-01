@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\Form\Tests\DependencyInjection;
+namespace Sonata\Form\Tests\Bridge\Symfony\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use Sonata\Form\DependencyInjection\SonataFormExtension;
+use Sonata\Form\Bridge\Symfony\DependencyInjection\SonataFormExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class SonataFormExtensionTest extends AbstractExtensionTestCase

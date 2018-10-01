@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Bridge\Symfony\Bundle;
 
-use Sonata\Form\DependencyInjection\Bridge\Symfony\SonataFormExtension;
+use Sonata\Form\Bridge\Symfony\DependencyInjection\SonataFormExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class SonataFormBundle extends Bundle

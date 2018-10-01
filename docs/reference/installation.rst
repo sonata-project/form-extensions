@@ -4,7 +4,7 @@
 Installation
 ============
 
-The easiest way to install ``SonataFormBundle`` is to require it with Composer:
+The easiest way to install ``form-extensions`` is to require it with Composer:
 
 .. code-block:: bash
 
@@ -22,7 +22,7 @@ Now, enable the bundle in ``bundles.php`` file:
 
     return [
         //...
-        Sonata\Form\SonataFormBundle::class => ['all' => true],
+        Sonata\Form\Bridge\Symfony\Bundle\SonataFormBundle::class => ['all' => true],
     ];
 
 .. note::
@@ -38,7 +38,7 @@ Now, enable the bundle in ``bundles.php`` file:
     {
         return array(
             // ...
-            new Sonata\Form\SonataFormBundle(),
+            new Sonata\Form\Bridge\Symfony\Bundle\SonataFormBundle(),
             // ...
         );
     }

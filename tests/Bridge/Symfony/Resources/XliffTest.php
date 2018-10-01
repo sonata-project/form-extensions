@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\Form\Tests\Resources;
+namespace Sonata\Form\Tests\Bridge\Symfony\Resources;
 
 use Sonata\Form\Test\XliffValidatorTestCase;
 
@@ -22,6 +22,6 @@ class XliffTest extends XliffValidatorTestCase
      */
     public function getXliffPaths()
     {
-        return [[__DIR__.'/../../Resources/translations']];
+        return [[__DIR__.'/../../Bridge/Symfony/Resources/translations']];
     }
 }
