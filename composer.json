@@ -21,13 +21,28 @@
     ],
     "require": {
         "php": "^7.1",
-        "symfony/form": "^2.8 || ^3.2 || ^4.0"
+        "symfony/event-dispatcher": "^3.4 || ^4.0",
+        "symfony/form": "^3.4 || ^4.0",
+        "symfony/options-resolver": "^3.4 || ^4.0",
+        "symfony/property-access": "^3.4 || ^4.0",
+        "symfony/security-csrf": "^3.4 || ^4.0",
+        "symfony/translation": "^3.4 || ^4.0",
+        "symfony/validator": "^3.4 || ^4.0",
+        "twig/twig": "^2.0"
     },
     "conflict": {
         "sonata-project/core-bundle": ">=3.13"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^4.1"
+        "matthiasnoback/symfony-config-test": "^4.0",
+        "matthiasnoback/symfony-dependency-injection-test": "^3.0",
+        "symfony/config": "^3.4 || ^4.0",
+        "symfony/dependency-injection": "^3.4 || ^4.0",
+        "symfony/framework-bundle": "^3.4 || ^4.0",
+        "symfony/http-foundation": "^3.4 || ^4.0",
+        "symfony/http-kernel": "^3.4 || ^4.0",
+        "symfony/phpunit-bridge": "^4.1",
+        "symfony/twig-bridge": "^3.4 || ^4.1"
     },
     "config": {
         "sort-packages": true
@@ -39,12 +54,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Sonata\\FormExtensions\\": "src/"
+            "Sonata\\Form\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Sonata\\FormExtensions\\Tests\\": "tests/"
+            "Sonata\\Form\\Tests\\": "tests/"
         }
     }
 }

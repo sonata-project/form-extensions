@@ -551,7 +551,7 @@ but are encouraged to report release requests on the dedicated private Slack cha
 Releasing software is the last step to getting your bugfixes or new features to your user base,
 and should be done regularly, so that users are not tempted to use development branches.
 To know what you are going to release on branch 42.x, given that the last release on this branch is 42.3.1,
-go to `https://github.com/sonata-project/SonataCoreBundle/compare/42.3.1...42.x`.
+go to `https://github.com/sonata-project/form-extensions/compare/42.3.1...42.x`.
 You should see a list of commits, some of which should contain links to pull requests.
 
 #### Determining the next release number
