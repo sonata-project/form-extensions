@@ -23,6 +23,9 @@
         "php": "^7.1",
         "symfony/form": "^2.8 || ^3.2 || ^4.0"
     },
+    "conflict": {
+        "sonata-project/core-bundle": ">=3.13"
+    },
     "require-dev": {
         "symfony/phpunit-bridge": "^4.1"
     },
