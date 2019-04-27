@@ -149,7 +149,7 @@ final class ErrorElement
     /**
      * @param string|array $message
      * @param array        $parameters
-     * @param null         $value
+     * @param mixed|null   $value
      * @param string       $translationDomain
      *
      * @return ErrorElement
