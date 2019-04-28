@@ -53,7 +53,7 @@ class MomentFormatConverter
     /**
      * Returns associated moment.js format.
      *
-     * @param $format PHP Date format
+     * @param string $format PHP Date format
      *
      * @return string Moment.js date format
      */
