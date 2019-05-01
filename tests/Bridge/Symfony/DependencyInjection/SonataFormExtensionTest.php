@@ -75,7 +75,7 @@ class SonataFormExtensionTest extends AbstractExtensionTestCase
         $extension->prepend($containerBuilder->reveal());
     }
 
-    protected function getContainerExtensions()
+    protected function getContainerExtensions(): array
     {
         return [
             new SonataFormExtension(),

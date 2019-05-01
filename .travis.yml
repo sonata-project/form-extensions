@@ -32,7 +32,7 @@ env:
     - SYMFONY_DEPRECATIONS_HELPER=weak_vendors
     - TARGET=test
     - UPSTREAM_URL=https://github.com/sonata-project/form-extensions.git
-    - PHPUNIT_VERSION=7
+    - PHPUNIT_VERSION=8
 
 matrix:
   fast_finish: true
