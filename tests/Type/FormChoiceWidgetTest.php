@@ -37,7 +37,16 @@ class FormChoiceWidgetTest extends AbstractWidgetTestCase
         $html = $this->renderWidget($choice->createView());
 
         $this->assertStringContainsString(
-            '<div id="choice"><input type="checkbox" id="choice_0" name="choice[]" value="0" /><label for="choice_0">[trans]some[/trans]</label><input type="checkbox" id="choice_1" name="choice[]" value="1" /><label for="choice_1">[trans]choices[/trans]</label></div>',
+            $this->cleanHtmlWhitespace(
+                <<<'HTML'
+<div id="choice">
+    <input type="checkbox" id="choice_0" name="choice[]" value="0" />
+    <label for="choice_0">[trans]some[/trans]</label>
+    <input type="checkbox" id="choice_1" name="choice[]" value="1" />
+    <label for="choice_1">[trans]choices[/trans]</label>
+</div>
+HTML
+            ),
             $this->cleanHtmlWhitespace($html)
         );
     }
