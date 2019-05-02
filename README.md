@@ -30,17 +30,17 @@ If you think you found a bug or you have a feature idea to propose, feel free to
 
 This package is available under the [MIT license](LICENSE).
 
-[travis_stable_badge]: https://travis-ci.org/sonata-project/form-extensions.svg?branch=1.x
+[travis_stable_badge]: https://travis-ci.org/sonata-project/form-extensions.svg?branch=master
 [travis_stable_link]: https://travis-ci.org/sonata-project/form-extensions
 [travis_unstable_badge]: https://travis-ci.org/sonata-project/form-extensions.svg?branch=master
 [travis_unstable_link]: https://travis-ci.org/sonata-project/form-extensions
 
-[coveralls_stable_badge]: https://coveralls.io/repos/github/sonata-project/form-extensions/badge.svg?branch=1.x
-[coveralls_stable_link]: https://coveralls.io/github/sonata-project/form-extensions?branch=1.x
+[coveralls_stable_badge]: https://coveralls.io/repos/github/sonata-project/form-extensions/badge.svg?branch=master
+[coveralls_stable_link]: https://coveralls.io/github/sonata-project/form-extensions?branch=master
 [coveralls_unstable_badge]: https://coveralls.io/repos/github/sonata-project/form-extensions/badge.svg?branch=master
 [coveralls_unstable_link]: https://coveralls.io/github/sonata-project/form-extensions?branch=master
 
-[scrutinizer_stable_badge]: https://scrutinizer-ci.com/g/sonata-project/form-extensions/badges/quality-score.png?b=1.x
-[scrutinizer_stable_link]: https://scrutinizer-ci.com/g/sonata-project/form-extensions/?branch=1.x
+[scrutinizer_stable_badge]: https://scrutinizer-ci.com/g/sonata-project/form-extensions/badges/quality-score.png?b=master
+[scrutinizer_stable_link]: https://scrutinizer-ci.com/g/sonata-project/form-extensions/?branch=master
 [scrutinizer_unstable_badge]: https://scrutinizer-ci.com/g/sonata-project/form-extensions/badges/quality-score.png?b=master
 [scrutinizer_unstable_link]: https://scrutinizer-ci.com/g/sonata-project/form-extensions/?branch=master

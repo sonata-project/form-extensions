@@ -4,7 +4,6 @@
 
 branches:
   only:
-    - 1.x
     - master
 
 language: php
