@@ -15,50 +15,22 @@ namespace Sonata\Form\Tests\Type;
 
 use Sonata\Form\Type\BooleanType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Test\FormBuilderInterface;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BooleanTypeTest extends TypeTestCase
 {
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testBuildForm(): void
-    {
-        $formBuilder = $this->createMock(FormBuilder::class);
-        $formBuilder
-            ->expects($this->any())
-            ->method('add')
-            ->willReturnCallback(function ($name, $type = null): void {
-                if (null !== $type) {
-                    $this->assertTrue(class_exists($type), sprintf('Unable to ensure %s is a FQCN', $type));
-                }
-            });
-
-        $type = new BooleanType();
-
-        $type->buildForm($formBuilder, [
-            'transform' => false,
-            'translation_domain' => 'SonataFormBundle',
-        ]);
-    }
-
-    public function testGetParent(): void
+    public function testParentIsChoiceType(): void
     {
         $form = new BooleanType();
 
-        $parentRef = $form->getParent();
-
-        $this->assertTrue(class_exists($parentRef), sprintf('Unable to ensure %s is a FQCN', $parentRef));
+        $this->assertSame(ChoiceType::class, $form->getParent());
     }
 
     public function testGetDefaultOptions(): void
     {
         $type = new BooleanType();
-
-        $this->assertSame(ChoiceType::class, $type->getParent());
 
         $type->configureOptions($optionResolver = new OptionsResolver());
 
