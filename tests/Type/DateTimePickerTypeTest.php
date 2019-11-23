@@ -49,6 +49,7 @@ class DateTimePickerTypeTest extends TypeTestCase
             'format' => \IntlDateFormatter::NONE,
             'dp_pick_date' => false,
             'dp_use_seconds' => false,
+            'html5' => false,
         ]);
 
         $form->submit('05:23');
@@ -62,6 +63,7 @@ class DateTimePickerTypeTest extends TypeTestCase
             'format' => \IntlDateFormatter::NONE,
             'dp_pick_date' => false,
             'dp_use_seconds' => false,
+            'html5' => false,
         ]);
 
         $this->assertSame('8:02 PM', $form->getViewData());
