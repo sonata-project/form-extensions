@@ -43,7 +43,7 @@
         "symfony/framework-bundle": "^3.4 || ^4.0",
         "symfony/http-foundation": "^3.4 || ^4.0",
         "symfony/http-kernel": "^3.4 || ^4.0",
-        "symfony/phpunit-bridge": "^4.1",
+        "symfony/phpunit-bridge": "^4.4",
         "symfony/twig-bridge": "^3.4 || ^4.1"
     },
     "suggest": {
