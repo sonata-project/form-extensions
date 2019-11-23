@@ -16,7 +16,6 @@ namespace Sonata\Form\Tests\Type;
 use Sonata\Form\Date\MomentFormatConverter;
 use Sonata\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -26,45 +25,14 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class DateTimePickerTypeTest extends TypeTestCase
 {
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testBuildForm(): void
-    {
-        $formBuilder = $this->createMock(FormBuilder::class);
-        $formBuilder
-            ->expects($this->any())
-            ->method('add')
-            ->willReturnCallback(function ($name, $type = null): void {
-                if (null !== $type) {
-                    $this->assertTrue(class_exists($type), sprintf('Unable to ensure %s is a FQCN', $type));
-                }
-            });
-
-        $type = new DateTimePickerType(
-            $this->createMock(MomentFormatConverter::class),
-            $this->createMock(TranslatorInterface::class)
-        );
-
-        $type->buildForm($formBuilder, [
-            'dp_use_minutes' => true,
-            'dp_use_seconds' => true,
-            'dp_minute_stepping' => 1,
-            'format' => DateTimeType::DEFAULT_DATE_FORMAT,
-            'date_format' => null,
-        ]);
-    }
-
-    public function testGetParent(): void
+    public function testParentIsDateTimeType(): void
     {
         $form = new DateTimePickerType(
             $this->createMock(MomentFormatConverter::class),
             $this->createMock(TranslatorInterface::class)
         );
 
-        $parentRef = $form->getParent();
-
-        $this->assertTrue(class_exists($parentRef), sprintf('Unable to ensure %s is a FQCN', $parentRef));
+        $this->assertSame(DateTimeType::class, $form->getParent());
     }
 
     public function testGetName(): void

@@ -15,55 +15,21 @@ namespace Sonata\Form\Tests\Type;
 
 use Sonata\Form\Type\EqualType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class EqualTypeTest extends TypeTestCase
 {
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testBuildForm(): void
+    public function testParentIsChoiceType(): void
     {
-        $formBuilder = $this->createMock(FormBuilder::class);
-        $formBuilder
-            ->expects($this->any())
-            ->method('add')
-            ->willReturnCallback(function ($name, $type = null): void {
-                if (null !== $type) {
-                    $this->assertTrue(class_exists($type), sprintf('Unable to ensure %s is a FQCN', $type));
-                }
-            });
+        $form = new EqualType();
 
-        $type = new EqualType($this->createMock(TranslatorInterface::class));
-        $type->buildForm($formBuilder, [
-            'choices' => [],
-        ]);
-    }
-
-    public function testGetParent(): void
-    {
-        $form = new EqualType($this->createMock(TranslatorInterface::class));
-
-        $parentRef = $form->getParent();
-
-        $this->assertTrue(class_exists($parentRef), sprintf('Unable to ensure %s is a FQCN', $parentRef));
+        $this->assertSame(ChoiceType::class, $form->getParent());
     }
 
     public function testGetDefaultOptions(): void
     {
-        $mock = $this->createMock(TranslatorInterface::class);
-
-        $mock->expects($this->exactly(0))
-            ->method('trans')
-            ->willReturnCallback(static function ($arg) {
-                return $arg;
-            }
-            );
-
-        $type = new EqualType($mock);
+        $type = new EqualType();
 
         $this->assertSame('sonata_type_equal', $type->getBlockPrefix());
         $this->assertSame(ChoiceType::class, $type->getParent());

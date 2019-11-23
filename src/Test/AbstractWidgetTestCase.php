@@ -18,13 +18,11 @@ use Symfony\Bridge\Twig\Extension\TranslationExtension;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
 use Symfony\Bridge\Twig\Tests\Extension\Fixtures\StubFilesystemLoader;
 use Symfony\Bundle\FrameworkBundle\Tests\Templating\Helper\Fixtures\StubTranslator;
-use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\FormRenderer;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Twig\Environment;
-use Twig\Extension\InitRuntimeInterface;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
 
 /**
@@ -35,11 +33,6 @@ use Twig\RuntimeLoader\FactoryRuntimeLoader;
 abstract class AbstractWidgetTestCase extends TypeTestCase
 {
     /**
-     * @var FormExtensionInterface
-     */
-    private $extension;
-
-    /**
      * @var FormRenderer
      */
     private $renderer;
@@ -48,7 +41,6 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
     {
         parent::setUp();
 
-        $this->extension = new FormExtension($this->renderer);
         $environment = $this->getEnvironment();
 
         $this->renderer = new FormRenderer(
@@ -61,10 +53,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
                 return $this->renderer;
             },
         ]));
-
-        if ($this->extension instanceof InitRuntimeInterface) {
-            $this->extension->initRuntime($environment);
-        }
+        $environment->addExtension(new FormExtension());
     }
 
     final public function getRenderer()
@@ -72,7 +61,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
         return $this->renderer;
     }
 
-    final protected function getEnvironment(): \Twig_Environment
+    final protected function getEnvironment(): Environment
     {
         $loader = new StubFilesystemLoader($this->getTemplatePaths());
 
@@ -80,7 +69,6 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
             'strict_variables' => true,
         ]);
         $environment->addExtension(new TranslationExtension(new StubTranslator()));
-        $environment->addExtension($this->extension);
 
         return $environment;
     }
@@ -109,7 +97,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
         return $twigPaths;
     }
 
-    final protected function getRenderingEngine(\Twig_Environment $environment): TwigRendererEngine
+    final protected function getRenderingEngine(Environment $environment): TwigRendererEngine
     {
         return new TwigRendererEngine(['form_div_layout.html.twig'], $environment);
     }
