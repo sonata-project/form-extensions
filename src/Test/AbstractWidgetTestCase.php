@@ -16,14 +16,34 @@ namespace Sonata\Form\Test;
 use Symfony\Bridge\Twig\Extension\FormExtension;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
-use Symfony\Bridge\Twig\Tests\Extension\Fixtures\StubFilesystemLoader;
-use Symfony\Bundle\FrameworkBundle\Tests\Templating\Helper\Fixtures\StubTranslator;
 use Symfony\Component\Form\FormRenderer;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
+
+final class StubTranslator implements TranslatorInterface
+{
+    public function trans($id, array $parameters = [], $domain = null, $locale = null)
+    {
+        return '[trans]'.strtr($id, $parameters).'[/trans]';
+    }
+
+    public function transChoice($id, $number, array $parameters = [], $domain = null, $locale = null)
+    {
+    }
+
+    public function setLocale($locale)
+    {
+    }
+
+    public function getLocale()
+    {
+    }
+}
 
 /**
  * Base class for tests checking rendering of form widgets.
@@ -63,7 +83,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
 
     final protected function getEnvironment(): Environment
     {
-        $loader = new StubFilesystemLoader($this->getTemplatePaths());
+        $loader = new FilesystemLoader($this->getTemplatePaths());
 
         $environment = new Environment($loader, [
             'strict_variables' => true,

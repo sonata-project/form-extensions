@@ -51,6 +51,7 @@ class BasePickerTypeTest extends TestCase
         $form = new Form($this->createMock(FormConfigInterface::class));
 
         $type->finishView($view, $form, [
+            'html5' => false,
             'format' => 'yyyy-MM-dd',
             'dp_min_date' => '1/1/1900',
             'dp_max_date' => new \DateTime('1/1/2001'),

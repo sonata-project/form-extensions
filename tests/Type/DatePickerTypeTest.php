@@ -47,6 +47,7 @@ class DatePickerTypeTest extends TypeTestCase
         \Locale::setDefault('en');
         $form = $this->factory->create(DatePickerType::class, new \DateTime('2018-06-03'), [
             'format' => \IntlDateFormatter::LONG,
+            'html5' => false,
         ]);
 
         $this->assertSame('June 3, 2018', $form->getViewData());
