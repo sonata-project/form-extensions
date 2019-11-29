@@ -29,7 +29,7 @@
         "symfony/security-csrf": "^3.4 || ^4.2 || ^5.0",
         "symfony/translation": "^3.4 || ^4.2 || ^5.0",
         "symfony/validator": "^3.4 || ^4.2 || ^5.0",
-        "twig/twig": "^2.0"
+        "twig/twig": "^2.7 || ^3.0"
     },
     "conflict": {
         "sonata-project/core-bundle": ">=3.13"

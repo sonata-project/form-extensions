@@ -72,7 +72,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
         return $this->renderer;
     }
 
-    final protected function getEnvironment(): \Twig_Environment
+    final protected function getEnvironment(): Environment
     {
         $loader = new StubFilesystemLoader($this->getTemplatePaths());
 
@@ -109,7 +109,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
         return $twigPaths;
     }
 
-    final protected function getRenderingEngine(\Twig_Environment $environment): TwigRendererEngine
+    final protected function getRenderingEngine(Environment $environment): TwigRendererEngine
     {
         return new TwigRendererEngine(['form_div_layout.html.twig'], $environment);
     }
