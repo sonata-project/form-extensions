@@ -18,6 +18,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\Intl\DateFormatter\IntlDateFormatter;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -91,10 +92,10 @@ abstract class BasePickerType extends AbstractType
         $options['dp_use_seconds'] = false !== strpos($format, 's');
 
         if ($options['dp_min_date'] instanceof \DateTime) {
-            $options['dp_min_date'] = \IntlDateFormatter::formatObject($options['dp_min_date'], $format, $this->locale);
+            $options['dp_min_date'] = $this->formatObject($options['dp_min_date'], $format);
         }
         if ($options['dp_max_date'] instanceof \DateTime) {
-            $options['dp_max_date'] = \IntlDateFormatter::formatObject($options['dp_max_date'], $format, $this->locale);
+            $options['dp_max_date'] = $this->formatObject($options['dp_max_date'], $format);
         }
 
         $view->vars['moment_format'] = $this->formatConverter->convert($format);
@@ -150,5 +151,12 @@ abstract class BasePickerType extends AbstractType
             'dp_view_mode' => 'days',
             'dp_min_view_mode' => 'days',
         ];
+    }
+
+    private function formatObject(\DateTime $dateTime, string $format): string
+    {
+        $formatter = new IntlDateFormatter($this->locale);
+
+        return $formatter->formatObject($dateTime, $format);
     }
 }

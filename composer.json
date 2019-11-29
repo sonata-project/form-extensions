@@ -24,6 +24,7 @@
         "jms/metadata": "^2.1",
         "symfony/event-dispatcher": "^3.4 || ^4.2 || ^5.0",
         "symfony/form": "^3.4.24 || ^4.2.5 || ^5.0",
+        "symfony/intl": "^3.4 || ^4.2 || ^5.0",
         "symfony/options-resolver": "^3.4 || ^4.2 || ^5.0",
         "symfony/property-access": "^3.4 || ^4.2 || ^5.0",
         "symfony/security-csrf": "^3.4 || ^4.2 || ^5.0",
