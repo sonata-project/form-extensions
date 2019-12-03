@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.2",
         "jms/metadata": "^2.1",
         "symfony/event-dispatcher": "^3.4 || ^4.0 || ^5.0",
         "symfony/form": "^3.4.24 || ^4.2.5 || ^5.0",
