@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\Type;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\Form\Date\MomentFormatConverter;
 use Sonata\Form\Type\BasePickerType;
@@ -20,13 +21,21 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BasePickerTest extends BasePickerType
 {
     public function getName()
     {
         return 'base_picker_test';
+    }
+
+    public function getLocale(): string
+    {
+        return $this->locale;
     }
 
     protected function getDefaultFormat()
@@ -44,7 +53,8 @@ class BasePickerTypeTest extends TestCase
     {
         $type = new BasePickerTest(
             new MomentFormatConverter(),
-            $this->createMock(TranslatorInterface::class)
+            $this->getTranslatorMock(),
+            $this->getRequestStack()
         );
 
         $view = new FormView();
@@ -75,10 +85,11 @@ class BasePickerTypeTest extends TestCase
 
     public function testTimePickerIntlFormater(): void
     {
-        $translator = $this->createMock(TranslatorInterface::class);
-        $translator->method('getLocale')->willReturn('ru');
-
-        $type = new BasePickerTest(new MomentFormatConverter(), $translator);
+        $type = new BasePickerTest(
+            new MomentFormatConverter(),
+            $this->getTranslatorMock(),
+            $this->getRequestStack()
+        );
 
         $view = new FormView();
         $form = new Form($this->createMock(FormConfigInterface::class));
@@ -94,5 +105,49 @@ class BasePickerTypeTest extends TestCase
         $this->assertFalse($view->vars['dp_options']['useSeconds']);
         $this->assertSame('H:mm', $view->vars['moment_format']);
         $this->assertSame('0:00', $view->vars['dp_options']['maxDate']);
+    }
+
+    /**
+     * @group legacy
+     */
+    public function testConstructWithTwoArguments(): void
+    {
+        if (interface_exists(TranslatorInterface::class)) {
+            $this->markTestSkipped('Test only available for Symfony < 5');
+        }
+
+        $type = new BasePickerTest(
+            new MomentFormatConverter(),
+            $this->getTranslatorMock('en')
+        );
+
+        $this->assertSame('en', $type->getLocale());
+    }
+
+    /**
+     * @return MockObject|TranslatorInterface|LegacyTranslatorInterface
+     */
+    private function getTranslatorMock(string $locale = 'ru'): MockObject
+    {
+        if (interface_exists(TranslatorInterface::class)) {
+            return $this->createMock(TranslatorInterface::class);
+        }
+
+        $translator = $this->createMock(LegacyTranslatorInterface::class);
+        $translator->method('getLocale')->willReturn($locale);
+
+        return $translator;
+    }
+
+    private function getRequestStack(): RequestStack
+    {
+        $requestStack = new RequestStack();
+        $request = $this->createMock(Request::class);
+        $request
+            ->method('getLocale')
+            ->willReturn('ru');
+        $requestStack->push($request);
+
+        return $requestStack;
     }
 }
