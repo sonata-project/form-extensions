@@ -13,63 +13,40 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\Type;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use Sonata\Form\Date\MomentFormatConverter;
 use Sonata\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
 class DateTimePickerTypeTest extends TypeTestCase
 {
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testBuildForm(): void
-    {
-        $formBuilder = $this->createMock(FormBuilder::class);
-        $formBuilder
-            ->expects($this->any())
-            ->method('add')
-            ->willReturnCallback(function ($name, $type = null): void {
-                if (null !== $type) {
-                    $this->assertTrue(class_exists($type), sprintf('Unable to ensure %s is a FQCN', $type));
-                }
-            });
-
-        $type = new DateTimePickerType(
-            $this->createMock(MomentFormatConverter::class),
-            $this->createMock(TranslatorInterface::class)
-        );
-
-        $type->buildForm($formBuilder, [
-            'dp_use_minutes' => true,
-            'dp_use_seconds' => true,
-            'dp_minute_stepping' => 1,
-            'format' => DateTimeType::DEFAULT_DATE_FORMAT,
-            'date_format' => null,
-        ]);
-    }
-
-    public function testGetParent(): void
+    public function testParentIsDateTimeType(): void
     {
         $form = new DateTimePickerType(
             $this->createMock(MomentFormatConverter::class),
-            $this->createMock(TranslatorInterface::class)
+            $this->getTranslatorMock(),
+            $this->getRequestStack()
         );
 
-        $parentRef = $form->getParent();
-
-        $this->assertTrue(class_exists($parentRef), sprintf('Unable to ensure %s is a FQCN', $parentRef));
+        $this->assertSame(DateTimeType::class, $form->getParent());
     }
 
     public function testGetName(): void
     {
-        $type = new DateTimePickerType(new MomentFormatConverter(), $this->createMock(TranslatorInterface::class));
+        $type = new DateTimePickerType(
+            new MomentFormatConverter(),
+            $this->getTranslatorMock(),
+            $this->getRequestStack()
+        );
 
         $this->assertSame('sonata_type_datetime_picker', $type->getBlockPrefix());
     }
@@ -81,6 +58,7 @@ class DateTimePickerTypeTest extends TypeTestCase
             'format' => \IntlDateFormatter::NONE,
             'dp_pick_date' => false,
             'dp_use_seconds' => false,
+            'html5' => false,
         ]);
 
         $form->submit('05:23');
@@ -94,6 +72,7 @@ class DateTimePickerTypeTest extends TypeTestCase
             'format' => \IntlDateFormatter::NONE,
             'dp_pick_date' => false,
             'dp_use_seconds' => false,
+            'html5' => false,
         ]);
 
         $this->assertSame('8:02 PM', $form->getViewData());
@@ -105,13 +84,41 @@ class DateTimePickerTypeTest extends TypeTestCase
 
     protected function getExtensions()
     {
-        $translator = $this->createMock(TranslatorInterface::class);
-        $translator->method('getLocale')->willReturn('en');
-
-        $type = new DateTimePickerType(new MomentFormatConverter(), $translator);
+        $type = new DateTimePickerType(
+            new MomentFormatConverter(),
+            $this->getTranslatorMock(),
+            $this->getRequestStack()
+        );
 
         return [
             new PreloadedExtension([$type], []),
         ];
+    }
+
+    /**
+     * @return MockObject|TranslatorInterface|LegacyTranslatorInterface\
+     */
+    private function getTranslatorMock(): MockObject
+    {
+        if (interface_exists(TranslatorInterface::class)) {
+            return $this->createMock(TranslatorInterface::class);
+        }
+
+        $translator = $this->createMock(LegacyTranslatorInterface::class);
+        $translator->method('getLocale')->willReturn('en');
+
+        return $translator;
+    }
+
+    private function getRequestStack(): RequestStack
+    {
+        $requestStack = new RequestStack();
+        $request = $this->createMock(Request::class);
+        $request
+            ->method('getLocale')
+            ->willReturn('en');
+        $requestStack->push($request);
+
+        return $requestStack;
     }
 }

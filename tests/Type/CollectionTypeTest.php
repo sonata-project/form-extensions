@@ -15,48 +15,11 @@ namespace Sonata\Form\Tests\Type;
 
 use Sonata\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CollectionTypeTest extends TypeTestCase
 {
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testBuildForm(): void
-    {
-        $formBuilder = $this->createMock(FormBuilder::class);
-        $formBuilder
-            ->expects($this->any())
-            ->method('add')
-            ->willReturnCallback(function ($name, $type = null): void {
-                if (null !== $type) {
-                    $this->assertTrue(class_exists($type), sprintf('Unable to ensure %s is a FQCN', $type));
-                }
-            });
-
-        $type = new CollectionType();
-
-        $type->buildForm($formBuilder, [
-            'modifiable' => false,
-            'type' => TextType::class,
-            'type_options' => [],
-            'pre_bind_data_callback' => null,
-            'btn_add' => 'link_add',
-            'btn_catalogue' => 'SonataFormBundle',
-        ]);
-    }
-
-    public function testGetParent(): void
-    {
-        $form = new CollectionType();
-
-        $parentRef = $form->getParent();
-
-        $this->assertTrue(class_exists($parentRef), sprintf('Unable to ensure %s is a FQCN', $parentRef));
-    }
-
     public function testGetDefaultOptions(): void
     {
         $type = new CollectionType();

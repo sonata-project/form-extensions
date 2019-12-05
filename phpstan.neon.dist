@@ -15,3 +15,4 @@ parameters:
 
     ignoreErrors:
         - '#Class Sonata\\Form\\Validator\\LegacyExecutionContextInterface not found.#'
+        - '#Class Symfony\\Component\\Translation\\TranslatorInterface not found.#'

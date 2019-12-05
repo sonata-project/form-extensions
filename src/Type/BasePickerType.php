@@ -18,9 +18,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class BasePickerType (to factorize DatePickerType and DateTimePickerType code.
@@ -30,7 +32,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 abstract class BasePickerType extends AbstractType
 {
     /**
-     * @var TranslatorInterface|null
+     * @var TranslatorInterface|LegacyTranslatorInterface|null
      */
     protected $translator;
 
@@ -44,11 +46,38 @@ abstract class BasePickerType extends AbstractType
      */
     private $formatConverter;
 
-    public function __construct(MomentFormatConverter $formatConverter, TranslatorInterface $translator)
+    public function __construct(MomentFormatConverter $formatConverter, $translator, RequestStack $requestStack = null)
     {
+        if (!$translator instanceof LegacyTranslatorInterface && !$translator instanceof TranslatorInterface) {
+            throw new \InvalidArgumentException(sprintf(
+                'Argument 2 should be an instance of %s or %s',
+                LegacyTranslatorInterface::class,
+                TranslatorInterface::class
+            ));
+        }
+
+        if (null === $requestStack) {
+            if ($translator instanceof TranslatorInterface) {
+                throw new \InvalidArgumentException(sprintf(
+                    'Argument 3 should be an instance of %s',
+                    RequestStack::class
+                ));
+            }
+
+            @trigger_error(sprintf(
+                'Not passing the request stack as argument 3 to %s() is deprecated since sonata-project/form-extensions 1.x and will be mandatory in 2.0.',
+                __METHOD__
+            ), E_USER_DEPRECATED);
+        }
+
         $this->formatConverter = $formatConverter;
         $this->translator = $translator;
-        $this->locale = $this->translator->getLocale();
+
+        if ($translator instanceof LegacyTranslatorInterface) {
+            $this->locale = $this->translator->getLocale();
+        } else {
+            $this->locale = $this->getLocale($requestStack);
+        }
     }
 
     /**
@@ -91,10 +120,10 @@ abstract class BasePickerType extends AbstractType
         $options['dp_use_seconds'] = false !== strpos($format, 's');
 
         if ($options['dp_min_date'] instanceof \DateTime) {
-            $options['dp_min_date'] = \IntlDateFormatter::formatObject($options['dp_min_date'], $format, $this->locale);
+            $options['dp_min_date'] = $this->formatObject($options['dp_min_date'], $format);
         }
         if ($options['dp_max_date'] instanceof \DateTime) {
-            $options['dp_max_date'] = \IntlDateFormatter::formatObject($options['dp_max_date'], $format, $this->locale);
+            $options['dp_max_date'] = $this->formatObject($options['dp_max_date'], $format);
         }
 
         $view->vars['moment_format'] = $this->formatConverter->convert($format);
@@ -150,5 +179,22 @@ abstract class BasePickerType extends AbstractType
             'dp_view_mode' => 'days',
             'dp_min_view_mode' => 'days',
         ];
+    }
+
+    private function getLocale(RequestStack $requestStack): string
+    {
+        if (!$request = $requestStack->getCurrentRequest()) {
+            throw new \LogicException('A Request must be available.');
+        }
+
+        return $request->getLocale();
+    }
+
+    private function formatObject(\DateTime $dateTime, $format): string
+    {
+        $formatter = new \IntlDateFormatter($this->locale, \IntlDateFormatter::NONE, \IntlDateFormatter::NONE);
+        $formatter->setPattern($format);
+
+        return $formatter->format($dateTime);
     }
 }

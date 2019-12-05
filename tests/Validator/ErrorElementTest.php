@@ -45,25 +45,25 @@ class ErrorElementTest extends TestCase
 
         if ($this->context instanceof ExecutionContextInterface) {
             $builder = $this->createMock(ConstraintViolationBuilderInterface::class);
-            $builder->expects($this->any())
+            $builder
                 ->method($this->anything())
                 ->willReturnSelf();
 
-            $this->context->expects($this->any())
+            $this->context
                 ->method('buildViolation')
                 ->willReturn($builder);
 
             $validator = $this->createMock(ValidatorInterface::class);
 
             $this->contextualValidator = $this->createMock(ContextualValidatorInterface::class);
-            $this->contextualValidator->expects($this->any())
+            $this->contextualValidator
                 ->method($this->anything())
                 ->willReturnSelf();
-            $validator->expects($this->any())
+            $validator
                 ->method('inContext')
                 ->willReturn($this->contextualValidator);
 
-            $this->context->expects($this->any())
+            $this->context
                 ->method('getValidator')
                 ->willReturn($validator);
         }
@@ -211,15 +211,15 @@ class ErrorElementTest extends TestCase
         $constraint = new NotNull();
 
         if ($this->context instanceof LegacyExecutionContextInterface) {
-            $this->context->expects($this->any())
+            $this->context
                 ->method('validateValue')
                 ->with($this->equalTo($this->subject), $this->equalTo($constraint), $this->equalTo(''), $this->equalTo('foo_core'))
                 ->willReturn(null);
         } else {
-            $this->contextualValidator->expects($this->any())
+            $this->contextualValidator
                 ->method('atPath')
                 ->with('');
-            $this->contextualValidator->expects($this->any())
+            $this->contextualValidator
                 ->method('validate')
                 ->with($this->subject, $constraint, ['foo_core']);
         }

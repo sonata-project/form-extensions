@@ -91,11 +91,11 @@ final class InlineValidatorTest extends TestCase
             ])
             ->getMock();
 
-        $constraint->expects($this->once())
+        $constraint
             ->method('isClosure')
             ->willReturn(false);
 
-        $constraint->expects($this->any())
+        $constraint
             ->method('getService')
             ->willReturn('string');
 
@@ -132,7 +132,7 @@ final class InlineValidatorTest extends TestCase
             ->method('isClosure')
             ->willReturn(false);
 
-        $constraint->expects($this->any())
+        $constraint
             ->method('getService')
             ->willReturn(new FooValidatorService());
 
