@@ -61,7 +61,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
         return $this->renderer;
     }
 
-    final protected function getEnvironment(): Environment
+    protected function getEnvironment(): Environment
     {
         $loader = new FilesystemLoader($this->getTemplatePaths());
 
