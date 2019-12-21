@@ -56,7 +56,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
         $environment->addExtension(new FormExtension());
     }
 
-    final public function getRenderer()
+    final public function getRenderer(): FormRenderer
     {
         return $this->renderer;
     }
