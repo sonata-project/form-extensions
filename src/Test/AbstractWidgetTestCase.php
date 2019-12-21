@@ -78,7 +78,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
      *
      * @return string[]
      */
-    final protected function getTemplatePaths(): array
+    protected function getTemplatePaths(): array
     {
         // this is an workaround for different composer requirements and different TwigBridge installation directories
         $twigPaths = array_filter([
@@ -97,7 +97,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
         return $twigPaths;
     }
 
-    final protected function getRenderingEngine(Environment $environment): TwigRendererEngine
+    protected function getRenderingEngine(Environment $environment): TwigRendererEngine
     {
         return new TwigRendererEngine(['form_div_layout.html.twig'], $environment);
     }
