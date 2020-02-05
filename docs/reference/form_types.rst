@@ -81,7 +81,7 @@ Each value has a different type: `integer`, `url`, or `string` for instance::
 Now, the property can be edited by setting a type for each type::
 
     // src/Admin/PageAdmin.php
-    
+
     use Sonata\Form\Type\ImmutableArrayType;
 
     final class PageAdmin extends AbstractAdmin
@@ -109,11 +109,24 @@ If you want to map to a boolean value, just set the option ``transform`` to true
 TranslatableChoiceType
 ----------------------
 
-The translatable type is a specialized ``ChoiceType`` where the choices values are translated with the Symfony Translator component.
+The translatable type is a specialized ``ChoiceType`` where the choices values are
+translated with the Symfony Translator component. The type has one extra parameter ``catalogue`` (the catalogue name to translate the value)::
 
-The type has one extra parameter:
+    // src/Admin/DeliveryAdmin.php
 
- * ``catalogue``: the catalogue name to translate the value.
+    use Sonata\Form\Type\TranslatableChoiceType;
+
+    final class DeliveryAdmin extends AbstractAdmin
+    {
+        protected function configureFormFields(FormMapper $formMapper)
+        {
+            $formMapper
+                ->add('deliveryStatus', TranslatableChoiceType::class, [
+                    'choices' => Delivery::getStatusList(),
+                    'catalogue' => 'SonataOrderBundle'
+                ]);
+        }
+    }
 
 .. code-block:: php
 
@@ -131,24 +144,6 @@ The type has one extra parameter:
                 self::STATUS_ERROR     => 'status_error',
                 self::STATUS_STOPPED   => 'status_stopped',
             ];
-        }
-    }
-
-.. code-block:: php
-
-    // src/Admin/DeliveryAdmin.php
-
-    use Sonata\Form\Type\TranslatableChoiceType;
-
-    final class DeliveryAdmin extends AbstractAdmin
-    {
-        protected function configureFormFields(FormMapper $formMapper)
-        {
-            $formMapper
-                ->add('deliveryStatus', TranslatableChoiceType::class, [
-                    'choices' => Delivery::getStatusList(),
-                    'catalogue' => 'SonataOrderBundle'
-                ]);
         }
     }
 
@@ -291,7 +286,7 @@ In order to use them, you'll need to perform a bit of setup:
 
     .. code-block:: yaml
 
-        # config/packages/twig.yaml.yml
+        # config/packages/twig.yaml
 
         twig:
             form_themes:

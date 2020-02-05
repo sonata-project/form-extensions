@@ -74,6 +74,16 @@ Add the ``InlineConstraint`` class constraint to your bundle's validation config
 
 .. configuration-block::
 
+    .. code-block:: yaml
+
+        # src/Application/Sonata/PageBundle/Resources/config/validation.yaml
+
+        Application\Sonata\PageBundle\Entity\Block:
+            constraints:
+                - Sonata\Form\Validator\Constraints\InlineConstraint:
+                    service: sonata.page.cms.page
+                    method: validateBlock
+
     .. code-block:: xml
 
         <!-- src/Application/Sonata/PageBundle/Resources/config/validation.xml -->
@@ -90,16 +100,6 @@ Add the ``InlineConstraint`` class constraint to your bundle's validation config
                 </constraint>
             </class>
         </constraint-mapping>
-
-    .. code-block:: yaml
-
-        # src/Application/Sonata/PageBundle/Resources/config/validation.yml
-
-        Application\Sonata\PageBundle\Entity\Block:
-            constraints:
-                - Sonata\Form\Validator\Constraints\InlineConstraint:
-                    service: sonata.page.cms.page
-                    method: validateBlock
 
 There are two important options:
 

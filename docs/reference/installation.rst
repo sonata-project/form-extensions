@@ -8,45 +8,42 @@ The easiest way to install ``form-extensions`` is to require it with Composer:
 
 .. code-block:: bash
 
-    $ composer require sonata-project/form-extensions
+    composer require sonata-project/form-extensions
 
 Alternatively, you could add a dependency into your ``composer.json`` file directly.
 
-Now, enable the bundle in ``bundles.php`` file:
-
-.. code-block:: php
-
-    <?php
+Now, enable the bundle in ``bundles.php`` file::
 
     // config/bundles.php
 
     return [
-        //...
+        // ...
         Sonata\Form\Bridge\Symfony\Bundle\SonataFormBundle::class => ['all' => true],
     ];
 
 .. note::
+
     If you are not using Symfony Flex, you should enable bundles in your
     ``AppKernel.php``.
 
 .. code-block:: php
 
-    <?php
     // app/AppKernel.php
 
     public function registerBundles()
     {
-        return array(
+        return [
             // ...
             new Sonata\Form\Bridge\Symfony\Bundle\SonataFormBundle(),
             // ...
-        );
+        ];
     }
 
 Configuration
 =============
 
 .. note::
+
     If you are not using Symfony Flex, this configuration should be added
     to ``app/config/config.yml``.
 
@@ -67,6 +64,7 @@ corresponding configuration node accordingly:
             form_type: horizontal
 
 .. note::
+
     If you are not using Symfony Flex, this configuration should be added
     to ``app/config/config.yml``.
 
