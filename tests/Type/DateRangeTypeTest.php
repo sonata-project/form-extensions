@@ -36,6 +36,8 @@ class DateRangeTypeTest extends TypeTestCase
                 'field_options_start' => [],
                 'field_options_end' => [],
                 'field_type' => DateType::class,
-            ], $options);
+            ],
+            $options
+        );
     }
 }

@@ -38,6 +38,8 @@ class DateRangePickerTypeTest extends TypeTestCase
                     'dp_use_current' => false,
                 ],
                 'field_type' => DatePickerType::class,
-            ], $options);
+            ],
+            $options
+        );
     }
 }
