@@ -108,7 +108,8 @@ class InlineConstraintTest extends TestCase
         $this->expectExceptionMessage(
             'You are using a closure with the `InlineConstraint`, this constraint'.
             ' cannot be serialized. You need to re-attach the `InlineConstraint` on each request.'.
-            ' Once done, you can set the `serializingWarning` option to `true` to avoid this message.');
+            ' Once done, you can set the `serializingWarning` option to `true` to avoid this message.'
+        );
 
         new InlineConstraint(['service' => 1, 'method' => 'foo', 'serializingWarning' => false]);
     }
@@ -121,7 +122,8 @@ class InlineConstraintTest extends TestCase
         $this->expectExceptionMessage(
             'You are using a closure with the `InlineConstraint`, this constraint'.
             ' cannot be serialized. You need to re-attach the `InlineConstraint` on each request.'.
-            ' Once done, you can set the `serializingWarning` option to `true` to avoid this message.');
+            ' Once done, you can set the `serializingWarning` option to `true` to avoid this message.'
+        );
 
         new InlineConstraint(['service' => 'foo', 'method' => 1, 'serializingWarning' => false]);
     }
