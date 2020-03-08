@@ -20,6 +20,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EqualTypeTest extends TypeTestCase
 {
+    /**
+     * @group legacy
+     */
     public function testParentIsChoiceType(): void
     {
         $form = new EqualType();
@@ -27,6 +30,9 @@ class EqualTypeTest extends TypeTestCase
         $this->assertSame(ChoiceType::class, $form->getParent());
     }
 
+    /**
+     * @group legacy
+     */
     public function testGetDefaultOptions(): void
     {
         $type = new EqualType();
