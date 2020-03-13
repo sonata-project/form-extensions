@@ -29,7 +29,7 @@ final class CollectionType extends AbstractType
             $options['type'],
             $options['type_options'],
             $options['modifiable'],
-            $options['pre_bind_data_callback']
+            $options['modifiable']
         ));
     }
 
@@ -45,7 +45,7 @@ final class CollectionType extends AbstractType
             'modifiable' => false,
             'type' => TextType::class,
             'type_options' => [],
-            'pre_bind_data_callback' => null,
+            'pre_bind_data_callback' => null, // NEXT_MAJOR: Remove this default value
             'btn_add' => 'link_add',
             'btn_catalogue' => 'SonataFormBundle',
         ]);

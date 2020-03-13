@@ -15,142 +15,35 @@ namespace Sonata\Form\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
+use Symfony\Component\Form\Extension\Core\EventListener\ResizeFormListener as SymfonyResizeFormListener;
 use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 
 /**
  * Resize a collection form element based on the data sent from the client.
  *
  * @author Bernhard Schussek <bernhard.schussek@symfony-project.com>
  */
-final class ResizeFormListener implements EventSubscriberInterface
+final class ResizeFormListener extends SymfonyResizeFormListener implements EventSubscriberInterface
 {
-    /**
-     * @var string
-     */
-    private $type;
-
-    /**
-     * @var bool
-     */
-    private $resizeOnSubmit;
-
-    /**
-     * @var array
-     */
-    private $typeOptions;
-
     /**
      * @var string[]
      */
     private $removed = [];
 
     /**
-     * @var \Closure
-     */
-    private $preSubmitDataCallback;
-
-    /**
-     * @param string        $type
-     * @param bool          $resizeOnSubmit
-     * @param \Closure|null $preSubmitDataCallback
-     */
-    public function __construct(
-        $type,
-        array $typeOptions = [],
-        $resizeOnSubmit = false,
-        $preSubmitDataCallback = null
-    ) {
-        $this->type = $type;
-        $this->resizeOnSubmit = $resizeOnSubmit;
-        $this->typeOptions = $typeOptions;
-        $this->preSubmitDataCallback = $preSubmitDataCallback;
-    }
-
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            FormEvents::PRE_SET_DATA => 'preSetData',
-            FormEvents::PRE_SUBMIT => 'preSubmit',
-            FormEvents::SUBMIT => 'onSubmit',
-        ];
-    }
-
-    /**
-     * @throws UnexpectedTypeException
-     */
-    public function preSetData(FormEvent $event): void
-    {
-        $form = $event->getForm();
-        $data = $event->getData();
-
-        if (null === $data) {
-            $data = [];
-        }
-
-        if (!\is_array($data) && !$data instanceof \Traversable) {
-            throw new UnexpectedTypeException($data, 'array or \Traversable');
-        }
-
-        // First remove all rows except for the prototype row
-        foreach ($form as $name => $child) {
-            $form->remove($name);
-        }
-
-        // Then add all rows again in the correct order
-        foreach ($data as $name => $value) {
-            $options = array_merge($this->typeOptions, [
-                'property_path' => '['.$name.']',
-                'data' => $value,
-            ]);
-
-            $form->add($name, $this->type, $options);
-        }
-    }
-
-    /**
      * @throws UnexpectedTypeException
      */
     public function preSubmit(FormEvent $event): void
     {
-        if (!$this->resizeOnSubmit) {
-            return;
-        }
+        parent::preSubmit($event);
 
-        $form = $event->getForm();
-        $data = $event->getData();
+        if ($this->allowDelete) {
+            $form = $event->getForm();
 
-        if (null === $data || '' === $data) {
-            $data = [];
-        }
-
-        if (!\is_array($data) && !$data instanceof \Traversable) {
-            throw new UnexpectedTypeException($data, 'array or \Traversable');
-        }
-
-        // Remove all empty rows except for the prototype row
-        foreach ($form as $name => $child) {
-            $form->remove($name);
-        }
-
-        // Add all additional rows
-        foreach ($data as $name => $value) {
-            if (!$form->has($name)) {
-                $buildOptions = [
-                    'property_path' => '['.$name.']',
-                ];
-
-                if ($this->preSubmitDataCallback) {
-                    $buildOptions['data'] = \call_user_func($this->preSubmitDataCallback, $value);
+            foreach ($form as $name => $value) {
+                if (isset($value['_delete'])) {
+                    $this->removed[] = $name;
                 }
-
-                $options = array_merge($this->typeOptions, $buildOptions);
-
-                $form->add($name, $this->type, $options);
-            }
-
-            if (isset($value['_delete'])) {
-                $this->removed[] = $name;
             }
         }
     }
@@ -160,32 +53,17 @@ final class ResizeFormListener implements EventSubscriberInterface
      */
     public function onSubmit(FormEvent $event): void
     {
-        if (!$this->resizeOnSubmit) {
-            return;
-        }
+        parent::onSubmit($event);
 
-        $form = $event->getForm();
-        $data = $event->getData();
+        if ($this->allowDelete) {
+            $data = $event->getData();
 
-        if (null === $data) {
-            $data = [];
-        }
-
-        if (!\is_array($data) && !$data instanceof \Traversable) {
-            throw new UnexpectedTypeException($data, 'array or \Traversable');
-        }
-
-        foreach ($data as $name => $child) {
-            if (!$form->has($name)) {
-                unset($data[$name]);
+            // remove selected elements
+            foreach ($this->removed as $pos) {
+                unset($data[$pos]);
             }
-        }
 
-        // remove selected elements
-        foreach ($this->removed as $pos) {
-            unset($data[$pos]);
+            $event->setData($data);
         }
-
-        $event->setData($data);
     }
 }

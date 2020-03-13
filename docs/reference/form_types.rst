@@ -191,11 +191,6 @@ btn_add and btn_catalogue:
 type_options:
   This array is passed to the underlying forms.
 
-pre_bind_data_callback:
-  This closure will be executed during the preBind method (``FormEvent::PRE_BIND`` | ``FormEvent::PRE_SUBMIT``)
-  to build the data given to the form based on the value retrieved. Use this if you need to generate your forms based
-  on the submitted data.
-
 .. tip::
 
     A jQuery event is fired after a row has been added (``sonata-admin-append-form-element``).
