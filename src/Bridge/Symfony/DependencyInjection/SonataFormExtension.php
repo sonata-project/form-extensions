@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Bridge\Symfony\DependencyInjection;
 
+use JMS\Serializer\Handler\SubscribingHandlerInterface;
+use Sonata\Form\Serializer\BaseSerializerHandler;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -51,5 +53,17 @@ final class SonataFormExtension extends Extension implements PrependExtensionInt
         $loader->load('validator.xml');
 
         $container->setParameter('sonata.form.form_type', $config['form_type']);
+
+        $this->configureSerializerFormats($config);
+    }
+
+    /**
+     * @param mixed[] $config
+     */
+    private function configureSerializerFormats(array $config): void
+    {
+        if (interface_exists(SubscribingHandlerInterface::class)) {
+            BaseSerializerHandler::setFormats($config['serializer']['formats']);
+        }
     }
 }
