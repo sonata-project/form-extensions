@@ -37,6 +37,7 @@ class Configuration implements ConfigurationInterface
         }
 
         $this->addFlashMessageSection($rootNode);
+        $this->addSerializerFormats($rootNode);
 
         return $treeBuilder;
     }
@@ -58,6 +59,27 @@ class Configuration implements ConfigurationInterface
                         ))
                     ->end()
                     ->info(sprintf('Must be one of %s', $validFormTypesString))
+                ->end()
+            ->end()
+        ;
+    }
+
+    /**
+     * Adds configuration for serializer formats.
+     */
+    private function addSerializerFormats(ArrayNodeDefinition $node): void
+    {
+        $node
+            ->children()
+                ->arrayNode('serializer')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('formats')
+                            ->prototype('scalar')->end()
+                            ->defaultValue(['json', 'xml', 'yml'])
+                            ->info('Default serializer formats, will be used while getting subscribing methods.')
+                        ->end()
+                    ->end()
                 ->end()
             ->end()
         ;

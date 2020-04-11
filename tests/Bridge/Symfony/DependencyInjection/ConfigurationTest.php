@@ -43,6 +43,9 @@ class ConfigurationTest extends TestCase
             ['form_type' => 'standard'],    // by this during the merge
         ], [
             'form_type' => 'standard',
+            'serializer' => [
+                'formats' => ['json', 'xml', 'yml'],
+            ],
         ]);
     }
 
@@ -52,6 +55,9 @@ class ConfigurationTest extends TestCase
             [],
         ], [
             'form_type' => 'standard',
+            'serializer' => [
+                'formats' => ['json', 'xml', 'yml'],
+            ],
         ]);
     }
 }

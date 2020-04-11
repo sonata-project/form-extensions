@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 @trigger_error(
-    'The '.__NAMESPACE__.'\EqualType class is deprecated since version 1.x and will be removed in 2.0.'
+    'The '.__NAMESPACE__.'\EqualType class is deprecated since version 1.2 and will be removed in 2.0.'
     .' Use Sonata\AdminBundle\Form\Type\Operator\EqualOperatorType instead.',
     E_USER_DEPRECATED
 );
@@ -26,7 +26,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * NEXT_MAJOR: remove this class.
  *
- * @deprecated since sonata-project/form-extensions 1.x, to be removed with 2.0
+ * @deprecated since sonata-project/form-extensions 1.2, to be removed with 2.0
  */
 final class EqualType extends AbstractType
 {

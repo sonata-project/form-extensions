@@ -65,7 +65,7 @@ abstract class BasePickerType extends AbstractType
             }
 
             @trigger_error(sprintf(
-                'Not passing the request stack as argument 3 to %s() is deprecated since sonata-project/form-extensions 1.x and will be mandatory in 2.0.',
+                'Not passing the request stack as argument 3 to %s() is deprecated since sonata-project/form-extensions 1.2 and will be mandatory in 2.0.',
                 __METHOD__
             ), E_USER_DEPRECATED);
         }
