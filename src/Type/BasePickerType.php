@@ -46,7 +46,7 @@ abstract class BasePickerType extends AbstractType
      */
     private $formatConverter;
 
-    public function __construct(MomentFormatConverter $formatConverter, $translator, RequestStack $requestStack = null)
+    public function __construct(MomentFormatConverter $formatConverter, $translator, ?RequestStack $requestStack = null)
     {
         if (!$translator instanceof LegacyTranslatorInterface && !$translator instanceof TranslatorInterface) {
             throw new \InvalidArgumentException(sprintf(
