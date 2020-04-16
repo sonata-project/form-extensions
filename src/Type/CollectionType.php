@@ -21,9 +21,12 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class CollectionType extends AbstractType
+/**
+ * @final since sonata-project/form-extensions 0.x
+ */
+class CollectionType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addEventSubscriber(new ResizeFormListener(
             $options['type'],
@@ -33,13 +36,13 @@ final class CollectionType extends AbstractType
         ));
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options): void
+    public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['btn_add'] = $options['btn_add'];
         $view->vars['btn_catalogue'] = $options['btn_catalogue'];
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'modifiable' => false,
@@ -51,8 +54,19 @@ final class CollectionType extends AbstractType
         ]);
     }
 
-    public function getBlockPrefix(): string
+    /**
+     * @return string
+     */
+    public function getBlockPrefix()
     {
         return 'sonata_type_collection';
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->getBlockPrefix();
     }
 }

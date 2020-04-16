@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 final class SonataFormBundle extends Bundle
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public function getPath()
     {
@@ -27,7 +27,7 @@ final class SonataFormBundle extends Bundle
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
     protected function getContainerExtensionClass()
     {

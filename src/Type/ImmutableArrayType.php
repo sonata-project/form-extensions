@@ -17,9 +17,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class ImmutableArrayType extends AbstractType
+/**
+ * @final since sonata-project/form-extensions 0.x
+ */
+class ImmutableArrayType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         foreach ($options['keys'] as $infos) {
             if ($infos instanceof FormBuilderInterface) {
@@ -44,7 +47,7 @@ final class ImmutableArrayType extends AbstractType
         }
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'keys' => [],
@@ -61,8 +64,19 @@ final class ImmutableArrayType extends AbstractType
         });
     }
 
-    public function getBlockPrefix(): string
+    /**
+     * @return string
+     */
+    public function getBlockPrefix()
     {
         return 'sonata_type_immutable_array';
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->getBlockPrefix();
     }
 }

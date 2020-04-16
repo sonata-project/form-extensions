@@ -46,13 +46,17 @@ abstract class BasePickerType extends AbstractType
      */
     private $formatConverter;
 
-    public function __construct(MomentFormatConverter $formatConverter, $translator, ?RequestStack $requestStack = null)
+    /**
+     * @param LegacyTranslatorInterface|TranslatorInterface|null $translator
+     */
+    public function __construct(MomentFormatConverter $formatConverter, $translator = null, ?RequestStack $requestStack = null)
     {
-        if (!$translator instanceof LegacyTranslatorInterface && !$translator instanceof TranslatorInterface) {
+        if (!$translator instanceof LegacyTranslatorInterface && !$translator instanceof TranslatorInterface && null !== $translator) {
             throw new \InvalidArgumentException(sprintf(
-                'Argument 2 should be an instance of %s or %s',
+                'Argument 2 should be an instance of %s or %s or %s',
                 LegacyTranslatorInterface::class,
-                TranslatorInterface::class
+                TranslatorInterface::class,
+                'null'
             ));
         }
 
@@ -65,7 +69,7 @@ abstract class BasePickerType extends AbstractType
             }
 
             @trigger_error(sprintf(
-                'Not passing the request stack as argument 3 to %s() is deprecated since sonata-project/form-extensions 1.2 and will be mandatory in 2.0.',
+                'Not passing the request stack as argument 3 to %s() is deprecated since sonata-project/form-extensions 0.x and will be mandatory in 2.0.',
                 __METHOD__
             ), E_USER_DEPRECATED);
         }
@@ -75,15 +79,23 @@ abstract class BasePickerType extends AbstractType
 
         if ($translator instanceof LegacyTranslatorInterface) {
             $this->locale = $this->translator->getLocale();
-        } else {
+        } elseif ($translator instanceof TranslatorInterface) {
             $this->locale = $this->getLocale($requestStack);
+        } else {
+            /*
+             * NEXT_MAJOR: remove this check
+             */
+            @trigger_error(
+                'Initializing '.__CLASS__.' without TranslatorInterface
+                is deprecated since 0.x and will be removed in 1.0.',
+                E_USER_DEPRECATED
+            );
+
+            $this->locale = \Locale::getDefault();
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setNormalizer('format', function (Options $options, $format) {
             if (isset($options['date_format']) && \is_string($options['date_format'])) {
@@ -112,7 +124,7 @@ abstract class BasePickerType extends AbstractType
         });
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options): void
+    public function finishView(FormView $view, FormInterface $form, array $options)
     {
         $format = $options['format'];
 
@@ -149,8 +161,10 @@ abstract class BasePickerType extends AbstractType
 
     /**
      * Gets base default options for the date pickers.
+     *
+     * @return array
      */
-    protected function getCommonDefaults(): array
+    protected function getCommonDefaults()
     {
         return [
             'widget' => 'single_text',

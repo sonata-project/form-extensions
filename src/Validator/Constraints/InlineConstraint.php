@@ -20,8 +20,10 @@ use Symfony\Component\Validator\Constraint;
  *
  * @Annotation
  * @Target({"CLASS"})
+ *
+ * @final since sonata-project/form-extensions 0.x
  */
-final class InlineConstraint extends Constraint
+class InlineConstraint extends Constraint
 {
     /**
      * @var mixed
@@ -61,24 +63,27 @@ final class InlineConstraint extends Constraint
         return array_keys(get_object_vars($this));
     }
 
-    public function __wakeup(): void
+    public function __wakeup()
     {
         if (\is_string($this->service) && \is_string($this->method)) {
             return;
         }
 
-        $this->method = static function (): void {
+        $this->method = static function () {
         };
 
         $this->serializingWarning = true;
     }
 
-    public function validatedBy(): string
+    public function validatedBy()
     {
         return 'sonata.form.validator.inline';
     }
 
-    public function isClosure(): bool
+    /**
+     * @return bool
+     */
+    public function isClosure()
     {
         return $this->method instanceof \Closure;
     }
@@ -91,12 +96,18 @@ final class InlineConstraint extends Constraint
         return $this->method;
     }
 
-    public function getTargets(): string
+    /**
+     * @return mixed
+     */
+    public function getTargets()
     {
         return self::CLASS_CONSTRAINT;
     }
 
-    public function getRequiredOptions(): array
+    /**
+     * @return array
+     */
+    public function getRequiredOptions()
     {
         return [
             'service',

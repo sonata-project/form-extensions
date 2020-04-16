@@ -21,7 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
  */
 class FormChoiceWidgetTest extends AbstractWidgetTestCase
 {
-    public function testLabelRendering(): void
+    public function testLabelRendering()
     {
         $choices = ['some' => 0, 'choices' => 1];
 

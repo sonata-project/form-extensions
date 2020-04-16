@@ -78,7 +78,7 @@ class BaseDoctrineORMSerializationType extends AbstractType
         $this->identifierOverwrite = $identifierOverwrite;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $serializerMetadata = $this->metadataFactory->getMetadataForClass($this->class);
 
@@ -147,7 +147,7 @@ class BaseDoctrineORMSerializationType extends AbstractType
         return $this->getBlockPrefix();
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => $this->class,

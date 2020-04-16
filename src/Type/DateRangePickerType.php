@@ -19,10 +19,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * DateRangePickerType.
  *
  * @author Andrej Hudec <pulzarraider@gmail.com>
+ *
+ * @final since sonata-project/form-extensions 0.x
  */
-final class DateRangePickerType extends DateRangeType
+class DateRangePickerType extends DateRangeType
 {
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'field_options' => [],
@@ -34,8 +36,19 @@ final class DateRangePickerType extends DateRangeType
         ]);
     }
 
-    public function getBlockPrefix(): string
+    /**
+     * @return string
+     */
+    public function getBlockPrefix()
     {
         return 'sonata_type_date_range_picker';
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->getBlockPrefix();
     }
 }

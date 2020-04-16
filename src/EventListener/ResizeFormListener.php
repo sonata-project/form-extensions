@@ -22,8 +22,10 @@ use Symfony\Component\Form\FormEvents;
  * Resize a collection form element based on the data sent from the client.
  *
  * @author Bernhard Schussek <bernhard.schussek@symfony-project.com>
+ *
+ * @final since sonata-project/form-extensions 0.x
  */
-final class ResizeFormListener implements EventSubscriberInterface
+class ResizeFormListener implements EventSubscriberInterface
 {
     /**
      * @var string
@@ -67,7 +69,7 @@ final class ResizeFormListener implements EventSubscriberInterface
         $this->preSubmitDataCallback = $preSubmitDataCallback;
     }
 
-    public static function getSubscribedEvents(): array
+    public static function getSubscribedEvents()
     {
         return [
             FormEvents::PRE_SET_DATA => 'preSetData',
@@ -79,7 +81,7 @@ final class ResizeFormListener implements EventSubscriberInterface
     /**
      * @throws UnexpectedTypeException
      */
-    public function preSetData(FormEvent $event): void
+    public function preSetData(FormEvent $event)
     {
         $form = $event->getForm();
         $data = $event->getData();
@@ -111,7 +113,7 @@ final class ResizeFormListener implements EventSubscriberInterface
     /**
      * @throws UnexpectedTypeException
      */
-    public function preSubmit(FormEvent $event): void
+    public function preSubmit(FormEvent $event)
     {
         if (!$this->resizeOnSubmit) {
             return;
@@ -158,7 +160,7 @@ final class ResizeFormListener implements EventSubscriberInterface
     /**
      * @throws UnexpectedTypeException
      */
-    public function onSubmit(FormEvent $event): void
+    public function onSubmit(FormEvent $event)
     {
         if (!$this->resizeOnSubmit) {
             return;

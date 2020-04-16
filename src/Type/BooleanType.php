@@ -19,20 +19,23 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class BooleanType extends AbstractType
+/**
+ * @final since sonata-project/form-extensions 0.x
+ */
+class BooleanType extends AbstractType
 {
     public const TYPE_YES = 1;
 
     public const TYPE_NO = 2;
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         if ($options['transform']) {
             $builder->addModelTransformer(new BooleanTypeToBooleanTransformer());
         }
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'transform' => false,
@@ -45,12 +48,26 @@ final class BooleanType extends AbstractType
         ]);
     }
 
-    public function getParent(): string
+    /**
+     * @return string
+     */
+    public function getParent()
     {
         return ChoiceType::class;
     }
 
-    public function getBlockPrefix(): string
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
+
+    /**
+     * @return string
+     */
+    public function getBlockPrefix()
     {
         return 'sonata_type_boolean';
     }

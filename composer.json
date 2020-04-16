@@ -34,7 +34,7 @@
         "twig/twig": "^2.0 || ^3.0"
     },
     "conflict": {
-        "sonata-project/core-bundle": ">=3.13"
+        "sonata-project/core-bundle": "<3.19"
     },
     "require-dev": {
         "doctrine/persistence": "^1.1",
@@ -56,7 +56,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.x-dev"
+            "dev-master": "0.x-dev"
         }
     },
     "autoload": {

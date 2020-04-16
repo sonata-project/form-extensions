@@ -18,10 +18,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
+ *
+ * @final since sonata-project/form-extensions 0.x
  */
-final class DatePickerType extends BasePickerType
+class DatePickerType extends BasePickerType
 {
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array_merge($this->getCommonDefaults(), [
             'dp_pick_time' => false,
@@ -31,13 +33,27 @@ final class DatePickerType extends BasePickerType
         parent::configureOptions($resolver);
     }
 
-    public function getParent(): string
+    /**
+     * @return string,
+     */
+    public function getParent()
     {
         return DateType::class;
     }
 
-    public function getBlockPrefix(): string
+    /**
+     * @return string
+     */
+    public function getBlockPrefix()
     {
         return 'sonata_type_date_picker';
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->getBlockPrefix();
     }
 }

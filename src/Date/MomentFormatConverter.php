@@ -56,7 +56,7 @@ class MomentFormatConverter
      *
      * @return string Moment.js date format
      */
-    public function convert(string $format): string
+    public function convert($format)
     {
         $size = \strlen($format);
 
