@@ -78,7 +78,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
      *
      * @return string[]
      */
-    protected function getTemplatePaths(): array
+    protected function getTemplatePaths()
     {
         // this is an workaround for different composer requirements and different TwigBridge installation directories
         $twigPaths = array_filter([
@@ -89,7 +89,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
             // symfony/symfony (running from this bundle)
             __DIR__.'/../../vendor/symfony/symfony/src/Symfony/Bridge/Twig/Resources/views/Form',
             // symfony/symfony (running from other bundles)
-            __DIR__.'/../../../../../symfony/symfony/src/Symfony/Bridge/Twig/Resources/views/Form',
+            __DIR__.'/../../../../symfony/symfony/src/Symfony/Bridge/Twig/Resources/views/Form',
         ], 'is_dir');
 
         $twigPaths[] = __DIR__.'/../Bridge/Symfony/Resources/views/Form';
@@ -97,32 +97,43 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
         return $twigPaths;
     }
 
-    protected function getRenderingEngine(Environment $environment): TwigRendererEngine
+    protected function getRenderingEngine(Environment $environment)
     {
         return new TwigRendererEngine(['form_div_layout.html.twig'], $environment);
     }
 
     /**
      * Renders widget from FormView, in SonataAdmin context, with optional view variables $vars. Returns plain HTML.
+     *
+     * @return string
      */
-    final protected function renderWidget(FormView $view, array $vars = []): string
+    final protected function renderWidget(FormView $view, array $vars = [])
     {
         return (string) $this->renderer->searchAndRenderBlock($view, 'widget', $vars);
     }
 
     /**
      * Helper method to strip newline and space characters from html string to make comparing easier.
+     *
+     * @param string $html
+     *
+     * @return string
      */
-    final protected function cleanHtmlWhitespace(string $html): string
+    final protected function cleanHtmlWhitespace($html)
     {
-        return preg_replace_callback('/\s*>([^<]+)</', static function (array $value): string {
+        return preg_replace_callback('/\s*>([^<]+)</', static function ($value) {
             return '>'.trim($value[1]).'<';
         }, $html);
     }
 
-    final protected function cleanHtmlAttributeWhitespace(string $html): string
+    /**
+     * @param string $html
+     *
+     * @return string
+     */
+    final protected function cleanHtmlAttributeWhitespace($html)
     {
-        return preg_replace_callback('~<([A-Z0-9]+) \K(.*?)>~i', static function (array $m): string {
+        return preg_replace_callback('~<([A-Z0-9]+) \K(.*?)>~i', static function ($m) {
             return preg_replace('~\s*~', '', $m[0]);
         }, $html);
     }

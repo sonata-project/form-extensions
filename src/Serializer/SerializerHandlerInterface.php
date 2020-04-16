@@ -20,5 +20,8 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
  */
 interface SerializerHandlerInterface extends SubscribingHandlerInterface
 {
-    public static function getType(): string;
+    /**
+     * @return string
+     */
+    public static function getType();
 }

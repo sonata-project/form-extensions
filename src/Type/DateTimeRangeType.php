@@ -20,7 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DateTimeRangeType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $options['field_options_start'] = array_merge(
             [
@@ -50,12 +50,23 @@ class DateTimeRangeType extends AbstractType
         );
     }
 
-    public function getBlockPrefix(): string
+    /**
+     * @return string
+     */
+    public function getBlockPrefix()
     {
         return 'sonata_type_datetime_range';
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'field_options' => [],

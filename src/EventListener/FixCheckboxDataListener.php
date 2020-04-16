@@ -24,15 +24,20 @@ use Symfony\Component\Form\FormEvents;
  * returning true value when the form is bind.
  *
  * @author Sylvain Rascar <rascar.sylvain@gmail.com>
+ *
+ * @final since sonata-project/form-extensions 0.x
  */
-final class FixCheckboxDataListener implements EventSubscriberInterface
+class FixCheckboxDataListener implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents(): array
+    /**
+     * @return array
+     */
+    public static function getSubscribedEvents()
     {
         return [FormEvents::PRE_SUBMIT => 'preSubmit'];
     }
 
-    public function preSubmit(FormEvent $event): void
+    public function preSubmit(FormEvent $event)
     {
         $data = $event->getData();
         $transformers = $event->getForm()->getConfig()->getViewTransformers();

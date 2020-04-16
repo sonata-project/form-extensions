@@ -19,54 +19,57 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-final class ErrorElement
+/**
+ * @final since sonata-project/form-extensions 0.x
+ */
+class ErrorElement
 {
     private const DEFAULT_TRANSLATION_DOMAIN = 'validators';
 
     /**
      * @var ExecutionContextInterface
      */
-    private $context;
+    protected $context;
 
     /**
      * @var string
      */
-    private $group;
+    protected $group;
 
     /**
      * @var ConstraintValidatorFactoryInterface
      */
-    private $constraintValidatorFactory;
+    protected $constraintValidatorFactory;
 
     /**
      * @var string[]
      */
-    private $stack = [];
+    protected $stack = [];
 
     /**
-     * @var string[]
+     * @var PropertyPath[]
      */
-    private $propertyPaths = [];
+    protected $propertyPaths = [];
 
     /**
      * @var mixed
      */
-    private $subject;
+    protected $subject;
 
     /**
      * @var string
      */
-    private $current = '';
+    protected $current = '';
 
     /**
      * @var string
      */
-    private $basePropertyPath;
+    protected $basePropertyPath;
 
     /**
      * @var array
      */
-    private $errors = [];
+    protected $errors = [];
 
     /**
      * @param mixed  $subject
@@ -76,7 +79,7 @@ final class ErrorElement
         $subject,
         ConstraintValidatorFactoryInterface $constraintValidatorFactory,
         ExecutionContextInterface $context,
-        ?string $group
+        $group
     ) {
         $this->subject = $subject;
         $this->context = $context;
@@ -86,9 +89,13 @@ final class ErrorElement
     }
 
     /**
+     * @param string $name
+     *
      * @throws \RuntimeException
+     *
+     * @return ErrorElement
      */
-    public function __call(string $name, array $arguments = []): self
+    public function __call($name, array $arguments = [])
     {
         if ('assert' === substr($name, 0, 6)) {
             $this->validate($this->newConstraint(substr($name, 6), $arguments[0] ?? []));
@@ -99,14 +106,23 @@ final class ErrorElement
         return $this;
     }
 
-    public function addConstraint(Constraint $constraint): self
+    /**
+     * @return ErrorElement
+     */
+    public function addConstraint(Constraint $constraint)
     {
         $this->validate($constraint);
 
         return $this;
     }
 
-    public function with(string $name, bool $key = false): self
+    /**
+     * @param string $name
+     * @param bool   $key
+     *
+     * @return ErrorElement
+     */
+    public function with($name, $key = false)
     {
         $key = $key ? $name.'.'.$key : $name;
         $this->stack[] = $key;
@@ -120,7 +136,10 @@ final class ErrorElement
         return $this;
     }
 
-    public function end(): self
+    /**
+     * @return ErrorElement
+     */
+    public function end()
     {
         array_pop($this->stack);
 
@@ -129,7 +148,10 @@ final class ErrorElement
         return $this;
     }
 
-    public function getFullPropertyPath(): string
+    /**
+     * @return string
+     */
+    public function getFullPropertyPath()
     {
         if ($this->getCurrentPropertyPath()) {
             return sprintf('%s.%s', $this->basePropertyPath, $this->getCurrentPropertyPath());
@@ -148,11 +170,12 @@ final class ErrorElement
 
     /**
      * @param string|array $message
+     * @param array        $parameters
      * @param mixed|null   $value
      *
      * @return ErrorElement
      */
-    public function addViolation($message, array $parameters = [], $value = null, string $translationDomain = self::DEFAULT_TRANSLATION_DOMAIN): self
+    public function addViolation($message, $parameters = [], $value = null, string $translationDomain = self::DEFAULT_TRANSLATION_DOMAIN)
     {
         if (\is_array($message)) {
             $value = $message[2] ?? $value;
@@ -178,12 +201,15 @@ final class ErrorElement
         return $this;
     }
 
-    public function getErrors(): array
+    /**
+     * @return array
+     */
+    public function getErrors()
     {
         return $this->errors;
     }
 
-    private function validate(Constraint $constraint): void
+    protected function validate(Constraint $constraint)
     {
         $this->context->getValidator()
             ->inContext($this->context)
@@ -196,7 +222,7 @@ final class ErrorElement
      *
      * @return mixed
      */
-    private function getValue()
+    protected function getValue()
     {
         if ('' === $this->current) {
             return $this->subject;
@@ -208,9 +234,11 @@ final class ErrorElement
     }
 
     /**
+     * @param string $name
+     *
      * @return object
      */
-    private function newConstraint(string $name, array $options = [])
+    protected function newConstraint($name, array $options = [])
     {
         if (false !== strpos($name, '\\') && class_exists($name)) {
             $className = (string) $name;
@@ -221,7 +249,10 @@ final class ErrorElement
         return new $className($options);
     }
 
-    private function getCurrentPropertyPath(): ?PropertyPath
+    /**
+     * @return PropertyPath|null
+     */
+    protected function getCurrentPropertyPath()
     {
         if (!isset($this->propertyPaths[$this->current])) {
             return null; //global error

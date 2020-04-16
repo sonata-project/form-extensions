@@ -16,9 +16,12 @@ namespace Sonata\Form\DataTransformer;
 use Sonata\Form\Type\BooleanType;
 use Symfony\Component\Form\DataTransformerInterface;
 
-final class BooleanTypeToBooleanTransformer implements DataTransformerInterface
+/**
+ * @final since sonata-project/form-extensions 0.x
+ */
+class BooleanTypeToBooleanTransformer implements DataTransformerInterface
 {
-    public function transform($value): ?int
+    public function transform($value)
     {
         if (true === $value or BooleanType::TYPE_YES === (int) $value) {
             return BooleanType::TYPE_YES;
@@ -29,7 +32,7 @@ final class BooleanTypeToBooleanTransformer implements DataTransformerInterface
         return null;
     }
 
-    public function reverseTransform($value): ?bool
+    public function reverseTransform($value)
     {
         if (BooleanType::TYPE_YES === $value) {
             return true;

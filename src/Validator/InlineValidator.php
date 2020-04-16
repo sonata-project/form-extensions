@@ -18,7 +18,10 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
 
-final class InlineValidator extends ConstraintValidator
+/**
+ * @final since sonata-project/form-extensions 0.x
+ */
+class InlineValidator extends ConstraintValidator
 {
     /**
      * @var ContainerInterface
@@ -38,7 +41,7 @@ final class InlineValidator extends ConstraintValidator
         $this->constraintValidatorFactory = $constraintValidatorFactory;
     }
 
-    public function validate($value, Constraint $constraint): void
+    public function validate($value, Constraint $constraint)
     {
         if ($constraint->isClosure()) {
             $function = $constraint->getClosure();
@@ -57,8 +60,10 @@ final class InlineValidator extends ConstraintValidator
 
     /**
      * @param mixed $value
+     *
+     * @return ErrorElement
      */
-    protected function getErrorElement($value): ErrorElement
+    protected function getErrorElement($value)
     {
         return new ErrorElement(
             $value,
