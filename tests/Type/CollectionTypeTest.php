@@ -32,7 +32,7 @@ class CollectionTypeTest extends TypeTestCase
         $this->assertSame(TextType::class, $options['type']);
         $this->assertCount(0, $options['type_options']);
         $this->assertSame('link_add', $options['btn_add']);
-        $this->assertSame('SonataFormBundle', $options['btn_catalogue']);
+        $this->assertSame('SonataCoreBundle', $options['btn_catalogue']);
         $this->assertNull($options['pre_bind_data_callback']);
     }
 }

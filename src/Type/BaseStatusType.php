@@ -35,15 +35,31 @@ abstract class BaseStatusType extends AbstractType
     protected $name;
 
     /**
+     * @deprecated Since 0.x, to be remove in 1.0. Use configureOptions instead.
+     *
+     * @var bool
+     */
+    protected $flip;
+
+    /**
      * @param string $class
      * @param string $getter
      * @param string $name
+     * @param bool   $flip   reverse key/value to match sf2.8 and sf3.0 change
      */
-    public function __construct($class, $getter, $name)
+    public function __construct($class, $getter, $name, $flip = null)
     {
+        if (null !== $flip) {
+            @trigger_error(
+                'Passing "flip" in argument 4 for '.__METHOD__.'() is deprecated since sonata-project/form-extensions 0.x, to be removed with 1.0.',
+                E_USER_DEPRECATED
+            );
+        }
+
         $this->class = $class;
         $this->getter = $getter;
         $this->name = $name;
+        $this->flip = $flip ?? true;
     }
 
     /**
@@ -62,6 +78,11 @@ abstract class BaseStatusType extends AbstractType
         return $this->name;
     }
 
+    /**
+     * @deprecated since 0.x to be removed in 1.x. Use getBlockPrefix() instead.
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->getBlockPrefix();
@@ -69,8 +90,21 @@ abstract class BaseStatusType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        $choices = \call_user_func([$this->class, $this->getter]);
+
+        // NEXT_MAJOR: remove this block
+        if ($this->flip) {
+            $count = \count($choices);
+
+            $choices = array_flip($choices);
+
+            if (\count($choices) !== $count) {
+                throw new \LengthException('Unable to safely flip value as final count is different.');
+            }
+        }
+
         $resolver->setDefaults([
-            'choices' => \call_user_func([$this->class, $this->getter]),
+            'choices' => $choices,
         ]);
     }
 }

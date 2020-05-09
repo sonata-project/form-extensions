@@ -137,11 +137,19 @@ class BaseDoctrineORMSerializationType extends AbstractType
         }
     }
 
+    /**
+     * @return string
+     */
     public function getBlockPrefix()
     {
         return $this->name;
     }
 
+    /**
+     * @deprecated since 0.x to be removed in 1.x. Use getBlockPrefix() instead.
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->getBlockPrefix();

@@ -25,7 +25,7 @@ class DateTimeRangeType extends AbstractType
         $options['field_options_start'] = array_merge(
             [
                 'label' => 'date_range_start',
-                'translation_domain' => 'SonataFormBundle',
+                'translation_domain' => 'SonataCoreBundle',
             ],
             $options['field_options_start']
         );
@@ -33,7 +33,7 @@ class DateTimeRangeType extends AbstractType
         $options['field_options_end'] = array_merge(
             [
                 'label' => 'date_range_end',
-                'translation_domain' => 'SonataFormBundle',
+                'translation_domain' => 'SonataCoreBundle',
             ],
             $options['field_options_end']
         );
@@ -59,6 +59,8 @@ class DateTimeRangeType extends AbstractType
     }
 
     /**
+     * @deprecated since 0.x to be removed in 1.x. Use getBlockPrefix() instead.
+     *
      * @return string
      */
     public function getName()

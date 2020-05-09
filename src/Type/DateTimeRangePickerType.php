@@ -88,6 +88,8 @@ class DateTimeRangePickerType extends DateTimeRangeType
     }
 
     /**
+     * @deprecated since 0.x to be removed in 1.x. Use getBlockPrefix() instead.
+     *
      * @return string
      */
     public function getName()
