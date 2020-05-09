@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-    <file source-language="en" datatype="plaintext" original="">
+    <file source-language="en" datatype="plaintext" original="SonataCoreBundle.en.xliff">
         <body>
             <trans-unit id="link_add">
                 <source>link_add</source>
-                <target>Sukurti naują</target>
+                <target>Lisää uusi</target>
             </trans-unit>
             <trans-unit id="label_type_yes">
                 <source>label_type_yes</source>
-                <target>taip</target>
+                <target>kyllä</target>
             </trans-unit>
             <trans-unit id="label_type_no">
                 <source>label_type_no</source>
-                <target>ne</target>
+                <target>ei</target>
             </trans-unit>
             <trans-unit id="label_type_equals">
                 <source>label_type_equals</source>
-                <target>yra lygus</target>
+                <target>on yhtä kuin</target>
             </trans-unit>
             <trans-unit id="label_type_not_equals">
                 <source>label_type_not_equals</source>
-                <target>nelygus</target>
+                <target>ei ole yhtä kuin</target>
             </trans-unit>
             <trans-unit id="date_range_start">
                 <source>date_range_start</source>
-                <target>date_range_start</target>
+                <target>Alkaen</target>
             </trans-unit>
             <trans-unit id="date_range_end">
                 <source>date_range_end</source>
-                <target>date_range_end</target>
+                <target>Saakka</target>
             </trans-unit>
         </body>
     </file>

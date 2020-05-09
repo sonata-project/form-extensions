@@ -83,7 +83,7 @@ class EqualType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'choice_translation_domain' => 'SonataFormBundle',
+            'choice_translation_domain' => 'SonataCoreBundle',
             'choices' => [
                 'label_type_equals' => self::TYPE_IS_EQUAL,
                 'label_type_not_equals' => self::TYPE_IS_NOT_EQUAL,
@@ -108,6 +108,8 @@ class EqualType extends AbstractType
     }
 
     /**
+     * @deprecated since 0.x to be removed in 1.x. Use getBlockPrefix() instead.
+     *
      * @return string
      */
     public function getName()

@@ -17,6 +17,7 @@ use Sonata\Form\DataTransformer\BooleanTypeToBooleanTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -33,18 +34,37 @@ class BooleanType extends AbstractType
         if ($options['transform']) {
             $builder->addModelTransformer(new BooleanTypeToBooleanTransformer());
         }
+
+        if ('SonataCoreBundle' !== $options['catalogue']) {
+            @trigger_error(
+                'Option "catalogue" is deprecated since sonata-project/form-extensions 0.x and will be removed in 1.0.'
+                .' Use option "translation_domain" instead.',
+                E_USER_DEPRECATED
+            );
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'transform' => false,
-            'choice_translation_domain' => 'SonataFormBundle',
+            /*
+             * NEXT_MAJOR: remove 'catalogue' => 'SonataCoreBundle',
+             * @deprecated since 0.x, to be removed in 1.0. Use 'translation_domain' => 'SonataCoreBundle' instead.
+             */
+            'catalogue' => 'SonataCoreBundle',
+            'choice_translation_domain' => 'SonataCoreBundle',
             'choices' => [
                 'label_type_yes' => self::TYPE_YES,
                 'label_type_no' => self::TYPE_NO,
             ],
-            'translation_domain' => 'SonataFormBundle',
+            'translation_domain' => static function (Options $options): string {
+                if ($options['catalogue']) {
+                    return $options['catalogue'];
+                }
+
+                return $options['translation_domain'];
+            },
         ]);
     }
 
@@ -57,6 +77,8 @@ class BooleanType extends AbstractType
     }
 
     /**
+     * @deprecated since 0.x to be removed in 1.x. Use getBlockPrefix() instead.
+     *
      * @return string
      */
     public function getName()

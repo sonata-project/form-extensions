@@ -86,7 +86,8 @@ class BooleanTypeTest extends TypeTestCase
 
         $expectedOptions = [
             'transform' => false,
-            'choice_translation_domain' => 'SonataFormBundle',
+            'catalogue' => 'SonataCoreBundle',
+            'choice_translation_domain' => 'SonataCoreBundle',
             'choices' => [1 => 'foo_yes', 2 => 'foo_no'],
             'translation_domain' => 'fooTrans',
         ];
