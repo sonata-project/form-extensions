@@ -74,8 +74,10 @@ abstract class BaseSerializerHandler implements SerializerHandlerInterface
 
     /**
      * Serialize data object to id.
+     *
+     * @return int|null
      */
-    public function serializeObjectToId(VisitorInterface $visitor, object $data, array $type, Context $context): ?int
+    public function serializeObjectToId(VisitorInterface $visitor, object $data, array $type, Context $context)
     {
         $className = $this->manager->getClass();
 

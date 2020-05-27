@@ -11,17 +11,18 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\Form\Serializer;
+namespace Sonata\Form\Bridge\Symfony;
 
-use JMS\Serializer\Handler\SubscribingHandlerInterface;
+use Sonata\Form\Bridge\Symfony\DependencyInjection\SonataFormExtension;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * @author Sylvain Deloux <sylvain.deloux@ekino.com>
- */
-interface SerializerHandlerInterface extends SubscribingHandlerInterface
+final class SonataFormBundle extends Bundle
 {
     /**
      * @return string
      */
-    public static function getType();
+    protected function getContainerExtensionClass()
+    {
+        return SonataFormExtension::class;
+    }
 }
