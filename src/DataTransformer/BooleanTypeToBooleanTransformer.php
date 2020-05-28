@@ -20,9 +20,9 @@ final class BooleanTypeToBooleanTransformer implements DataTransformerInterface
 {
     public function transform($value): ?int
     {
-        if (true === $value or BooleanType::TYPE_YES === (int) $value) {
+        if (true === $value || BooleanType::TYPE_YES === (int) $value) {
             return BooleanType::TYPE_YES;
-        } elseif (false === $value or BooleanType::TYPE_NO === (int) $value) {
+        } elseif (false === $value || BooleanType::TYPE_NO === (int) $value) {
             return BooleanType::TYPE_NO;
         }
 
