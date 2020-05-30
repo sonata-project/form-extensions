@@ -51,7 +51,10 @@ abstract class BaseStatusType extends AbstractType
         return $this->name;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    /**
+     * @return void
+     */
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'choices' => \call_user_func([$this->class, $this->getter]),

@@ -16,10 +16,13 @@ namespace Sonata\Form\Bridge\Symfony\Bundle;
 use Sonata\Form\Bridge\Symfony\DependencyInjection\SonataFormExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
+/**
+ * @deprecated Since version 1.x, to be removed in 2.0. Use Sonata\Form\Bridge\Symfony\SonataFormBundle instead.
+ */
 final class SonataFormBundle extends Bundle
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public function getPath()
     {
@@ -27,7 +30,7 @@ final class SonataFormBundle extends Bundle
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
     protected function getContainerExtensionClass()
     {
