@@ -16,21 +16,53 @@ namespace Sonata\Form\Tests\Type;
 use Sonata\Form\Type\ImmutableArrayType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Test\FormBuilderInterface as TestFormBuilderInterface;
 use Symfony\Component\Form\Test\TypeTestCase;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ImmutableArrayTypeTest extends TypeTestCase
 {
-    public function testGetDefaultOptions(): void
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testBuildForm()
+    {
+        $formBuilder = $this->createMock(FormBuilder::class);
+        $formBuilder
+            ->expects($this->any())
+            ->method('add')
+            ->willReturnCallback(function ($name, $type = null) {
+                if (null !== $type) {
+                    $this->assertTrue(class_exists($type), sprintf('Unable to ensure %s is a FQCN', $type));
+                }
+            });
+
+        $type = new ImmutableArrayType();
+        $type->buildForm($formBuilder, [
+            'keys' => [],
+        ]);
+    }
+
+    public function testGetParent()
+    {
+        $form = new ImmutableArrayType();
+
+        $parentRef = $form->getParent();
+
+        $this->assertTrue(class_exists($parentRef), sprintf('Unable to ensure %s is a FQCN', $parentRef));
+    }
+
+    public function testGetDefaultOptions()
     {
         $type = new ImmutableArrayType();
 
-        $this->assertSame('sonata_type_immutable_array', $type->getBlockPrefix());
+        $this->assertSame('sonata_type_immutable_array', $type->getName());
 
-        $this->assertSame(FormType::class, $type->getParent());
+        $this->assertSame(version_compare(Kernel::VERSION, '2.8', '<') ? 'form' : FormType::class, $type->getParent());
 
         $type->configureOptions($resolver = new OptionsResolver());
 
@@ -43,7 +75,7 @@ class ImmutableArrayTypeTest extends TypeTestCase
         $this->assertSame($expected, $options);
     }
 
-    public function testCallback(): void
+    public function testCallback()
     {
         $type = new ImmutableArrayType();
 
@@ -79,7 +111,7 @@ class ImmutableArrayTypeTest extends TypeTestCase
         $type->buildForm($builder, $options);
     }
 
-    public function testWithIncompleteOptions(): void
+    public function testWithIncompleteOptions()
     {
         $optionsResolver = new OptionsResolver();
 
@@ -94,7 +126,7 @@ class ImmutableArrayTypeTest extends TypeTestCase
         $optionsResolver->resolve(['keys' => [['test']]]);
     }
 
-    public function testFormBuilderIsAValidElement(): void
+    public function testFormBuilderIsAValidElement()
     {
         $optionsResolver = new OptionsResolver();
 
@@ -103,9 +135,9 @@ class ImmutableArrayTypeTest extends TypeTestCase
 
         $this->assertArrayHasKey(
             'keys',
-            $optionsResolver->resolve(['keys' => [$this->createMock(
+            $optionsResolver->resolve(['keys' => [$this->getMockBuilder(
                 FormBuilderInterface::class
-            )]])
+            )->getMock()]])
         );
     }
 }

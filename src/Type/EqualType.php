@@ -20,7 +20,7 @@ use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterfa
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 @trigger_error(
-    'The '.__NAMESPACE__.'\EqualType class is deprecated since version 1.2 and will be removed in 2.0.'
+    'The '.__NAMESPACE__.'\EqualType class is deprecated since version 0.x and will be removed in 2.0.'
     .' Use Sonata\AdminBundle\Form\Type\Operator\EqualOperatorType instead.',
     E_USER_DEPRECATED
 );
@@ -28,7 +28,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * NEXT_MAJOR: remove this class.
  *
- * @deprecated since sonata-project/form-extensions 1.2, to be removed with 2.0
+ * @deprecated since sonata-project/form-extensions 0.x, to be removed with 2.0
  *
  * @final since sonata-project/form-extensions 0.x
  */
@@ -37,6 +37,7 @@ class EqualType extends AbstractType
     public const TYPE_IS_EQUAL = 1;
 
     public const TYPE_IS_NOT_EQUAL = 2;
+
     /**
      * NEXT_MAJOR: remove this property.
      *
@@ -50,29 +51,26 @@ class EqualType extends AbstractType
      * NEXT_MAJOR: remove this method.
      *
      * @deprecated translator dependency is deprecated since sonata-project/form-extensions 0.x, to be removed in 1.0
-     *
-     * @param LegacyTranslatorInterface|TranslatorInterface|null $translator
      */
     public function __construct($translator = null)
     {
-        if (!$translator instanceof LegacyTranslatorInterface && !$translator instanceof TranslatorInterface && null !== $translator) {
+        if (
+            !$translator instanceof LegacyTranslatorInterface &&
+            !$translator instanceof TranslatorInterface &&
+            null !== $translator
+        ) {
             throw new \InvalidArgumentException(sprintf(
-                'Argument 1 should be an instance of %s or %s or %s',
+                'Argument 2 should be an instance of %s or %s',
                 LegacyTranslatorInterface::class,
-                TranslatorInterface::class,
-                'null'
+                TranslatorInterface::class
             ));
         }
 
-        if (null !== $translator && __CLASS__ !== static::class && DateRangePickerType::class !== static::class) {
+        // check if class is overloaded and notify about removing deprecated translator
+        if (null !== $translator && __CLASS__ !== static::class) {
             @trigger_error(
-                sprintf(
-                    'The translator dependency in %s is deprecated since 0.x and will be removed in 1.0. '.
-                    'Please do not call %s with translator argument in %s.',
-                    __CLASS__,
-                    __METHOD__,
-                    static::class
-                ),
+                'The translator dependency in '.__CLASS__.' is deprecated since 0.x and will be removed in 1.0. '.
+                'Please prepare your dependencies for this change.',
                 E_USER_DEPRECATED
             );
         }
@@ -82,13 +80,15 @@ class EqualType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'choice_translation_domain' => 'SonataCoreBundle',
+        $defaultOptions = [
+            'choice_translation_domain' => 'SonataFormBundle',
             'choices' => [
                 'label_type_equals' => self::TYPE_IS_EQUAL,
                 'label_type_not_equals' => self::TYPE_IS_NOT_EQUAL,
             ],
-        ]);
+        ];
+
+        $resolver->setDefaults($defaultOptions);
     }
 
     /**

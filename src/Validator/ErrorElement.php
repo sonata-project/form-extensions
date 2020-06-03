@@ -47,7 +47,7 @@ class ErrorElement
     protected $stack = [];
 
     /**
-     * @var PropertyPath[]
+     * @var string[]
      */
     protected $propertyPaths = [];
 
@@ -175,7 +175,7 @@ class ErrorElement
      *
      * @return ErrorElement
      */
-    public function addViolation($message, $parameters = [], $value = null, string $translationDomain = self::DEFAULT_TRANSLATION_DOMAIN)
+    public function addViolation($message, $parameters = [], $value = null)
     {
         if (\is_array($message)) {
             $value = $message[2] ?? $value;
@@ -184,6 +184,15 @@ class ErrorElement
         }
 
         $subPath = (string) $this->getCurrentPropertyPath();
+        $translationDomain = self::DEFAULT_TRANSLATION_DOMAIN;
+
+        // NEXT_MAJOR: Remove this hack
+        if (\func_num_args() >= 4) {
+            $arg = func_get_arg(3);
+            if ((\is_string($arg))) {
+                $translationDomain = $arg;
+            }
+        }
 
         if ($this->context instanceof LegacyExecutionContextInterface) {
             $this->context->addViolationAt($subPath, $message, $parameters, $value);
@@ -211,10 +220,15 @@ class ErrorElement
 
     protected function validate(Constraint $constraint)
     {
-        $this->context->getValidator()
-            ->inContext($this->context)
-            ->atPath((string) $this->getCurrentPropertyPath())
-            ->validate($this->getValue(), $constraint, [$this->group]);
+        $subPath = (string) $this->getCurrentPropertyPath();
+        if ($this->context instanceof LegacyExecutionContextInterface) {
+            $this->context->validateValue($this->getValue(), $constraint, $subPath, $this->group);
+        } else {
+            $this->context->getValidator()
+                ->inContext($this->context)
+                ->atPath($subPath)
+                ->validate($this->getValue(), $constraint, [$this->group]);
+        }
     }
 
     /**
@@ -255,7 +269,7 @@ class ErrorElement
     protected function getCurrentPropertyPath()
     {
         if (!isset($this->propertyPaths[$this->current])) {
-            return null; //global error
+            return; //global error
         }
 
         return $this->propertyPaths[$this->current];

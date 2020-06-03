@@ -22,14 +22,14 @@ class BooleanTypeToBooleanTransformerTest extends TestCase
     /**
      * @dataProvider getReverseTransformData
      */
-    public function testReverseTransform($value, $expected): void
+    public function testReverseTransform($value, $expected)
     {
         $transformer = new BooleanTypeToBooleanTransformer();
 
         $this->assertSame($expected, $transformer->transform($value));
     }
 
-    public function testTransform(): void
+    public function testTransform()
     {
         $transformer = new BooleanTypeToBooleanTransformer();
         $this->assertTrue($transformer->reverseTransform(BooleanType::TYPE_YES));

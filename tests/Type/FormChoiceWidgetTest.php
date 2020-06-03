@@ -15,6 +15,7 @@ namespace Sonata\Form\Tests\Type;
 
 use Sonata\Form\Test\AbstractWidgetTestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormTypeInterface;
 
 /**
  * @author Christian Gripp <mail@core23.de>
@@ -23,7 +24,10 @@ class FormChoiceWidgetTest extends AbstractWidgetTestCase
 {
     public function testLabelRendering()
     {
-        $choices = ['some' => 0, 'choices' => 1];
+        $choices = ['some', 'choices'];
+        if (!method_exists(FormTypeInterface::class, 'setDefaultOptions')) {
+            $choices = array_flip($choices);
+        }
 
         $choice = $this->factory->create(
             $this->getChoiceClass(),
@@ -37,21 +41,12 @@ class FormChoiceWidgetTest extends AbstractWidgetTestCase
         $html = $this->renderWidget($choice->createView());
 
         $this->assertStringContainsString(
-            $this->cleanHtmlWhitespace(
-                <<<'HTML'
-<div id="choice">
-    <input type="checkbox" id="choice_0" name="choice[]" value="0" />
-    <label for="choice_0">[trans]some[/trans]</label>
-    <input type="checkbox" id="choice_1" name="choice[]" value="1" />
-    <label for="choice_1">[trans]choices[/trans]</label>
-</div>
-HTML
-            ),
+            '<div id="choice"><input type="checkbox" id="choice_0" name="choice[]" value="0" /><label for="choice_0">[trans]some[/trans]</label><input type="checkbox" id="choice_1" name="choice[]" value="1" /><label for="choice_1">[trans]choices[/trans]</label></div>',
             $this->cleanHtmlWhitespace($html)
         );
     }
 
-    public function testDefaultValueRendering(): void
+    public function testDefaultValueRendering()
     {
         $choice = $this->factory->create(
             $this->getChoiceClass(),
@@ -67,7 +62,7 @@ HTML
         );
     }
 
-    public function testRequiredIsDisabledForEmptyPlaceholder(): void
+    public function testRequiredIsDisabledForEmptyPlaceholder()
     {
         $choice = $this->factory->create(
             $this->getChoiceClass(),
@@ -83,7 +78,7 @@ HTML
         );
     }
 
-    public function testRequiredIsEnabledIfPlaceholderIsSet(): void
+    public function testRequiredIsEnabledIfPlaceholderIsSet()
     {
         $choice = $this->factory->create(
             $this->getChoiceClass(),

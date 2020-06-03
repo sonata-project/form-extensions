@@ -92,7 +92,7 @@ abstract class BaseStatusType extends AbstractType
     {
         $choices = \call_user_func([$this->class, $this->getter]);
 
-        // NEXT_MAJOR: remove this block
+        // NEXT_MAJOR: remove this property
         if ($this->flip) {
             $count = \count($choices);
 

@@ -116,7 +116,7 @@ class InlineConstraint extends Constraint
     }
 
     /**
-     * @return mixed string|callable
+     * @return string
      */
     public function getMethod()
     {

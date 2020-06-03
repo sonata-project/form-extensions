@@ -35,29 +35,26 @@ class DateRangeType extends AbstractType
      * NEXT_MAJOR: remove this method.
      *
      * @deprecated translator dependency is deprecated since sonata-project/form-extensions 0.x, to be removed in 1.0
-     *
-     * @param LegacyTranslatorInterface|TranslatorInterface|null $translator
      */
     public function __construct($translator = null)
     {
-        if (!$translator instanceof LegacyTranslatorInterface && !$translator instanceof TranslatorInterface && null !== $translator) {
+        if (
+            !$translator instanceof LegacyTranslatorInterface &&
+            !$translator instanceof TranslatorInterface &&
+            null !== $translator
+        ) {
             throw new \InvalidArgumentException(sprintf(
-                'Argument 1 should be an instance of %s or %s or %s',
+                'Argument 2 should be an instance of %s or %s',
                 LegacyTranslatorInterface::class,
-                TranslatorInterface::class,
-                'null'
+                TranslatorInterface::class
             ));
         }
 
+        // check if class is overloaded and notify about removing deprecated translator
         if (null !== $translator && __CLASS__ !== static::class && DateRangePickerType::class !== static::class) {
             @trigger_error(
-                sprintf(
-                    'The translator dependency in %s is deprecated since 0.x and will be removed in 1.0. '.
-                    'Please do not call %s with translator argument in %s.',
-                    __CLASS__,
-                    __METHOD__,
-                    static::class
-                ),
+                'The translator dependency in '.__CLASS__.' is deprecated since 0.x and will be removed in 1.0. '.
+                'Please prepare your dependencies for this change.',
                 E_USER_DEPRECATED
             );
         }
@@ -70,7 +67,7 @@ class DateRangeType extends AbstractType
         $options['field_options_start'] = array_merge(
             [
                 'label' => 'date_range_start',
-                'translation_domain' => 'SonataCoreBundle',
+                'translation_domain' => 'SonataFormBundle',
             ],
             $options['field_options_start']
         );
@@ -78,21 +75,13 @@ class DateRangeType extends AbstractType
         $options['field_options_end'] = array_merge(
             [
                 'label' => 'date_range_end',
-                'translation_domain' => 'SonataCoreBundle',
+                'translation_domain' => 'SonataFormBundle',
             ],
             $options['field_options_end']
         );
 
-        $builder->add(
-            'start',
-            $options['field_type'],
-            array_merge(['required' => false], $options['field_options'], $options['field_options_start'])
-        );
-        $builder->add(
-            'end',
-            $options['field_type'],
-            array_merge(['required' => false], $options['field_options'], $options['field_options_end'])
-        );
+        $builder->add('start', $options['field_type'], array_merge(['required' => false], $options['field_options'], $options['field_options_start']));
+        $builder->add('end', $options['field_type'], array_merge(['required' => false], $options['field_options'], $options['field_options_end']));
     }
 
     /**

@@ -29,7 +29,7 @@ class Foo
         return $this->bar;
     }
 
-    public function setBar($bar): void
+    public function setBar($bar)
     {
         $this->bar = $bar;
     }
@@ -39,7 +39,7 @@ class Foo
         return $this->baz;
     }
 
-    public function setBaz($baz): void
+    public function setBaz($baz)
     {
         $this->baz = $baz;
     }

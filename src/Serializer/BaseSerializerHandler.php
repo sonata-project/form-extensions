@@ -59,6 +59,16 @@ abstract class BaseSerializerHandler implements SerializerHandlerInterface
      */
     public static function getSubscribingMethods()
     {
+        // NEXT_MAJOR : remove this block
+        if (null === static::$formats) {
+            static::$formats = ['json', 'xml', 'yml'];
+            @trigger_error(sprintf(
+                '%s::$formats has been set by default to array("json", "xml", "yml"). Ability to set them to a
+                different value is deprecated since sonata-project/form-bundle 0.x and will be removed in version 1.0. Use "sonata_form.serializer.formats" configuration instead.',
+                __CLASS__
+            ), E_USER_DEPRECATED);
+        }
+
         $type = static::getType();
         $methods = [];
 
@@ -88,7 +98,7 @@ abstract class BaseSerializerHandler implements SerializerHandlerInterface
      *
      * @return int|null
      */
-    public function serializeObjectToId(VisitorInterface $visitor, $data, $type, Context $context)
+    public function serializeObjectToId(VisitorInterface $visitor, $data, array $type, Context $context)
     {
         $className = $this->manager->getClass();
 

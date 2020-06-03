@@ -35,7 +35,7 @@ class BooleanType extends AbstractType
             $builder->addModelTransformer(new BooleanTypeToBooleanTransformer());
         }
 
-        if ('SonataCoreBundle' !== $options['catalogue']) {
+        if ('SonataFormBundle' !== $options['catalogue']) {
             @trigger_error(
                 'Option "catalogue" is deprecated since sonata-project/form-extensions 0.x and will be removed in 1.0.'
                 .' Use option "translation_domain" instead.',
@@ -46,26 +46,29 @@ class BooleanType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $defaultOptions = [
             'transform' => false,
             /*
-             * NEXT_MAJOR: remove 'catalogue' => 'SonataCoreBundle',
-             * @deprecated since 0.x, to be removed in 1.0. Use 'translation_domain' => 'SonataCoreBundle' instead.
+             * NEXT_MAJOR: remove this block.
+             * @deprecated since sonata-project/form-extensions 0.x, to be removed in 1.0.
              */
-            'catalogue' => 'SonataCoreBundle',
-            'choice_translation_domain' => 'SonataCoreBundle',
+            'catalogue' => 'SonataFormBundle',
+            'choice_translation_domain' => 'SonataFormBundle',
             'choices' => [
                 'label_type_yes' => self::TYPE_YES,
                 'label_type_no' => self::TYPE_NO,
             ],
-            'translation_domain' => static function (Options $options): string {
+            // Use directly translation_domain
+            'translation_domain' => static function (Options $options) {
                 if ($options['catalogue']) {
                     return $options['catalogue'];
                 }
 
                 return $options['translation_domain'];
             },
-        ]);
+        ];
+
+        $resolver->setDefaults($defaultOptions);
     }
 
     /**

@@ -25,7 +25,7 @@ class FixCheckboxDataListenerTest extends TestCase
     /**
      * @dataProvider valuesProvider
      */
-    public function testFixCheckbox($data, $expected, $suscriber, $transformer): void
+    public function testFixCheckbox($data, $expected, $suscriber, $transformer)
     {
         $dispatcher = new EventDispatcher();
 
