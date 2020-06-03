@@ -18,7 +18,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
@@ -32,7 +31,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 abstract class BasePickerType extends AbstractType
 {
     /**
-     * @var TranslatorInterface|LegacyTranslatorInterface|null
+     * @var LegacyTranslatorInterface|TranslatorInterface|null
      */
     protected $translator;
 
@@ -47,11 +46,15 @@ abstract class BasePickerType extends AbstractType
     private $formatConverter;
 
     /**
-     * @param LegacyTranslatorInterface|TranslatorInterface|null $translator
+     * NEXT_MAJOR: TranslatorInterface needs to be mandatory.
      */
-    public function __construct(MomentFormatConverter $formatConverter, $translator = null, ?RequestStack $requestStack = null)
+    public function __construct(MomentFormatConverter $formatConverter, $translator = null)
     {
-        if (!$translator instanceof LegacyTranslatorInterface && !$translator instanceof TranslatorInterface && null !== $translator) {
+        if (
+            !$translator instanceof LegacyTranslatorInterface &&
+            !$translator instanceof TranslatorInterface &&
+            null !== $translator
+        ) {
             throw new \InvalidArgumentException(sprintf(
                 'Argument 2 should be an instance of %s or %s or %s',
                 LegacyTranslatorInterface::class,
@@ -60,39 +63,24 @@ abstract class BasePickerType extends AbstractType
             ));
         }
 
-        if (null === $requestStack) {
-            if ($translator instanceof TranslatorInterface) {
-                throw new \InvalidArgumentException(sprintf(
-                    'Argument 3 should be an instance of %s',
-                    RequestStack::class
-                ));
-            }
-
-            @trigger_error(sprintf(
-                'Not passing the request stack as argument 3 to %s() is deprecated since sonata-project/form-extensions 0.x and will be mandatory in 2.0.',
-                __METHOD__
-            ), E_USER_DEPRECATED);
-        }
-
         $this->formatConverter = $formatConverter;
         $this->translator = $translator;
 
-        if ($translator instanceof LegacyTranslatorInterface) {
-            $this->locale = $this->translator->getLocale();
-        } elseif ($translator instanceof TranslatorInterface) {
-            $this->locale = $this->getLocale($requestStack);
-        } else {
-            /*
-             * NEXT_MAJOR: remove this check
-             */
+        /*
+         * NEXT_MAJOR: remove this check
+         */
+        if (null === $this->translator) {
             @trigger_error(
                 'Initializing '.__CLASS__.' without TranslatorInterface
                 is deprecated since 0.x and will be removed in 1.0.',
                 E_USER_DEPRECATED
             );
-
             $this->locale = \Locale::getDefault();
+
+            return;
         }
+
+        $this->locale = $this->translator->getLocale() ?? \Locale::getDefault();
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -124,7 +112,7 @@ abstract class BasePickerType extends AbstractType
         });
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         $format = $options['format'];
 
@@ -193,15 +181,6 @@ abstract class BasePickerType extends AbstractType
             'dp_view_mode' => 'days',
             'dp_min_view_mode' => 'days',
         ];
-    }
-
-    private function getLocale(RequestStack $requestStack): string
-    {
-        if (!$request = $requestStack->getCurrentRequest()) {
-            throw new \LogicException('A Request must be available.');
-        }
-
-        return $request->getLocale();
     }
 
     private function formatObject(\DateTime $dateTime, $format): string

@@ -13,16 +13,20 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Test;
 
+use Sonata\Form\Fixtures\StubFilesystemLoader;
 use Sonata\Form\Fixtures\StubTranslator;
+use Symfony\Bridge\Twig\AppVariable;
 use Symfony\Bridge\Twig\Extension\FormExtension;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
+use Symfony\Bridge\Twig\Form\TwigRenderer;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
+use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\FormRenderer;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
+use Twig\Extension\InitRuntimeInterface;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
 
 /**
@@ -33,6 +37,11 @@ use Twig\RuntimeLoader\FactoryRuntimeLoader;
 abstract class AbstractWidgetTestCase extends TypeTestCase
 {
     /**
+     * @var FormExtensionInterface
+     */
+    private $extension;
+
+    /**
      * @var FormRenderer
      */
     private $renderer;
@@ -41,34 +50,44 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
     {
         parent::setUp();
 
+        $this->extension = new FormExtension();
         $environment = $this->getEnvironment();
-
         $this->renderer = new FormRenderer(
             $this->getRenderingEngine($environment),
             $this->createMock(CsrfTokenManagerInterface::class)
         );
+        $runtimeLoader = new FactoryRuntimeLoader([
+            FormRenderer::class => [$this, 'getRenderer'],
+            TwigRenderer::class => [$this, 'getRenderer'],
+        ]);
 
-        $environment->addRuntimeLoader(new FactoryRuntimeLoader([
-            FormRenderer::class => function () {
-                return $this->renderer;
-            },
-        ]));
-        $environment->addExtension(new FormExtension());
+        $environment->addRuntimeLoader($runtimeLoader);
+
+        if ($this->extension instanceof InitRuntimeInterface) {
+            $this->extension->initRuntime($environment);
+        }
     }
 
-    final public function getRenderer(): FormRenderer
+    /**
+     * @return FormRenderer
+     */
+    final public function getRenderer()
     {
         return $this->renderer;
     }
 
-    protected function getEnvironment(): Environment
+    /**
+     * @return Environment
+     */
+    protected function getEnvironment()
     {
-        $loader = new FilesystemLoader($this->getTemplatePaths());
+        $loader = new StubFilesystemLoader($this->getTemplatePaths());
 
         $environment = new Environment($loader, [
             'strict_variables' => true,
         ]);
         $environment->addExtension(new TranslationExtension(new StubTranslator()));
+        $environment->addExtension($this->extension);
 
         return $environment;
     }
@@ -97,8 +116,22 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
         return $twigPaths;
     }
 
-    protected function getRenderingEngine(Environment $environment)
+    /**
+     * NEXT_MAJOR: uncomment and use the $environment argument.
+     *
+     * @return TwigRendererEngine
+     */
+    protected function getRenderingEngine(/* \Twig_Environment $environment = null */)
     {
+        $environment = current(\func_get_args());
+        if (null === $environment && method_exists(AppVariable::class, 'getToken')) {
+            @trigger_error(
+                'Not passing a \Twig_Environment instance to '.__METHOD__.
+                ' is deprecated since 0.x and will not be possible in 1.0',
+                E_USER_DEPRECATED
+            );
+        }
+
         return new TwigRendererEngine(['form_div_layout.html.twig'], $environment);
     }
 

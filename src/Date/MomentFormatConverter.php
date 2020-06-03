@@ -59,7 +59,6 @@ class MomentFormatConverter
     public function convert($format)
     {
         $size = \strlen($format);
-
         $output = '';
         //process the format string letter by letter
         for ($i = 0; $i < $size; ++$i) {

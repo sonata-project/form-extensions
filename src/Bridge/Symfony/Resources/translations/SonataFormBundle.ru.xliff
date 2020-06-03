@@ -14,6 +14,10 @@
                 <source>label_type_no</source>
                 <target>нет</target>
             </trans-unit>
+            <trans-unit id="sonata_form_template_box_file_found_in">
+                <source>sonata_form_template_box_file_found_in</source>
+                <target>Этот файл можно найти в</target>
+            </trans-unit>
             <trans-unit id="label_type_equals">
                 <source>label_type_equals</source>
                 <target>равен</target>

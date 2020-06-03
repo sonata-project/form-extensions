@@ -45,25 +45,25 @@ class ErrorElementTest extends TestCase
 
         if ($this->context instanceof ExecutionContextInterface) {
             $builder = $this->createMock(ConstraintViolationBuilderInterface::class);
-            $builder
+            $builder->expects($this->any())
                 ->method($this->anything())
                 ->willReturnSelf();
 
-            $this->context
+            $this->context->expects($this->any())
                 ->method('buildViolation')
                 ->willReturn($builder);
 
             $validator = $this->createMock(ValidatorInterface::class);
 
             $this->contextualValidator = $this->createMock(ContextualValidatorInterface::class);
-            $this->contextualValidator
+            $this->contextualValidator->expects($this->any())
                 ->method($this->anything())
                 ->willReturnSelf();
-            $validator
+            $validator->expects($this->any())
                 ->method('inContext')
                 ->willReturn($this->contextualValidator);
 
-            $this->context
+            $this->context->expects($this->any())
                 ->method('getValidator')
                 ->willReturn($validator);
         }
@@ -73,12 +73,12 @@ class ErrorElementTest extends TestCase
         $this->errorElement = new ErrorElement($this->subject, $constraintValidatorFactory, $this->context, 'foo_core');
     }
 
-    public function testGetSubject(): void
+    public function testGetSubject()
     {
         $this->assertSame($this->subject, $this->errorElement->getSubject());
     }
 
-    public function testGetErrorsEmpty(): void
+    public function testGetErrorsEmpty()
     {
         $this->assertSame([], $this->errorElement->getErrors());
     }
@@ -86,7 +86,7 @@ class ErrorElementTest extends TestCase
     /**
      * @group legacy
      */
-    public function testGetErrors(): void
+    public function testGetErrors()
     {
         $this->errorElement->addViolation('Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR');
         $this->assertSame([['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']], $this->errorElement->getErrors());
@@ -95,7 +95,7 @@ class ErrorElementTest extends TestCase
     /**
      * @group legacy
      */
-    public function testAddViolation(): void
+    public function testAddViolation()
     {
         $this->errorElement->addViolation(['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']);
         $this->assertSame([['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']], $this->errorElement->getErrors());
@@ -104,7 +104,7 @@ class ErrorElementTest extends TestCase
     /**
      * @group legacy
      */
-    public function testAddViolationWithTranslationDomain(): void
+    public function testAddViolationWithTranslationDomain()
     {
         $this->errorElement->addViolation(['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR'], [], null, 'translation_domain');
         $this->assertSame([['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']], $this->errorElement->getErrors());
@@ -113,7 +113,7 @@ class ErrorElementTest extends TestCase
     /**
      * @group legacy
      */
-    public function testAddConstraint(): void
+    public function testAddConstraint()
     {
         $constraint = new NotNull();
         if ($this->context instanceof LegacyExecutionContextInterface) {
@@ -136,7 +136,7 @@ class ErrorElementTest extends TestCase
     /**
      * @group legacy
      */
-    public function testWith(): void
+    public function testWith()
     {
         $constraint = new NotNull();
 
@@ -162,7 +162,7 @@ class ErrorElementTest extends TestCase
     /**
      * @group legacy
      */
-    public function testCall(): void
+    public function testCall()
     {
         $constraint = new NotNull();
 
@@ -185,7 +185,7 @@ class ErrorElementTest extends TestCase
         $this->errorElement->end();
     }
 
-    public function testCallException(): void
+    public function testCallException()
     {
         $this->expectException('RuntimeException');
         $this->expectExceptionMessage('Unable to recognize the command');
@@ -194,7 +194,7 @@ class ErrorElementTest extends TestCase
         $this->errorElement->baz();
     }
 
-    public function testGetFullPropertyPath(): void
+    public function testGetFullPropertyPath()
     {
         $this->errorElement->with('baz');
         $this->assertSame('bar.baz', $this->errorElement->getFullPropertyPath());
@@ -206,20 +206,20 @@ class ErrorElementTest extends TestCase
     /**
      * @group legacy
      */
-    public function testFluidInterface(): void
+    public function testFluidInterface()
     {
         $constraint = new NotNull();
 
         if ($this->context instanceof LegacyExecutionContextInterface) {
-            $this->context
+            $this->context->expects($this->any())
                 ->method('validateValue')
                 ->with($this->equalTo($this->subject), $this->equalTo($constraint), $this->equalTo(''), $this->equalTo('foo_core'))
                 ->willReturn(null);
         } else {
-            $this->contextualValidator
+            $this->contextualValidator->expects($this->any())
                 ->method('atPath')
                 ->with('');
-            $this->contextualValidator
+            $this->contextualValidator->expects($this->any())
                 ->method('validate')
                 ->with($this->subject, $constraint, ['foo_core']);
         }
@@ -229,5 +229,16 @@ class ErrorElementTest extends TestCase
         $this->assertSame($this->errorElement, $this->errorElement->addViolation('Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR'));
         $this->assertSame($this->errorElement, $this->errorElement->addConstraint($constraint));
         $this->assertSame($this->errorElement, $this->errorElement->assertNotNull());
+    }
+
+    public function testExceptionIsThrownWhenContextIsString()
+    {
+        $constraintValidatorFactory = $this->createMock(ConstraintValidatorFactoryInterface::class);
+
+        $this->expectException(
+            \TypeError::class
+        );
+
+        $this->errorElement = new ErrorElement($this->subject, $constraintValidatorFactory, 'foo', 'foo_core');
     }
 }

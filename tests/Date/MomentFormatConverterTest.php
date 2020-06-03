@@ -23,7 +23,7 @@ use Sonata\Form\Date\MomentFormatConverter;
  */
 class MomentFormatConverterTest extends TestCase
 {
-    public function testPhpToMoment(): void
+    public function testPhpToMoment()
     {
         $mfc = new MomentFormatConverter();
 

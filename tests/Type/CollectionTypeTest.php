@@ -15,12 +15,49 @@ namespace Sonata\Form\Tests\Type;
 
 use Sonata\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CollectionTypeTest extends TypeTestCase
 {
-    public function testGetDefaultOptions(): void
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testBuildForm()
+    {
+        $formBuilder = $this->createMock(FormBuilder::class);
+        $formBuilder
+            ->expects($this->any())
+            ->method('add')
+            ->willReturnCallback(function ($name, $type = null) {
+                if (null !== $type) {
+                    $this->assertTrue(class_exists($type), sprintf('Unable to ensure %s is a FQCN', $type));
+                }
+            });
+
+        $type = new CollectionType();
+
+        $type->buildForm($formBuilder, [
+            'modifiable' => false,
+            'type' => TextType::class,
+            'type_options' => [],
+            'pre_bind_data_callback' => null,
+            'btn_add' => 'link_add',
+            'btn_catalogue' => 'SonataFormBundle',
+        ]);
+    }
+
+    public function testGetParent()
+    {
+        $form = new CollectionType();
+
+        $parentRef = $form->getParent();
+
+        $this->assertTrue(class_exists($parentRef), sprintf('Unable to ensure %s is a FQCN', $parentRef));
+    }
+
+    public function testGetDefaultOptions()
     {
         $type = new CollectionType();
 
@@ -32,7 +69,7 @@ class CollectionTypeTest extends TypeTestCase
         $this->assertSame(TextType::class, $options['type']);
         $this->assertCount(0, $options['type_options']);
         $this->assertSame('link_add', $options['btn_add']);
-        $this->assertSame('SonataCoreBundle', $options['btn_catalogue']);
+        $this->assertSame('SonataFormBundle', $options['btn_catalogue']);
         $this->assertNull($options['pre_bind_data_callback']);
     }
 }

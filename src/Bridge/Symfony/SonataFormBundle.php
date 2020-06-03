@@ -11,21 +11,13 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\Form\Bridge\Symfony\Bundle;
+namespace Sonata\Form\Bridge\Symfony;
 
 use Sonata\Form\Bridge\Symfony\DependencyInjection\SonataFormExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class SonataFormBundle extends Bundle
 {
-    /**
-     * @return string
-     */
-    public function getPath()
-    {
-        return __DIR__.'/..';
-    }
-
     /**
      * @return string
      */

@@ -22,13 +22,11 @@
             <tag name="form.type" alias="sonata_type_date_picker"/>
             <argument type="service" id="sonata.form.date.moment_format_converter"/>
             <argument type="service" id="translator"/>
-            <argument type="service" id="request_stack"/>
         </service>
         <service id="sonata.form.type.datetime_picker" class="Sonata\Form\Type\DateTimePickerType">
             <tag name="form.type" alias="sonata_type_datetime_picker"/>
             <argument type="service" id="sonata.form.date.moment_format_converter"/>
             <argument type="service" id="translator"/>
-            <argument type="service" id="request_stack"/>
         </service>
         <service id="sonata.form.type.date_range_picker" class="Sonata\Form\Type\DateRangePickerType">
             <tag name="form.type" alias="sonata_type_date_range_picker"/>

@@ -25,23 +25,23 @@ use Symfony\Component\Form\FormEvents;
  */
 class ResizeFormListenerTest extends TestCase
 {
-    public function testGetSubscribedEvents(): void
+    public function testGetSubscribedEvents()
     {
         $events = ResizeFormListener::getSubscribedEvents();
 
         $this->assertArrayHasKey(FormEvents::PRE_SET_DATA, $events);
         $this->assertSame('preSetData', $events[FormEvents::PRE_SET_DATA]);
         $this->assertArrayHasKey(FormEvents::PRE_SUBMIT, $events);
-        $this->assertSame('preSubmit', $events[FormEvents::PRE_SUBMIT]);
+        $this->assertSame('preBind', $events[FormEvents::PRE_SUBMIT]);
         $this->assertArrayHasKey(FormEvents::SUBMIT, $events);
-        $this->assertSame('onSubmit', $events[FormEvents::SUBMIT]);
+        $this->assertSame('onBind', $events[FormEvents::SUBMIT]);
     }
 
-    public function testPreSetDataWithNullData(): void
+    public function testPreSetDataWithNullData()
     {
         $listener = new ResizeFormListener('form', [], false, null);
 
-        $form = $this->createMock(Form::class);
+        $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
         $form->expects($this->once())
             ->method('getIterator')
             ->willReturn(new \ArrayIterator());
@@ -53,11 +53,11 @@ class ResizeFormListenerTest extends TestCase
         $listener->preSetData($event);
     }
 
-    public function testPreSetDataThrowsExceptionWithStringEventData(): void
+    public function testPreSetDataThrowsExceptionWithStringEventData()
     {
         $listener = new ResizeFormListener('form', [], false, null);
 
-        $form = $this->createMock(Form::class);
+        $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
 
         $event = new FormEvent($form, '');
 
@@ -66,7 +66,7 @@ class ResizeFormListenerTest extends TestCase
         $listener->preSetData($event);
     }
 
-    public function testPreSetData(): void
+    public function testPreSetData()
     {
         $typeOptions = [
             'default' => 'option',
@@ -80,7 +80,7 @@ class ResizeFormListenerTest extends TestCase
             'default' => 'option',
         ];
 
-        $form = $this->createMock(Form::class);
+        $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
         $form->expects($this->once())
             ->method('getIterator')
             ->willReturn(new \ArrayIterator(['foo' => 'bar']));
@@ -98,22 +98,22 @@ class ResizeFormListenerTest extends TestCase
         $listener->preSetData($event);
     }
 
-    public function testPreSubmitWithResizeOnBindFalse(): void
+    public function testPreSubmitWithResizeOnBindFalse()
     {
         $listener = new ResizeFormListener('form', [], false, null);
 
-        $event = $this->createMock(FormEvent::class);
+        $event = $this->getMockBuilder(FormEvent::class)->disableOriginalConstructor()->getMock();
         $event->expects($this->never())
             ->method('getForm');
 
         $listener->preSubmit($event);
     }
 
-    public function testPreSubmitDataWithNullData(): void
+    public function testPreSubmitDataWithNullData()
     {
         $listener = new ResizeFormListener('form', [], true, null);
 
-        $form = $this->createMock(Form::class);
+        $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
         $form->expects($this->once())
             ->method('getIterator')
             ->willReturn(new \ArrayIterator(['foo' => 'bar']));
@@ -125,11 +125,12 @@ class ResizeFormListenerTest extends TestCase
         $listener->preSubmit($event);
     }
 
-    public function testPreSubmitThrowsExceptionWithIntEventData(): void
+    public function testPreSubmitThrowsExceptionWithIntEventData()
     {
         $listener = new ResizeFormListener('form', [], true, null);
 
-        $form = $this->createMock(Form::class);
+        $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
+
         $event = new FormEvent($form, 123);
 
         $this->expectException(UnexpectedTypeException::class);
@@ -137,7 +138,7 @@ class ResizeFormListenerTest extends TestCase
         $listener->preSubmit($event);
     }
 
-    public function testPreSubmitData(): void
+    public function testPreSubmitData()
     {
         $typeOptions = [
             'default' => 'option',
@@ -150,7 +151,7 @@ class ResizeFormListenerTest extends TestCase
             'default' => 'option',
         ];
 
-        $form = $this->createMock(Form::class);
+        $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
         $form->expects($this->once())
             ->method('getIterator')
             ->willReturn(new \ArrayIterator(['foo' => 'bar']));
@@ -168,7 +169,7 @@ class ResizeFormListenerTest extends TestCase
         $listener->preSubmit($event);
     }
 
-    public function testPreSubmitDataWithClosure(): void
+    public function testPreSubmitDataWithClosure()
     {
         $typeOptions = [
             'default' => 'option',
@@ -188,7 +189,7 @@ class ResizeFormListenerTest extends TestCase
             'data' => 'caz',
         ];
 
-        $form = $this->createMock(Form::class);
+        $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
         $form->expects($this->once())
             ->method('getIterator')
             ->willReturn(new \ArrayIterator(['foo' => 'bar']));
@@ -204,22 +205,22 @@ class ResizeFormListenerTest extends TestCase
         $listener->preSubmit($event);
     }
 
-    public function testOnSubmitWithResizeOnBindFalse(): void
+    public function testOnSubmitWithResizeOnBindFalse()
     {
         $listener = new ResizeFormListener('form', [], false, null);
 
-        $event = $this->createMock(FormEvent::class);
+        $event = $this->getMockBuilder(FormEvent::class)->disableOriginalConstructor()->getMock();
         $event->expects($this->never())
             ->method('getForm');
 
         $listener->onSubmit($event);
     }
 
-    public function testOnSubmitDataWithNullData(): void
+    public function testOnSubmitDataWithNullData()
     {
         $listener = new ResizeFormListener('form', [], true, null);
 
-        $form = $this->createMock(Form::class);
+        $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
         $form->expects($this->never())
             ->method('has');
 
@@ -228,11 +229,11 @@ class ResizeFormListenerTest extends TestCase
         $listener->onSubmit($event);
     }
 
-    public function testOnSubmitThrowsExceptionWithIntEventData(): void
+    public function testOnSubmitThrowsExceptionWithIntEventData()
     {
         $listener = new ResizeFormListener('form', [], true, null);
 
-        $form = $this->createMock(Form::class);
+        $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
 
         $event = new FormEvent($form, 123);
 
@@ -241,7 +242,7 @@ class ResizeFormListenerTest extends TestCase
         $listener->onSubmit($event);
     }
 
-    public function testOnSubmit(): void
+    public function testOnSubmit()
     {
         $listener = new ResizeFormListener('form', [], true, null);
 
@@ -250,7 +251,7 @@ class ResizeFormListenerTest extends TestCase
         $reflectedMethod->setAccessible(true);
         $reflectedMethod->setValue($listener, ['foo']);
 
-        $form = $this->createMock(Form::class);
+        $form = $this->getMockBuilder(Form::class)->disableOriginalConstructor()->getMock();
         $form->expects($this->at(2))
             ->method('has')
             ->with('baz')
@@ -266,7 +267,7 @@ class ResizeFormListenerTest extends TestCase
             'baz' => 'baz-value',
         ];
 
-        $event = $this->createMock(FormEvent::class);
+        $event = $this->getMockBuilder(FormEvent::class)->disableOriginalConstructor()->getMock();
         $event->expects($this->once())
             ->method('getForm')
             ->willReturn($form);

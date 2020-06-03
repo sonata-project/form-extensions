@@ -15,16 +15,48 @@ namespace Sonata\Form\Tests\Type;
 
 use Sonata\Form\Type\DatePickerType;
 use Sonata\Form\Type\DateRangePickerType;
+use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class DateRangePickerTypeTest extends TypeTestCase
 {
-    public function testGetDefaultOptions(): void
+    public function testBuildForm()
     {
-        $type = new DateRangePickerType();
+        $formBuilder = $this->createMock(FormBuilder::class);
+        $formBuilder
+            ->expects($this->any())
+            ->method('add')
+            ->willReturnCallback(function ($name, $type = null) {
+                if (null !== $type) {
+                    $this->assertTrue(class_exists($type), sprintf('Unable to ensure %s is a FQCN', $type));
+                }
+            });
 
-        $this->assertSame('sonata_type_date_range_picker', $type->getBlockPrefix());
+        $type = new DateRangePickerType($this->createMock(TranslatorInterface::class));
+        $type->buildForm($formBuilder, [
+            'field_options' => [],
+            'field_options_start' => [],
+            'field_options_end' => [],
+            'field_type' => DatePickerType::class,
+        ]);
+    }
+
+    public function testGetParent()
+    {
+        $form = new DateRangePickerType($this->createMock(TranslatorInterface::class));
+
+        $parentRef = $form->getParent();
+
+        $this->assertTrue(class_exists($parentRef), sprintf('Unable to ensure %s is a FQCN', $parentRef));
+    }
+
+    public function testGetDefaultOptions()
+    {
+        $type = new DateRangePickerType($this->createMock(TranslatorInterface::class));
+
+        $this->assertSame('sonata_type_date_range_picker', $type->getName());
 
         $type->configureOptions($resolver = new OptionsResolver());
 

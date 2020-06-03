@@ -24,12 +24,11 @@ use Symfony\Component\Validator\Exception\ValidatorException;
 final class FooValidatorService
 {
     /**
-     * @param ErrorElement $errorElement
-     * @param string       $value
+     * @param string $value
      *
      * @throws ValidatorException
      */
-    public function fooValidatorMethod(ErrorElement $errorElement, $value): void
+    public function fooValidatorMethod(ErrorElement $errorElement, $value)
     {
         throw new ValidatorException($errorElement->getSubject().' is equal to '.$value);
     }
