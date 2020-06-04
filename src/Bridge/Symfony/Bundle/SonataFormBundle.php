@@ -17,7 +17,7 @@ use Sonata\Form\Bridge\Symfony\DependencyInjection\SonataFormExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * @deprecated Since version 1.x, to be removed in 2.0. Use Sonata\Form\Bridge\Symfony\SonataFormBundle instead.
+ * @deprecated Since version 1.4, to be removed in 2.0. Use Sonata\Form\Bridge\Symfony\SonataFormBundle instead.
  */
 final class SonataFormBundle extends Bundle
 {

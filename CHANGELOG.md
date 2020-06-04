@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.4.0](https://github.com/sonata-project/form-extensions/compare/1.3.0...1.4.0) - 2020-06-04
+### Added
+- add `Sonata\Form\Bridge\Symfony\Bundle\SonataFormBundle`
+
+### Deprecated
+- deprecated `Sonata\Form\Bridge\Symfony\Bundle\SonataFormBundle`. Use
+  `Sonata\Form\Bridge\Symfony\Bundle\SonataFormBundle` instead.
+
+### Removed
+- return type hints in `Sonata\Form\Serializer\BaseSerializerHandler::serializeObjectToId()`
+- return type hints in `Sonata\Form\Serializer\SerializerHandlerIntertface::getType()`
+- return type hints in `Sonata\Form\Type\BaseStatusType::configureOptions()`
+- color translations and templates
+
 ## [1.3.0](https://github.com/sonata-project/form-extensions/compare/1.2.0...1.3.0) - 2020-04-10
 ### Added
 - Added `Sonata\Form\Serializer\BaseSerializerHandler`
