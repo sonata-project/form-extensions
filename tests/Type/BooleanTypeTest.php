@@ -47,7 +47,7 @@ class BooleanTypeTest extends TypeTestCase
             /*
              * NEXT_MAJOR: remove catalogue.
              */
-            'catalogue' => 'SonataFormBundle',
+            'catalogue' => 'SonataCoreBundle',
 
             // Use directly translation_domain
             'translation_domain' => static function (Options $options) {
@@ -129,8 +129,8 @@ class BooleanTypeTest extends TypeTestCase
 
         $expectedOptions = [
             'transform' => false,
-            'catalogue' => 'SonataFormBundle',
-            'choice_translation_domain' => 'SonataFormBundle',
+            'catalogue' => 'SonataCoreBundle',
+            'choice_translation_domain' => 'SonataCoreBundle',
             'choices_as_values' => true,
             'choices' => [1 => 'foo_yes', 2 => 'foo_no'],
             'translation_domain' => 'fooTrans',
@@ -164,7 +164,7 @@ class BooleanTypeTest extends TypeTestCase
 
         $expectedOptions = [
             'transform' => false,
-            'choice_translation_domain' => 'SonataFormBundle',
+            'choice_translation_domain' => 'SonataCoreBundle',
             'choices_as_values' => true,
             'catalogue' => 'fooTrans',
             'choices' => [1 => 'foo_yes', 2 => 'foo_no'],

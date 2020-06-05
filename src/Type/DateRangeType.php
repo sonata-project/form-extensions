@@ -67,7 +67,7 @@ class DateRangeType extends AbstractType
         $options['field_options_start'] = array_merge(
             [
                 'label' => 'date_range_start',
-                'translation_domain' => 'SonataFormBundle',
+                'translation_domain' => 'SonataCoreBundle',
             ],
             $options['field_options_start']
         );
@@ -75,7 +75,7 @@ class DateRangeType extends AbstractType
         $options['field_options_end'] = array_merge(
             [
                 'label' => 'date_range_end',
-                'translation_domain' => 'SonataFormBundle',
+                'translation_domain' => 'SonataCoreBundle',
             ],
             $options['field_options_end']
         );

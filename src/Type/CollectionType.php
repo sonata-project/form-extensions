@@ -52,7 +52,7 @@ class CollectionType extends AbstractType
             'type_options' => [],
             'pre_bind_data_callback' => null,
             'btn_add' => 'link_add',
-            'btn_catalogue' => 'SonataFormBundle',
+            'btn_catalogue' => 'SonataCoreBundle',
         ]);
     }
 

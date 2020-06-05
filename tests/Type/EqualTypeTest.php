@@ -63,7 +63,7 @@ class EqualTypeTest extends TypeTestCase
         $options = $resolver->resolve();
 
         $expected = [
-            'choice_translation_domain' => 'SonataFormBundle',
+            'choice_translation_domain' => 'SonataCoreBundle',
             'choices' => ['label_type_equals' => 1, 'label_type_not_equals' => 2],
             'choices_as_values' => true,
         ];

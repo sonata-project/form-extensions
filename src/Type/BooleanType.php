@@ -35,7 +35,7 @@ class BooleanType extends AbstractType
             $builder->addModelTransformer(new BooleanTypeToBooleanTransformer());
         }
 
-        if ('SonataFormBundle' !== $options['catalogue']) {
+        if ('SonataCoreBundle' !== $options['catalogue']) {
             @trigger_error(
                 'Option "catalogue" is deprecated since sonata-project/form-extensions 0.x and will be removed in 1.0.'
                 .' Use option "translation_domain" instead.',
@@ -52,8 +52,8 @@ class BooleanType extends AbstractType
              * NEXT_MAJOR: remove this block.
              * @deprecated since sonata-project/form-extensions 0.x, to be removed in 1.0.
              */
-            'catalogue' => 'SonataFormBundle',
-            'choice_translation_domain' => 'SonataFormBundle',
+            'catalogue' => 'SonataCoreBundle',
+            'choice_translation_domain' => 'SonataCoreBundle',
             'choices' => [
                 'label_type_yes' => self::TYPE_YES,
                 'label_type_no' => self::TYPE_NO,
