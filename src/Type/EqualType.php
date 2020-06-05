@@ -81,7 +81,7 @@ class EqualType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $defaultOptions = [
-            'choice_translation_domain' => 'SonataFormBundle',
+            'choice_translation_domain' => 'SonataCoreBundle',
             'choices' => [
                 'label_type_equals' => self::TYPE_IS_EQUAL,
                 'label_type_not_equals' => self::TYPE_IS_NOT_EQUAL,
