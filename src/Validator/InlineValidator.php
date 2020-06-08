@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Validator;
 
+use Sonata\CoreBundle\Validator\ErrorElement as DeprecatedErrorElement;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -65,6 +66,15 @@ class InlineValidator extends ConstraintValidator
      */
     protected function getErrorElement($value)
     {
+        if (class_exists(DeprecatedErrorElement::class)) {
+            return new DeprecatedErrorElement(
+                $value,
+                $this->constraintValidatorFactory,
+                $this->context,
+                $this->context->getGroup()
+            );
+        }
+
         return new ErrorElement(
             $value,
             $this->constraintValidatorFactory,
