@@ -21,7 +21,6 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -32,7 +31,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 abstract class BasePickerType extends AbstractType
 {
     /**
-     * @var TranslatorInterface|LegacyTranslatorInterface|null
+     * @var TranslatorInterface|null
      */
     protected $translator;
 
@@ -48,10 +47,9 @@ abstract class BasePickerType extends AbstractType
 
     public function __construct(MomentFormatConverter $formatConverter, $translator, ?RequestStack $requestStack = null)
     {
-        if (!$translator instanceof LegacyTranslatorInterface && !$translator instanceof TranslatorInterface) {
+        if (!$translator instanceof TranslatorInterface) {
             throw new \InvalidArgumentException(sprintf(
-                'Argument 2 should be an instance of %s or %s',
-                LegacyTranslatorInterface::class,
+                'Argument 2 should be an instance of %s',
                 TranslatorInterface::class
             ));
         }
@@ -73,11 +71,7 @@ abstract class BasePickerType extends AbstractType
         $this->formatConverter = $formatConverter;
         $this->translator = $translator;
 
-        if ($translator instanceof LegacyTranslatorInterface) {
-            $this->locale = $this->translator->getLocale();
-        } else {
-            $this->locale = $this->getLocale($requestStack);
-        }
+        $this->locale = $this->getLocale($requestStack);
     }
 
     /**
