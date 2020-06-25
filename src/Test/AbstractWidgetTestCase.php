@@ -89,7 +89,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
             // symfony/symfony (running from this bundle)
             __DIR__.'/../../vendor/symfony/symfony/src/Symfony/Bridge/Twig/Resources/views/Form',
             // symfony/symfony (running from other bundles)
-            __DIR__.'/../../../../../symfony/symfony/src/Symfony/Bridge/Twig/Resources/views/Form',
+            __DIR__.'/../../../../symfony/symfony/src/Symfony/Bridge/Twig/Resources/views/Form',
         ], 'is_dir');
 
         $twigPaths[] = __DIR__.'/../Bridge/Symfony/Resources/views/Form';
