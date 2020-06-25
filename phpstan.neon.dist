@@ -10,9 +10,5 @@ parameters:
         - src/Test/AbstractWidgetTestCase.php
         - tests/bootstrap.php
 
-    autoload_files:
-        - vendor/autoload.php
-
     ignoreErrors:
         - '#Class Sonata\\Form\\Validator\\LegacyExecutionContextInterface not found.#'
-        - '#Class Symfony\\Component\\Translation\\TranslatorInterface not found.#'
