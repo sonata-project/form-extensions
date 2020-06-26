@@ -45,29 +45,8 @@ abstract class BasePickerType extends AbstractType
      */
     private $formatConverter;
 
-    public function __construct(MomentFormatConverter $formatConverter, $translator, ?RequestStack $requestStack = null)
+    public function __construct(MomentFormatConverter $formatConverter, TranslatorInterface $translator, RequestStack $requestStack)
     {
-        if (!$translator instanceof TranslatorInterface) {
-            throw new \InvalidArgumentException(sprintf(
-                'Argument 2 should be an instance of %s',
-                TranslatorInterface::class
-            ));
-        }
-
-        if (null === $requestStack) {
-            if ($translator instanceof TranslatorInterface) {
-                throw new \InvalidArgumentException(sprintf(
-                    'Argument 3 should be an instance of %s',
-                    RequestStack::class
-                ));
-            }
-
-            @trigger_error(sprintf(
-                'Not passing the request stack as argument 3 to %s() is deprecated since sonata-project/form-extensions 1.2 and will be mandatory in 2.0.',
-                __METHOD__
-            ), E_USER_DEPRECATED);
-        }
-
         $this->formatConverter = $formatConverter;
         $this->translator = $translator;
 
