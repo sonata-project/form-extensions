@@ -21,7 +21,6 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -32,7 +31,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 abstract class BasePickerType extends AbstractType
 {
     /**
-     * @var TranslatorInterface|LegacyTranslatorInterface|null
+     * @var TranslatorInterface|null
      */
     protected $translator;
 
@@ -46,38 +45,12 @@ abstract class BasePickerType extends AbstractType
      */
     private $formatConverter;
 
-    public function __construct(MomentFormatConverter $formatConverter, $translator, ?RequestStack $requestStack = null)
+    public function __construct(MomentFormatConverter $formatConverter, TranslatorInterface $translator, RequestStack $requestStack)
     {
-        if (!$translator instanceof LegacyTranslatorInterface && !$translator instanceof TranslatorInterface) {
-            throw new \InvalidArgumentException(sprintf(
-                'Argument 2 should be an instance of %s or %s',
-                LegacyTranslatorInterface::class,
-                TranslatorInterface::class
-            ));
-        }
-
-        if (null === $requestStack) {
-            if ($translator instanceof TranslatorInterface) {
-                throw new \InvalidArgumentException(sprintf(
-                    'Argument 3 should be an instance of %s',
-                    RequestStack::class
-                ));
-            }
-
-            @trigger_error(sprintf(
-                'Not passing the request stack as argument 3 to %s() is deprecated since sonata-project/form-extensions 1.2 and will be mandatory in 2.0.',
-                __METHOD__
-            ), E_USER_DEPRECATED);
-        }
-
         $this->formatConverter = $formatConverter;
         $this->translator = $translator;
 
-        if ($translator instanceof LegacyTranslatorInterface) {
-            $this->locale = $this->translator->getLocale();
-        } else {
-            $this->locale = $this->getLocale($requestStack);
-        }
+        $this->locale = $this->getLocale($requestStack);
     }
 
     /**

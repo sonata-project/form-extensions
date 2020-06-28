@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.0](https://github.com/sonata-project/form-extensions/compare/1.4.0...1.5.0) - 2020-06-27
+### Fixed
+- [[#101](https://github.com/sonata-project/form-extensions/pull/101)]
+  AbstractWidgetTestCase now works then testing with symfony/symfony on other
+bundles ([@jordisala1991](https://github.com/jordisala1991))
+
+### Removed
+- [[#102](https://github.com/sonata-project/form-extensions/pull/102)] Support
+  for Symfony 3.4 ([@jordisala1991](https://github.com/jordisala1991))
+
 ## [1.4.0](https://github.com/sonata-project/form-extensions/compare/1.3.0...1.4.0) - 2020-06-04
 ### Added
 - add `Sonata\Form\Bridge\Symfony\Bundle\SonataFormBundle`
