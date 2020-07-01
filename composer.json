@@ -1,6 +1,6 @@
 {
     "name": "sonata-project/form-extensions",
-    "type": "symfony-bundle",
+    "type": "library",
     "description": "Symfony form extensions",
     "keywords": [
         "symfony",
@@ -61,7 +61,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Sonata\\Form\\": "src/"
+            "Sonata\\Form\\": "src/",
+            "Sonata\\Form\\Bridge\\Symfony\\": "src/Bridge/Symfony/"
         }
     },
     "autoload-dev": {

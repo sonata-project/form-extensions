@@ -13,27 +13,24 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Bridge\Symfony\Bundle;
 
-use Sonata\Form\Bridge\Symfony\DependencyInjection\SonataFormExtension;
+use Sonata\Form\Bridge\Symfony\SonataFormBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * @deprecated Since version 1.4, to be removed in 2.0. Use Sonata\Form\Bridge\Symfony\SonataFormBundle instead.
- */
-final class SonataFormBundle extends Bundle
-{
-    /**
-     * @return string
-     */
-    public function getPath()
-    {
-        return __DIR__.'/..';
-    }
+@trigger_error(sprintf(
+    'The %s\SonataFormBundle class is deprecated since version 1.4, to be removed in 2.0. Use %s instead.',
+    __NAMESPACE__,
+    SonataFormBundle::class
+), E_USER_DEPRECATED);
 
+if (false) {
     /**
-     * @return string
+     * NEXT_MAJOR: remove this class.
+     *
+     * @deprecated Since version 1.4, to be removed in 2.0. Use Sonata\Form\Bridge\Symfony\SonataFormBundle instead.
      */
-    protected function getContainerExtensionClass()
+    final class SonataFormBundle extends Bundle
     {
-        return SonataFormExtension::class;
     }
 }
+
+class_alias(SonataFormBundle::class, __NAMESPACE__.'\SonataFormBundle');
