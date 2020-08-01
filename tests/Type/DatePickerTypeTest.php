@@ -13,15 +13,12 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\Type;
 
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Sonata\Form\Date\MomentFormatConverter;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -29,12 +26,24 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class DatePickerTypeTest extends TypeTestCase
 {
+    /**
+     * @var Stub&TranslatorInterface
+     */
+    private $translator;
+
+    protected function setUp(): void
+    {
+        $this->translator = $this->createStub(TranslatorInterface::class);
+
+        parent::setUp();
+    }
+
     public function testParentIsDateType(): void
     {
         $form = new DatePickerType(
             $this->createMock(MomentFormatConverter::class),
-            $this->getTranslatorMock(),
-            $this->getRequestStack()
+            $this->translator,
+            'en'
         );
 
         $this->assertSame(DateType::class, $form->getParent());
@@ -42,7 +51,7 @@ class DatePickerTypeTest extends TypeTestCase
 
     public function testGetName(): void
     {
-        $type = new DatePickerType(new MomentFormatConverter(), $this->getTranslatorMock(), $this->getRequestStack());
+        $type = new DatePickerType(new MomentFormatConverter(), $this->translator, 'en');
 
         $this->assertSame('sonata_type_date_picker', $type->getBlockPrefix());
     }
@@ -63,37 +72,10 @@ class DatePickerTypeTest extends TypeTestCase
 
     protected function getExtensions()
     {
-        $type = new DatePickerType(new MomentFormatConverter(), $this->getTranslatorMock(), $this->getRequestStack());
+        $type = new DatePickerType(new MomentFormatConverter(), $this->translator, 'en');
 
         return [
             new PreloadedExtension([$type], []),
         ];
-    }
-
-    /**
-     * @return MockObject|TranslatorInterface|LegacyTranslatorInterface\
-     */
-    private function getTranslatorMock(): MockObject
-    {
-        if (interface_exists(TranslatorInterface::class)) {
-            return $this->createMock(TranslatorInterface::class);
-        }
-
-        $translator = $this->createMock(LegacyTranslatorInterface::class);
-        $translator->method('getLocale')->willReturn('en');
-
-        return $translator;
-    }
-
-    private function getRequestStack(): RequestStack
-    {
-        $requestStack = new RequestStack();
-        $request = $this->createMock(Request::class);
-        $request
-            ->method('getLocale')
-            ->willReturn('en');
-        $requestStack->push($request);
-
-        return $requestStack;
     }
 }

@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -28,7 +29,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *
  * @author Hugo Briand <briand@ekino.com>
  */
-abstract class BasePickerType extends AbstractType
+abstract class BasePickerType extends AbstractType implements LocaleAwareInterface
 {
     /**
      * @var TranslatorInterface|null
@@ -45,12 +46,36 @@ abstract class BasePickerType extends AbstractType
      */
     private $formatConverter;
 
-    public function __construct(MomentFormatConverter $formatConverter, TranslatorInterface $translator, RequestStack $requestStack)
+    /**
+     * NEXT_MAJOR: Add "string" typehint to $requestStackOrDefaultLocale and change the name to defaultLocale.
+     */
+    public function __construct(MomentFormatConverter $formatConverter, TranslatorInterface $translator, $requestStackOrDefaultLocale)
     {
         $this->formatConverter = $formatConverter;
         $this->translator = $translator;
 
-        $this->locale = $this->getLocale($requestStack);
+        // NEXT_MAJOR: Remove this block
+        if (!\is_string($requestStackOrDefaultLocale) && !$requestStackOrDefaultLocale instanceof RequestStack) {
+            throw new \InvalidArgumentException(sprintf(
+                'Argument 3 passed to "%s()" must be of type string or an instance of %s, %s given.',
+                __METHOD__,
+                \is_object($requestStackOrDefaultLocale) ? 'instance of '.\get_class($requestStackOrDefaultLocale) : \gettype($requestStackOrDefaultLocale),
+                RequestStack::class
+            ));
+        }
+
+        // NEXT_MAJOR: Remove this block
+        if (!\is_string($requestStackOrDefaultLocale)) {
+            @trigger_error(sprintf(
+                'Not passing the default locale as argument 3 to "%s()" is deprecated'
+                .' since sonata-project/form-extensions 1.x and will be mandatory in 2.0.',
+                __METHOD__
+            ), E_USER_DEPRECATED);
+
+            $requestStackOrDefaultLocale = $this->getLocaleFromRequest($requestStackOrDefaultLocale);
+        }
+
+        $this->locale = $requestStackOrDefaultLocale;
     }
 
     /**
@@ -120,6 +145,16 @@ abstract class BasePickerType extends AbstractType
         $view->vars['dp_options'] = $dpOptions;
     }
 
+    public function getLocale(): string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale($locale): void
+    {
+        $this->locale = $locale;
+    }
+
     /**
      * Gets base default options for the date pickers.
      */
@@ -154,7 +189,7 @@ abstract class BasePickerType extends AbstractType
         ];
     }
 
-    private function getLocale(RequestStack $requestStack): string
+    private function getLocaleFromRequest(RequestStack $requestStack): string
     {
         if (!$request = $requestStack->getCurrentRequest()) {
             throw new \LogicException('A Request must be available.');
