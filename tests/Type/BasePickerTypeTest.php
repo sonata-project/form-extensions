@@ -13,48 +13,44 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\Type;
 
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Sonata\Form\Date\MomentFormatConverter;
-use Sonata\Form\Type\BasePickerType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Sonata\Form\Tests\Fixtures\Type\DummyPickerType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-
-class BasePickerTest extends BasePickerType
-{
-    public function getName()
-    {
-        return 'base_picker_test';
-    }
-
-    public function getLocale(): string
-    {
-        return $this->locale;
-    }
-
-    protected function getDefaultFormat()
-    {
-        return DateTimeType::HTML5_FORMAT;
-    }
-}
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
 class BasePickerTypeTest extends TestCase
 {
+    /**
+     * @var Stub&TranslatorInterface
+     */
+    private $translator;
+
+    /**
+     * @var MomentFormatConverter
+     */
+    private $momentFormatConverter;
+
+    protected function setUp(): void
+    {
+        $this->momentFormatConverter = new MomentFormatConverter();
+        $this->translator = $this->createStub(TranslatorInterface::class);
+    }
+
     public function testFinishView(): void
     {
-        $type = new BasePickerTest(
-            new MomentFormatConverter(),
-            $this->getTranslatorMock(),
-            $this->getRequestStack()
+        $type = new DummyPickerType(
+            $this->momentFormatConverter,
+            $this->translator,
+            'en'
         );
 
         $view = new FormView();
@@ -85,10 +81,10 @@ class BasePickerTypeTest extends TestCase
 
     public function testTimePickerIntlFormater(): void
     {
-        $type = new BasePickerTest(
-            new MomentFormatConverter(),
-            $this->getTranslatorMock(),
-            $this->getRequestStack()
+        $type = new DummyPickerType(
+            $this->momentFormatConverter,
+            $this->translator,
+            'en'
         );
 
         $view = new FormView();
@@ -107,45 +103,38 @@ class BasePickerTypeTest extends TestCase
         $this->assertSame('0:00', $view->vars['dp_options']['maxDate']);
     }
 
-    /**
-     * @group legacy
-     */
-    public function testConstructWithTwoArguments(): void
+    public function testTimePickerUsesDefaultLocaleWithoutRequest(): void
     {
-        if (interface_exists(TranslatorInterface::class)) {
-            $this->markTestSkipped('Test only available for Symfony < 5');
-        }
-
-        $type = new BasePickerTest(
-            new MomentFormatConverter(),
-            $this->getTranslatorMock('en')
+        $type = new DummyPickerType(
+            $this->momentFormatConverter,
+            $this->translator,
+            'en'
         );
 
         $this->assertSame('en', $type->getLocale());
     }
 
     /**
-     * @return MockObject|TranslatorInterface|LegacyTranslatorInterface
+     * @group legacy
      */
-    private function getTranslatorMock(string $locale = 'ru'): MockObject
+    public function testConstructWithRequestStack(): void
     {
-        if (interface_exists(TranslatorInterface::class)) {
-            return $this->createMock(TranslatorInterface::class);
-        }
+        $type = new DummyPickerType(
+            $this->momentFormatConverter,
+            $this->translator,
+            $this->getRequestStack()
+        );
 
-        $translator = $this->createMock(LegacyTranslatorInterface::class);
-        $translator->method('getLocale')->willReturn($locale);
-
-        return $translator;
+        $this->assertSame('en', $type->getLocale());
     }
 
-    private function getRequestStack(): RequestStack
+    private function getRequestStack(string $locale = 'en'): RequestStack
     {
         $requestStack = new RequestStack();
         $request = $this->createMock(Request::class);
         $request
             ->method('getLocale')
-            ->willReturn('ru');
+            ->willReturn($locale);
         $requestStack->push($request);
 
         return $requestStack;
