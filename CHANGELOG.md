@@ -2,6 +2,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.6.0](https://github.com/sonata-project/form-extensions/compare/1.5.0...1.6.0) - 2020-08-05
+### Deprecated
+- [[#109](https://github.com/sonata-project/form-extensions/pull/109)]
+  Deprecated passing a `RequestStack` object to `BasePickerType` as third
+parameter, the default locale should be passed instead.
+([@franmomu](https://github.com/franmomu))
+
+### Fixed
+- [[#109](https://github.com/sonata-project/form-extensions/pull/109)] Fixed
+  using `BasePickerType` without a request.
+([@franmomu](https://github.com/franmomu))
+- [[#107](https://github.com/sonata-project/form-extensions/pull/107)] Replace
+  `spaceless` deprecated tag with `apply` tag and `spaceless` filter.
+([@franmomu](https://github.com/franmomu))
+
 ## [1.5.0](https://github.com/sonata-project/form-extensions/compare/1.4.0...1.5.0) - 2020-06-27
 ### Fixed
 - [[#101](https://github.com/sonata-project/form-extensions/pull/101)]
