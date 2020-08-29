@@ -16,10 +16,10 @@ Symfony form extensions
 [![Monthly Downloads](https://poser.pugx.org/sonata-project/form-extensions/d/monthly)](https://packagist.org/packages/sonata-project/form-extensions)
 [![Daily Downloads](https://poser.pugx.org/sonata-project/form-extensions/d/daily)](https://packagist.org/packages/sonata-project/form-extensions)
 
-Branch | Travis | Coveralls | Scrutinizer |
------- | ------ | --------- | ----------- |
-1.x   | [![Build Status][travis_stable_badge]][travis_stable_link]     | [![Coverage Status][coveralls_stable_badge]][coveralls_stable_link]     | [![Scrutinizer Status][scrutinizer_stable_badge]][scrutinizer_stable_link] |
-master | [![Build Status][travis_unstable_badge]][travis_unstable_link] | [![Coverage Status][coveralls_unstable_badge]][coveralls_unstable_link] | [![Scrutinizer Status][scrutinizer_unstable_badge]][scrutinizer_unstable_link] |
+Branch | Travis | Coveralls |
+------ | ------ | --------- |
+1.x   | [![Build Status][travis_stable_badge]][travis_stable_link]     | [![Coverage Status][coveralls_stable_badge]][coveralls_stable_link]     |
+master | [![Build Status][travis_unstable_badge]][travis_unstable_link] | [![Coverage Status][coveralls_unstable_badge]][coveralls_unstable_link] |
 
 ## Documentation
 
@@ -45,8 +45,3 @@ This package is available under the [MIT license](LICENSE).
 [coveralls_stable_link]: https://coveralls.io/github/sonata-project/form-extensions?branch=1.x
 [coveralls_unstable_badge]: https://coveralls.io/repos/github/sonata-project/form-extensions/badge.svg?branch=master
 [coveralls_unstable_link]: https://coveralls.io/github/sonata-project/form-extensions?branch=master
-
-[scrutinizer_stable_badge]: https://scrutinizer-ci.com/g/sonata-project/form-extensions/badges/quality-score.png?b=1.x
-[scrutinizer_stable_link]: https://scrutinizer-ci.com/g/sonata-project/form-extensions/?branch=1.x
-[scrutinizer_unstable_badge]: https://scrutinizer-ci.com/g/sonata-project/form-extensions/badges/quality-score.png?b=master
-[scrutinizer_unstable_link]: https://scrutinizer-ci.com/g/sonata-project/form-extensions/?branch=master
