@@ -21,31 +21,8 @@ Now, enable the bundle in ``bundles.php`` file::
         Sonata\Form\Bridge\Symfony\Bundle\SonataFormBundle::class => ['all' => true],
     ];
 
-.. note::
-
-    If you are not using Symfony Flex, you should enable bundles in your
-    ``AppKernel.php``.
-
-.. code-block:: php
-
-    // app/AppKernel.php
-
-    public function registerBundles()
-    {
-        return [
-            // ...
-            new Sonata\Form\Bridge\Symfony\Bundle\SonataFormBundle(),
-            // ...
-        ];
-    }
-
 Configuration
 =============
-
-.. note::
-
-    If you are not using Symfony Flex, this configuration should be added
-    to ``app/config/config.yml``.
 
 When using bootstrap, some widgets need to be wrapped in a special ``div`` element
 depending on whether you are using the standard style for your forms or the
@@ -75,11 +52,6 @@ return formats:
         sonata_form:
             serializer:
                 formats: ['json', 'xml', 'yml']
-
-.. note::
-
-    If you are not using Symfony Flex, this configuration should be added
-    to ``app/config/config.yml``.
 
 Please note that if you are using the admin bundle, this is actually optional:
 The core bundle extension will detect if the configuration node that deals with
