@@ -19,7 +19,6 @@ use Sonata\Form\Validator\ErrorElement;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\ExecutionContextInterface as LegacyExecutionContextInterface;
 use Symfony\Component\Validator\Validator\ContextualValidatorInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
@@ -43,30 +42,28 @@ class ErrorElementTest extends TestCase
                 ->method('getPropertyPath')
                 ->willReturn('bar');
 
-        if ($this->context instanceof ExecutionContextInterface) {
-            $builder = $this->createMock(ConstraintViolationBuilderInterface::class);
-            $builder
-                ->method($this->anything())
-                ->willReturnSelf();
+        $builder = $this->createMock(ConstraintViolationBuilderInterface::class);
+        $builder
+            ->method($this->anything())
+            ->willReturnSelf();
 
-            $this->context
-                ->method('buildViolation')
-                ->willReturn($builder);
+        $this->context
+            ->method('buildViolation')
+            ->willReturn($builder);
 
-            $validator = $this->createMock(ValidatorInterface::class);
+        $validator = $this->createMock(ValidatorInterface::class);
 
-            $this->contextualValidator = $this->createMock(ContextualValidatorInterface::class);
-            $this->contextualValidator
-                ->method($this->anything())
-                ->willReturnSelf();
-            $validator
-                ->method('inContext')
-                ->willReturn($this->contextualValidator);
+        $this->contextualValidator = $this->createMock(ContextualValidatorInterface::class);
+        $this->contextualValidator
+            ->method($this->anything())
+            ->willReturnSelf();
+        $validator
+            ->method('inContext')
+            ->willReturn($this->contextualValidator);
 
-            $this->context
-                ->method('getValidator')
-                ->willReturn($validator);
-        }
+        $this->context
+            ->method('getValidator')
+            ->willReturn($validator);
 
         $this->subject = new Foo();
 
@@ -83,102 +80,63 @@ class ErrorElementTest extends TestCase
         $this->assertSame([], $this->errorElement->getErrors());
     }
 
-    /**
-     * @group legacy
-     */
     public function testGetErrors(): void
     {
         $this->errorElement->addViolation('Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR');
         $this->assertSame([['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']], $this->errorElement->getErrors());
     }
 
-    /**
-     * @group legacy
-     */
     public function testAddViolation(): void
     {
         $this->errorElement->addViolation(['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']);
         $this->assertSame([['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']], $this->errorElement->getErrors());
     }
 
-    /**
-     * @group legacy
-     */
     public function testAddViolationWithTranslationDomain(): void
     {
         $this->errorElement->addViolation(['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR'], [], null, 'translation_domain');
         $this->assertSame([['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']], $this->errorElement->getErrors());
     }
 
-    /**
-     * @group legacy
-     */
     public function testAddConstraint(): void
     {
         $constraint = new NotNull();
-        if ($this->context instanceof LegacyExecutionContextInterface) {
-            $this->context->expects($this->once())
-                ->method('validateValue')
-                ->with($this->equalTo($this->subject), $this->equalTo($constraint), $this->equalTo(''), $this->equalTo('foo_core'))
-                ->willReturn(null);
-        } else {
-            $this->contextualValidator->expects($this->once())
-                ->method('atPath')
-                ->with('');
-            $this->contextualValidator->expects($this->once())
-                ->method('validate')
-                ->with($this->subject, $constraint, ['foo_core']);
-        }
+        $this->contextualValidator->expects($this->once())
+            ->method('atPath')
+            ->with('');
+        $this->contextualValidator->expects($this->once())
+            ->method('validate')
+            ->with($this->subject, $constraint, ['foo_core']);
 
         $this->errorElement->addConstraint($constraint);
     }
 
-    /**
-     * @group legacy
-     */
     public function testWith(): void
     {
         $constraint = new NotNull();
 
-        if ($this->context instanceof LegacyExecutionContextInterface) {
-            $this->context->expects($this->once())
-                ->method('validateValue')
-                ->with($this->equalTo(null), $this->equalTo($constraint), $this->equalTo('bar'), $this->equalTo('foo_core'))
-                ->willReturn(null);
-        } else {
-            $this->contextualValidator->expects($this->once())
-                ->method('atPath')
-                ->with('bar');
-            $this->contextualValidator->expects($this->once())
-                ->method('validate')
-                ->with(null, $constraint, ['foo_core']);
-        }
+        $this->contextualValidator->expects($this->once())
+            ->method('atPath')
+            ->with('bar');
+        $this->contextualValidator->expects($this->once())
+            ->method('validate')
+            ->with(null, $constraint, ['foo_core']);
 
         $this->errorElement->with('bar');
         $this->errorElement->addConstraint($constraint);
         $this->errorElement->end();
     }
 
-    /**
-     * @group legacy
-     */
     public function testCall(): void
     {
         $constraint = new NotNull();
 
-        if ($this->context instanceof LegacyExecutionContextInterface) {
-            $this->context->expects($this->once())
-                ->method('validateValue')
-                ->with($this->equalTo(null), $this->equalTo($constraint), $this->equalTo('bar'), $this->equalTo('foo_core'))
-                ->willReturn(null);
-        } else {
-            $this->contextualValidator->expects($this->once())
-                ->method('atPath')
-                ->with('bar');
-            $this->contextualValidator->expects($this->once())
-                ->method('validate')
-                ->with(null, $constraint, ['foo_core']);
-        }
+        $this->contextualValidator->expects($this->once())
+            ->method('atPath')
+            ->with('bar');
+        $this->contextualValidator->expects($this->once())
+            ->method('validate')
+            ->with(null, $constraint, ['foo_core']);
 
         $this->errorElement->with('bar');
         $this->errorElement->assertNotNull();
@@ -203,26 +161,16 @@ class ErrorElementTest extends TestCase
         $this->assertSame('bar', $this->errorElement->getFullPropertyPath());
     }
 
-    /**
-     * @group legacy
-     */
     public function testFluidInterface(): void
     {
         $constraint = new NotNull();
 
-        if ($this->context instanceof LegacyExecutionContextInterface) {
-            $this->context
-                ->method('validateValue')
-                ->with($this->equalTo($this->subject), $this->equalTo($constraint), $this->equalTo(''), $this->equalTo('foo_core'))
-                ->willReturn(null);
-        } else {
-            $this->contextualValidator
-                ->method('atPath')
-                ->with('');
-            $this->contextualValidator
-                ->method('validate')
-                ->with($this->subject, $constraint, ['foo_core']);
-        }
+        $this->contextualValidator
+            ->method('atPath')
+            ->with('');
+        $this->contextualValidator
+            ->method('validate')
+            ->with($this->subject, $constraint, ['foo_core']);
 
         $this->assertSame($this->errorElement, $this->errorElement->with('baz'));
         $this->assertSame($this->errorElement, $this->errorElement->end());

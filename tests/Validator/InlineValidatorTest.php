@@ -15,10 +15,10 @@ namespace Sonata\Form\Tests\Validator;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\Form\Tests\Fixtures\Bundle\Validator\FooValidatorService;
+use Sonata\Form\Validator\Constraints\InlineConstraint;
 use Sonata\Form\Validator\ErrorElement;
 use Sonata\Form\Validator\InlineValidator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Exception\ValidatorException;
@@ -60,19 +60,13 @@ final class InlineValidatorTest extends TestCase
         $this->expectException(ValidatorException::class);
         $this->expectExceptionMessage('foo is equal to foo');
 
-        $constraint = $this->getMockBuilder(Constraint::class)
-            ->setMethods(['isClosure', 'getClosure'])
-            ->getMock();
-
-        $constraint->expects($this->once())
-            ->method('isClosure')
-            ->willReturn(true);
-
-        $constraint->expects($this->once())
-            ->method('getClosure')
-            ->willReturn(static function (ErrorElement $errorElement, $value): void {
+        $constraint = new InlineConstraint([
+            'method' => static function (ErrorElement $errorElement, $value): void {
                 throw new ValidatorException($errorElement->getSubject().' is equal to '.$value);
-            });
+            },
+            'service' => '',
+            'serializingWarning' => true,
+        ]);
 
         $inlineValidator = new InlineValidator($this->container, $this->constraintValidatorFactory);
 
@@ -83,25 +77,10 @@ final class InlineValidatorTest extends TestCase
 
     public function testValidateWithConstraintGetServiceIsString(): void
     {
-        $constraint = $this->getMockBuilder(Constraint::class)
-            ->setMethods([
-                'isClosure',
-                'getService',
-                'getMethod',
-            ])
-            ->getMock();
-
-        $constraint
-            ->method('isClosure')
-            ->willReturn(false);
-
-        $constraint
-            ->method('getService')
-            ->willReturn('string');
-
-        $constraint->expects($this->once())
-            ->method('getMethod')
-            ->willReturn('fooValidatorMethod');
+        $constraint = new InlineConstraint([
+            'method' => 'fooValidatorMethod',
+            'service' => 'string',
+        ]);
 
         $this->container->expects($this->once())
             ->method('get')
@@ -120,25 +99,11 @@ final class InlineValidatorTest extends TestCase
 
     public function testValidateWithConstraintGetServiceIsNotString(): void
     {
-        $constraint = $this->getMockBuilder(Constraint::class)
-            ->setMethods([
-                'isClosure',
-                'getService',
-                'getMethod',
-            ])
-            ->getMock();
-
-        $constraint->expects($this->once())
-            ->method('isClosure')
-            ->willReturn(false);
-
-        $constraint
-            ->method('getService')
-            ->willReturn(new FooValidatorService());
-
-        $constraint->expects($this->once())
-            ->method('getMethod')
-            ->willReturn('fooValidatorMethod');
+        $constraint = new InlineConstraint([
+            'method' => 'fooValidatorMethod',
+            'service' => new FooValidatorService(),
+            'serializingWarning' => true,
+        ]);
 
         $inlineValidator = new InlineValidator($this->container, $this->constraintValidatorFactory);
 

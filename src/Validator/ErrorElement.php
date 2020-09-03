@@ -162,16 +162,12 @@ final class ErrorElement
 
         $subPath = (string) $this->getCurrentPropertyPath();
 
-        if ($this->context instanceof LegacyExecutionContextInterface) {
-            $this->context->addViolationAt($subPath, $message, $parameters, $value);
-        } else {
-            $this->context->buildViolation($message)
-               ->atPath($subPath)
-               ->setParameters($parameters)
-               ->setTranslationDomain($translationDomain)
-               ->setInvalidValue($value)
-               ->addViolation();
-        }
+        $this->context->buildViolation($message)
+           ->atPath($subPath)
+           ->setParameters($parameters)
+           ->setTranslationDomain($translationDomain)
+           ->setInvalidValue($value)
+           ->addViolation();
 
         $this->errors[] = [$message, $parameters, $value];
 
