@@ -9,6 +9,3 @@ parameters:
     excludes_analyse:
         - src/Test/AbstractWidgetTestCase.php
         - tests/bootstrap.php
-
-    ignoreErrors:
-        - '#Class Sonata\\Form\\Validator\\LegacyExecutionContextInterface not found.#'
