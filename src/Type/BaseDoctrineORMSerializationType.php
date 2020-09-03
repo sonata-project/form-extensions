@@ -26,6 +26,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * This is a doctrine serialization form type that generates a form type from class serialization metadata
  * and doctrine metadata.
  *
+ * NEXT_MAJOR: Remove this class.
+ *
+ * @deprecated since sonata-project/form-extensions 1.x, to be removed with 2.0.
+ *
  * @author Vincent Composieux <vincent.composieux@gmail.com>
  */
 class BaseDoctrineORMSerializationType extends AbstractType
