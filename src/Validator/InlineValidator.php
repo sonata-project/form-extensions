@@ -13,10 +13,12 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Validator;
 
+use Sonata\Form\Validator\Constraints\InlineConstraint;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class InlineValidator extends ConstraintValidator
 {
@@ -40,6 +42,10 @@ final class InlineValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint): void
     {
+        if (!$constraint instanceof InlineConstraint) {
+            throw new UnexpectedTypeException($constraint, InlineConstraint::class);
+        }
+
         if ($constraint->isClosure()) {
             $function = $constraint->getClosure();
         } else {
