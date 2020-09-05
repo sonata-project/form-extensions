@@ -1,10 +1,6 @@
 UPGRADE 1.x
 ===========
 
-## Deprecated `Sonata\Form\Type\BaseDoctrineORMSerializationType`.
-
-This class has been deprecated without replacement.
-
 UPGRADE FROM 1.2 to 1.6
 =======================
 
