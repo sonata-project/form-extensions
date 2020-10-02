@@ -16,8 +16,8 @@ Symfony form extensions
 [![Monthly Downloads](https://poser.pugx.org/sonata-project/form-extensions/d/monthly)](https://packagist.org/packages/sonata-project/form-extensions)
 [![Daily Downloads](https://poser.pugx.org/sonata-project/form-extensions/d/daily)](https://packagist.org/packages/sonata-project/form-extensions)
 
-Branch | Github Actions | Coverage |
------- | -------------- | -------- |
+Branch | Github Actions | Code Coverage |
+------ | -------------- | ------------- |
 1.x    | [![Test][test_stable_badge]][test_stable_link]     | [![Coverage Status][coverage_stable_badge]][coverage_stable_link]     |
 master | [![Test][test_unstable_badge]][test_unstable_link] | [![Coverage Status][coverage_unstable_badge]][coverage_unstable_link] |
 
