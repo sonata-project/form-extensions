@@ -25,7 +25,7 @@ final class ImmutableArrayType extends AbstractType
             if ($infos instanceof FormBuilderInterface) {
                 $builder->add($infos);
             } else {
-                list($name, $type, $options) = $infos;
+                [$name, $type, $options] = $infos;
 
                 if (\is_callable($options)) {
                     $extra = \array_slice($infos, 3);
