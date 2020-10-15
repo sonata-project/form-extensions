@@ -248,13 +248,22 @@ class ResizeFormListenerTest extends TestCase
         $reflector = new \ReflectionClass(ResizeFormListener::class);
         $reflectedMethod = $reflector->getProperty('removed');
         $reflectedMethod->setAccessible(true);
-        $reflectedMethod->setValue($listener, ['foo']);
+        $reflectedMethod->setValue($listener, ['foo', 'bar']);
 
         $form = $this->createMock(Form::class);
-        $form->expects($this->at(2))
+        $form
+            ->expects($this->exactly(3))
             ->method('has')
-            ->with('baz')
-            ->willReturn(true);
+            ->withConsecutive(
+                ['foo'],
+                ['bar'],
+                ['baz']
+            )
+            ->willReturnOnConsecutiveCalls(
+                [false],
+                [false],
+                [true]
+            );
 
         $data = [
             'foo' => 'foo-value',
