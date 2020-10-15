@@ -117,10 +117,10 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
         // use seconds if it's allowed in format
         $options['dp_use_seconds'] = false !== strpos($format, 's');
 
-        if ($options['dp_min_date'] instanceof \DateTime) {
+        if ($options['dp_min_date'] instanceof \DateTimeInterface) {
             $options['dp_min_date'] = $this->formatObject($options['dp_min_date'], $format);
         }
-        if ($options['dp_max_date'] instanceof \DateTime) {
+        if ($options['dp_max_date'] instanceof \DateTimeInterface) {
             $options['dp_max_date'] = $this->formatObject($options['dp_max_date'], $format);
         }
 
@@ -133,7 +133,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
             if (false !== strpos($key, 'dp_')) {
                 // We remove 'dp_' and camelize the options names
                 $dpKey = substr($key, 3);
-                $dpKey = preg_replace_callback('/_([a-z])/', static function ($c) {
+                $dpKey = preg_replace_callback('/_([a-z])/', static function (array $c): string {
                     return strtoupper($c[1]);
                 }, $dpKey);
 
@@ -141,7 +141,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
             }
         }
 
-        $view->vars['datepicker_use_button'] = empty($options['datepicker_use_button']) ? false : true;
+        $view->vars['datepicker_use_button'] = !empty($options['datepicker_use_button']);
         $view->vars['dp_options'] = $dpOptions;
     }
 
@@ -198,7 +198,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
         return $request->getLocale();
     }
 
-    private function formatObject(\DateTime $dateTime, $format): string
+    private function formatObject(\DateTimeInterface $dateTime, $format): string
     {
         $formatter = new \IntlDateFormatter($this->locale, \IntlDateFormatter::NONE, \IntlDateFormatter::NONE);
         $formatter->setPattern($format);
