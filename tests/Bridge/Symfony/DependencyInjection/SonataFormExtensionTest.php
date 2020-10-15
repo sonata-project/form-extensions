@@ -53,26 +53,27 @@ class SonataFormExtensionTest extends AbstractExtensionTestCase
 
     public function testPrepend(): void
     {
-        $containerBuilder = $this->prophesize(ContainerBuilder::class);
+        $containerBuilder = $this->createMock(ContainerBuilder::class);
 
-        $containerBuilder->getExtensionConfig('sonata_admin')->willReturn([
-            ['some_key_we_do_not_care_about' => 42],
-            ['options' => ['form_type' => 'standard']],
-            ['options' => ['form_type' => 'horizontal']],
-        ]);
+        $containerBuilder
+            ->method('getExtensionConfig')
+            ->with('sonata_admin')
+            ->willReturn([
+                ['some_key_we_do_not_care_about' => 42],
+                ['options' => ['form_type' => 'standard']],
+                ['options' => ['form_type' => 'horizontal']],
+            ]);
 
-        $containerBuilder->prependExtensionConfig(
-            'sonata_form',
-            ['form_type' => 'standard']
-        )->shouldBeCalled();
-
-        $containerBuilder->prependExtensionConfig(
-            'sonata_form',
-            ['form_type' => 'horizontal']
-        )->shouldBeCalled();
+        $containerBuilder
+            ->expects($this->exactly(2))
+            ->method('prependExtensionConfig')
+            ->withConsecutive(
+                ['sonata_form', ['form_type' => 'standard']],
+                ['sonata_form', ['form_type' => 'horizontal']]
+            );
 
         $extension = new SonataFormExtension();
-        $extension->prepend($containerBuilder->reveal());
+        $extension->prepend($containerBuilder);
     }
 
     protected function getContainerExtensions(): array
