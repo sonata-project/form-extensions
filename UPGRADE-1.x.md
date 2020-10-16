@@ -1,6 +1,13 @@
 UPGRADE 1.x
 ===========
 
+UPGRADE FROM 1.x to 1.x
+=======================
+
+## Sonata\Form\Type\BasePickerType
+
+Added support for instances of `\DateTimeImmutable` in form options "dp_min_date" and "dp_max_date".
+
 UPGRADE FROM 1.2 to 1.6
 =======================
 
