@@ -20,10 +20,10 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.3",
         "jms/metadata": "^2.1",
         "jms/serializer": "^2.0 || ^3.0",
-        "sonata-project/doctrine-extensions": "^1.1",
+        "sonata-project/doctrine-extensions": "^1.10.1",
         "symfony/event-dispatcher": "^4.4 || ^5.1",
         "symfony/form": "^4.4 || ^5.1",
         "symfony/options-resolver": "^4.4 || ^5.1",
@@ -38,14 +38,14 @@
     },
     "require-dev": {
         "doctrine/persistence": "^1.1",
-        "matthiasnoback/symfony-config-test": "^4.0",
+        "matthiasnoback/symfony-config-test": "^4.2",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "symfony/config": "^4.4 || ^5.1",
         "symfony/dependency-injection": "^4.4 || ^5.1",
         "symfony/framework-bundle": "^4.4 || ^5.1",
         "symfony/http-foundation": "^4.4 || ^5.1",
         "symfony/http-kernel": "^4.4 || ^5.1",
-        "symfony/phpunit-bridge": "^5.1",
+        "symfony/phpunit-bridge": "^5.1.8",
         "symfony/twig-bridge": "^4.4 || ^5.1"
     },
     "suggest": {
