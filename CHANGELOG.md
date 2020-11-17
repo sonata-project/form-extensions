@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.7.0](https://github.com/sonata-project/form-extensions/compare/1.6.0...1.7.0) - 2020-11-16
+### Added
+- [[#151](https://github.com/sonata-project/form-extensions/pull/151)] Support for
+  instances of `\DateTimeImmutable` in form options "dp_min_date" and "dp_max_date"
+  at `BasePickerType` ([@phansys](https://github.com/phansys))
+
+### Changed
+- [[#111](https://github.com/sonata-project/form-extensions/pull/111)] Bumped Symfony
+  to 5.1 ([@franmomu](https://github.com/franmomu))
+
+### Fixed
+- [[#129](https://github.com/sonata-project/form-extensions/pull/129)] Fixed triggering
+  a deprecation for EqualType only when it is used ([@franmomu](https://github.com/franmomu))
+
 ## [1.6.0](https://github.com/sonata-project/form-extensions/compare/1.5.0...1.6.0) - 2020-08-05
 ### Deprecated
 - [[#109](https://github.com/sonata-project/form-extensions/pull/109)]
