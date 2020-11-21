@@ -94,7 +94,7 @@ final class ResizeFormListener implements EventSubscriberInterface
 
         // First remove all rows except for the prototype row
         foreach ($form as $name => $child) {
-            $form->remove($name);
+            $form->remove((string)$name);
         }
 
         // Then add all rows again in the correct order
@@ -135,7 +135,7 @@ final class ResizeFormListener implements EventSubscriberInterface
 
         // Add all additional rows
         foreach ($data as $name => $value) {
-            if (!$form->has($name)) {
+            if (!$form->has((string)$name)) {
                 $buildOptions = [
                     'property_path' => '['.$name.']',
                 ];
@@ -176,7 +176,7 @@ final class ResizeFormListener implements EventSubscriberInterface
         }
 
         foreach ($data as $name => $child) {
-            if (!$form->has($name)) {
+            if (!$form->has((string)$name)) {
                 unset($data[$name]);
             }
         }
