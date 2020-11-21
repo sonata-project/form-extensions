@@ -130,7 +130,7 @@ final class ResizeFormListener implements EventSubscriberInterface
 
         // Remove all empty rows except for the prototype row
         foreach ($form as $name => $child) {
-            $form->remove($name);
+            $form->remove((string)$name);
         }
 
         // Add all additional rows
