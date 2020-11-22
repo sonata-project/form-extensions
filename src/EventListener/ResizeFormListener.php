@@ -135,7 +135,7 @@ final class ResizeFormListener implements EventSubscriberInterface
 
         // Add all additional rows
         foreach ($data as $name => $value) {
-            if (!$form->has((string)$name)) {
+            if (!$form->has((string) $name)) {
                 $buildOptions = [
                     'property_path' => '['.$name.']',
                 ];
