@@ -176,7 +176,7 @@ final class ResizeFormListener implements EventSubscriberInterface
         }
 
         foreach ($data as $name => $child) {
-            if (!$form->has((string)$name)) {
+            if (!$form->has((string) $name)) {
                 unset($data[$name]);
             }
         }
