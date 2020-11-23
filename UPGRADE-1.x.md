@@ -1,7 +1,7 @@
 UPGRADE 1.x
 ===========
 
-UPGRADE FROM 1.x to 1.x
+UPGRADE FROM 1.6 to 1.7
 =======================
 
 ## Sonata\Form\Type\BasePickerType
