@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.8.0](https://github.com/sonata-project/form-extensions/compare/1.7.1...1.8.0) - 2021-01-04
+### Added
+- [[#185](https://github.com/sonata-project/form-extensions/pull/185)] Support for PHP8 ([@VincentLanglet](https://github.com/VincentLanglet))
+
 ## [1.7.1](https://github.com/sonata-project/form-extensions/compare/1.7.0...1.7.1) - 2020-11-22
 ### Changed
 - [[#169](https://github.com/sonata-project/form-extensions/pull/169)] Cast form name to string for symfony5.0 compatibility ([@phiamo](https://github.com/phiamo))
