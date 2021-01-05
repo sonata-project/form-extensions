@@ -26,6 +26,7 @@ final class DatePickerType extends BasePickerType
         $resolver->setDefaults(array_merge($this->getCommonDefaults(), [
             'dp_pick_time' => false,
             'format' => DateType::DEFAULT_FORMAT,
+            'html5' => false,
         ]));
 
         parent::configureOptions($resolver);

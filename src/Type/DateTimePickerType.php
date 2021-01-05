@@ -29,6 +29,7 @@ final class DateTimePickerType extends BasePickerType
             'dp_minute_stepping' => 1,
             'format' => DateTimeType::DEFAULT_DATE_FORMAT,
             'date_format' => null,
+            'html5' => false,
         ]));
 
         parent::configureOptions($resolver);
