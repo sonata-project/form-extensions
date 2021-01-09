@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": ">=7.3",
+        "php": "^7.3 || ^8.0",
         "jms/metadata": "^2.1",
         "jms/serializer": "^2.0 || ^3.0",
         "sonata-project/doctrine-extensions": "^1.10.1",
