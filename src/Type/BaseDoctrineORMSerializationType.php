@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Type;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Metadata\MetadataFactoryInterface;
 use Sonata\Form\EventListener\FixCheckboxDataListener;
 use Symfony\Bridge\Doctrine\RegistryInterface;
