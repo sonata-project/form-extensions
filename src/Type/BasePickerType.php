@@ -70,7 +70,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
                 'Not passing the default locale as argument 3 to "%s()" is deprecated'
                 .' since sonata-project/form-extensions 1.6 and will be mandatory in 2.0.',
                 __METHOD__
-            ), E_USER_DEPRECATED);
+            ), \E_USER_DEPRECATED);
 
             $requestStackOrDefaultLocale = $this->getLocaleFromRequest($requestStackOrDefaultLocale);
         }
