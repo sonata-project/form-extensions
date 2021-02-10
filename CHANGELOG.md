@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.8.2](https://github.com/sonata-project/form-extensions/compare/1.8.1...1.8.2) - 2021-02-09
+### Fixed
+- [[#194](https://github.com/sonata-project/form-extensions/pull/194)] Php version constraint ([@greg0ire](https://github.com/greg0ire))
+
 ## [1.8.1](https://github.com/sonata-project/form-extensions/compare/1.8.0...1.8.1) - 2021-01-06
 ### Fixed
 - [[#192](https://github.com/sonata-project/form-extensions/pull/192)] User Deprecated: Using a custom format when the "html5" option of `Symfony\Component\Form\Extension\Core\Type\DateTimeType` is enabled is deprecated since Symfony 4.3 and will lead to an exception in 5.0. ([@VincentLanglet](https://github.com/VincentLanglet))
