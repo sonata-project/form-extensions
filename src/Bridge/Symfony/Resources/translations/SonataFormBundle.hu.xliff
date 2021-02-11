@@ -24,11 +24,11 @@
             </trans-unit>
             <trans-unit id="date_range_start">
                 <source>date_range_start</source>
-                <target>date_range_start</target>
+                <target>Intervallum kezdete</target>
             </trans-unit>
             <trans-unit id="date_range_end">
                 <source>date_range_end</source>
-                <target>date_range_end</target>
+                <target>Intervallum vége</target>
             </trans-unit>
         </body>
     </file>
