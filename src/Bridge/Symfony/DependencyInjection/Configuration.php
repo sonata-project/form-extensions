@@ -60,8 +60,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->info(sprintf('Must be one of %s', $validFormTypesString))
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 
     /**
@@ -81,7 +80,6 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 }
