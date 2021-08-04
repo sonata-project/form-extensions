@@ -21,4 +21,9 @@ final class StubTranslator implements TranslatorInterface
     {
         return '[trans]'.strtr($id, $parameters).'[/trans]';
     }
+
+    public function getLocale(): string
+    {
+        return 'en';
+    }
 }
