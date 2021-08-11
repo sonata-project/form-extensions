@@ -49,4 +49,4 @@ This package is available under the [MIT license](LICENSE).
 [documentation_stable_badge]: https://readthedocs.org/projects/form-extensions/badge/?version=1.x
 [documentation_stable_link]: https://docs.sonata-project.org/projects/form-extensions/en/1.x/?badge=1.x
 [documentation_unstable_badge]: https://readthedocs.org/projects/form-extensions/badge/?version=master
-[documentation_unstable_link]: https://docs.readthedocs.org/projects/form-extensions/en/master/?badge=master
+[documentation_unstable_link]: https://docs.sonata-project.org/projects/form-extensions/en/master/?badge=master
