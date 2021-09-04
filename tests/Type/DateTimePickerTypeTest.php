@@ -46,7 +46,7 @@ class DateTimePickerTypeTest extends TypeTestCase
             'en'
         );
 
-        $this->assertSame(DateTimeType::class, $form->getParent());
+        static::assertSame(DateTimeType::class, $form->getParent());
     }
 
     public function testGetName(): void
@@ -57,7 +57,7 @@ class DateTimePickerTypeTest extends TypeTestCase
             'en'
         );
 
-        $this->assertSame('sonata_type_datetime_picker', $type->getBlockPrefix());
+        static::assertSame('sonata_type_datetime_picker', $type->getBlockPrefix());
     }
 
     public function testSubmitUnmatchingDateFormat(): void
@@ -71,7 +71,7 @@ class DateTimePickerTypeTest extends TypeTestCase
         ]);
 
         $form->submit('05:23');
-        $this->assertFalse($form->isSynchronized());
+        static::assertFalse($form->isSynchronized());
     }
 
     public function testSubmitMatchingDateFormat(): void
@@ -84,11 +84,11 @@ class DateTimePickerTypeTest extends TypeTestCase
             'html5' => false,
         ]);
 
-        $this->assertSame('8:02 PM', $form->getViewData());
+        static::assertSame('8:02 PM', $form->getViewData());
 
         $form->submit('5:23 AM');
-        $this->assertSame('1970-01-01 05:23:00', $form->getData()->format('Y-m-d H:i:s'));
-        $this->assertTrue($form->isSynchronized());
+        static::assertSame('1970-01-01 05:23:00', $form->getData()->format('Y-m-d H:i:s'));
+        static::assertTrue($form->isSynchronized());
     }
 
     protected function getExtensions()

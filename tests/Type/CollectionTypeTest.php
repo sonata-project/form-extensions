@@ -28,11 +28,11 @@ class CollectionTypeTest extends TypeTestCase
 
         $options = $optionResolver->resolve();
 
-        $this->assertFalse($options['modifiable']);
-        $this->assertSame(TextType::class, $options['type']);
-        $this->assertCount(0, $options['type_options']);
-        $this->assertSame('link_add', $options['btn_add']);
-        $this->assertSame('SonataFormBundle', $options['btn_catalogue']);
-        $this->assertNull($options['pre_bind_data_callback']);
+        static::assertFalse($options['modifiable']);
+        static::assertSame(TextType::class, $options['type']);
+        static::assertCount(0, $options['type_options']);
+        static::assertSame('link_add', $options['btn_add']);
+        static::assertSame('SonataFormBundle', $options['btn_catalogue']);
+        static::assertNull($options['pre_bind_data_callback']);
     }
 }

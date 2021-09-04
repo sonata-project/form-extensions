@@ -27,7 +27,7 @@ class EqualTypeTest extends TypeTestCase
     {
         $form = new EqualType();
 
-        $this->assertSame(ChoiceType::class, $form->getParent());
+        static::assertSame(ChoiceType::class, $form->getParent());
     }
 
     /**
@@ -37,8 +37,8 @@ class EqualTypeTest extends TypeTestCase
     {
         $type = new EqualType();
 
-        $this->assertSame('sonata_type_equal', $type->getBlockPrefix());
-        $this->assertSame(ChoiceType::class, $type->getParent());
+        static::assertSame('sonata_type_equal', $type->getBlockPrefix());
+        static::assertSame(ChoiceType::class, $type->getParent());
 
         $type->configureOptions($resolver = new OptionsResolver());
 
@@ -49,6 +49,6 @@ class EqualTypeTest extends TypeTestCase
             'choices' => ['label_type_equals' => 1, 'label_type_not_equals' => 2],
         ];
 
-        $this->assertSame($expected, $options);
+        static::assertSame($expected, $options);
     }
 }

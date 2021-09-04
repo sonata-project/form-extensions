@@ -51,8 +51,8 @@ final class InlineValidatorTest extends TestCase
 
         $errorElement = $reflectedMethod->invokeArgs($inlineValidator, ['foo']);
 
-        $this->assertInstanceOf(ErrorElement::class, $errorElement);
-        $this->assertSame('foo', $errorElement->getSubject());
+        static::assertInstanceOf(ErrorElement::class, $errorElement);
+        static::assertSame('foo', $errorElement->getSubject());
     }
 
     public function testValidateWithConstraintIsClosure(): void
@@ -82,7 +82,7 @@ final class InlineValidatorTest extends TestCase
             'service' => 'string',
         ]);
 
-        $this->container->expects($this->once())
+        $this->container->expects(static::once())
             ->method('get')
             ->with('string')
             ->willReturn(new FooValidatorService());

@@ -26,18 +26,18 @@ class BooleanTypeToBooleanTransformerTest extends TestCase
     {
         $transformer = new BooleanTypeToBooleanTransformer();
 
-        $this->assertSame($expected, $transformer->transform($value));
+        static::assertSame($expected, $transformer->transform($value));
     }
 
     public function testTransform(): void
     {
         $transformer = new BooleanTypeToBooleanTransformer();
-        $this->assertTrue($transformer->reverseTransform(BooleanType::TYPE_YES));
-        $this->assertTrue($transformer->reverseTransform(1));
-        $this->assertFalse($transformer->reverseTransform(BooleanType::TYPE_NO));
-        $this->assertFalse($transformer->reverseTransform(2));
-        $this->assertNull($transformer->reverseTransform(null));
-        $this->assertNull($transformer->reverseTransform('asd'));
+        static::assertTrue($transformer->reverseTransform(BooleanType::TYPE_YES));
+        static::assertTrue($transformer->reverseTransform(1));
+        static::assertFalse($transformer->reverseTransform(BooleanType::TYPE_NO));
+        static::assertFalse($transformer->reverseTransform(2));
+        static::assertNull($transformer->reverseTransform(null));
+        static::assertNull($transformer->reverseTransform('asd'));
     }
 
     public function getReverseTransformData()
