@@ -24,13 +24,13 @@ class DateRangeTypeTest extends TypeTestCase
     {
         $type = new DateRangeType();
 
-        $this->assertSame('sonata_type_date_range', $type->getBlockPrefix());
+        static::assertSame('sonata_type_date_range', $type->getBlockPrefix());
 
         $type->configureOptions($resolver = new OptionsResolver());
 
         $options = $resolver->resolve();
 
-        $this->assertSame(
+        static::assertSame(
             [
                 'field_options' => [],
                 'field_options_start' => [],

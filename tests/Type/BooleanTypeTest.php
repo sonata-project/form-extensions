@@ -25,7 +25,7 @@ class BooleanTypeTest extends TypeTestCase
     {
         $form = new BooleanType();
 
-        $this->assertSame(ChoiceType::class, $form->getParent());
+        static::assertSame(ChoiceType::class, $form->getParent());
     }
 
     public function testGetDefaultOptions(): void
@@ -36,7 +36,7 @@ class BooleanTypeTest extends TypeTestCase
 
         $options = $optionResolver->resolve();
 
-        $this->assertCount(2, $options['choices']);
+        static::assertCount(2, $options['choices']);
     }
 
     public function testAddTransformerCall(): void
@@ -46,7 +46,7 @@ class BooleanTypeTest extends TypeTestCase
         $type->configureOptions($optionResolver = new OptionsResolver());
 
         $builder = $this->createMock(FormBuilderInterface::class);
-        $builder->expects($this->once())->method('addModelTransformer');
+        $builder->expects(static::once())->method('addModelTransformer');
 
         $type->buildForm($builder, $optionResolver->resolve([
             'transform' => true,
@@ -63,7 +63,7 @@ class BooleanTypeTest extends TypeTestCase
         $type->configureOptions($optionResolver = new OptionsResolver());
 
         $builder = $this->createMock(FormBuilderInterface::class);
-        $builder->expects($this->never())->method('addModelTransformer');
+        $builder->expects(static::never())->method('addModelTransformer');
 
         $type->buildForm($builder, $optionResolver->resolve([]));
     }
@@ -75,7 +75,7 @@ class BooleanTypeTest extends TypeTestCase
         $type->configureOptions($optionResolver = new OptionsResolver());
 
         $builder = $this->createMock(FormBuilderInterface::class);
-        $builder->expects($this->never())->method('addModelTransformer');
+        $builder->expects(static::never())->method('addModelTransformer');
 
         $resolvedOptions = $optionResolver->resolve([
             'translation_domain' => 'fooTrans',
@@ -91,6 +91,6 @@ class BooleanTypeTest extends TypeTestCase
             'translation_domain' => 'fooTrans',
         ];
 
-        $this->assertSame($expectedOptions, $resolvedOptions);
+        static::assertSame($expectedOptions, $resolvedOptions);
     }
 }

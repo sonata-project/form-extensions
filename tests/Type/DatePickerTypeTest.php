@@ -46,14 +46,14 @@ class DatePickerTypeTest extends TypeTestCase
             'en'
         );
 
-        $this->assertSame(DateType::class, $form->getParent());
+        static::assertSame(DateType::class, $form->getParent());
     }
 
     public function testGetName(): void
     {
         $type = new DatePickerType(new MomentFormatConverter(), $this->translator, 'en');
 
-        $this->assertSame('sonata_type_date_picker', $type->getBlockPrefix());
+        static::assertSame('sonata_type_date_picker', $type->getBlockPrefix());
     }
 
     public function testSubmitValidData(): void
@@ -64,10 +64,10 @@ class DatePickerTypeTest extends TypeTestCase
             'html5' => false,
         ]);
 
-        $this->assertSame('June 3, 2018', $form->getViewData());
+        static::assertSame('June 3, 2018', $form->getViewData());
         $form->submit('June 5, 2018');
-        $this->assertSame('2018-06-05', $form->getData()->format('Y-m-d'));
-        $this->assertTrue($form->isSynchronized());
+        static::assertSame('2018-06-05', $form->getData()->format('Y-m-d'));
+        static::assertTrue($form->isSynchronized());
     }
 
     protected function getExtensions()

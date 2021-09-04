@@ -24,17 +24,17 @@ class InlineConstraintTest extends TestCase
     public function testValidatedBy(): void
     {
         $constraint = new InlineConstraint(['service' => 'foo', 'method' => 'bar']);
-        $this->assertSame('sonata.form.validator.inline', $constraint->validatedBy());
+        static::assertSame('sonata.form.validator.inline', $constraint->validatedBy());
     }
 
     public function testIsClosure(): void
     {
         $constraint = new InlineConstraint(['service' => 'foo', 'method' => 'bar']);
-        $this->assertFalse($constraint->isClosure());
+        static::assertFalse($constraint->isClosure());
 
         $constraint = new InlineConstraint(['service' => 'foo', 'method' => static function (): void {
         }, 'serializingWarning' => true]);
-        $this->assertTrue($constraint->isClosure());
+        static::assertTrue($constraint->isClosure());
     }
 
     public function testGetClosure(): void
@@ -44,31 +44,31 @@ class InlineConstraintTest extends TestCase
         };
 
         $constraint = new InlineConstraint(['service' => 'foo', 'method' => $closure, 'serializingWarning' => true]);
-        $this->assertSame($closure, $constraint->getClosure());
+        static::assertSame($closure, $constraint->getClosure());
     }
 
     public function testGetTargets(): void
     {
         $constraint = new InlineConstraint(['service' => 'foo', 'method' => 'bar']);
-        $this->assertSame(InlineConstraint::CLASS_CONSTRAINT, $constraint->getTargets());
+        static::assertSame(InlineConstraint::CLASS_CONSTRAINT, $constraint->getTargets());
     }
 
     public function testGetRequiredOptions(): void
     {
         $constraint = new InlineConstraint(['service' => 'foo', 'method' => 'bar']);
-        $this->assertSame(['service', 'method'], $constraint->getRequiredOptions());
+        static::assertSame(['service', 'method'], $constraint->getRequiredOptions());
     }
 
     public function testGetMethod(): void
     {
         $constraint = new InlineConstraint(['service' => 'foo', 'method' => 'bar']);
-        $this->assertSame('bar', $constraint->getMethod());
+        static::assertSame('bar', $constraint->getMethod());
     }
 
     public function testGetService(): void
     {
         $constraint = new InlineConstraint(['service' => 'foo', 'method' => 'bar']);
-        $this->assertSame('foo', $constraint->getService());
+        static::assertSame('foo', $constraint->getService());
     }
 
     public function testClosureSerialization(): void
@@ -78,13 +78,13 @@ class InlineConstraintTest extends TestCase
 
         $expected = 'O:50:"Sonata\Form\Validator\Constraints\InlineConstraint":0:{}';
 
-        $this->assertSame($expected, serialize($constraint));
+        static::assertSame($expected, serialize($constraint));
 
         $constraint = unserialize($expected);
 
-        $this->assertInstanceOf('Closure', $constraint->getMethod());
-        $this->assertEmpty($constraint->getService());
-        $this->assertTrue($constraint->getSerializingWarning());
+        static::assertInstanceOf('Closure', $constraint->getMethod());
+        static::assertEmpty($constraint->getService());
+        static::assertTrue($constraint->getSerializingWarning());
     }
 
     public function testStandardSerialization(): void
@@ -95,9 +95,9 @@ class InlineConstraintTest extends TestCase
 
         $constraint = unserialize($data);
 
-        $this->assertSame($constraint->getService(), 'foo');
-        $this->assertSame($constraint->getMethod(), 'bar');
-        $this->assertNull($constraint->getSerializingWarning());
+        static::assertSame($constraint->getService(), 'foo');
+        static::assertSame($constraint->getMethod(), 'bar');
+        static::assertNull($constraint->getSerializingWarning());
     }
 
     public function testSerializingWarningIsFalseWithServiceIsNotString(): void

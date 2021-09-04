@@ -26,7 +26,7 @@ class SonataFormExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter(
             'sonata.form.form_type'
         );
-        $this->assertSame(
+        static::assertSame(
             'standard',
             $this->container->getParameter(
                 'sonata.form.form_type'
@@ -43,7 +43,7 @@ class SonataFormExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter(
             'sonata.form.form_type'
         );
-        $this->assertSame(
+        static::assertSame(
             'horizontal',
             $this->container->getParameter(
                 'sonata.form.form_type'
@@ -65,7 +65,7 @@ class SonataFormExtensionTest extends AbstractExtensionTestCase
             ]);
 
         $containerBuilder
-            ->expects($this->exactly(2))
+            ->expects(static::exactly(2))
             ->method('prependExtensionConfig')
             ->withConsecutive(
                 ['sonata_form', ['form_type' => 'standard']],

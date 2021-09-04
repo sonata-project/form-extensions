@@ -24,13 +24,13 @@ class DateTimeRangePickerTypeTest extends TypeTestCase
     {
         $type = new DateTimeRangePickerType();
 
-        $this->assertSame('sonata_type_datetime_range_picker', $type->getBlockPrefix());
+        static::assertSame('sonata_type_datetime_range_picker', $type->getBlockPrefix());
 
         $type->configureOptions($resolver = new OptionsResolver());
 
         $options = $resolver->resolve();
 
-        $this->assertSame(
+        static::assertSame(
             [
                 'field_options' => [],
                 'field_options_start' => [],

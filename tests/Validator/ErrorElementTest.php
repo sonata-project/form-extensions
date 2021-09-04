@@ -38,13 +38,13 @@ class ErrorElementTest extends TestCase
         $constraintValidatorFactory = $this->createMock(ConstraintValidatorFactoryInterface::class);
 
         $this->context = $this->createMock(ExecutionContextInterface::class);
-        $this->context->expects($this->once())
+        $this->context->expects(static::once())
                 ->method('getPropertyPath')
                 ->willReturn('bar');
 
         $builder = $this->createMock(ConstraintViolationBuilderInterface::class);
         $builder
-            ->method($this->anything())
+            ->method(static::anything())
             ->willReturnSelf();
 
         $this->context
@@ -55,7 +55,7 @@ class ErrorElementTest extends TestCase
 
         $this->contextualValidator = $this->createMock(ContextualValidatorInterface::class);
         $this->contextualValidator
-            ->method($this->anything())
+            ->method(static::anything())
             ->willReturnSelf();
         $validator
             ->method('inContext')
@@ -72,39 +72,39 @@ class ErrorElementTest extends TestCase
 
     public function testGetSubject(): void
     {
-        $this->assertSame($this->subject, $this->errorElement->getSubject());
+        static::assertSame($this->subject, $this->errorElement->getSubject());
     }
 
     public function testGetErrorsEmpty(): void
     {
-        $this->assertSame([], $this->errorElement->getErrors());
+        static::assertSame([], $this->errorElement->getErrors());
     }
 
     public function testGetErrors(): void
     {
         $this->errorElement->addViolation('Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR');
-        $this->assertSame([['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']], $this->errorElement->getErrors());
+        static::assertSame([['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']], $this->errorElement->getErrors());
     }
 
     public function testAddViolation(): void
     {
         $this->errorElement->addViolation(['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']);
-        $this->assertSame([['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']], $this->errorElement->getErrors());
+        static::assertSame([['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']], $this->errorElement->getErrors());
     }
 
     public function testAddViolationWithTranslationDomain(): void
     {
         $this->errorElement->addViolation(['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR'], [], null, 'translation_domain');
-        $this->assertSame([['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']], $this->errorElement->getErrors());
+        static::assertSame([['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']], $this->errorElement->getErrors());
     }
 
     public function testAddConstraint(): void
     {
         $constraint = new NotNull();
-        $this->contextualValidator->expects($this->once())
+        $this->contextualValidator->expects(static::once())
             ->method('atPath')
             ->with('');
-        $this->contextualValidator->expects($this->once())
+        $this->contextualValidator->expects(static::once())
             ->method('validate')
             ->with($this->subject, $constraint, ['foo_core']);
 
@@ -115,10 +115,10 @@ class ErrorElementTest extends TestCase
     {
         $constraint = new NotNull();
 
-        $this->contextualValidator->expects($this->once())
+        $this->contextualValidator->expects(static::once())
             ->method('atPath')
             ->with('bar');
-        $this->contextualValidator->expects($this->once())
+        $this->contextualValidator->expects(static::once())
             ->method('validate')
             ->with(null, $constraint, ['foo_core']);
 
@@ -131,10 +131,10 @@ class ErrorElementTest extends TestCase
     {
         $constraint = new NotNull();
 
-        $this->contextualValidator->expects($this->once())
+        $this->contextualValidator->expects(static::once())
             ->method('atPath')
             ->with('bar');
-        $this->contextualValidator->expects($this->once())
+        $this->contextualValidator->expects(static::once())
             ->method('validate')
             ->with(null, $constraint, ['foo_core']);
 
@@ -155,10 +155,10 @@ class ErrorElementTest extends TestCase
     public function testGetFullPropertyPath(): void
     {
         $this->errorElement->with('baz');
-        $this->assertSame('bar.baz', $this->errorElement->getFullPropertyPath());
+        static::assertSame('bar.baz', $this->errorElement->getFullPropertyPath());
         $this->errorElement->end();
 
-        $this->assertSame('bar', $this->errorElement->getFullPropertyPath());
+        static::assertSame('bar', $this->errorElement->getFullPropertyPath());
     }
 
     public function testFluidInterface(): void
@@ -172,10 +172,10 @@ class ErrorElementTest extends TestCase
             ->method('validate')
             ->with($this->subject, $constraint, ['foo_core']);
 
-        $this->assertSame($this->errorElement, $this->errorElement->with('baz'));
-        $this->assertSame($this->errorElement, $this->errorElement->end());
-        $this->assertSame($this->errorElement, $this->errorElement->addViolation('Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR'));
-        $this->assertSame($this->errorElement, $this->errorElement->addConstraint($constraint));
-        $this->assertSame($this->errorElement, $this->errorElement->assertNotNull());
+        static::assertSame($this->errorElement, $this->errorElement->with('baz'));
+        static::assertSame($this->errorElement, $this->errorElement->end());
+        static::assertSame($this->errorElement, $this->errorElement->addViolation('Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR'));
+        static::assertSame($this->errorElement, $this->errorElement->addConstraint($constraint));
+        static::assertSame($this->errorElement, $this->errorElement->assertNotNull());
     }
 }
