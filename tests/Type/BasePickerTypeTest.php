@@ -63,24 +63,24 @@ final class BasePickerTypeTest extends TestCase
 
         $type->finishView($view, $form, $options);
 
-        $this->assertArrayHasKey('moment_format', $view->vars);
-        $this->assertArrayHasKey('dp_options', $view->vars);
-        $this->assertArrayHasKey('datepicker_use_button', $view->vars);
-        $this->assertSame($expectedOptions['minDate'], $view->vars['dp_options']['minDate']);
-        $this->assertSame($expectedOptions['maxDate'], $view->vars['dp_options']['maxDate']);
+        static::assertArrayHasKey('moment_format', $view->vars);
+        static::assertArrayHasKey('dp_options', $view->vars);
+        static::assertArrayHasKey('datepicker_use_button', $view->vars);
+        static::assertSame($expectedOptions['minDate'], $view->vars['dp_options']['minDate']);
+        static::assertSame($expectedOptions['maxDate'], $view->vars['dp_options']['maxDate']);
 
         if (true === $expectedOptions['useSeconds']) {
-            $this->assertTrue($view->vars['dp_options']['useSeconds']);
+            static::assertTrue($view->vars['dp_options']['useSeconds']);
         } elseif (false === $expectedOptions['useSeconds']) {
-            $this->assertFalse($view->vars['dp_options']['useSeconds']);
+            static::assertFalse($view->vars['dp_options']['useSeconds']);
         }
 
         foreach ($view->vars['dp_options'] as $dpKey => $dpValue) {
-            $this->assertFalse(strpos($dpKey, '_'));
-            $this->assertFalse(strpos($dpKey, 'dp_'));
+            static::assertFalse(strpos($dpKey, '_'));
+            static::assertFalse(strpos($dpKey, 'dp_'));
         }
 
-        $this->assertSame('text', $view->vars['type']);
+        static::assertSame('text', $view->vars['type']);
     }
 
     /**
@@ -100,13 +100,13 @@ final class BasePickerTypeTest extends TestCase
         $type->finishView($view, $form, $options);
 
         if (true === $expectedOptions['useSeconds']) {
-            $this->assertTrue($view->vars['dp_options']['useSeconds']);
+            static::assertTrue($view->vars['dp_options']['useSeconds']);
         } elseif (false === $expectedOptions['useSeconds']) {
-            $this->assertFalse($view->vars['dp_options']['useSeconds']);
+            static::assertFalse($view->vars['dp_options']['useSeconds']);
         }
 
-        $this->assertSame($expectedOptions['moment_format'], $view->vars['moment_format']);
-        $this->assertSame($expectedOptions['maxDate'], $view->vars['dp_options']['maxDate']);
+        static::assertSame($expectedOptions['moment_format'], $view->vars['moment_format']);
+        static::assertSame($expectedOptions['maxDate'], $view->vars['dp_options']['maxDate']);
     }
 
     public function provideTypeOptions(): iterable
@@ -168,7 +168,7 @@ final class BasePickerTypeTest extends TestCase
             'en'
         );
 
-        $this->assertSame('en', $type->getLocale());
+        static::assertSame('en', $type->getLocale());
     }
 
     /**
@@ -182,7 +182,7 @@ final class BasePickerTypeTest extends TestCase
             $this->getRequestStack()
         );
 
-        $this->assertSame('en', $type->getLocale());
+        static::assertSame('en', $type->getLocale());
     }
 
     private function getRequestStack(string $locale = 'en'): RequestStack

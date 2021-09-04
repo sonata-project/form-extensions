@@ -46,7 +46,7 @@ class FixCheckboxDataListenerTest extends TestCase
         $form = $formBuilder->getForm();
         $form->submit($data);
 
-        $this->assertSame($expected, $form->getData());
+        static::assertSame($expected, $form->getData());
     }
 
     public function valuesProvider()

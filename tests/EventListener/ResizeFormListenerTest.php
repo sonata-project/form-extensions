@@ -29,12 +29,12 @@ class ResizeFormListenerTest extends TestCase
     {
         $events = ResizeFormListener::getSubscribedEvents();
 
-        $this->assertArrayHasKey(FormEvents::PRE_SET_DATA, $events);
-        $this->assertSame('preSetData', $events[FormEvents::PRE_SET_DATA]);
-        $this->assertArrayHasKey(FormEvents::PRE_SUBMIT, $events);
-        $this->assertSame('preSubmit', $events[FormEvents::PRE_SUBMIT]);
-        $this->assertArrayHasKey(FormEvents::SUBMIT, $events);
-        $this->assertSame('onSubmit', $events[FormEvents::SUBMIT]);
+        static::assertArrayHasKey(FormEvents::PRE_SET_DATA, $events);
+        static::assertSame('preSetData', $events[FormEvents::PRE_SET_DATA]);
+        static::assertArrayHasKey(FormEvents::PRE_SUBMIT, $events);
+        static::assertSame('preSubmit', $events[FormEvents::PRE_SUBMIT]);
+        static::assertArrayHasKey(FormEvents::SUBMIT, $events);
+        static::assertSame('onSubmit', $events[FormEvents::SUBMIT]);
     }
 
     public function testPreSetDataWithNullData(): void
@@ -42,10 +42,10 @@ class ResizeFormListenerTest extends TestCase
         $listener = new ResizeFormListener('form', [], false, null);
 
         $form = $this->createMock(Form::class);
-        $form->expects($this->once())
+        $form->expects(static::once())
             ->method('getIterator')
             ->willReturn(new \ArrayIterator());
-        $form->expects($this->never())
+        $form->expects(static::never())
             ->method('add');
 
         $event = new FormEvent($form, null);
@@ -81,13 +81,13 @@ class ResizeFormListenerTest extends TestCase
         ];
 
         $form = $this->createMock(Form::class);
-        $form->expects($this->once())
+        $form->expects(static::once())
             ->method('getIterator')
             ->willReturn(new \ArrayIterator(['foo' => 'bar']));
-        $form->expects($this->once())
+        $form->expects(static::once())
             ->method('remove')
             ->with('foo');
-        $form->expects($this->once())
+        $form->expects(static::once())
             ->method('add')
             ->with('baz', 'form', $options);
 
@@ -103,7 +103,7 @@ class ResizeFormListenerTest extends TestCase
         $listener = new ResizeFormListener('form', [], false, null);
 
         $event = $this->createMock(FormEvent::class);
-        $event->expects($this->never())
+        $event->expects(static::never())
             ->method('getForm');
 
         $listener->preSubmit($event);
@@ -114,10 +114,10 @@ class ResizeFormListenerTest extends TestCase
         $listener = new ResizeFormListener('form', [], true, null);
 
         $form = $this->createMock(Form::class);
-        $form->expects($this->once())
+        $form->expects(static::once())
             ->method('getIterator')
             ->willReturn(new \ArrayIterator(['foo' => 'bar']));
-        $form->expects($this->never())
+        $form->expects(static::never())
             ->method('has');
 
         $event = new FormEvent($form, null);
@@ -151,13 +151,13 @@ class ResizeFormListenerTest extends TestCase
         ];
 
         $form = $this->createMock(Form::class);
-        $form->expects($this->once())
+        $form->expects(static::once())
             ->method('getIterator')
             ->willReturn(new \ArrayIterator(['foo' => 'bar']));
-        $form->expects($this->once())
+        $form->expects(static::once())
             ->method('remove')
             ->with('foo');
-        $form->expects($this->once())
+        $form->expects(static::once())
             ->method('add')
             ->with('baz', 'form', $options);
 
@@ -189,13 +189,13 @@ class ResizeFormListenerTest extends TestCase
         ];
 
         $form = $this->createMock(Form::class);
-        $form->expects($this->once())
+        $form->expects(static::once())
             ->method('getIterator')
             ->willReturn(new \ArrayIterator(['foo' => 'bar']));
-        $form->expects($this->once())
+        $form->expects(static::once())
             ->method('remove')
             ->with('foo');
-        $form->expects($this->once())
+        $form->expects(static::once())
             ->method('add')
             ->with('baz', 'form', $options);
 
@@ -209,7 +209,7 @@ class ResizeFormListenerTest extends TestCase
         $listener = new ResizeFormListener('form', [], false, null);
 
         $event = $this->createMock(FormEvent::class);
-        $event->expects($this->never())
+        $event->expects(static::never())
             ->method('getForm');
 
         $listener->onSubmit($event);
@@ -220,7 +220,7 @@ class ResizeFormListenerTest extends TestCase
         $listener = new ResizeFormListener('form', [], true, null);
 
         $form = $this->createMock(Form::class);
-        $form->expects($this->never())
+        $form->expects(static::never())
             ->method('has');
 
         $event = new FormEvent($form, null);
@@ -252,7 +252,7 @@ class ResizeFormListenerTest extends TestCase
 
         $form = $this->createMock(Form::class);
         $form
-            ->expects($this->exactly(3))
+            ->expects(static::exactly(3))
             ->method('has')
             ->withConsecutive(
                 ['foo'],
@@ -276,13 +276,13 @@ class ResizeFormListenerTest extends TestCase
         ];
 
         $event = $this->createMock(FormEvent::class);
-        $event->expects($this->once())
+        $event->expects(static::once())
             ->method('getForm')
             ->willReturn($form);
-        $event->expects($this->once())
+        $event->expects(static::once())
             ->method('getData')
             ->willReturn($data);
-        $event->expects($this->once())
+        $event->expects(static::once())
             ->method('setData')
             ->with($removedData);
 

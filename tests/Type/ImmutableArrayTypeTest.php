@@ -28,9 +28,9 @@ class ImmutableArrayTypeTest extends TypeTestCase
     {
         $type = new ImmutableArrayType();
 
-        $this->assertSame('sonata_type_immutable_array', $type->getBlockPrefix());
+        static::assertSame('sonata_type_immutable_array', $type->getBlockPrefix());
 
-        $this->assertSame(FormType::class, $type->getParent());
+        static::assertSame(FormType::class, $type->getParent());
 
         $type->configureOptions($resolver = new OptionsResolver());
 
@@ -40,7 +40,7 @@ class ImmutableArrayTypeTest extends TypeTestCase
             'keys' => [],
         ];
 
-        $this->assertSame($expected, $options);
+        static::assertSame($expected, $options);
     }
 
     public function testCallback(): void
@@ -48,14 +48,14 @@ class ImmutableArrayTypeTest extends TypeTestCase
         $type = new ImmutableArrayType();
 
         $builder = $this->createMock(TestFormBuilderInterface::class);
-        $builder->expects($this->once())->method('add')->with(
-            $this->callback(static function ($name) {
+        $builder->expects(static::once())->method('add')->with(
+            static::callback(static function ($name) {
                 return 'ttl' === $name;
             }),
-            $this->callback(static function ($name) {
+            static::callback(static function ($name) {
                 return TextType::class === $name;
             }),
-            $this->callback(static function ($name) {
+            static::callback(static function ($name) {
                 return $name === [1 => '1'];
             })
         );
@@ -101,7 +101,7 @@ class ImmutableArrayTypeTest extends TypeTestCase
         $type = new ImmutableArrayType();
         $type->configureOptions($optionsResolver);
 
-        $this->assertArrayHasKey(
+        static::assertArrayHasKey(
             'keys',
             $optionsResolver->resolve(['keys' => [$this->createMock(
                 FormBuilderInterface::class
