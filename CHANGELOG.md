@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.10.0](https://github.com/sonata-project/form-extensions/compare/1.9.0...1.10.0) - 2021-09-08
+### Fixed
+- [[#234](https://github.com/sonata-project/form-extensions/pull/234)] Fixed deprecation on `StubTranslation` by adding `getLocale()` method ([@jordisala1991](https://github.com/jordisala1991))
+
+### Removed
+- [[#234](https://github.com/sonata-project/form-extensions/pull/234)] Removed Support for Symfony 5.1 and 5.2 ([@jordisala1991](https://github.com/jordisala1991))
+
 ## [1.9.0](https://github.com/sonata-project/form-extensions/compare/1.8.2...1.9.0) - 2021-02-15
 ### Added
 - [[#202](https://github.com/sonata-project/form-extensions/pull/202)] Hungarian translation for keys `date_range_start` and `date_range_end` ([@fracsi](https://github.com/fracsi))
