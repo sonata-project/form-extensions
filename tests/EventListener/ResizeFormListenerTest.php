@@ -260,9 +260,9 @@ class ResizeFormListenerTest extends TestCase
                 ['baz']
             )
             ->willReturnOnConsecutiveCalls(
-                [false],
-                [false],
-                [true]
+                false,
+                false,
+                true
             );
 
         $data = [
