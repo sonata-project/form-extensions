@@ -19,7 +19,7 @@ Symfony form extensions
 Branch | Github Actions | Code Coverage | Documentation |
 ------ | -------------- | ------------- | ------------- |
 1.x    | [![Test][test_stable_badge]][test_stable_link]     | [![Coverage Status][coverage_stable_badge]][coverage_stable_link]     | [![Documentation Status][documentation_stable_badge]][documentation_stable_link]     |
-master | [![Test][test_unstable_badge]][test_unstable_link] | [![Coverage Status][coverage_unstable_badge]][coverage_unstable_link] | [![Documentation Status][documentation_unstable_badge]][documentation_unstable_link] |
+2.x | [![Test][test_unstable_badge]][test_unstable_link] | [![Coverage Status][coverage_unstable_badge]][coverage_unstable_link] | [![Documentation Status][documentation_unstable_badge]][documentation_unstable_link] |
 
 ## Documentation
 
@@ -38,15 +38,15 @@ This package is available under the [MIT license](LICENSE).
 
 [test_stable_badge]: https://github.com/sonata-project/form-extensions/workflows/Test/badge.svg?branch=1.x
 [test_stable_link]: https://github.com/sonata-project/form-extensions/actions?query=workflow:test+branch:1.x
-[test_unstable_badge]: https://github.com/sonata-project/form-extensions/workflows/Test/badge.svg?branch=master
-[test_unstable_link]: https://github.com/sonata-project/form-extensions/actions?query=workflow:test+branch:master
+[test_unstable_badge]: https://github.com/sonata-project/form-extensions/workflows/Test/badge.svg?branch=2.x
+[test_unstable_link]: https://github.com/sonata-project/form-extensions/actions?query=workflow:test+branch:2.x
 
 [coverage_stable_badge]: https://codecov.io/gh/sonata-project/form-extensions/branch/1.x/graph/badge.svg
 [coverage_stable_link]: https://codecov.io/gh/sonata-project/form-extensions/branch/1.x
-[coverage_unstable_badge]: https://codecov.io/gh/sonata-project/form-extensions/branch/master/graph/badge.svg
-[coverage_unstable_link]: https://codecov.io/gh/sonata-project/form-extensions/branch/master
+[coverage_unstable_badge]: https://codecov.io/gh/sonata-project/form-extensions/branch/2.x/graph/badge.svg
+[coverage_unstable_link]: https://codecov.io/gh/sonata-project/form-extensions/branch/2.x
 
 [documentation_stable_badge]: https://readthedocs.org/projects/form-extensions/badge/?version=1.x
 [documentation_stable_link]: https://docs.sonata-project.org/projects/form-extensions/en/1.x/?badge=1.x
-[documentation_unstable_badge]: https://readthedocs.org/projects/form-extensions/badge/?version=master
-[documentation_unstable_link]: https://docs.sonata-project.org/projects/form-extensions/en/master/?badge=master
+[documentation_unstable_badge]: https://readthedocs.org/projects/form-extensions/badge/?version=2.x
+[documentation_unstable_link]: https://docs.sonata-project.org/projects/form-extensions/en/2.x/?badge=2.x
