@@ -49,7 +49,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
         );
 
         $environment->addRuntimeLoader(new FactoryRuntimeLoader([
-            FormRenderer::class => function () {
+            FormRenderer::class => function (): FormRenderer {
                 return $this->renderer;
             },
         ]));
@@ -107,7 +107,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
      */
     final protected function renderWidget(FormView $view, array $vars = []): string
     {
-        return (string) $this->renderer->searchAndRenderBlock($view, 'widget', $vars);
+        return $this->renderer->searchAndRenderBlock($view, 'widget', $vars);
     }
 
     /**

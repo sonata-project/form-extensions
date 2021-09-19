@@ -32,6 +32,9 @@ final class InlineValidator extends ConstraintValidator
      */
     protected $constraintValidatorFactory;
 
+    /**
+     * @psalm-suppress ContainerDependency
+     */
     public function __construct(
         ContainerInterface $container,
         ConstraintValidatorFactoryInterface $constraintValidatorFactory

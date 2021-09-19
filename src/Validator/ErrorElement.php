@@ -44,7 +44,7 @@ final class ErrorElement
     private $stack = [];
 
     /**
-     * @var string[]
+     * @var PropertyPath[]
      */
     private $propertyPaths = [];
 
@@ -131,7 +131,7 @@ final class ErrorElement
 
     public function getFullPropertyPath(): string
     {
-        if ($this->getCurrentPropertyPath()) {
+        if (null !== $this->getCurrentPropertyPath()) {
             return sprintf('%s.%s', $this->basePropertyPath, $this->getCurrentPropertyPath());
         }
 
@@ -209,7 +209,7 @@ final class ErrorElement
     private function newConstraint(string $name, array $options = [])
     {
         if (false !== strpos($name, '\\') && class_exists($name)) {
-            $className = (string) $name;
+            $className = $name;
         } else {
             $className = 'Symfony\\Component\\Validator\\Constraints\\'.$name;
         }
