@@ -141,7 +141,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
             }
         }
 
-        $view->vars['datepicker_use_button'] = !empty($options['datepicker_use_button']);
+        $view->vars['datepicker_use_button'] = isset($options['datepicker_use_button']) && true === $options['datepicker_use_button'];
         $view->vars['dp_options'] = $dpOptions;
     }
 
@@ -191,7 +191,9 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     private function getLocaleFromRequest(RequestStack $requestStack): string
     {
-        if (!$request = $requestStack->getCurrentRequest()) {
+        $request = $requestStack->getCurrentRequest();
+
+        if (null === $request) {
             throw new \LogicException('A Request must be available.');
         }
 

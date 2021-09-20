@@ -39,7 +39,7 @@ class InlineConstraintTest extends TestCase
 
     public function testGetClosure(): void
     {
-        $closure = static function () {
+        $closure = static function (): string {
             return 'FOO';
         };
 

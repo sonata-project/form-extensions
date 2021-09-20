@@ -27,7 +27,7 @@ final class BooleanType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        if ($options['transform']) {
+        if (true === $options['transform']) {
             $builder->addModelTransformer(new BooleanTypeToBooleanTransformer());
         }
     }
