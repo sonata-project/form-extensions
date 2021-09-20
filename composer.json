@@ -41,13 +41,21 @@
         "doctrine/persistence": "^1.3 || ^2.0",
         "matthiasnoback/symfony-config-test": "^4.2",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan": "^0.12.84",
+        "phpstan/phpstan-phpunit": "^0.12.16",
+        "phpstan/phpstan-strict-rules": "^0.12.10",
+        "phpstan/phpstan-symfony": "^0.12.21",
+        "psalm/plugin-phpunit": "^0.16",
+        "psalm/plugin-symfony": "^2.0",
         "symfony/config": "^4.4 || ^5.3 || ^6.0",
         "symfony/dependency-injection": "^4.4 || ^5.3 || ^6.0",
         "symfony/framework-bundle": "^4.4 || ^5.3 || ^6.0",
         "symfony/http-foundation": "^4.4 || ^5.3 || ^6.0",
         "symfony/http-kernel": "^4.4 || ^5.3 || ^6.0",
         "symfony/phpunit-bridge": "^5.3 || ^6.0",
-        "symfony/twig-bridge": "^4.4 || ^5.3 || ^6.0"
+        "symfony/twig-bridge": "^4.4 || ^5.3 || ^6.0",
+        "vimeo/psalm": "^4.7.2"
     },
     "suggest": {
         "doctrine/persistence": "If you want to use BaseDoctrineORMSerializationType"
@@ -64,5 +72,13 @@
         "psr-4": {
             "Sonata\\Form\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "[ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/simple-phpunit install"
+        ],
+        "post-update-cmd": [
+            "[ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/simple-phpunit install"
+        ]
     }
 }

@@ -46,7 +46,7 @@ final class ResizeFormListener implements EventSubscriberInterface
     private $removed = [];
 
     /**
-     * @var \Closure
+     * @var \Closure|null
      */
     private $preSubmitDataCallback;
 
@@ -140,7 +140,7 @@ final class ResizeFormListener implements EventSubscriberInterface
                     'property_path' => '['.$name.']',
                 ];
 
-                if ($this->preSubmitDataCallback) {
+                if (null !== $this->preSubmitDataCallback) {
                     $buildOptions['data'] = \call_user_func($this->preSubmitDataCallback, $value);
                 }
 

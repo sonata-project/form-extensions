@@ -49,23 +49,22 @@ class ImmutableArrayTypeTest extends TypeTestCase
 
         $builder = $this->createMock(TestFormBuilderInterface::class);
         $builder->expects(static::once())->method('add')->with(
-            static::callback(static function ($name) {
+            static::callback(static function ($name): bool {
                 return 'ttl' === $name;
             }),
-            static::callback(static function ($name) {
+            static::callback(static function ($name): bool {
                 return TextType::class === $name;
             }),
-            static::callback(static function ($name) {
+            static::callback(static function ($name): bool {
                 return $name === [1 => '1'];
             })
         );
 
-        $self = $this;
-        $optionsCallback = static function ($builder, $name, $type, $extra) use ($self) {
-            $self->assertEquals(['foo', 'bar'], $extra);
-            $self->assertEquals($name, 'ttl');
-            $self->assertEquals($type, TextType::class);
-            $self->assertInstanceOf(TestFormBuilderInterface::class, $builder);
+        $optionsCallback = static function ($builder, $name, $type, $extra): array {
+            static::assertSame(['foo', 'bar'], $extra);
+            static::assertSame($name, 'ttl');
+            static::assertSame($type, TextType::class);
+            static::assertInstanceOf(TestFormBuilderInterface::class, $builder);
 
             return ['1' => '1'];
         };

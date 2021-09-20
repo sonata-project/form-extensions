@@ -16,7 +16,6 @@ namespace Sonata\Form\Type;
 use Doctrine\Persistence\ManagerRegistry;
 use Metadata\MetadataFactoryInterface;
 use Sonata\Form\EventListener\FixCheckboxDataListener;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,7 +30,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class BaseDoctrineORMSerializationType extends AbstractType
 {
     /**
-     * @var RegistryInterface
+     * @var ManagerRegistry
      */
     protected $registry;
 
