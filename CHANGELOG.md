@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.11.0](https://github.com/sonata-project/form-extensions/compare/1.10.0...1.11.0) - 2021-09-22
 ### Added
-- [[#258](https://github.com/sonata-project/form-extensions/pull/258)] Added support for Symfony 6. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#258](https://github.com/sonata-project/form-extensions/pull/258)] Added support for Symfony 6 ([@jordisala1991](https://github.com/jordisala1991))
 
 ## [1.10.0](https://github.com/sonata-project/form-extensions/compare/1.9.0...1.10.0) - 2021-09-08
 ### Fixed
