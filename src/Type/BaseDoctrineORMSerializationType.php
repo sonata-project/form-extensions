@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Type;
 
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Persistence\ManagerRegistry;
+use JMS\Serializer\Metadata\PropertyMetadata;
 use Metadata\MetadataFactoryInterface;
 use Sonata\Form\EventListener\FixCheckboxDataListener;
 use Symfony\Component\Form\AbstractType;
@@ -45,7 +47,7 @@ class BaseDoctrineORMSerializationType extends AbstractType
     protected $name;
 
     /**
-     * @var string
+     * @var class-string
      */
     protected $class;
 
@@ -63,7 +65,7 @@ class BaseDoctrineORMSerializationType extends AbstractType
      * @param MetadataFactoryInterface $metadataFactory     Serializer metadata factory
      * @param ManagerRegistry          $registry            Doctrine registry
      * @param string                   $name                Form type name
-     * @param string                   $class               Data class name
+     * @param class-string             $class               Data class name
      * @param string                   $group               Serialization group name
      * @param bool|false               $identifierOverwrite
      */
@@ -83,15 +85,17 @@ class BaseDoctrineORMSerializationType extends AbstractType
 
         $manager = $this->registry->getManagerForClass($this->class);
         $doctrineMetadata = $manager->getClassMetadata($this->class);
+        \assert($doctrineMetadata instanceof ClassMetadataInfo);
 
         foreach ($serializerMetadata->propertyMetadata as $propertyMetadata) {
-            $name = $propertyMetadata->name;
+            \assert($propertyMetadata instanceof PropertyMetadata);
 
+            $name = $propertyMetadata->name;
             if (\in_array($name, $doctrineMetadata->getIdentifierFieldNames(), true) && !$this->identifierOverwrite) {
                 continue;
             }
 
-            if (!$propertyMetadata->groups || !\in_array($this->group, $propertyMetadata->groups, true)) {
+            if (!\in_array($this->group, $propertyMetadata->groups, true)) {
                 continue;
             }
 

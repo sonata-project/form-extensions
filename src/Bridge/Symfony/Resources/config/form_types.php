@@ -28,6 +28,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigura
 return static function (ContainerConfigurator $containerConfigurator): void {
     // BC layer for deprecation messages for symfony/config < 5.1
     $getDeprecationParameters = static function (string $message, string $version): array {
+        // @phpstan-ignore-next-line
         if (method_exists(BaseNode::class, 'getDeprecation')) {
             return [
                 'sonata-project/form-extensions',
