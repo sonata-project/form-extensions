@@ -47,7 +47,8 @@ class BaseDoctrineORMSerializationType extends AbstractType
     protected $name;
 
     /**
-     * @var class-string
+     * @var string
+     * @phpstan-var class-string
      */
     protected $class;
 
@@ -65,9 +66,11 @@ class BaseDoctrineORMSerializationType extends AbstractType
      * @param MetadataFactoryInterface $metadataFactory     Serializer metadata factory
      * @param ManagerRegistry          $registry            Doctrine registry
      * @param string                   $name                Form type name
-     * @param class-string             $class               Data class name
+     * @param string                   $class               Data class name
      * @param string                   $group               Serialization group name
-     * @param bool|false               $identifierOverwrite
+     * @param bool                     $identifierOverwrite
+     *
+     * @phpstan-param class-string $class
      */
     public function __construct(MetadataFactoryInterface $metadataFactory, ManagerRegistry $registry, $name, $class, $group, $identifierOverwrite = false)
     {
