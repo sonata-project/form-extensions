@@ -6,7 +6,7 @@
         "symfony",
         "form"
     ],
-    "homepage": "https://sonata-project.org/bundles/form-extensions",
+    "homepage": "https://docs.sonata-project.org/projects/form-extensions",
     "license": "MIT",
     "authors": [
         {
