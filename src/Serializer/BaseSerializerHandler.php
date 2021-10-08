@@ -77,7 +77,7 @@ abstract class BaseSerializerHandler implements SerializerHandlerInterface
     /**
      * Serialize data object to id.
      *
-     * NEXT_MAJOR: Update typehint when dropping jms/serializer < 3.0
+     * NEXT_MAJOR: Update type hint when dropping jms/serializer < 3.0
      *
      * @param SerializationVisitorInterface $visitor
      *
