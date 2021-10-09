@@ -55,9 +55,6 @@ final class InlineConstraint extends Constraint
             return [];
         }
 
-        // Initialize "groups" option if it is not set
-        $this->groups;
-
         return array_keys(get_object_vars($this));
     }
 
