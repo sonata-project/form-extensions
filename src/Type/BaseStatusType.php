@@ -61,6 +61,7 @@ abstract class BaseStatusType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            // @phpstan-ignore-next-line https://github.com/phpstan/phpstan/issues/1105
             'choices' => \call_user_func([$this->class, $this->getter]),
         ]);
     }
