@@ -17,6 +17,7 @@ use PHPUnit\Framework\MockObject\Stub;
 use Sonata\Form\Date\MomentFormatConverter;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -24,7 +25,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
-class DatePickerTypeTest extends TypeTestCase
+final class DatePickerTypeTest extends TypeTestCase
 {
     /**
      * @var Stub&TranslatorInterface
@@ -70,7 +71,10 @@ class DatePickerTypeTest extends TypeTestCase
         static::assertTrue($form->isSynchronized());
     }
 
-    protected function getExtensions()
+    /**
+     * @return FormExtensionInterface[]
+     */
+    protected function getExtensions(): array
     {
         $type = new DatePickerType(new MomentFormatConverter(), $this->translator, 'en');
 

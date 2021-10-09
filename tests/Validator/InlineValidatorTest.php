@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\Validator;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\Form\Tests\Fixtures\Bundle\Validator\FooValidatorService;
 use Sonata\Form\Validator\Constraints\InlineConstraint;
@@ -28,8 +29,19 @@ use Symfony\Component\Validator\Exception\ValidatorException;
  */
 final class InlineValidatorTest extends TestCase
 {
+    /**
+     * @var ContainerInterface&MockObject
+     */
     private $container;
+
+    /**
+     * @var ConstraintValidatorFactoryInterface&MockObject
+     */
     private $constraintValidatorFactory;
+
+    /**
+     * @var ExecutionContextInterface&MockObject
+     */
     private $context;
 
     protected function setUp(): void

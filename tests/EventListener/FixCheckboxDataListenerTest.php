@@ -16,6 +16,8 @@ namespace Sonata\Form\Tests\EventListener;
 use PHPUnit\Framework\TestCase;
 use Sonata\Form\EventListener\FixCheckboxDataListener;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Extension\Core\DataTransformer\BooleanToStringTransformer;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Forms;
@@ -23,14 +25,21 @@ use Symfony\Component\Form\Forms;
 class FixCheckboxDataListenerTest extends TestCase
 {
     /**
+     * @param mixed $data
+     * @param mixed $expected
+     *
      * @dataProvider valuesProvider
      */
-    public function testFixCheckbox($data, $expected, $suscriber, $transformer): void
-    {
+    public function testFixCheckbox(
+        $data,
+        $expected,
+        ?EventSubscriberInterface $subscriber,
+        ?DataTransformerInterface $transformer
+    ): void {
         $dispatcher = new EventDispatcher();
 
-        if ($suscriber) {
-            $dispatcher->addSubscriber($suscriber);
+        if (null !== $subscriber) {
+            $dispatcher->addSubscriber($subscriber);
         }
 
         $formFactory = Forms::createFormFactoryBuilder()
@@ -39,7 +48,7 @@ class FixCheckboxDataListenerTest extends TestCase
 
         $formBuilder = new FormBuilder('checkbox', 'stdClass', $dispatcher, $formFactory);
 
-        if ($transformer) {
+        if (null !== $transformer) {
             $formBuilder->addViewTransformer($transformer);
         }
 
@@ -49,7 +58,10 @@ class FixCheckboxDataListenerTest extends TestCase
         static::assertSame($expected, $form->getData());
     }
 
-    public function valuesProvider()
+    /**
+     * @return iterable<array-key, array{mixed, mixed, EventSubscriberInterface|null, DataTransformerInterface|null}>
+     */
+    public function valuesProvider(): iterable
     {
         return [
             ['0', true, null, new BooleanToStringTransformer('1')],

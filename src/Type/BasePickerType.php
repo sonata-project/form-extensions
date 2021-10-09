@@ -48,6 +48,8 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     /**
      * NEXT_MAJOR: Add "string" typehint to $requestStackOrDefaultLocale and change the name to defaultLocale.
+     *
+     * @param string|RequestStack $requestStackOrDefaultLocale
      */
     public function __construct(MomentFormatConverter $formatConverter, TranslatorInterface $translator, $requestStackOrDefaultLocale)
     {
@@ -157,6 +159,8 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     /**
      * Gets base default options for the date pickers.
+     *
+     * @return array<string, mixed>
      */
     protected function getCommonDefaults(): array
     {
@@ -200,11 +204,16 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
         return $request->getLocale();
     }
 
-    private function formatObject(\DateTimeInterface $dateTime, $format): string
+    private function formatObject(\DateTimeInterface $dateTime, string $format): string
     {
         $formatter = new \IntlDateFormatter($this->locale, \IntlDateFormatter::NONE, \IntlDateFormatter::NONE);
         $formatter->setPattern($format);
 
-        return $formatter->format($dateTime);
+        $formatted = $formatter->format($dateTime);
+        if (false === $formatted) {
+            throw new \RuntimeException(sprintf('The format "%s" is invalid.', $format));
+        }
+
+        return $formatted;
     }
 }

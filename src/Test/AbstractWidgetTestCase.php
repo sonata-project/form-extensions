@@ -104,6 +104,8 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
 
     /**
      * Renders widget from FormView, in SonataAdmin context, with optional view variables $vars. Returns plain HTML.
+     *
+     * @param array<string, mixed> $vars
      */
     final protected function renderWidget(FormView $view, array $vars = []): string
     {
@@ -117,13 +119,13 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
     {
         return preg_replace_callback('/\s*>([^<]+)</', static function (array $value): string {
             return '>'.trim($value[1]).'<';
-        }, $html);
+        }, $html) ?? '';
     }
 
     final protected function cleanHtmlAttributeWhitespace(string $html): string
     {
         return preg_replace_callback('~<([A-Z0-9]+) \K(.*?)>~i', static function (array $m): string {
             return preg_replace('~\s*~', '', $m[0]);
-        }, $html);
+        }, $html) ?? '';
     }
 }

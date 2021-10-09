@@ -23,7 +23,7 @@ use Symfony\Component\Form\FormEvents;
 /**
  * @author Ahmet Akbana <ahmetakbana@gmail.com>
  */
-class ResizeFormListenerTest extends TestCase
+final class ResizeFormListenerTest extends TestCase
 {
     public function testGetSubscribedEvents(): void
     {

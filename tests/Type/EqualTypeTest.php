@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EqualTypeTest extends TypeTestCase
+final class EqualTypeTest extends TypeTestCase
 {
     /**
      * @group legacy

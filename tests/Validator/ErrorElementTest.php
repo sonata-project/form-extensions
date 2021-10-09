@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\Validator;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\Form\Tests\Fixtures\Bundle\Entity\Foo;
 use Sonata\Form\Validator\ErrorElement;
@@ -26,11 +27,26 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 /**
  * @author Andrej Hudec <pulzarraider@gmail.com>
  */
-class ErrorElementTest extends TestCase
+final class ErrorElementTest extends TestCase
 {
+    /**
+     * @var ErrorElement
+     */
     private $errorElement;
+
+    /**
+     * @var ExecutionContextInterface&MockObject
+     */
     private $context;
+
+    /**
+     * @var ContextualValidatorInterface&MockObject
+     */
     private $contextualValidator;
+
+    /**
+     * @var Foo
+     */
     private $subject;
 
     protected function setUp(): void
@@ -106,7 +122,7 @@ class ErrorElementTest extends TestCase
             ->with('');
         $this->contextualValidator->expects(static::once())
             ->method('validate')
-            ->with($this->subject, $constraint, ['foo_core']);
+            ->with($this->subject, $constraint, 'foo_core');
 
         $this->errorElement->addConstraint($constraint);
     }
@@ -120,7 +136,7 @@ class ErrorElementTest extends TestCase
             ->with('bar');
         $this->contextualValidator->expects(static::once())
             ->method('validate')
-            ->with(null, $constraint, ['foo_core']);
+            ->with(null, $constraint, 'foo_core');
 
         $this->errorElement->with('bar');
         $this->errorElement->addConstraint($constraint);
@@ -136,19 +152,23 @@ class ErrorElementTest extends TestCase
             ->with('bar');
         $this->contextualValidator->expects(static::once())
             ->method('validate')
-            ->with(null, $constraint, ['foo_core']);
+            ->with(null, $constraint, 'foo_core');
 
         $this->errorElement->with('bar');
         $this->errorElement->assertNotNull();
         $this->errorElement->end();
     }
 
+    /**
+     * @psalm-suppress UndefinedMagicMethod
+     */
     public function testCallException(): void
     {
-        $this->expectException('RuntimeException');
+        $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Unable to recognize the command');
 
         $this->errorElement->with('bar');
+        // @phpstan-ignore-next-line
         $this->errorElement->baz();
     }
 
@@ -170,7 +190,7 @@ class ErrorElementTest extends TestCase
             ->with('');
         $this->contextualValidator
             ->method('validate')
-            ->with($this->subject, $constraint, ['foo_core']);
+            ->with($this->subject, $constraint, 'foo_core');
 
         static::assertSame($this->errorElement, $this->errorElement->with('baz'));
         static::assertSame($this->errorElement, $this->errorElement->end());

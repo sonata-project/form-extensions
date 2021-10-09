@@ -21,6 +21,7 @@ abstract class BaseStatusType extends AbstractType
 {
     /**
      * @var string
+     * @phpstan-var class-string
      */
     protected $class;
 
@@ -34,6 +35,9 @@ abstract class BaseStatusType extends AbstractType
      */
     protected $name;
 
+    /**
+     * @phpstan-param class-string $class
+     */
     public function __construct(string $class, string $getter, string $name)
     {
         $this->class = $class;

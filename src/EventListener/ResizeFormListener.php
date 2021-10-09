@@ -36,7 +36,7 @@ final class ResizeFormListener implements EventSubscriberInterface
     private $resizeOnSubmit;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $typeOptions;
 
@@ -51,9 +51,10 @@ final class ResizeFormListener implements EventSubscriberInterface
     private $preSubmitDataCallback;
 
     /**
-     * @param string        $type
-     * @param bool          $resizeOnSubmit
-     * @param \Closure|null $preSubmitDataCallback
+     * @param string               $type
+     * @param array<string, mixed> $typeOptions
+     * @param bool                 $resizeOnSubmit
+     * @param \Closure|null        $preSubmitDataCallback
      */
     public function __construct(
         $type,
@@ -171,8 +172,11 @@ final class ResizeFormListener implements EventSubscriberInterface
             $data = [];
         }
 
-        if (!\is_array($data) && !$data instanceof \Traversable) {
-            throw new UnexpectedTypeException($data, 'array or \Traversable');
+        if (
+            !\is_array($data)
+            && (!$data instanceof \Traversable || !$data instanceof \ArrayAccess)
+        ) {
+            throw new UnexpectedTypeException($data, 'array or \Traversable&\ArrayAccess');
         }
 
         foreach ($data as $name => $child) {

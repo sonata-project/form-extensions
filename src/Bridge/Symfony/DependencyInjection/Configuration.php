@@ -38,6 +38,10 @@ class Configuration implements ConfigurationInterface
 
     /**
      * Returns configuration for flash messages.
+     *
+     * @psalm-suppress PossiblyNullReference, PossiblyUndefinedMethod
+     *
+     * @see https://github.com/psalm/psalm-plugin-symfony/issues/174
      */
     private function addFlashMessageSection(ArrayNodeDefinition $node): void
     {
@@ -59,6 +63,10 @@ class Configuration implements ConfigurationInterface
 
     /**
      * Adds configuration for serializer formats.
+     *
+     * @psalm-suppress PossiblyNullReference, PossiblyUndefinedMethod
+     *
+     * @see https://github.com/psalm/psalm-plugin-symfony/issues/174
      */
     private function addSerializerFormats(ArrayNodeDefinition $node): void
     {

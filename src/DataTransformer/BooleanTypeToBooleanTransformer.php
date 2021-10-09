@@ -16,6 +16,11 @@ namespace Sonata\Form\DataTransformer;
 use Sonata\Form\Type\BooleanType;
 use Symfony\Component\Form\DataTransformerInterface;
 
+/**
+ * @psalm-suppress InvalidReturnType, InvalidReturnStatement, FalsableReturnStatement
+ *
+ * @see https://github.com/psalm/psalm-plugin-symfony/issues/223
+ */
 final class BooleanTypeToBooleanTransformer implements DataTransformerInterface
 {
     public function transform($value): ?int

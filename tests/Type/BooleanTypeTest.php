@@ -19,7 +19,7 @@ use Symfony\Component\Form\Test\FormBuilderInterface;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BooleanTypeTest extends TypeTestCase
+final class BooleanTypeTest extends TypeTestCase
 {
     public function testParentIsChoiceType(): void
     {

@@ -48,6 +48,9 @@ final class BasePickerTypeTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $expectedOptions
+     * @param array<string, mixed> $options
+     *
      * @dataProvider provideTypeOptions
      */
     public function testFinishView(array $expectedOptions, array $options): void
@@ -84,6 +87,9 @@ final class BasePickerTypeTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $expectedOptions
+     * @param array<string, mixed> $options
+     *
      * @dataProvider provideTypeOptions
      */
     public function testTimePickerIntlFormater(array $expectedOptions, array $options): void
@@ -109,6 +115,9 @@ final class BasePickerTypeTest extends TestCase
         static::assertSame($expectedOptions['maxDate'], $view->vars['dp_options']['maxDate']);
     }
 
+    /**
+     * @return iterable<array-key, array{array<string, mixed>, array<string, mixed>}>
+     */
     public function provideTypeOptions(): iterable
     {
         yield [

@@ -1,0 +1,5 @@
+parameters:
+	ignoreErrors:
+		- # https://github.com/phpstan/phpstan/issues/1105
+			message: '#^Parameter \#1 \$function of function call_user_func expects callable\(\)\: mixed, array\(class\-string, string\) given\.$#'
+			path: src/Type/BaseStatusType.php

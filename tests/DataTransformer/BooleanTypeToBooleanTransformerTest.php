@@ -17,12 +17,14 @@ use PHPUnit\Framework\TestCase;
 use Sonata\Form\DataTransformer\BooleanTypeToBooleanTransformer;
 use Sonata\Form\Type\BooleanType;
 
-class BooleanTypeToBooleanTransformerTest extends TestCase
+final class BooleanTypeToBooleanTransformerTest extends TestCase
 {
     /**
+     * @param mixed $value
+     *
      * @dataProvider getReverseTransformData
      */
-    public function testReverseTransform($value, $expected): void
+    public function testReverseTransform($value, ?int $expected): void
     {
         $transformer = new BooleanTypeToBooleanTransformer();
 
@@ -40,7 +42,10 @@ class BooleanTypeToBooleanTransformerTest extends TestCase
         static::assertNull($transformer->reverseTransform('asd'));
     }
 
-    public function getReverseTransformData()
+    /**
+     * @return iterable<array-key, array{mixed, int|null}>
+     */
+    public function getReverseTransformData(): iterable
     {
         return [
             [true, BooleanType::TYPE_YES],
