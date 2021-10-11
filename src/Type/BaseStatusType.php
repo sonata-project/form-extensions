@@ -60,9 +60,17 @@ abstract class BaseStatusType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        $callable = [$this->class, $this->getter];
+        if (!\is_callable($callable)) {
+            throw new \RuntimeException(sprintf(
+                'The class "%s" has no method "%s()".',
+                $this->class,
+                $this->getter
+            ));
+        }
+
         $resolver->setDefaults([
-            // @phpstan-ignore-next-line https://github.com/phpstan/phpstan/issues/1105
-            'choices' => \call_user_func([$this->class, $this->getter]),
+            'choices' => \call_user_func($callable),
         ]);
     }
 }

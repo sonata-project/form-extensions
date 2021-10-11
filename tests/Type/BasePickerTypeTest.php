@@ -116,7 +116,7 @@ final class BasePickerTypeTest extends TestCase
     }
 
     /**
-     * @return iterable<array-key, array{array<string, mixed>, array<string, mixed>}>
+     * @return iterable<array{array<string, mixed>, array<string, mixed>}>
      */
     public function provideTypeOptions(): iterable
     {

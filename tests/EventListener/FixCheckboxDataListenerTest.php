@@ -59,7 +59,7 @@ class FixCheckboxDataListenerTest extends TestCase
     }
 
     /**
-     * @return iterable<array-key, array{mixed, mixed, EventSubscriberInterface|null, DataTransformerInterface|null}>
+     * @return iterable<array{mixed, mixed, EventSubscriberInterface|null, DataTransformerInterface|null}>
      */
     public function valuesProvider(): iterable
     {

@@ -43,7 +43,7 @@ final class BooleanTypeToBooleanTransformerTest extends TestCase
     }
 
     /**
-     * @return iterable<array-key, array{mixed, int|null}>
+     * @return iterable<array{mixed, int|null}>
      */
     public function getReverseTransformData(): iterable
     {
