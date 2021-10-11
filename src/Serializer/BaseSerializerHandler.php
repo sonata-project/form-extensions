@@ -26,7 +26,7 @@ use Sonata\Doctrine\Model\ManagerInterface;
 abstract class BaseSerializerHandler implements SerializerHandlerInterface
 {
     /**
-     * @var ManagerInterface
+     * @var ManagerInterface<object>
      */
     protected $manager;
 
@@ -35,11 +35,17 @@ abstract class BaseSerializerHandler implements SerializerHandlerInterface
      */
     protected static $formats = [];
 
+    /**
+     * @param ManagerInterface<object> $manager
+     */
     public function __construct(ManagerInterface $manager)
     {
         $this->manager = $manager;
     }
 
+    /**
+     * @param string[] $formats
+     */
     final public static function setFormats(array $formats): void
     {
         static::$formats = $formats;
@@ -50,6 +56,9 @@ abstract class BaseSerializerHandler implements SerializerHandlerInterface
         static::$formats[] = $format;
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     public static function getSubscribingMethods(): array
     {
         $type = static::getType();
@@ -77,9 +86,12 @@ abstract class BaseSerializerHandler implements SerializerHandlerInterface
     /**
      * Serialize data object to id.
      *
-     * NEXT_MAJOR: Update type hint when dropping jms/serializer < 3.0
+     * NEXT_MAJOR: Update $visitor type hint and remove $context when dropping jms/serializer < 3.0
+     *
+     * @psalm-suppress TooManyArguments for jms/serializer < 3.0 support
      *
      * @param SerializationVisitorInterface $visitor
+     * @param mixed[]                       $type
      *
      * @return int|null
      */
@@ -102,9 +114,10 @@ abstract class BaseSerializerHandler implements SerializerHandlerInterface
     /**
      * Deserialize object from its id.
      *
-     * NEXT_MAJOR: Update typehint when dropping jms/serializer < 3.0
+     * NEXT_MAJOR: Update $visitor typehint when dropping jms/serializer < 3.0
      *
      * @param DeserializationVisitorInterface $visitor
+     * @param mixed[]                         $type
      */
     public function deserializeObjectFromId(
         VisitorInterface $visitor,

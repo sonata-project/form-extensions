@@ -18,12 +18,12 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 final class DummyPickerType extends BasePickerType
 {
-    public function getName()
+    public function getName(): string
     {
         return 'base_picker_test';
     }
 
-    protected function getDefaultFormat()
+    protected function getDefaultFormat(): string
     {
         return DateTimeType::HTML5_FORMAT;
     }

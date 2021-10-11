@@ -15,6 +15,7 @@ namespace Sonata\Form\Type;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Persistence\ManagerRegistry;
+use JMS\Serializer\Metadata\ClassMetadata;
 use JMS\Serializer\Metadata\PropertyMetadata;
 use Metadata\MetadataFactoryInterface;
 use Sonata\Form\EventListener\FixCheckboxDataListener;
@@ -85,15 +86,41 @@ class BaseDoctrineORMSerializationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $serializerMetadata = $this->metadataFactory->getMetadataForClass($this->class);
+        if (!$serializerMetadata instanceof ClassMetadata) {
+            throw new \RuntimeException(sprintf(
+                'The serializer metadata of the class "%s" MUST implement "%s".',
+                $this->class,
+                ClassMetadata::class
+            ));
+        }
 
         $manager = $this->registry->getManagerForClass($this->class);
+        if (null === $manager) {
+            throw new \RuntimeException(sprintf(
+                'The object manager of the class "%s" cannot be found.',
+                $this->class
+            ));
+        }
+
         $doctrineMetadata = $manager->getClassMetadata($this->class);
-        \assert($doctrineMetadata instanceof ClassMetadataInfo);
+        if (!$doctrineMetadata instanceof ClassMetadataInfo) {
+            throw new \RuntimeException(sprintf(
+                'The class metadata of the class "%s" MUST implement "%s".',
+                $this->class,
+                ClassMetadataInfo::class
+            ));
+        }
 
         foreach ($serializerMetadata->propertyMetadata as $propertyMetadata) {
-            \assert($propertyMetadata instanceof PropertyMetadata);
-
             $name = $propertyMetadata->name;
+            if (!$propertyMetadata instanceof PropertyMetadata) {
+                throw new \RuntimeException(sprintf(
+                    'The serializer metadata of the property "%s" MUST implement "%s".',
+                    $name,
+                    PropertyMetadata::class
+                ));
+            }
+
             if (\in_array($name, $doctrineMetadata->getIdentifierFieldNames(), true) && !$this->identifierOverwrite) {
                 continue;
             }
@@ -148,6 +175,11 @@ class BaseDoctrineORMSerializationType extends AbstractType
         return $this->name;
     }
 
+    /**
+     * NEXT_MAJOR: Remove this method.
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->getBlockPrefix();

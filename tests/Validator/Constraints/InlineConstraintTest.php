@@ -19,7 +19,7 @@ use Sonata\Form\Validator\Constraints\InlineConstraint;
 /**
  * @author Andrej Hudec <pulzarraider@gmail.com>
  */
-class InlineConstraintTest extends TestCase
+final class InlineConstraintTest extends TestCase
 {
     public function testValidatedBy(): void
     {
@@ -82,7 +82,7 @@ class InlineConstraintTest extends TestCase
 
         $constraint = unserialize($expected);
 
-        static::assertInstanceOf('Closure', $constraint->getMethod());
+        static::assertInstanceOf(\Closure::class, $constraint->getMethod());
         static::assertEmpty($constraint->getService());
         static::assertTrue($constraint->getSerializingWarning());
     }
@@ -102,9 +102,7 @@ class InlineConstraintTest extends TestCase
 
     public function testSerializingWarningIsFalseWithServiceIsNotString(): void
     {
-        $this->expectException(
-            'RuntimeException'
-        );
+        $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage(
             'You are using a closure with the `InlineConstraint`, this constraint'.
             ' cannot be serialized. You need to re-attach the `InlineConstraint` on each request.'.
@@ -116,9 +114,7 @@ class InlineConstraintTest extends TestCase
 
     public function testSerializingWarningIsFalseWithMethodIsNotString(): void
     {
-        $this->expectException(
-            'RuntimeException'
-        );
+        $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage(
             'You are using a closure with the `InlineConstraint`, this constraint'.
             ' cannot be serialized. You need to re-attach the `InlineConstraint` on each request.'.

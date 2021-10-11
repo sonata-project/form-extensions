@@ -21,6 +21,7 @@ abstract class BaseStatusType extends AbstractType
 {
     /**
      * @var string
+     * @phpstan-var class-string
      */
     protected $class;
 
@@ -34,6 +35,9 @@ abstract class BaseStatusType extends AbstractType
      */
     protected $name;
 
+    /**
+     * @phpstan-param class-string $class
+     */
     public function __construct(string $class, string $getter, string $name)
     {
         $this->class = $class;
@@ -56,8 +60,17 @@ abstract class BaseStatusType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        $callable = [$this->class, $this->getter];
+        if (!\is_callable($callable)) {
+            throw new \RuntimeException(sprintf(
+                'The class "%s" has no method "%s()".',
+                $this->class,
+                $this->getter
+            ));
+        }
+
         $resolver->setDefaults([
-            'choices' => \call_user_func([$this->class, $this->getter]),
+            'choices' => \call_user_func($callable),
         ]);
     }
 }

@@ -22,7 +22,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ImmutableArrayTypeTest extends TypeTestCase
+final class ImmutableArrayTypeTest extends TypeTestCase
 {
     public function testGetDefaultOptions(): void
     {
