@@ -15,10 +15,68 @@ namespace Sonata\Form\Validator;
 
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyPath;
+use Symfony\Component\PropertyAccess\PropertyPathInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
+/**
+ * @method self assertBic(array $options = [])
+ * @method self assertBlank(array $options = [])
+ * @method self assertCallback(array $options = [])
+ * @method self assertCardScheme(array $options = [])
+ * @method self assertChoice(array $options = [])
+ * @method self assertCollection(array $options = [])
+ * @method self assertCount(array $options = [])
+ * @method self assertCountry(array $options = [])
+ * @method self assertCurrency(array $options = [])
+ * @method self assertDate(array $options = [])
+ * @method self assertDateTime(array $options = [])
+ * @method self assertDisableAutoMapping(array $options = [])
+ * @method self assertDivisibleBy(array $options = [])
+ * @method self assertEmail(array $options = [])
+ * @method self assertEnableAutoMapping(array $options = [])
+ * @method self assertEqualTo(array $options = [])
+ * @method self assertExpression(array $options = [])
+ * @method self assertFile(array $options = [])
+ * @method self assertGreaterThan(array $options = [])
+ * @method self assertGreaterThanOrEqual(array $options = [])
+ * @method self assertIban(array $options = [])
+ * @method self assertIdenticalTo(array $options = [])
+ * @method self assertImage(array $options = [])
+ * @method self assertIp(array $options = [])
+ * @method self assertIsbn(array $options = [])
+ * @method self assertIsFalse(array $options = [])
+ * @method self assertIsNull(array $options = [])
+ * @method self assertIssn(array $options = [])
+ * @method self assertIsTrue(array $options = [])
+ * @method self assertJson(array $options = [])
+ * @method self assertLanguage(array $options = [])
+ * @method self assertLength(array $options = [])
+ * @method self assertLessThan(array $options = [])
+ * @method self assertLessThanOrEqual(array $options = [])
+ * @method self assertLocale(array $options = [])
+ * @method self assertLuhn(array $options = [])
+ * @method self assertNegative(array $options = [])
+ * @method self assertNegativeOrZero(array $options = [])
+ * @method self assertNotBlank(array $options = [])
+ * @method self assertNotCompromisedPassword(array $options = [])
+ * @method self assertNotEqualTo(array $options = [])
+ * @method self assertNotIdentificalTo(array $options = [])
+ * @method self assertNotNull(array $options = [])
+ * @method self assertPositive(array $options = [])
+ * @method self assertPositiveOrZero(array $options = [])
+ * @method self assertRange(array $options = [])
+ * @method self assertRegex(array $options = [])
+ * @method self assertTime(array $options = [])
+ * @method self assertTimezone(array $options = [])
+ * @method self assertTraverse(array $options = [])
+ * @method self assertType(array $options = [])
+ * @method self assertUnique(array $options = [])
+ * @method self assertUrl(array $options = [])
+ * @method self assertUuid(array $options = [])
+ * @method self assertValid(array $options = [])
+ */
 final class ErrorElement
 {
     private const DEFAULT_TRANSLATION_DOMAIN = 'validators';
@@ -29,7 +87,7 @@ final class ErrorElement
     private $context;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $group;
 
@@ -44,7 +102,7 @@ final class ErrorElement
     private $stack = [];
 
     /**
-     * @var PropertyPath[]
+     * @var PropertyPathInterface[]
      */
     private $propertyPaths = [];
 
@@ -64,13 +122,12 @@ final class ErrorElement
     private $basePropertyPath;
 
     /**
-     * @var array
+     * @var array<array{string, array<string, mixed>, mixed}>
      */
     private $errors = [];
 
     /**
-     * @param mixed  $subject
-     * @param string $group
+     * @param mixed $subject
      */
     public function __construct(
         $subject,
@@ -86,6 +143,8 @@ final class ErrorElement
     }
 
     /**
+     * @param mixed[] $arguments
+     *
      * @throws \RuntimeException
      */
     public function __call(string $name, array $arguments = []): self
@@ -131,8 +190,9 @@ final class ErrorElement
 
     public function getFullPropertyPath(): string
     {
-        if (null !== $this->getCurrentPropertyPath()) {
-            return sprintf('%s.%s', $this->basePropertyPath, $this->getCurrentPropertyPath());
+        $propertyPath = $this->getCurrentPropertyPath();
+        if (null !== $propertyPath) {
+            return sprintf('%s.%s', $this->basePropertyPath, (string) $propertyPath);
         }
 
         return $this->basePropertyPath;
@@ -147,8 +207,9 @@ final class ErrorElement
     }
 
     /**
-     * @param string|array $message
-     * @param mixed|null   $value
+     * @param string|array{0?:string, 1?:array<string, mixed>, 2?:mixed} $message
+     * @param array<string, mixed>                                       $parameters
+     * @param mixed                                                      $value
      *
      * @return ErrorElement
      */
@@ -174,6 +235,9 @@ final class ErrorElement
         return $this;
     }
 
+    /**
+     * @return array<array{string, array<string, mixed>, mixed}>
+     */
     public function getErrors(): array
     {
         return $this->errors;
@@ -184,7 +248,7 @@ final class ErrorElement
         $this->context->getValidator()
             ->inContext($this->context)
             ->atPath((string) $this->getCurrentPropertyPath())
-            ->validate($this->getValue(), $constraint, [$this->group]);
+            ->validate($this->getValue(), $constraint, $this->group);
     }
 
     /**
@@ -198,13 +262,20 @@ final class ErrorElement
             return $this->subject;
         }
 
+        $propertyPath = $this->getCurrentPropertyPath();
+        \assert(null !== $propertyPath);
+
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
 
-        return $propertyAccessor->getValue($this->subject, $this->getCurrentPropertyPath());
+        return $propertyAccessor->getValue($this->subject, $propertyPath);
     }
 
     /**
-     * @return object
+     * @param array<string, mixed> $options
+     *
+     * @throws \RuntimeException
+     *
+     * @return Constraint
      */
     private function newConstraint(string $name, array $options = [])
     {
@@ -212,12 +283,26 @@ final class ErrorElement
             $className = $name;
         } else {
             $className = 'Symfony\\Component\\Validator\\Constraints\\'.$name;
+            if (!class_exists($className)) {
+                throw new \RuntimeException(sprintf(
+                    'Cannot find the class "%s".',
+                    $className
+                ));
+            }
+        }
+
+        if (!is_a($className, Constraint::class, true)) {
+            throw new \RuntimeException(sprintf(
+                'The class "%s" MUST implement "%s".',
+                $className,
+                Constraint::class
+            ));
         }
 
         return new $className($options);
     }
 
-    private function getCurrentPropertyPath(): ?PropertyPath
+    private function getCurrentPropertyPath(): ?PropertyPathInterface
     {
         if (!isset($this->propertyPaths[$this->current])) {
             return null; //global error

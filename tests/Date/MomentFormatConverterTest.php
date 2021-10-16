@@ -21,7 +21,7 @@ use Sonata\Form\Date\MomentFormatConverter;
  *
  * @group legacy
  */
-class MomentFormatConverterTest extends TestCase
+final class MomentFormatConverterTest extends TestCase
 {
     public function testPhpToMoment(): void
     {

@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DateRangeTypeTest extends TypeTestCase
+final class DateRangeTypeTest extends TypeTestCase
 {
     public function testGetDefaultOptions(): void
     {

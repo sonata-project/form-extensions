@@ -17,7 +17,7 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Sonata\Form\Bridge\Symfony\DependencyInjection\SonataFormExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class SonataFormExtensionTest extends AbstractExtensionTestCase
+final class SonataFormExtensionTest extends AbstractExtensionTestCase
 {
     public function testAfterLoadingTheWrappingParameterIsSet(): void
     {

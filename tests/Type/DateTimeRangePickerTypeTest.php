@@ -18,7 +18,7 @@ use Sonata\Form\Type\DateTimeRangePickerType;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DateTimeRangePickerTypeTest extends TypeTestCase
+final class DateTimeRangePickerTypeTest extends TypeTestCase
 {
     public function testGetDefaultOptions(): void
     {

@@ -14,7 +14,9 @@ declare(strict_types=1);
 namespace Sonata\Form\Serializer;
 
 use JMS\Serializer\Context;
-use JMS\Serializer\GraphNavigator;
+use JMS\Serializer\GraphNavigatorInterface;
+use JMS\Serializer\Visitor\DeserializationVisitorInterface;
+use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use JMS\Serializer\VisitorInterface;
 use Sonata\Doctrine\Model\ManagerInterface;
 
@@ -24,7 +26,7 @@ use Sonata\Doctrine\Model\ManagerInterface;
 abstract class BaseSerializerHandler implements SerializerHandlerInterface
 {
     /**
-     * @var ManagerInterface
+     * @var ManagerInterface<object>
      */
     protected $manager;
 
@@ -33,11 +35,17 @@ abstract class BaseSerializerHandler implements SerializerHandlerInterface
      */
     protected static $formats = [];
 
+    /**
+     * @param ManagerInterface<object> $manager
+     */
     public function __construct(ManagerInterface $manager)
     {
         $this->manager = $manager;
     }
 
+    /**
+     * @param string[] $formats
+     */
     final public static function setFormats(array $formats): void
     {
         static::$formats = $formats;
@@ -48,6 +56,9 @@ abstract class BaseSerializerHandler implements SerializerHandlerInterface
         static::$formats[] = $format;
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     public static function getSubscribingMethods(): array
     {
         $type = static::getType();
@@ -55,14 +66,14 @@ abstract class BaseSerializerHandler implements SerializerHandlerInterface
 
         foreach (static::$formats as $format) {
             $methods[] = [
-                'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
+                'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
                 'format' => $format,
                 'type' => $type,
                 'method' => 'serializeObjectToId',
             ];
 
             $methods[] = [
-                'direction' => GraphNavigator::DIRECTION_DESERIALIZATION,
+                'direction' => GraphNavigatorInterface::DIRECTION_DESERIALIZATION,
                 'format' => $format,
                 'type' => $type,
                 'method' => 'deserializeObjectFromId',
@@ -75,13 +86,25 @@ abstract class BaseSerializerHandler implements SerializerHandlerInterface
     /**
      * Serialize data object to id.
      *
+     * NEXT_MAJOR: Update $visitor type hint and remove $context when dropping jms/serializer < 3.0
+     *
+     * @psalm-suppress TooManyArguments for jms/serializer < 3.0 support
+     *
+     * @param SerializationVisitorInterface $visitor
+     * @param mixed[]                       $type
+     *
      * @return int|null
      */
-    public function serializeObjectToId(VisitorInterface $visitor, object $data, array $type, Context $context)
-    {
+    public function serializeObjectToId(
+        VisitorInterface $visitor,
+        object $data,
+        array $type,
+        Context $context
+    ) {
         $className = $this->manager->getClass();
 
         if ($data instanceof $className) {
+            // @phpstan-ignore-next-line
             return $visitor->visitInteger($data->getId(), $type, $context);
         }
 
@@ -90,9 +113,17 @@ abstract class BaseSerializerHandler implements SerializerHandlerInterface
 
     /**
      * Deserialize object from its id.
+     *
+     * NEXT_MAJOR: Update $visitor typehint when dropping jms/serializer < 3.0
+     *
+     * @param DeserializationVisitorInterface $visitor
+     * @param mixed[]                         $type
      */
-    public function deserializeObjectFromId(VisitorInterface $visitor, int $data, array $type): ?object
-    {
+    public function deserializeObjectFromId(
+        VisitorInterface $visitor,
+        int $data,
+        array $type
+    ): ?object {
         return $this->manager->findOneBy(['id' => $data]);
     }
 }

@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CollectionTypeTest extends TypeTestCase
+final class CollectionTypeTest extends TypeTestCase
 {
     public function testGetDefaultOptions(): void
     {

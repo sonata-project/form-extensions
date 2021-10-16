@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 /**
  * @author Christian Gripp <mail@core23.de>
  */
-class FormChoiceWidgetTest extends AbstractWidgetTestCase
+final class FormChoiceWidgetTest extends AbstractWidgetTestCase
 {
     public function testLabelRendering(): void
     {
@@ -99,19 +99,28 @@ HTML
         );
     }
 
-    private function getRequiredOption()
+    /**
+     * @return array<string, mixed>
+     */
+    private function getRequiredOption(): array
     {
         return [
             'required' => true,
         ];
     }
 
-    private function getChoiceClass()
+    /**
+     * @phpstan-return class-string<ChoiceType>
+     */
+    private function getChoiceClass(): string
     {
         return ChoiceType::class;
     }
 
-    private function getDefaultOption()
+    /**
+     * @return array<string, mixed>
+     */
+    private function getDefaultOption(): array
     {
         return [
             'placeholder' => 'Choose an option',

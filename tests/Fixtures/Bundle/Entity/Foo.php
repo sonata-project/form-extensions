@@ -13,34 +13,26 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\Fixtures\Bundle\Entity;
 
-class Foo
+final class Foo
 {
+    /**
+     * @var mixed
+     */
     private $bar;
 
-    private $baz;
-
-    public function __toString()
-    {
-        return (string) $this->bar;
-    }
-
+    /**
+     * @return mixed
+     */
     public function getBar()
     {
         return $this->bar;
     }
 
+    /**
+     * @param mixed $bar
+     */
     public function setBar($bar): void
     {
         $this->bar = $bar;
-    }
-
-    public function getBaz()
-    {
-        return $this->baz;
-    }
-
-    public function setBaz($baz): void
-    {
-        $this->baz = $baz;
     }
 }

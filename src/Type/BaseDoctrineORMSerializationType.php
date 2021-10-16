@@ -13,7 +13,10 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Type;
 
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Persistence\ManagerRegistry;
+use JMS\Serializer\Metadata\ClassMetadata;
+use JMS\Serializer\Metadata\PropertyMetadata;
 use Metadata\MetadataFactoryInterface;
 use Sonata\Form\EventListener\FixCheckboxDataListener;
 use Symfony\Component\Form\AbstractType;
@@ -46,6 +49,7 @@ class BaseDoctrineORMSerializationType extends AbstractType
 
     /**
      * @var string
+     * @phpstan-var class-string
      */
     protected $class;
 
@@ -65,7 +69,9 @@ class BaseDoctrineORMSerializationType extends AbstractType
      * @param string                   $name                Form type name
      * @param string                   $class               Data class name
      * @param string                   $group               Serialization group name
-     * @param bool|false               $identifierOverwrite
+     * @param bool                     $identifierOverwrite
+     *
+     * @phpstan-param class-string $class
      */
     public function __construct(MetadataFactoryInterface $metadataFactory, ManagerRegistry $registry, $name, $class, $group, $identifierOverwrite = false)
     {
@@ -80,18 +86,46 @@ class BaseDoctrineORMSerializationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $serializerMetadata = $this->metadataFactory->getMetadataForClass($this->class);
+        if (!$serializerMetadata instanceof ClassMetadata) {
+            throw new \RuntimeException(sprintf(
+                'The serializer metadata of the class "%s" MUST implement "%s".',
+                $this->class,
+                ClassMetadata::class
+            ));
+        }
 
         $manager = $this->registry->getManagerForClass($this->class);
+        if (null === $manager) {
+            throw new \RuntimeException(sprintf(
+                'The object manager of the class "%s" cannot be found.',
+                $this->class
+            ));
+        }
+
         $doctrineMetadata = $manager->getClassMetadata($this->class);
+        if (!$doctrineMetadata instanceof ClassMetadataInfo) {
+            throw new \RuntimeException(sprintf(
+                'The class metadata of the class "%s" MUST implement "%s".',
+                $this->class,
+                ClassMetadataInfo::class
+            ));
+        }
 
         foreach ($serializerMetadata->propertyMetadata as $propertyMetadata) {
             $name = $propertyMetadata->name;
+            if (!$propertyMetadata instanceof PropertyMetadata) {
+                throw new \RuntimeException(sprintf(
+                    'The serializer metadata of the property "%s" MUST implement "%s".',
+                    $name,
+                    PropertyMetadata::class
+                ));
+            }
 
             if (\in_array($name, $doctrineMetadata->getIdentifierFieldNames(), true) && !$this->identifierOverwrite) {
                 continue;
             }
 
-            if (!$propertyMetadata->groups || !\in_array($this->group, $propertyMetadata->groups, true)) {
+            if (!\in_array($this->group, $propertyMetadata->groups, true)) {
                 continue;
             }
 
@@ -141,6 +175,11 @@ class BaseDoctrineORMSerializationType extends AbstractType
         return $this->name;
     }
 
+    /**
+     * NEXT_MAJOR: Remove this method.
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->getBlockPrefix();
