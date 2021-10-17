@@ -25,8 +25,8 @@ class MomentFormatConverter
 {
     /**
      * @var array<string, string> This defines the mapping between PHP ICU date format (key) and moment.js date format (value)
-     *                    For ICU formats see http://userguide.icu-project.org/formatparse/datetime#TOC-Date-Time-Format-Syntax
-     *                    For Moment formats see http://momentjs.com/docs/#/displaying/format/
+     *                            For ICU formats see http://userguide.icu-project.org/formatparse/datetime#TOC-Date-Time-Format-Syntax
+     *                            For Moment formats see http://momentjs.com/docs/#/displaying/format/
      */
     private static $formatConvertRules = [
         // year
