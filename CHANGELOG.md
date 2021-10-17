@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.12.0](https://github.com/sonata-project/form-extensions/compare/1.11.0...1.12.0) - 2021-10-11
+## [1.12.0](https://github.com/sonata-project/form-extensions/compare/1.11.0...1.12.0) - 2021-10-17
 ### Added
 - [[#272](https://github.com/sonata-project/form-extensions/pull/272)] `@method` annotation to the ErrorElement class ([@VincentLanglet](https://github.com/VincentLanglet))
 
