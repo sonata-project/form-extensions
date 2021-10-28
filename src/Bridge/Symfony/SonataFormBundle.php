@@ -18,10 +18,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class SonataFormBundle extends Bundle
 {
-    /**
-     * @return string
-     */
-    protected function getContainerExtensionClass()
+    protected function getContainerExtensionClass(): string
     {
         return SonataFormExtension::class;
     }
