@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.12.3](https://github.com/sonata-project/form-extensions/compare/1.12.2...1.12.3) - 2021-11-25
+### Fixed
+- [[#292](https://github.com/sonata-project/form-extensions/pull/292)] Submitting `CollectionType` in Symfony 6 ([@franmomu](https://github.com/franmomu))
+
 ## [1.12.2](https://github.com/sonata-project/form-extensions/compare/1.12.1...1.12.2) - 2021-11-25
 ### Fixed
 - [[#290](https://github.com/sonata-project/form-extensions/pull/290)] Using `CollectionType` with Symfony 6 ([@franmomu](https://github.com/franmomu))
