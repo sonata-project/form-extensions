@@ -149,6 +149,8 @@ final class ResizeFormListener implements EventSubscriberInterface
 
                 $options = array_merge($this->typeOptions, $buildOptions);
 
+                $name = \is_int($name) ? (string) $name : $name;
+
                 $form->add($name, $this->type, $options);
             }
 
