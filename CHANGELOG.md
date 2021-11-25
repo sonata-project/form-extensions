@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.12.2](https://github.com/sonata-project/form-extensions/compare/1.12.1...1.12.2) - 2021-11-25
+### Fixed
+- [[#290](https://github.com/sonata-project/form-extensions/pull/290)] Using `CollectionType` with Symfony 6 ([@franmomu](https://github.com/franmomu))
+
 ## [1.12.1](https://github.com/sonata-project/form-extensions/compare/1.12.0...1.12.1) - 2021-10-26
 ### Fixed
 - [[#280](https://github.com/sonata-project/form-extensions/pull/280)] Fixed support for Symfony 6, adding a return type on `getContainerExtensionClass` ([@jordisala1991](https://github.com/jordisala1991))
