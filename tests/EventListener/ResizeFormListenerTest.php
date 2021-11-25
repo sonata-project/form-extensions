@@ -53,6 +53,27 @@ final class ResizeFormListenerTest extends TestCase
         $listener->preSetData($event);
     }
 
+    public function testPreSetDataWithArrayData(): void
+    {
+        $listener = new ResizeFormListener('form', [], false, null);
+
+        $form = $this->createMock(Form::class);
+        $form
+            ->method('getIterator')
+            ->willReturn(new \ArrayIterator());
+        $form
+            ->expects(static::exactly(2))
+            ->method('add')
+            ->withConsecutive(
+                ['0'],
+                ['1'],
+            );
+
+        $event = new FormEvent($form, ['foo', 'bar']);
+
+        $listener->preSetData($event);
+    }
+
     public function testPreSetDataThrowsExceptionWithStringEventData(): void
     {
         $listener = new ResizeFormListener('form', [], false, null);
