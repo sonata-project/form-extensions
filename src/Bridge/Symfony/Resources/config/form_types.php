@@ -37,7 +37,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ];
         }
 
-        return [$message];
+        return [$message, '', ''];
     };
 
     // Use "service" function for creating references to services when dropping support for Symfony 4.4
