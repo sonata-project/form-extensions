@@ -125,7 +125,7 @@ class BaseDoctrineORMSerializationType extends AbstractType
                 continue;
             }
 
-            if (!\in_array($this->group, $propertyMetadata->groups, true)) {
+            if (!isset($propertyMetadata->groups) || !\in_array($this->group, $propertyMetadata->groups, true)) {
                 continue;
             }
 
