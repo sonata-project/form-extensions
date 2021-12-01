@@ -21,18 +21,12 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 final class SonataFormBundle extends Bundle
 {
-    /**
-     * @return string
-     */
-    public function getPath()
+    public function getPath(): string
     {
         return __DIR__.'/..';
     }
 
-    /**
-     * @return string
-     */
-    protected function getContainerExtensionClass()
+    protected function getContainerExtensionClass(): string
     {
         return SonataFormExtension::class;
     }
