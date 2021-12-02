@@ -134,7 +134,7 @@ class BaseDoctrineORMSerializationType extends AbstractType
 
             if (isset($doctrineMetadata->fieldMappings[$name])) {
                 $fieldMetadata = $doctrineMetadata->fieldMappings[$name];
-                $type = $fieldMetadata['type'] ?? null;
+                $type = $fieldMetadata['type'];
                 $nullable = $fieldMetadata['nullable'] ?? false;
             } elseif (isset($doctrineMetadata->associationMappings[$name])) {
                 $associationMetadata = $doctrineMetadata->associationMappings[$name];
@@ -145,25 +145,28 @@ class BaseDoctrineORMSerializationType extends AbstractType
                     $nullable = $associationMetadata['inverseJoinColumns']['nullable'];
                 }
             }
+
+            $required = true !== $nullable;
+
             switch ($type) {
                 case 'datetime':
                     $builder->add(
                         $name,
                         DateTimeType::class,
-                        ['required' => !$nullable, 'widget' => 'single_text']
+                        ['required' => $required, 'widget' => 'single_text']
                     );
 
                     break;
 
                 case 'boolean':
-                    $childBuilder = $builder->create($name, null, ['required' => !$nullable]);
+                    $childBuilder = $builder->create($name, null, ['required' => $required]);
                     $childBuilder->addEventSubscriber(new FixCheckboxDataListener());
                     $builder->add($childBuilder);
 
                     break;
 
                 default:
-                    $builder->add($name, null, ['required' => !$nullable]);
+                    $builder->add($name, null, ['required' => $required]);
 
                     break;
             }

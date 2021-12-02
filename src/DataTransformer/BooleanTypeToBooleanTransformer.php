@@ -16,6 +16,9 @@ namespace Sonata\Form\DataTransformer;
 use Sonata\Form\Type\BooleanType;
 use Symfony\Component\Form\DataTransformerInterface;
 
+/**
+ * @phpstan-implements DataTransformerInterface<boolean, int>
+ */
 final class BooleanTypeToBooleanTransformer implements DataTransformerInterface
 {
     /**

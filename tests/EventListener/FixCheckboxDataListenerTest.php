@@ -17,7 +17,6 @@ use PHPUnit\Framework\TestCase;
 use Sonata\Form\EventListener\FixCheckboxDataListener;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Extension\Core\DataTransformer\BooleanToStringTransformer;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Forms;
@@ -34,7 +33,7 @@ class FixCheckboxDataListenerTest extends TestCase
         $data,
         $expected,
         ?EventSubscriberInterface $subscriber,
-        ?DataTransformerInterface $transformer
+        BooleanToStringTransformer $transformer
     ): void {
         $dispatcher = new EventDispatcher();
 
@@ -47,10 +46,7 @@ class FixCheckboxDataListenerTest extends TestCase
             ->getFormFactory();
 
         $formBuilder = new FormBuilder('checkbox', 'stdClass', $dispatcher, $formFactory);
-
-        if (null !== $transformer) {
-            $formBuilder->addViewTransformer($transformer);
-        }
+        $formBuilder->addViewTransformer($transformer);
 
         $form = $formBuilder->getForm();
         $form->submit($data);
@@ -59,7 +55,7 @@ class FixCheckboxDataListenerTest extends TestCase
     }
 
     /**
-     * @return iterable<array{mixed, mixed, EventSubscriberInterface|null, DataTransformerInterface|null}>
+     * @return iterable<array{mixed, mixed, EventSubscriberInterface|null, BooleanToStringTransformer}>
      */
     public function valuesProvider(): iterable
     {
