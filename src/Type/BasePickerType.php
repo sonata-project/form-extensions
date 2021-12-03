@@ -152,6 +152,9 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
         return $this->locale;
     }
 
+    /**
+     * @param string $locale
+     */
     public function setLocale($locale): void
     {
         $this->locale = $locale;
@@ -210,7 +213,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
         $formatter->setPattern($format);
 
         $formatted = $formatter->format($dateTime);
-        if (false === $formatted) {
+        if (!\is_string($formatted)) {
             throw new \RuntimeException(sprintf('The format "%s" is invalid.', $format));
         }
 

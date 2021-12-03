@@ -43,6 +43,9 @@ final class InlineValidator extends ConstraintValidator
         $this->constraintValidatorFactory = $constraintValidatorFactory;
     }
 
+    /**
+     * @param mixed $value
+     */
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof InlineConstraint) {

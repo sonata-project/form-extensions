@@ -92,11 +92,6 @@ final class ErrorElement
     private $group;
 
     /**
-     * @var ConstraintValidatorFactoryInterface
-     */
-    private $constraintValidatorFactory;
-
-    /**
      * @var string[]
      */
     private $stack = [];
@@ -127,7 +122,11 @@ final class ErrorElement
     private $errors = [];
 
     /**
+     * NEXT_MAJOR: Remove `$constraintValidatorFactory` from the signature.
+     *
      * @param mixed $subject
+     *
+     * @phpstan-ignore-next-line
      */
     public function __construct(
         $subject,
@@ -138,7 +137,6 @@ final class ErrorElement
         $this->subject = $subject;
         $this->context = $context;
         $this->group = $group;
-        $this->constraintValidatorFactory = $constraintValidatorFactory;
         $this->basePropertyPath = $this->context->getPropertyPath();
     }
 
@@ -224,11 +222,11 @@ final class ErrorElement
         $subPath = (string) $this->getCurrentPropertyPath();
 
         $this->context->buildViolation($message)
-           ->atPath($subPath)
-           ->setParameters($parameters)
-           ->setTranslationDomain($translationDomain)
-           ->setInvalidValue($value)
-           ->addViolation();
+            ->atPath($subPath)
+            ->setParameters($parameters)
+            ->setTranslationDomain($translationDomain)
+            ->setInvalidValue($value)
+            ->addViolation();
 
         $this->errors[] = [$message, $parameters, $value];
 
