@@ -1,7 +1,0 @@
-parameters:
-    ignoreErrors:
-        -
-            message: "#^Property JMS\\\\Serializer\\\\Metadata\\\\PropertyMetadata\\:\\:\\$groups \\(array\\<string\\>\\) in isset\\(\\) is not nullable\\.$#"
-            count: 1
-            path: src/Type/BaseDoctrineORMSerializationType.php
-
