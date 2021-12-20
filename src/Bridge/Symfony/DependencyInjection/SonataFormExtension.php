@@ -54,10 +54,13 @@ final class SonataFormExtension extends Extension implements PrependExtensionInt
 
         $container->setParameter('sonata.form.form_type', $config['form_type']);
 
+        // NEXT_MAJOR: Remove this call.
         $this->configureSerializerFormats($config);
     }
 
     /**
+     * NEXT_MAJOR: Remove this method.
+     *
      * @param mixed[] $config
      */
     private function configureSerializerFormats(array $config): void

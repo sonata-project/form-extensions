@@ -21,6 +21,10 @@ use JMS\Serializer\VisitorInterface;
 use Sonata\Doctrine\Model\ManagerInterface;
 
 /**
+ * NEXT_MAJOR: Remove this class.
+ *
+ * @deprecated since sonata-project/form-extensions version 1.x and will be removed in 2.0.
+ *
  * @author Sylvain Deloux <sylvain.deloux@ekino.com>
  */
 abstract class BaseSerializerHandler implements SerializerHandlerInterface

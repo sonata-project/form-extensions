@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Bridge\Symfony\DependencyInjection;
 
+use Symfony\Component\Config\Definition\BaseNode;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -31,6 +32,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->getRootNode();
 
         $this->addFlashMessageSection($rootNode);
+        // NEXT_MAJOR: Remove this line and the jms/serializer and jms/metadata dependency.
         $this->addSerializerFormats($rootNode);
 
         return $treeBuilder;
@@ -62,6 +64,8 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
+     * NEXT_MAJOR: Remove this method.
+     *
      * Adds configuration for serializer formats.
      *
      * @psalm-suppress PossiblyNullReference, PossiblyUndefinedMethod
@@ -73,6 +77,12 @@ class Configuration implements ConfigurationInterface
         $node
             ->children()
                 ->arrayNode('serializer')
+                    ->setDeprecated(
+                        ...$this->forConfig(
+                            'The "%node%" option is deprecated since sonata-project/form-extensions 1.x.',
+                            '1.x'
+                        )
+                    )
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->arrayNode('formats')
@@ -83,5 +93,24 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
             ->end();
+    }
+
+    /**
+     * NEXT_MAJOR: Remove this method.
+     *
+     * @return string[]
+     */
+    private function forConfig(string $message, string $version): array
+    {
+        // @phpstan-ignore-next-line
+        if (method_exists(BaseNode::class, 'getDeprecation')) {
+            return [
+                'sonata-project/form-extension',
+                $version,
+                $message,
+            ];
+        }
+
+        return [$message];
     }
 }
