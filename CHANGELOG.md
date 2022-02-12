@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.13.0](https://github.com/sonata-project/form-extensions/compare/1.12.4...1.13.0) - 2022-02-12
+### Deprecated
+- [[#304](https://github.com/sonata-project/form-extensions/pull/304)] Sonata\Form\Serializer\BaseSerializerHandler ([@VincentLanglet](https://github.com/VincentLanglet))
+- [[#304](https://github.com/sonata-project/form-extensions/pull/304)] Sonata\Form\Serializer\SerializerHandlerInterface ([@VincentLanglet](https://github.com/VincentLanglet))
+- [[#304](https://github.com/sonata-project/form-extensions/pull/304)] Sonata\Form\Type\BaseDoctrineORMSerializationType ([@VincentLanglet](https://github.com/VincentLanglet))
+- [[#304](https://github.com/sonata-project/form-extensions/pull/304)] Serializer config key ([@VincentLanglet](https://github.com/VincentLanglet))
+
 ## [1.12.4](https://github.com/sonata-project/form-extensions/compare/1.12.3...1.12.4) - 2021-12-04
 ### Fixed
 - [[#296](https://github.com/sonata-project/form-extensions/pull/296)] Support of serializable entities field without group set. ([@VincentLanglet](https://github.com/VincentLanglet))

@@ -79,8 +79,8 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('serializer')
                     ->setDeprecated(
                         ...$this->forConfig(
-                            'The "%node%" option is deprecated since sonata-project/form-extensions 1.x.',
-                            '1.x'
+                            'The "%node%" option is deprecated since sonata-project/form-extensions 1.13.',
+                            '1.13'
                         )
                     )
                     ->addDefaultsIfNotSet()
