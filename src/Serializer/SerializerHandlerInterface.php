@@ -18,7 +18,7 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
 /**
  * NEXT_MAJOR: Remove this interface.
  *
- * @deprecated since sonata-project/form-extensions version 1.x and will be removed in 2.0.
+ * @deprecated since sonata-project/form-extensions version 1.13 and will be removed in 2.0.
  *
  * @author Sylvain Deloux <sylvain.deloux@ekino.com>
  */

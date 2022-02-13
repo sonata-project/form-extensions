@@ -27,7 +27,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * NEXT_MAJOR: Remove this class.
  *
- * @deprecated since sonata-project/form-extensions version 1.x and will be removed in 2.0.
+ * @deprecated since sonata-project/form-extensions version 1.13 and will be removed in 2.0.
  *
  * This is a doctrine serialization form type that generates a form type from class serialization metadata
  * and doctrine metadata.
