@@ -51,6 +51,9 @@ final class InlineConstraint extends Constraint
 
     public function __sleep(): array
     {
+        // @phpstan-ignore-next-line to initialize "groups" option if it is not set
+        $this->groups;
+
         if (!\is_string($this->service) || !\is_string($this->method)) {
             return [];
         }
