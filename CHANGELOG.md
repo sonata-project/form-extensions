@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.13.1](https://github.com/sonata-project/form-extensions/compare/1.13.0...1.13.1) - 2022-02-24
+### Fixed
+- [[#313](https://github.com/sonata-project/form-extensions/pull/313)] Fixed `InlineConstraint` usage annotation due do unitialized constraint groups. ([@houssemzi](https://github.com/houssemzi))
+
 ## [1.13.0](https://github.com/sonata-project/form-extensions/compare/1.12.4...1.13.0) - 2022-02-12
 ### Deprecated
 - [[#304](https://github.com/sonata-project/form-extensions/pull/304)] Sonata\Form\Serializer\BaseSerializerHandler ([@VincentLanglet](https://github.com/VincentLanglet))
