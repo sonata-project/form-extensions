@@ -84,7 +84,7 @@ final class MomentFormatConverterTest extends TestCase
         $phpFormat = 'D MMM y';
         static::assertSame('D MMM YYYY', $mfc->convert($phpFormat));
 
-        $phpFormat = "dd 'de' MMMM 'de' YYYY"; //Brazilian date format
+        $phpFormat = "dd 'de' MMMM 'de' YYYY"; // Brazilian date format
         static::assertSame('DD [de] MMMM [de] YYYY', $mfc->convert($phpFormat));
     }
 }

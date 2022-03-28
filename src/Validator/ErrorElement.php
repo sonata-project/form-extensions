@@ -303,7 +303,7 @@ final class ErrorElement
     private function getCurrentPropertyPath(): ?PropertyPathInterface
     {
         if (!isset($this->propertyPaths[$this->current])) {
-            return null; //global error
+            return null; // global error
         }
 
         return $this->propertyPaths[$this->current];
