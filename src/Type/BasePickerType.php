@@ -92,8 +92,8 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
             if (\is_int($format)) {
                 $timeFormat = \IntlDateFormatter::NONE;
-                if ($options['dp_pick_time']) {
-                    $timeFormat = $options['dp_use_seconds'] ?
+                if (true === $options['dp_pick_time']) {
+                    $timeFormat = true === $options['dp_use_seconds'] ?
                         DateTimeType::DEFAULT_TIME_FORMAT :
                         \IntlDateFormatter::SHORT;
                 }
