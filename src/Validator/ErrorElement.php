@@ -17,7 +17,6 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyPath;
 use Symfony\Component\PropertyAccess\PropertyPathInterface;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
@@ -81,56 +80,39 @@ final class ErrorElement
 {
     private const DEFAULT_TRANSLATION_DOMAIN = 'validators';
 
-    /**
-     * @var ExecutionContextInterface
-     */
-    private $context;
+    private ExecutionContextInterface $context;
 
-    /**
-     * @var string|null
-     */
-    private $group;
+    private ?string $group;
 
     /**
      * @var string[]
      */
-    private $stack = [];
+    private array $stack = [];
 
     /**
      * @var PropertyPathInterface[]
      */
-    private $propertyPaths = [];
+    private array $propertyPaths = [];
 
     /**
      * @var mixed
      */
     private $subject;
 
-    /**
-     * @var string
-     */
-    private $current = '';
+    private string $current = '';
 
-    /**
-     * @var string
-     */
-    private $basePropertyPath;
+    private string $basePropertyPath;
 
     /**
      * @var array<array{string, array<string, mixed>, mixed}>
      */
-    private $errors = [];
+    private array $errors = [];
 
     /**
-     * NEXT_MAJOR: Remove `$constraintValidatorFactory` from the signature.
-     *
      * @param mixed $subject
-     *
-     * @phpstan-ignore-next-line
      */
     public function __construct(
         $subject,
-        ConstraintValidatorFactoryInterface $constraintValidatorFactory,
         ExecutionContextInterface $context,
         ?string $group
     ) {
@@ -209,7 +191,7 @@ final class ErrorElement
      * @param array<string, mixed>                                       $parameters
      * @param mixed                                                      $value
      *
-     * @return ErrorElement
+     * @return $this
      */
     public function addViolation($message, array $parameters = [], $value = null, string $translationDomain = self::DEFAULT_TRANSLATION_DOMAIN): self
     {
@@ -272,10 +254,8 @@ final class ErrorElement
      * @param array<string, mixed> $options
      *
      * @throws \RuntimeException
-     *
-     * @return Constraint
      */
-    private function newConstraint(string $name, array $options = [])
+    private function newConstraint(string $name, array $options = []): Constraint
     {
         if (false !== strpos($name, '\\') && class_exists($name)) {
             $className = $name;

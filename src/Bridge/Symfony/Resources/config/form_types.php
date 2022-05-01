@@ -19,27 +19,11 @@ use Sonata\Form\Type\DateRangeType;
 use Sonata\Form\Type\DateTimePickerType;
 use Sonata\Form\Type\DateTimeRangePickerType;
 use Sonata\Form\Type\DateTimeRangeType;
-use Sonata\Form\Type\EqualType;
 use Sonata\Form\Type\ImmutableArrayType;
-use Symfony\Component\Config\Definition\BaseNode;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    // BC layer for deprecation messages for symfony/config < 5.1
-    $getDeprecationParameters = static function (string $message, string $version): array {
-        // @phpstan-ignore-next-line
-        if (method_exists(BaseNode::class, 'getDeprecation')) {
-            return [
-                'sonata-project/form-extensions',
-                $version,
-                $message,
-            ];
-        }
-
-        return [$message, '', ''];
-    };
-
     // Use "service" function for creating references to services when dropping support for Symfony 4.4
     // Use "param" function for creating references to parameters when dropping support for Symfony 5.1
     $containerConfigurator->services()
@@ -91,16 +75,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
         ->set('sonata.form.type.datetime_range_picker', DateTimeRangePickerType::class)
             ->tag('form.type', ['alias' => 'sonata_type_datetime_range_picker'])
-            ->args([
-                new ReferenceConfigurator('translator'),
-            ])
-
-        ->set('sonata.form.type.equal', EqualType::class)
-            ->tag('form.type', ['alias' => 'sonata_type_equal'])
-            ->deprecate(...$getDeprecationParameters(
-                'The "%service_id%" service is deprecated since sonata-project/form-extensions 1.2 and will be removed in 2.0. Use Sonata\AdminBundle\Form\Type\Operator\EqualOperatorType instead',
-                '1.2'
-            ))
             ->args([
                 new ReferenceConfigurator('translator'),
             ]);

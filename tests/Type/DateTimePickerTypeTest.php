@@ -30,7 +30,7 @@ final class DateTimePickerTypeTest extends TypeTestCase
     /**
      * @var Stub&TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     protected function setUp(): void
     {

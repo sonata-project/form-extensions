@@ -14,14 +14,6 @@
         <source>label_type_no</source>
         <target>nee</target>
       </trans-unit>
-      <trans-unit id="label_type_equals">
-        <source>label_type_equals</source>
-        <target>is gelijk aan</target>
-      </trans-unit>
-      <trans-unit id="label_type_not_equals">
-        <source>label_type_not_equals</source>
-        <target>is niet gelijk aan</target>
-      </trans-unit>
       <trans-unit id="date_range_start">
         <source>date_range_start</source>
         <target>vanaf datum</target>

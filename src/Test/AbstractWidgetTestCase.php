@@ -32,10 +32,7 @@ use Twig\RuntimeLoader\FactoryRuntimeLoader;
  */
 abstract class AbstractWidgetTestCase extends TypeTestCase
 {
-    /**
-     * @var FormRenderer
-     */
-    private $renderer;
+    private FormRenderer $renderer;
 
     protected function setUp(): void
     {

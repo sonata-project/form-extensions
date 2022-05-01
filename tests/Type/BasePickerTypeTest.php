@@ -20,8 +20,6 @@ use Sonata\Form\Tests\Fixtures\Type\DummyPickerType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -32,12 +30,9 @@ final class BasePickerTypeTest extends TestCase
     /**
      * @var Stub&TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /**
-     * @var MomentFormatConverter
-     */
-    private $momentFormatConverter;
+    private MomentFormatConverter $momentFormatConverter;
 
     protected function setUp(): void
     {
@@ -178,31 +173,5 @@ final class BasePickerTypeTest extends TestCase
         );
 
         static::assertSame('en', $type->getLocale());
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testConstructWithRequestStack(): void
-    {
-        $type = new DummyPickerType(
-            $this->momentFormatConverter,
-            $this->translator,
-            $this->getRequestStack()
-        );
-
-        static::assertSame('en', $type->getLocale());
-    }
-
-    private function getRequestStack(string $locale = 'en'): RequestStack
-    {
-        $requestStack = new RequestStack();
-        $request = $this->createStub(Request::class);
-        $request
-            ->method('getLocale')
-            ->willReturn($locale);
-        $requestStack->push($request);
-
-        return $requestStack;
     }
 }

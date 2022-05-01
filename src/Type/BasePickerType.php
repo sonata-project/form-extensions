@@ -18,7 +18,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
@@ -31,58 +30,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 abstract class BasePickerType extends AbstractType implements LocaleAwareInterface
 {
-    /**
-     * @var TranslatorInterface|null
-     */
-    protected $translator;
+    protected TranslatorInterface $translator;
 
-    /**
-     * @var string
-     */
-    protected $locale;
+    protected string $locale;
 
-    /**
-     * @var MomentFormatConverter
-     */
-    private $formatConverter;
+    private MomentFormatConverter $formatConverter;
 
-    /**
-     * NEXT_MAJOR: Add "string" typehint to $requestStackOrDefaultLocale and change the name to defaultLocale.
-     *
-     * @param string|RequestStack $requestStackOrDefaultLocale
-     */
-    public function __construct(MomentFormatConverter $formatConverter, TranslatorInterface $translator, $requestStackOrDefaultLocale)
+    public function __construct(MomentFormatConverter $formatConverter, TranslatorInterface $translator, string $defaultLocale)
     {
         $this->formatConverter = $formatConverter;
         $this->translator = $translator;
-
-        // NEXT_MAJOR: Remove this block
-        if (!\is_string($requestStackOrDefaultLocale) && !$requestStackOrDefaultLocale instanceof RequestStack) {
-            throw new \InvalidArgumentException(sprintf(
-                'Argument 3 passed to "%s()" must be of type string or an instance of %s, %s given.',
-                __METHOD__,
-                \is_object($requestStackOrDefaultLocale) ? 'instance of '.\get_class($requestStackOrDefaultLocale) : \gettype($requestStackOrDefaultLocale),
-                RequestStack::class
-            ));
-        }
-
-        // NEXT_MAJOR: Remove this block
-        if (!\is_string($requestStackOrDefaultLocale)) {
-            @trigger_error(sprintf(
-                'Not passing the default locale as argument 3 to "%s()" is deprecated'
-                .' since sonata-project/form-extensions 1.6 and will be mandatory in 2.0.',
-                __METHOD__
-            ), \E_USER_DEPRECATED);
-
-            $requestStackOrDefaultLocale = $this->getLocaleFromRequest($requestStackOrDefaultLocale);
-        }
-
-        $this->locale = $requestStackOrDefaultLocale;
+        $this->locale = $defaultLocale;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setNormalizer('format', function (Options $options, $format) {
@@ -194,17 +154,6 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
             'dp_view_mode' => 'days',
             'dp_min_view_mode' => 'days',
         ];
-    }
-
-    private function getLocaleFromRequest(RequestStack $requestStack): string
-    {
-        $request = $requestStack->getCurrentRequest();
-
-        if (null === $request) {
-            throw new \LogicException('A Request must be available.');
-        }
-
-        return $request->getLocale();
     }
 
     private function formatObject(\DateTimeInterface $dateTime, string $format): string

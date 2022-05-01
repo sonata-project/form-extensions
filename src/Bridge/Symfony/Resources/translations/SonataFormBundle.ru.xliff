@@ -18,14 +18,6 @@
         <source>sonata_form_template_box_file_found_in</source>
         <target>Этот файл можно найти в</target>
       </trans-unit>
-      <trans-unit id="label_type_equals">
-        <source>label_type_equals</source>
-        <target>равен</target>
-      </trans-unit>
-      <trans-unit id="label_type_not_equals">
-        <source>label_type_not_equals</source>
-        <target>не равен</target>
-      </trans-unit>
       <trans-unit id="date_range_start">
         <source>date_range_start</source>
         <target>С</target>

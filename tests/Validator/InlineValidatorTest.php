@@ -20,7 +20,6 @@ use Sonata\Form\Validator\Constraints\InlineConstraint;
 use Sonata\Form\Validator\ErrorElement;
 use Sonata\Form\Validator\InlineValidator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Exception\ValidatorException;
 
@@ -32,28 +31,24 @@ final class InlineValidatorTest extends TestCase
     /**
      * @var ContainerInterface&MockObject
      */
-    private $container;
-
-    /**
-     * @var ConstraintValidatorFactoryInterface&MockObject
-     */
-    private $constraintValidatorFactory;
+    private ContainerInterface $container;
 
     /**
      * @var ExecutionContextInterface&MockObject
      */
-    private $context;
+    private ExecutionContextInterface $context;
 
     protected function setUp(): void
     {
         $this->container = $this->createMock(ContainerInterface::class);
-        $this->constraintValidatorFactory = $this->createMock(ConstraintValidatorFactoryInterface::class);
+
         $this->context = $this->createMock(ExecutionContextInterface::class);
+        $this->context->method('getPropertyPath')->willReturn('bar');
     }
 
     public function testGetErrorElement(): void
     {
-        $inlineValidator = new InlineValidator($this->container, $this->constraintValidatorFactory);
+        $inlineValidator = new InlineValidator($this->container);
 
         $inlineValidator->initialize($this->context);
 
@@ -80,7 +75,7 @@ final class InlineValidatorTest extends TestCase
             'serializingWarning' => true,
         ]);
 
-        $inlineValidator = new InlineValidator($this->container, $this->constraintValidatorFactory);
+        $inlineValidator = new InlineValidator($this->container);
 
         $inlineValidator->initialize($this->context);
 
@@ -99,7 +94,7 @@ final class InlineValidatorTest extends TestCase
             ->with('string')
             ->willReturn(new FooValidatorService());
 
-        $inlineValidator = new InlineValidator($this->container, $this->constraintValidatorFactory);
+        $inlineValidator = new InlineValidator($this->container);
 
         $inlineValidator->initialize($this->context);
 
@@ -117,7 +112,7 @@ final class InlineValidatorTest extends TestCase
             'serializingWarning' => true,
         ]);
 
-        $inlineValidator = new InlineValidator($this->container, $this->constraintValidatorFactory);
+        $inlineValidator = new InlineValidator($this->container);
 
         $inlineValidator->initialize($this->context);
 
