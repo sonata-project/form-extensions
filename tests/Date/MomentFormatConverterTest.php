@@ -18,8 +18,6 @@ use Sonata\Form\Date\MomentFormatConverter;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
- *
- * @group legacy
  */
 final class MomentFormatConverterTest extends TestCase
 {

@@ -18,7 +18,6 @@ use PHPUnit\Framework\TestCase;
 use Sonata\Form\Tests\Fixtures\Bundle\Entity\Foo;
 use Sonata\Form\Validator\ErrorElement;
 use Symfony\Component\Validator\Constraints\NotNull;
-use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Validator\ContextualValidatorInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -29,30 +28,22 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
  */
 final class ErrorElementTest extends TestCase
 {
-    /**
-     * @var ErrorElement
-     */
-    private $errorElement;
+    private ErrorElement $errorElement;
 
     /**
      * @var ExecutionContextInterface&MockObject
      */
-    private $context;
+    private ExecutionContextInterface $context;
 
     /**
      * @var ContextualValidatorInterface&MockObject
      */
-    private $contextualValidator;
+    private ContextualValidatorInterface $contextualValidator;
 
-    /**
-     * @var Foo
-     */
-    private $subject;
+    private Foo $subject;
 
     protected function setUp(): void
     {
-        $constraintValidatorFactory = $this->createMock(ConstraintValidatorFactoryInterface::class);
-
         $this->context = $this->createMock(ExecutionContextInterface::class);
         $this->context->expects(static::once())
                 ->method('getPropertyPath')
@@ -83,7 +74,7 @@ final class ErrorElementTest extends TestCase
 
         $this->subject = new Foo();
 
-        $this->errorElement = new ErrorElement($this->subject, $constraintValidatorFactory, $this->context, 'foo_core');
+        $this->errorElement = new ErrorElement($this->subject, $this->context, 'foo_core');
     }
 
     public function testGetSubject(): void

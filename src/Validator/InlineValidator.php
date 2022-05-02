@@ -17,30 +17,18 @@ use Sonata\Form\Validator\Constraints\InlineConstraint;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class InlineValidator extends ConstraintValidator
 {
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var ConstraintValidatorFactoryInterface
-     */
-    protected $constraintValidatorFactory;
+    private ContainerInterface $container;
 
     /**
      * @psalm-suppress ContainerDependency
      */
-    public function __construct(
-        ContainerInterface $container,
-        ConstraintValidatorFactoryInterface $constraintValidatorFactory
-    ) {
+    public function __construct(ContainerInterface $container)
+    {
         $this->container = $container;
-        $this->constraintValidatorFactory = $constraintValidatorFactory;
     }
 
     /**
@@ -74,7 +62,6 @@ final class InlineValidator extends ConstraintValidator
     {
         return new ErrorElement(
             $value,
-            $this->constraintValidatorFactory,
             $this->context,
             $this->context->getGroup()
         );

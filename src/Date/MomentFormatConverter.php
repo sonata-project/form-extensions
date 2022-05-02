@@ -24,11 +24,11 @@ namespace Sonata\Form\Date;
 class MomentFormatConverter
 {
     /**
-     * @var array<string, string> This defines the mapping between PHP ICU date format (key) and moment.js date format (value)
-     *                            For ICU formats see http://userguide.icu-project.org/formatparse/datetime#TOC-Date-Time-Format-Syntax
-     *                            For Moment formats see http://momentjs.com/docs/#/displaying/format/
+     * This defines the mapping between PHP ICU date format (key) and moment.js date format (value)
+     * For ICU formats see http://userguide.icu-project.org/formatparse/datetime#TOC-Date-Time-Format-Syntax
+     * For Moment formats see http://momentjs.com/docs/#/displaying/format/.
      */
-    private static $formatConvertRules = [
+    private const FORMAT_CONVERT_RULES = [
         // year
         'yyyy' => 'YYYY', 'yy' => 'YY', 'y' => 'YYYY',
         // month
@@ -84,7 +84,7 @@ class MomentFormatConverter
                 // if no ' is found, then search all the rules, see if any of
                 // them matchs
                 $foundOne = false;
-                foreach (self::$formatConvertRules as $key => $value) {
+                foreach (self::FORMAT_CONVERT_RULES as $key => $value) {
                     if (substr($format, $i, \strlen($key)) === $key) {
                         $output .= $value;
                         $foundOne = true;

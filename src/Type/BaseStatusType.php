@@ -20,20 +20,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 abstract class BaseStatusType extends AbstractType
 {
     /**
-     * @var string
-     * @phpstan-var class-string
+     * @var class-string
      */
-    protected $class;
+    protected string $class;
 
-    /**
-     * @var string
-     */
-    protected $getter;
+    protected string $getter;
 
-    /**
-     * @var string
-     */
-    protected $name;
+    protected string $name;
 
     /**
      * @phpstan-param class-string $class
@@ -55,10 +48,7 @@ abstract class BaseStatusType extends AbstractType
         return $this->name;
     }
 
-    /**
-     * @return void
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $callable = [$this->class, $this->getter];
         if (!\is_callable($callable)) {
