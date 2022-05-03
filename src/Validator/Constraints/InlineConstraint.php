@@ -38,6 +38,9 @@ final class InlineConstraint extends Constraint
      */
     protected $serializingWarning;
 
+    /**
+     * @param mixed $options
+     */
     public function __construct($options = null)
     {
         parent::__construct($options);
