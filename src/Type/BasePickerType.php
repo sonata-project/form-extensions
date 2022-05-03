@@ -45,31 +45,36 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setNormalizer('format', function (Options $options, $format) {
-            if (isset($options['date_format']) && \is_string($options['date_format'])) {
-                return $options['date_format'];
-            }
-
-            if (\is_int($format)) {
-                $timeFormat = \IntlDateFormatter::NONE;
-                if (true === $options['dp_pick_time']) {
-                    $timeFormat = true === $options['dp_use_seconds'] ?
-                        DateTimeType::DEFAULT_TIME_FORMAT :
-                        \IntlDateFormatter::SHORT;
+        $resolver->setNormalizer('format',
+            /**
+             * @param int|string $format
+             */
+            function (Options $options, $format) {
+                if (isset($options['date_format']) && \is_string($options['date_format'])) {
+                    return $options['date_format'];
                 }
-                $intlDateFormatter = new \IntlDateFormatter(
-                    $this->locale,
-                    $format,
-                    $timeFormat,
-                    null,
-                    \IntlDateFormatter::GREGORIAN
-                );
 
-                return $intlDateFormatter->getPattern();
+                if (\is_int($format)) {
+                    $timeFormat = \IntlDateFormatter::NONE;
+                    if (true === $options['dp_pick_time']) {
+                        $timeFormat = true === $options['dp_use_seconds'] ?
+                            DateTimeType::DEFAULT_TIME_FORMAT :
+                            \IntlDateFormatter::SHORT;
+                    }
+                    $intlDateFormatter = new \IntlDateFormatter(
+                        $this->locale,
+                        $format,
+                        $timeFormat,
+                        null,
+                        \IntlDateFormatter::GREGORIAN
+                    );
+
+                    return $intlDateFormatter->getPattern();
+                }
+
+                return $format;
             }
-
-            return $format;
-        });
+        );
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options): void
@@ -114,10 +119,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
         return $this->locale;
     }
 
-    /**
-     * @param string $locale
-     */
-    public function setLocale($locale): void
+    public function setLocale(string $locale): void
     {
         $this->locale = $locale;
     }

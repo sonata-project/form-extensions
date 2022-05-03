@@ -20,7 +20,7 @@ final class StubTranslator implements TranslatorInterface
     /**
      * @param mixed[] $parameters
      */
-    public function trans($id, array $parameters = [], $domain = null, $locale = null): string
+    public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null): string
     {
         return '[trans]'.strtr($id, $parameters).'[/trans]';
     }

@@ -254,6 +254,8 @@ final class ErrorElement
      * @param array<string, mixed> $options
      *
      * @throws \RuntimeException
+     *
+     * @psalm-suppress UnsafeInstantiation
      */
     private function newConstraint(string $name, array $options = []): Constraint
     {

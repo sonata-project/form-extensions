@@ -68,7 +68,7 @@ final class InlineValidatorTest extends TestCase
         $this->expectExceptionMessage('foo is equal to foo');
 
         $constraint = new InlineConstraint([
-            'method' => static function (ErrorElement $errorElement, $value): void {
+            'method' => static function (ErrorElement $errorElement, string $value): void {
                 throw new ValidatorException($errorElement->getSubject().' is equal to '.$value);
             },
             'service' => '',
