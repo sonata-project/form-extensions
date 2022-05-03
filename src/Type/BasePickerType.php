@@ -45,7 +45,8 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setNormalizer('format',
+        $resolver->setNormalizer(
+            'format',
             /**
              * @param int|string $format
              */
