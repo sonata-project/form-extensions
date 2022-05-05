@@ -221,7 +221,7 @@ final class ResizeFormListenerTest extends TestCase
 
         $data = ['baz' => 'caz'];
 
-        $closure = static fn(): string => $data['baz'];
+        $closure = static fn (): string => $data['baz'];
 
         $listener = new ResizeFormListener('form', $typeOptions, true, $closure);
 

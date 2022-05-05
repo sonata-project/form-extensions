@@ -46,7 +46,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
         );
 
         $environment->addRuntimeLoader(new FactoryRuntimeLoader([
-            FormRenderer::class => fn(): FormRenderer => $this->renderer,
+            FormRenderer::class => fn (): FormRenderer => $this->renderer,
         ]));
         $environment->addExtension(new FormExtension());
     }
@@ -112,11 +112,19 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
      */
     final protected function cleanHtmlWhitespace(string $html): string
     {
-        return preg_replace_callback('/\s*>([^<]+)</', static fn(array $value): string => '>'.trim($value[1]).'<', $html) ?? '';
+        return preg_replace_callback(
+            '/\s*>([^<]+)</',
+            static fn (array $value): string => '>'.trim($value[1]).'<',
+            $html
+        ) ?? '';
     }
 
     final protected function cleanHtmlAttributeWhitespace(string $html): string
     {
-        return preg_replace_callback('~<([A-Z0-9]+) \K(.*?)>~i', static fn(array $m): string => preg_replace('~\s*~', '', $m[0]) ?? '', $html) ?? '';
+        return preg_replace_callback(
+            '~<([A-Z0-9]+) \K(.*?)>~i',
+            static fn (array $m): string => preg_replace('~\s*~', '', $m[0]) ?? '',
+            $html
+        ) ?? '';
     }
 }
