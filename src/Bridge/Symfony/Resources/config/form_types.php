@@ -11,6 +11,8 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+namespace Symfony\Component\DependencyInjection\Loader\Configurator;
+
 use Sonata\Form\Type\BooleanType;
 use Sonata\Form\Type\CollectionType;
 use Sonata\Form\Type\DatePickerType;
@@ -20,12 +22,8 @@ use Sonata\Form\Type\DateTimePickerType;
 use Sonata\Form\Type\DateTimeRangePickerType;
 use Sonata\Form\Type\DateTimeRangeType;
 use Sonata\Form\Type\ImmutableArrayType;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    // Use "service" function for creating references to services when dropping support for Symfony 4.4
-    // Use "param" function for creating references to parameters when dropping support for Symfony 5.1
     $containerConfigurator->services()
 
         ->set('sonata.form.type.array', ImmutableArrayType::class)
@@ -40,42 +38,42 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->set('sonata.form.type.date_range', DateRangeType::class)
             ->tag('form.type', ['alias' => 'sonata_type_date_range'])
             ->args([
-                new ReferenceConfigurator('translator'),
+                service('translator'),
             ])
 
         ->set('sonata.form.type.datetime_range', DateTimeRangeType::class)
             ->tag('form.type', ['alias' => 'sonata_type_datetime_range'])
             ->args([
-                new ReferenceConfigurator('translator'),
+                service('translator'),
             ])
 
         ->set('sonata.form.type.date_picker', DatePickerType::class)
             ->tag('kernel.locale_aware')
             ->tag('form.type', ['alias' => 'sonata_type_date_picker'])
             ->args([
-                new ReferenceConfigurator('sonata.form.date.moment_format_converter'),
-                new ReferenceConfigurator('translator'),
-                '%kernel.default_locale%',
+                service('sonata.form.date.moment_format_converter'),
+                service('translator'),
+                param('kernel.default_locale'),
             ])
 
         ->set('sonata.form.type.datetime_picker', DateTimePickerType::class)
             ->tag('kernel.locale_aware')
             ->tag('form.type', ['alias' => 'sonata_type_datetime_picker'])
             ->args([
-                new ReferenceConfigurator('sonata.form.date.moment_format_converter'),
-                new ReferenceConfigurator('translator'),
-                '%kernel.default_locale%',
+                service('sonata.form.date.moment_format_converter'),
+                service('translator'),
+                param('kernel.default_locale'),
             ])
 
         ->set('sonata.form.type.date_range_picker', DateRangePickerType::class)
             ->tag('form.type', ['alias' => 'sonata_type_date_range_picker'])
             ->args([
-                new ReferenceConfigurator('translator'),
+                service('translator'),
             ])
 
         ->set('sonata.form.type.datetime_range_picker', DateTimeRangePickerType::class)
             ->tag('form.type', ['alias' => 'sonata_type_datetime_range_picker'])
             ->args([
-                new ReferenceConfigurator('translator'),
+                service('translator'),
             ]);
 };
