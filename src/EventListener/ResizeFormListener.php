@@ -171,6 +171,9 @@ final class ResizeFormListener implements EventSubscriberInterface
             throw new UnexpectedTypeException($data, 'array or \Traversable&\ArrayAccess');
         }
 
+        /**
+         * @psalm-suppress PossibleRawObjectIteration
+         */
         foreach ($data as $name => $child) {
             if (!$form->has((string) $name)) {
                 unset($data[$name]);
