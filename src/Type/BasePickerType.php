@@ -120,7 +120,10 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
         return $this->locale;
     }
 
-    public function setLocale(string $locale): void
+    /**
+     * @param string $locale
+     */
+    public function setLocale($locale): void
     {
         $this->locale = $locale;
     }

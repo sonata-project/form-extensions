@@ -16,7 +16,6 @@
         <DocblockTypeContradiction errorLevel="suppress"/>
         <RedundantConditionGivenDocblockType errorLevel="suppress"/>
         <RedundantCastGivenDocblockType errorLevel="suppress"/>
-
         <!-- Suppress internal usage -->
         <InternalClass errorLevel="suppress"/>
         <InternalMethod errorLevel="suppress"/>
