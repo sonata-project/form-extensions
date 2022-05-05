@@ -81,45 +81,33 @@ final class ErrorElement
 {
     private const DEFAULT_TRANSLATION_DOMAIN = 'validators';
 
-    /**
-     * @var ExecutionContextInterface
-     */
-    private $context;
+    private ExecutionContextInterface $context;
 
-    /**
-     * @var string|null
-     */
-    private $group;
+    private ?string $group;
 
     /**
      * @var string[]
      */
-    private $stack = [];
+    private array $stack = [];
 
     /**
      * @var PropertyPathInterface[]
      */
-    private $propertyPaths = [];
+    private array $propertyPaths = [];
 
     /**
      * @var mixed
      */
     private $subject;
 
-    /**
-     * @var string
-     */
-    private $current = '';
+    private string $current = '';
 
-    /**
-     * @var string
-     */
-    private $basePropertyPath;
+    private string $basePropertyPath;
 
     /**
      * @var array<array{string, array<string, mixed>, mixed}>
      */
-    private $errors = [];
+    private array $errors = [];
 
     /**
      * NEXT_MAJOR: Remove `$constraintValidatorFactory` from the signature.
