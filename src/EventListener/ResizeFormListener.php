@@ -39,7 +39,6 @@ final class ResizeFormListener implements EventSubscriberInterface
         private bool $resizeOnSubmit = false,
         private ?\Closure $preSubmitDataCallback = null
     ) {
-        $this->preSubmitDataCallback = $preSubmitDataCallback;
     }
 
     public static function getSubscribedEvents(): array

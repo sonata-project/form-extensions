@@ -23,11 +23,11 @@ use Symfony\Component\Validator\Constraint;
  */
 final class InlineConstraint extends Constraint
 {
-    private mixed $service = null;
+    protected mixed $service = null;
 
-    private mixed $method = null;
+    protected mixed $method = null;
 
-    private bool $serializingWarning = false;
+    protected bool $serializingWarning = false;
 
     /**
      * @param mixed $options
