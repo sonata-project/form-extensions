@@ -45,7 +45,7 @@ class FixCheckboxDataListenerTest extends TestCase
             ->addExtensions([])
             ->getFormFactory();
 
-        $formBuilder = new FormBuilder('checkbox', 'stdClass', $dispatcher, $formFactory);
+        $formBuilder = new FormBuilder('checkbox', \stdClass::class, $dispatcher, $formFactory);
         $formBuilder->addViewTransformer($transformer);
 
         $form = $formBuilder->getForm();
