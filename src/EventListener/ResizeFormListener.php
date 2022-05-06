@@ -173,6 +173,8 @@ final class ResizeFormListener implements EventSubscriberInterface
 
         /**
          * @psalm-suppress PossibleRawObjectIteration
+         *
+         * @see https://github.com/vimeo/psalm/issues/7928
          */
         foreach ($data as $name => $child) {
             if (!$form->has((string) $name)) {
