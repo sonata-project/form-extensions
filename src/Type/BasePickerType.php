@@ -41,10 +41,8 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
     {
         $resolver->setNormalizer(
             'format',
-            /**
-             * @param int|string $format
-             */
-            function (Options $options, $format) {
+
+            function (Options $options, int | string $format) {
                 if (isset($options['date_format']) && \is_string($options['date_format'])) {
                     return $options['date_format'];
                 }
