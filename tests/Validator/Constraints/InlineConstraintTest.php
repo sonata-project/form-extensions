@@ -95,7 +95,7 @@ final class InlineConstraintTest extends TestCase
 
         static::assertSame($constraint->getService(), 'foo');
         static::assertSame($constraint->getMethod(), 'bar');
-        static::assertNull($constraint->getSerializingWarning());
+        static::assertFalse($constraint->getSerializingWarning());
     }
 
     public function testSerializingWarningIsFalseWithServiceIsNotString(): void

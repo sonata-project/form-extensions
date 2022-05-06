@@ -23,20 +23,11 @@ use Symfony\Component\Validator\Constraint;
  */
 final class InlineConstraint extends Constraint
 {
-    /**
-     * @var mixed
-     */
-    protected $service;
+    protected mixed $service = null;
 
-    /**
-     * @var mixed
-     */
-    protected $method;
+    protected mixed $method = null;
 
-    /**
-     * @var mixed
-     */
-    protected $serializingWarning;
+    protected bool $serializingWarning = false;
 
     /**
      * @param mixed $options
@@ -86,10 +77,7 @@ final class InlineConstraint extends Constraint
         return $this->method instanceof \Closure;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getClosure()
+    public function getClosure(): mixed
     {
         return $this->method;
     }
@@ -107,26 +95,17 @@ final class InlineConstraint extends Constraint
         ];
     }
 
-    /**
-     * @return mixed string|callable
-     */
-    public function getMethod()
+    public function getMethod(): mixed
     {
         return $this->method;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getService()
+    public function getService(): mixed
     {
         return $this->service;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSerializingWarning()
+    public function getSerializingWarning(): bool
     {
         return $this->serializingWarning;
     }

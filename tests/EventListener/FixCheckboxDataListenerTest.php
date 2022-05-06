@@ -24,14 +24,11 @@ use Symfony\Component\Form\Forms;
 class FixCheckboxDataListenerTest extends TestCase
 {
     /**
-     * @param mixed $data
-     * @param mixed $expected
-     *
      * @dataProvider valuesProvider
      */
     public function testFixCheckbox(
-        $data,
-        $expected,
+        mixed $data,
+        mixed $expected,
         ?EventSubscriberInterface $subscriber,
         BooleanToStringTransformer $transformer
     ): void {

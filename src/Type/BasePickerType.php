@@ -30,27 +30,18 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 abstract class BasePickerType extends AbstractType implements LocaleAwareInterface
 {
-    protected TranslatorInterface $translator;
-
-    protected string $locale;
-
-    private MomentFormatConverter $formatConverter;
-
-    public function __construct(MomentFormatConverter $formatConverter, TranslatorInterface $translator, string $defaultLocale)
-    {
-        $this->formatConverter = $formatConverter;
-        $this->translator = $translator;
-        $this->locale = $defaultLocale;
+    public function __construct(
+        private MomentFormatConverter $formatConverter,
+        protected TranslatorInterface $translator,
+        protected string $locale
+    ) {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setNormalizer(
             'format',
-            /**
-             * @param int|string $format
-             */
-            function (Options $options, $format) {
+            function (Options $options, int | string $format) {
                 if (isset($options['date_format']) && \is_string($options['date_format'])) {
                     return $options['date_format'];
                 }
@@ -83,7 +74,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
         $format = $options['format'];
 
         // use seconds if it's allowed in format
-        $options['dp_use_seconds'] = false !== strpos($format, 's');
+        $options['dp_use_seconds'] = str_contains($format, 's');
 
         if ($options['dp_min_date'] instanceof \DateTimeInterface) {
             $options['dp_min_date'] = $this->formatObject($options['dp_min_date'], $format);
@@ -98,7 +89,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
         $dpOptions = [];
         foreach ($options as $key => $value) {
-            if (false !== strpos($key, 'dp_')) {
+            if (str_contains($key, 'dp_')) {
                 // We remove 'dp_' and camelize the options names
                 $dpKey = substr($key, 3);
                 $dpKey = preg_replace_callback(
@@ -120,10 +111,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
         return $this->locale;
     }
 
-    /**
-     * @param string $locale
-     */
-    public function setLocale($locale): void
+    public function setLocale(string $locale): void
     {
         $this->locale = $locale;
     }
