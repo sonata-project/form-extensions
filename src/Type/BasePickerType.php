@@ -78,7 +78,6 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
         );
 
         $resolver->setAllowedTypes('format', ['null', 'int', 'string']);
-        $resolver->setAllowedTypes('transform', 'bool');
         $resolver->setAllowedTypes('widget', 'string');
         $resolver->setAllowedTypes('datepicker_use_button', 'bool');
         $resolver->setAllowedTypes('dp_pick_time', 'bool');
