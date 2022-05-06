@@ -32,9 +32,9 @@ final class DateTimePickerType extends BasePickerType
             'html5' => false,
         ]));
 
-        $resolver->setAllowedTypes('dp_use_minutes', ['bool']);
-        $resolver->setAllowedTypes('dp_use_seconds', ['bool']);
-        $resolver->setAllowedTypes('dp_minute_stepping', ['int']);
+        $resolver->setAllowedTypes('dp_use_minutes', 'bool');
+        $resolver->setAllowedTypes('dp_use_seconds', 'bool');
+        $resolver->setAllowedTypes('dp_minute_stepping', 'int');
         $resolver->setAllowedTypes('format', ['null', 'int', 'string']);
         $resolver->setAllowedTypes('date_format', ['null', 'string']);
         $resolver->setAllowedTypes('html5', 'bool');
