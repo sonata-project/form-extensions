@@ -26,7 +26,8 @@ abstract class BaseStatusType extends AbstractType
         protected string $class,
         protected string $getter,
         protected string $name
-    ) {}
+    ) {
+    }
 
     public function getParent(): string
     {

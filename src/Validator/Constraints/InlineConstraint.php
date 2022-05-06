@@ -25,7 +25,7 @@ final class InlineConstraint extends Constraint
 {
     private ?string $service = null;
 
-    private string|\Closure $method;
+    private string | \Closure $method;
 
     private bool $serializingWarning = false;
 
@@ -95,7 +95,7 @@ final class InlineConstraint extends Constraint
         ];
     }
 
-    public function getMethod(): string|\Closure
+    public function getMethod(): string | \Closure
     {
         return $this->method;
     }

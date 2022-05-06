@@ -174,7 +174,7 @@ final class ErrorElement
      *
      * @return $this
      */
-    public function addViolation(string|array $message, array $parameters = [], mixed $value = null, string $translationDomain = self::DEFAULT_TRANSLATION_DOMAIN): self
+    public function addViolation(string | array $message, array $parameters = [], mixed $value = null, string $translationDomain = self::DEFAULT_TRANSLATION_DOMAIN): self
     {
         if (\is_array($message)) {
             $value = $message[2] ?? $value;

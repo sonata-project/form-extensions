@@ -34,7 +34,8 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
         private MomentFormatConverter $formatConverter,
         protected TranslatorInterface $translator,
         protected string $locale
-    ) {}
+    ) {
+    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
