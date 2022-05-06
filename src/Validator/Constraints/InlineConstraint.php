@@ -23,9 +23,9 @@ use Symfony\Component\Validator\Constraint;
  */
 final class InlineConstraint extends Constraint
 {
-    private ?string $service = null;
+    private mixed $service = null;
 
-    private string | \Closure $method;
+    private mixed $method = null;
 
     private bool $serializingWarning = false;
 
@@ -36,7 +36,7 @@ final class InlineConstraint extends Constraint
     {
         parent::__construct($options);
 
-        if ((null === $this->service || null === $this->method) && true !== $this->serializingWarning) {
+        if ((!\is_string($this->service) || !\is_string($this->method)) && true !== $this->serializingWarning) {
             throw new \RuntimeException('You are using a closure with the `InlineConstraint`, this constraint'.
                 ' cannot be serialized. You need to re-attach the `InlineConstraint` on each request.'.
                 ' Once done, you can set the `serializingWarning` option to `true` to avoid this message.');
@@ -48,7 +48,7 @@ final class InlineConstraint extends Constraint
         // @phpstan-ignore-next-line to initialize "groups" option if it is not set
         $this->groups;
 
-        if (null === $this->service || null === $this->method) {
+        if (!\is_string($this->service) || !\is_string($this->method)) {
             return [];
         }
 
@@ -77,7 +77,7 @@ final class InlineConstraint extends Constraint
         return $this->method instanceof \Closure;
     }
 
-    public function getClosure(): \Closure
+    public function getClosure(): mixed
     {
         return $this->method;
     }
@@ -95,12 +95,12 @@ final class InlineConstraint extends Constraint
         ];
     }
 
-    public function getMethod(): string | \Closure
+    public function getMethod(): mixed
     {
         return $this->method;
     }
 
-    public function getService(): ?string
+    public function getService(): mixed
     {
         return $this->service;
     }
