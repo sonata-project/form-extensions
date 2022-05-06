@@ -51,7 +51,7 @@ final class ImmutableArrayTypeTest extends TypeTestCase
         $builder->expects(static::once())->method('add')->with(
             static::callback(static fn (string $name): bool => 'ttl' === $name),
             static::callback(static fn (string $name): bool => TextType::class === $name),
-            static::callback(static fn (string $name): bool => $name === [1 => '1'])
+            static::callback(static fn (array $name): bool => $name === [1 => '1'])
         );
 
         $optionsCallback = static function (FormBuilderInterface $builder, string $name, string $type, array $extra): array {
