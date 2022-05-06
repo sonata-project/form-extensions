@@ -20,7 +20,7 @@
     ],
     "homepage": "https://docs.sonata-project.org/projects/form-extensions",
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.0",
         "symfony/event-dispatcher": "^5.4 || ^6.0",
         "symfony/form": "^5.4 || ^6.0",
         "symfony/options-resolver": "^5.4 || ^6.0",

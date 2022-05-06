@@ -15,23 +15,14 @@ namespace Sonata\Form\Tests\Fixtures\Bundle\Entity;
 
 final class Foo
 {
-    /**
-     * @var mixed
-     */
-    private $bar;
+    private mixed $bar = null;
 
-    /**
-     * @return mixed
-     */
-    public function getBar()
+    public function getBar(): mixed
     {
         return $this->bar;
     }
 
-    /**
-     * @param mixed $bar
-     */
-    public function setBar($bar): void
+    public function setBar(mixed $bar): void
     {
         $this->bar = $bar;
     }

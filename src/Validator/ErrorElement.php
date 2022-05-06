@@ -80,10 +80,6 @@ final class ErrorElement
 {
     private const DEFAULT_TRANSLATION_DOMAIN = 'validators';
 
-    private ExecutionContextInterface $context;
-
-    private ?string $group;
-
     /**
      * @var string[]
      */
@@ -94,11 +90,6 @@ final class ErrorElement
      */
     private array $propertyPaths = [];
 
-    /**
-     * @var mixed
-     */
-    private $subject;
-
     private string $current = '';
 
     private string $basePropertyPath;
@@ -108,17 +99,11 @@ final class ErrorElement
      */
     private array $errors = [];
 
-    /**
-     * @param mixed $subject
-     */
     public function __construct(
-        $subject,
-        ExecutionContextInterface $context,
-        ?string $group
+        private mixed $subject,
+        private ExecutionContextInterface $context,
+        private ?string $group
     ) {
-        $this->subject = $subject;
-        $this->context = $context;
-        $this->group = $group;
         $this->basePropertyPath = $this->context->getPropertyPath();
     }
 
@@ -129,7 +114,7 @@ final class ErrorElement
      */
     public function __call(string $name, array $arguments = []): self
     {
-        if ('assert' === substr($name, 0, 6)) {
+        if (str_starts_with($name, 'assert')) {
             $this->validate($this->newConstraint(substr($name, 6), $arguments[0] ?? []));
         } else {
             throw new \RuntimeException('Unable to recognize the command');
@@ -178,10 +163,7 @@ final class ErrorElement
         return $this->basePropertyPath;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSubject()
+    public function getSubject(): mixed
     {
         return $this->subject;
     }
@@ -189,11 +171,10 @@ final class ErrorElement
     /**
      * @param string|array{0?:string, 1?:array<string, mixed>, 2?:mixed} $message
      * @param array<string, mixed>                                       $parameters
-     * @param mixed                                                      $value
      *
      * @return $this
      */
-    public function addViolation($message, array $parameters = [], $value = null, string $translationDomain = self::DEFAULT_TRANSLATION_DOMAIN): self
+    public function addViolation(string|array $message, array $parameters = [], mixed $value = null, string $translationDomain = self::DEFAULT_TRANSLATION_DOMAIN): self
     {
         if (\is_array($message)) {
             $value = $message[2] ?? $value;
@@ -233,10 +214,8 @@ final class ErrorElement
 
     /**
      * Return the value linked to.
-     *
-     * @return mixed
      */
-    private function getValue()
+    private function getValue(): mixed
     {
         if ('' === $this->current) {
             return $this->subject;
@@ -259,7 +238,7 @@ final class ErrorElement
      */
     private function newConstraint(string $name, array $options = []): Constraint
     {
-        if (false !== strpos($name, '\\') && class_exists($name)) {
+        if (str_contains($name, '\\') && class_exists($name)) {
             $className = $name;
         } else {
             $className = 'Symfony\\Component\\Validator\\Constraints\\'.$name;

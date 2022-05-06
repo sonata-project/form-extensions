@@ -21,14 +21,11 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class InlineValidator extends ConstraintValidator
 {
-    private ContainerInterface $container;
-
     /**
      * @psalm-suppress ContainerDependency
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(private ContainerInterface $container)
     {
-        $this->container = $container;
     }
 
     /**

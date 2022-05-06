@@ -23,20 +23,11 @@ use Symfony\Component\Validator\Constraint;
  */
 final class InlineConstraint extends Constraint
 {
-    /**
-     * @var mixed
-     */
-    protected $service;
+    private ?string $service = null;
 
-    /**
-     * @var mixed
-     */
-    protected $method;
+    private string|\Closure $method;
 
-    /**
-     * @var mixed
-     */
-    protected $serializingWarning;
+    private bool $serializingWarning = false;
 
     /**
      * @param mixed $options
@@ -45,7 +36,7 @@ final class InlineConstraint extends Constraint
     {
         parent::__construct($options);
 
-        if ((!\is_string($this->service) || !\is_string($this->method)) && true !== $this->serializingWarning) {
+        if ((null === $this->service || null === $this->method) && true !== $this->serializingWarning) {
             throw new \RuntimeException('You are using a closure with the `InlineConstraint`, this constraint'.
                 ' cannot be serialized. You need to re-attach the `InlineConstraint` on each request.'.
                 ' Once done, you can set the `serializingWarning` option to `true` to avoid this message.');
@@ -57,7 +48,7 @@ final class InlineConstraint extends Constraint
         // @phpstan-ignore-next-line to initialize "groups" option if it is not set
         $this->groups;
 
-        if (!\is_string($this->service) || !\is_string($this->method)) {
+        if (null === $this->service || null === $this->method) {
             return [];
         }
 
@@ -86,10 +77,7 @@ final class InlineConstraint extends Constraint
         return $this->method instanceof \Closure;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getClosure()
+    public function getClosure(): \Closure
     {
         return $this->method;
     }
@@ -107,26 +95,17 @@ final class InlineConstraint extends Constraint
         ];
     }
 
-    /**
-     * @return mixed string|callable
-     */
-    public function getMethod()
+    public function getMethod(): string|\Closure
     {
         return $this->method;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getService()
+    public function getService(): ?string
     {
         return $this->service;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSerializingWarning()
+    public function getSerializingWarning(): bool
     {
         return $this->serializingWarning;
     }
