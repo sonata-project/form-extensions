@@ -43,6 +43,8 @@ final class BooleanType extends AbstractType
             ],
             'translation_domain' => 'SonataFormBundle',
         ]);
+
+        $resolver->setAllowedTypes('transform', 'bool');
     }
 
     public function getParent(): string

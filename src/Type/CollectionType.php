@@ -49,6 +49,13 @@ final class CollectionType extends AbstractType
             'btn_add' => 'link_add',
             'btn_catalogue' => 'SonataFormBundle',
         ]);
+
+        $resolver->setAllowedTypes('modifiable', 'bool');
+        $resolver->setAllowedTypes('type', 'string');
+        $resolver->setAllowedTypes('type_options', 'array');
+        $resolver->setAllowedTypes('pre_bind_data_callback', ['null', 'callable']);
+        $resolver->setAllowedTypes('btn_add', ['null', 'string']);
+        $resolver->setAllowedTypes('btn_catalogue', ['null', 'string']);
     }
 
     public function getBlockPrefix(): string
