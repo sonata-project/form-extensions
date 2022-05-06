@@ -29,6 +29,9 @@ final class DatePickerType extends BasePickerType
             'html5' => false,
         ]));
 
+        $resolver->setAllowedTypes('format', ['null', 'int', 'string']);
+        $resolver->setAllowedTypes('html5', 'bool');
+
         parent::configureOptions($resolver);
     }
 

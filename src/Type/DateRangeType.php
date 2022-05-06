@@ -63,5 +63,10 @@ class DateRangeType extends AbstractType
             'field_options_end' => [],
             'field_type' => DateType::class,
         ]);
+
+        $resolver->setAllowedTypes('field_options', 'array');
+        $resolver->setAllowedTypes('field_options_start', 'array');
+        $resolver->setAllowedTypes('field_options_end', 'array');
+        $resolver->setAllowedTypes('field_type', 'string');
     }
 }

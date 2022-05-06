@@ -76,6 +76,29 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
                 return $format;
             }
         );
+
+        $resolver->setAllowedTypes('format', ['null', 'int', 'string']);
+        $resolver->setAllowedTypes('transform', 'bool');
+        $resolver->setAllowedTypes('widget', 'string');
+        $resolver->setAllowedTypes('datepicker_use_button', 'bool');
+        $resolver->setAllowedTypes('dp_pick_time', 'bool');
+        $resolver->setAllowedTypes('dp_pick_date', 'bool');
+        $resolver->setAllowedTypes('dp_use_current', 'bool');
+        $resolver->setAllowedTypes('dp_min_date', ['null', 'string', \DateTimeInterface::class]);
+        $resolver->setAllowedTypes('dp_max_date', ['null', 'string', \DateTimeInterface::class]);
+        $resolver->setAllowedTypes('dp_show_today', 'bool');
+        $resolver->setAllowedTypes('dp_language', 'string');
+        $resolver->setAllowedTypes('dp_default_date', ['null', 'string']);
+        $resolver->setAllowedTypes('dp_disabled_dates', 'array');
+        $resolver->setAllowedTypes('dp_enabled_dates', 'array');
+        $resolver->setAllowedTypes('dp_icons', 'array');
+        $resolver->setAllowedTypes('dp_use_strict', 'bool');
+        $resolver->setAllowedTypes('dp_side_by_side', 'bool');
+        $resolver->setAllowedTypes('dp_days_of_week_disabled', 'array');
+        $resolver->setAllowedTypes('dp_collapse', 'bool');
+        $resolver->setAllowedTypes('dp_calendar_weeks', 'bool');
+        $resolver->setAllowedTypes('dp_view_mode', 'string');
+        $resolver->setAllowedTypes('dp_min_view_mode', 'string');
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options): void

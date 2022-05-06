@@ -32,6 +32,11 @@ class DateTimeRangePickerType extends DateTimeRangeType
             ],
             'field_type' => DateTimePickerType::class,
         ]);
+
+        $resolver->setAllowedTypes('field_options', 'array');
+        $resolver->setAllowedTypes('field_options_start', 'array');
+        $resolver->setAllowedTypes('field_options_end', 'array');
+        $resolver->setAllowedTypes('field_type', 'string');
     }
 
     public function getBlockPrefix(): string
