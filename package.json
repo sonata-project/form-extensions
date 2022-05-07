@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "jquery": "^2.2",
     "moment": "^2.29"
   },
   "devDependencies": {
@@ -40,9 +39,6 @@
     "dev": "encore dev",
     "watch": "encore dev --watch",
     "build": "encore production"
-  },
-  "resolutions": {
-    "jquery": "^2.2"
   },
   "browserslist": [
     "defaults"
