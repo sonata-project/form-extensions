@@ -17,6 +17,10 @@ import moment from 'moment';
 // of its source files, that's why it is not included it via npm.
 import '../vendor/bootstrap-datetimepicker.min';
 
+// Create global $ and jQuery variables to be used outside this script
+global.$ = $;
+global.jQuery = $;
+
 // Create global moment variable to be used by the locale script.
 // It expects moment to be available on the global scope
 // in order to define the requested locale translations
