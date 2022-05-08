@@ -2,10 +2,10 @@
   "entrypoints": {
     "app": {
       "css": [
-        "./app.css"
+        "/bundles/sonataform/app.css"
       ],
       "js": [
-        "./app.js"
+        "/bundles/sonataform/app.js"
       ]
     }
   }

@@ -231,7 +231,7 @@ And the type can now be used::
 DatePickerType / DateTimePickerType
 -----------------------------------
 
-Those types integrate `Eonasdan's Bootstrap datetimepicker`_ into a
+Those types integrate `Eonasdan's Tempus Dominus`_ into a
 Symfony form. They both are available as services and inherit from
 ``date`` and ``datetime`` default form types.
 
@@ -241,26 +241,13 @@ They will allow you to have a JS date picker onto your form fields as follows:
 
 In order to use them, you'll need to perform a bit of setup:
 
-.. configuration-block::
+.. code-block:: yaml
 
-    .. code-block:: yaml
+    # config/packages/twig.yaml
 
-        # config/packages/twig.yaml
-
-        twig:
-            form_themes:
-                - '@SonataForm/Form/datepicker.html.twig'
-
-In your layout, you'll need to add the assets dependencies (feel free to
-adapt this to your needs, for instance, to use with assetic):
-
-.. code-block:: html
-
-    <head>
-        <!-- ... -->
-        <script type="text/javascript" src="/bundles/sonataform/app.js"></script>
-        <link rel="stylesheet" href="/bundles/sonataform/app.css"/>
-    </head>
+    twig:
+        form_themes:
+            - '@SonataForm/Form/datepicker.html.twig'
 
 Finally, in your form, you may use the form type as follows::
 
@@ -281,7 +268,7 @@ Finally, in your form, you may use the form type as follows::
         }
     }
 
-Many of the `standard date picker options`_ are available by adding options with a ``dp_`` prefix::
+Almost all the `standard date picker options`_ are available by adding options with in the ``datepicker_options`` array::
 
     // src/Admin/PageAdmin.php
 
@@ -294,28 +281,47 @@ Many of the `standard date picker options`_ are available by adding options with
         {
             $form
                 ->add('publicationDateStart', DateTimePickerType::class, [
-                    'dp_side_by_side'       => true,
-                    'dp_use_current'        => false,
-                    'dp_use_seconds'        => false,
-                    'dp_collapse'           => true,
-                    'dp_calendar_weeks'     => false,
-                    'dp_view_mode'          => 'days',
-                    'dp_min_view_mode'      => 'days',
+                    'datepicker_options' => [
+                        'useCurrent' => false,
+                        'display' => [
+                            'sideBySide' => true,
+                            'calendarWeeks' => false,
+                            'viewMode' => 'days',
+                            'components' => [
+                                'seconds' => false,
+                            ],
+                        ],
+                    ],
                 ])
 
                 // or DatePickerType if you don't need the time
                 ->add('publicationDateStart', DatePickerType::class, [
-                    'dp_use_current' => false,
+                    'datepicker_options' => [
+                        'useCurrent' => false,
+                    ],
                 ]);
         }
     }
 
-If you look in the classes ``DateTimePickerType.php`` and ``BasePickerType.php``
-you can see all the currently available options.
+If you look in the ``BasePickerType.php`` you can see all the currently available options.
 
 In addition to these standard options, there is also the option ``datepicker_use_button``
 which, when used, will change the widget so that the datepicker icon is not shown and the
 pop-up datepicker is invoked simply by clicking on the date input.
+
+If you are not using ``SonataAdminBundle`` (or you want to use the date picker in a non-Admin context),
+you should register the controller on the Stimulus application::
+
+.. code-block:: js
+
+    // assets/js/app.js
+
+    import { Application } from 'stimulus';
+
+    import DatePicker from './../../vendor/sonata-project/form-extensions/assets/js/datepicker_controller.js';
+
+    const application = Application.start();
+    application.register('datepicker', DatePicker);
 
 DateRangePickerType and DateTimeRangePickerType
 -----------------------------------------------
@@ -378,6 +384,6 @@ Finally, in your form, you may use the form type as follows::
         }
     }
 
-.. _`ChoiceType documentation`: http://symfony.com/doc/current/reference/forms/types/choice.html
-.. _`Eonasdan's Bootstrap datetimepicker`: https://github.com/Eonasdan/bootstrap-datetimepicker
-.. _`standard date picker options`: http://eonasdan.github.io/bootstrap-datetimepicker/#options
+.. _`ChoiceType documentation`: https://symfony.com/doc/current/reference/forms/types/choice.html
+.. _`Eonasdan's Tempus Dominus`: https://github.com/Eonasdan/tempus-dominus
+.. _`standard date picker options`: https://getdatepicker.com/6/options/

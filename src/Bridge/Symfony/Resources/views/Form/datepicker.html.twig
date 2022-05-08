@@ -8,47 +8,33 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
 
 #}
-{% block sonata_type_date_picker_widget_html %}
-    {% if datepicker_use_button %}
-        <div class='input-group date' id='dp_{{ id }}'>
-    {% endif %}
-    {% set attr = attr|merge({'data-date-format': moment_format}) %}
-    {{ block('date_widget') }}
-    {% if datepicker_use_button %}
-            <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-        </div>
-    {% endif %}
-{% endblock sonata_type_date_picker_widget_html %}
-
-{% block sonata_type_date_picker_widget %}
-    {% apply spaceless %}
-        {% if wrap_fields_with_addons %}
-            <div class="input-group">
-                {{ block('sonata_type_date_picker_widget_html') }}
-            </div>
-        {% else %}
-            {{ block('sonata_type_date_picker_widget_html') }}
-        {% endif %}
-        <script type="text/javascript">
-            jQuery(function ($) {
-                $('#{{ datepicker_use_button ? 'dp_' : '' }}{{ id }}').datetimepicker({{ dp_options|json_encode|raw }});
-            });
-        </script>
-    {% endapply %}
-{% endblock sonata_type_date_picker_widget %}
 
 {% block sonata_type_datetime_picker_widget_html %}
-    {% if datepicker_use_button %}
-        <div class='input-group date {% if not dp_options['pickDate'] %}timepicker{% endif %}' id='dtp_{{ id }}'>
-    {% endif %}
-    {% set attr = attr|merge({'data-date-format': moment_format}) %}
-    {{ block('datetime_widget') }}
-    {% if datepicker_use_button %}
-            <span class="input-group-addon">
-                <span class="fa {% if dp_options['pickDate'] %}fa-calendar{% else %}fa-clock{% endif %}"></span>
+    <div
+        id="{{ id ~ '_controller' }}"
+        class="input-group date"
+        data-controller="datepicker"
+        data-datepicker-options-value="{{ datepicker_options|json_encode|escape('html_attr') }}"
+        {% if linked_to|default(false) %}data-datepicker-datepicker-outlet="#{{ linked_to ~ '_controller' }}"{% endif %}
+        data-td-target-input="nearest"
+        {% if datepicker_use_button %}data-td-target-toggle="nearest"{% endif %}
+    >
+        {% set attr = attr|merge({
+            'data-td-target': '#' ~ id ~ '_controller',
+        }) %}
+
+        {{ block('datetime_widget') }}
+
+        {% if datepicker_use_button %}
+            <span
+                class="input-group-addon"
+                data-td-target="#{{ id ~ '_controller' }}"
+                data-td-toggle="datetimepicker"
+            >
+                <i class="fas {% if datepicker_options.display.viewMode is defined and datepicker_options.display.viewMode == 'clock' %}fa-clock{% else %}fa-calendar{% endif %}"></i>
             </span>
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
 {% endblock sonata_type_datetime_picker_widget_html %}
 
 {% block sonata_type_datetime_picker_widget %}
@@ -60,40 +46,5 @@ file that was distributed with this source code.
         {% else %}
             {{ block('sonata_type_datetime_picker_widget_html') }}
         {% endif %}
-        <script type="text/javascript">
-            jQuery(function ($) {
-                $('#{{ datepicker_use_button ? 'dtp_' : '' }}{{ id }}').datetimepicker({{ dp_options|json_encode|raw }});
-            });
-        </script>
     {% endapply %}
 {% endblock sonata_type_datetime_picker_widget %}
-
-{% block sonata_type_datetime_range_script_block %}
-    {% apply spaceless %}
-        {{ block('form_widget') }}
-        <script type="text/javascript">
-            jQuery(function ($) {
-                var $startDateTimePicker = $('#{{ startId }}');
-                var $endDateTimePicker = $('#{{ endId }}');
-                $startDateTimePicker.on("dp.change", function (e) {
-                    $endDateTimePicker.data("DateTimePicker").setMinDate(e.date);
-                });
-                $endDateTimePicker.on("dp.change", function (e) {
-                    $startDateTimePicker.data("DateTimePicker").setMaxDate(e.date);
-                });
-            });
-        </script>
-    {% endapply %}
-{% endblock sonata_type_datetime_range_script_block %}
-
-{% block sonata_type_datetime_range_picker_widget %}
-    {% set startId = (form.children.start.vars.datepicker_use_button ? 'dtp_' : '') ~ form.children.start.vars.id %}
-    {% set endId = (form.children.end.vars.datepicker_use_button ? 'dtp_' : '') ~ form.children.end.vars.id %}
-    {{ block('sonata_type_datetime_range_script_block') }}
-{% endblock sonata_type_datetime_range_picker_widget %}
-
-{% block sonata_type_date_range_picker_widget %}
-    {% set startId = (form.children.start.vars.datepicker_use_button ? 'dp_' : '') ~ form.children.start.vars.id %}
-    {% set endId = (form.children.end.vars.datepicker_use_button ? 'dp_' : '') ~ form.children.end.vars.id %}
-    {{ block('sonata_type_datetime_range_script_block') }}
-{% endblock sonata_type_date_range_picker_widget %}

@@ -11,8 +11,8 @@ const Encore = require('@symfony/webpack-encore');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 Encore.setOutputPath('./src/Bridge/Symfony/Resources/public')
-  .setPublicPath('.')
-  .setManifestKeyPrefix('bundles/sonataadmin')
+  .setPublicPath('/bundles/sonataform')
+  .setManifestKeyPrefix('bundles/sonataform')
 
   .cleanupOutputBeforeBuild()
   .enableSassLoader()
@@ -20,25 +20,16 @@ Encore.setOutputPath('./src/Bridge/Symfony/Resources/public')
   .enableVersioning(false)
   .enableSourceMaps(false)
   .enableEslintPlugin()
-  .autoProvidejQuery()
   .disableSingleRuntimeChunk()
 
   .addExternals({
-    jquery: 'jQuery',
+    '@hotwired/stimulus': 'stimulus',
   })
 
   .configureCssMinimizerPlugin((options) => {
     options.minimizerOptions = {
       preset: ['default', { discardComments: { removeAll: true } }],
     };
-  })
-
-  .configureImageRule({
-    filename: 'images/[name][ext]',
-  })
-
-  .configureFontRule({
-    filename: 'fonts/[name][ext]',
   })
 
   .addPlugin(
@@ -54,8 +45,6 @@ Encore.setOutputPath('./src/Bridge/Symfony/Resources/public')
     };
     options.extractComments = false;
   })
-
-  .copyFiles([{ from: './node_modules/moment/locale/', to: 'moment-locale/[name].[ext]' }])
 
   .addEntry('app', './assets/js/app.js');
 

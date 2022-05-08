@@ -7,7 +7,4 @@
  * file that was distributed with this source code.
  */
 
-// Eonasdan Bootstrap DateTimePicker in its version 3 does not
-// provide the scss or plain css, it only provides the less version
-// of its source files, that's why it is not included it via npm.
-@import '../vendor/bootstrap-datetimepicker.min.css';
+@import '@eonasdan/tempus-dominus';

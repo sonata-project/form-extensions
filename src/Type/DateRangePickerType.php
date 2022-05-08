@@ -24,23 +24,18 @@ final class DateRangePickerType extends DateRangeType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'field_options' => [],
-            'field_options_start' => [],
-            'field_options_end' => [
-                'dp_use_current' => false,
-            ],
-            'field_type' => DatePickerType::class,
-        ]);
+        parent::configureOptions($resolver);
 
-        $resolver->setAllowedTypes('field_options', 'array');
-        $resolver->setAllowedTypes('field_options_start', 'array');
-        $resolver->setAllowedTypes('field_options_end', 'array');
-        $resolver->setAllowedTypes('field_type', 'string');
+        $resolver->setDefault('field_type', DatePickerType::class);
+        $resolver->setDefault('field_options_end', [
+            'datepicker_options' => [
+                'useCurrent' => false,
+            ],
+        ]);
     }
 
     public function getBlockPrefix(): string
     {
-        return 'sonata_type_date_range_picker';
+        return 'sonata_type_datetime_range_picker';
     }
 }

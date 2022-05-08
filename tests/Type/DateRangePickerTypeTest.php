@@ -13,8 +13,11 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\Type;
 
+use Sonata\Form\Date\JavaScriptFormatConverter;
 use Sonata\Form\Type\DatePickerType;
 use Sonata\Form\Type\DateRangePickerType;
+use Symfony\Component\Form\FormExtensionInterface;
+use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,7 +27,7 @@ final class DateRangePickerTypeTest extends TypeTestCase
     {
         $type = new DateRangePickerType();
 
-        static::assertSame('sonata_type_date_range_picker', $type->getBlockPrefix());
+        static::assertSame('sonata_type_datetime_range_picker', $type->getBlockPrefix());
 
         $type->configureOptions($resolver = new OptionsResolver());
 
@@ -35,11 +38,38 @@ final class DateRangePickerTypeTest extends TypeTestCase
                 'field_options' => [],
                 'field_options_start' => [],
                 'field_options_end' => [
-                    'dp_use_current' => false,
+                    'datepicker_options' => [
+                        'useCurrent' => false,
+                    ],
                 ],
                 'field_type' => DatePickerType::class,
             ],
             $options
         );
+    }
+
+    public function testSubmit(): void
+    {
+        \Locale::setDefault('en');
+        $form = $this->factory->create(DateRangePickerType::class);
+
+        $form->submit([
+            'start' => '2018-06-03',
+            'end' => '2018-06-03',
+        ]);
+
+        static::assertTrue($form->isSynchronized());
+    }
+
+    /**
+     * @return FormExtensionInterface[]
+     */
+    protected function getExtensions(): array
+    {
+        $type = new DatePickerType(new JavaScriptFormatConverter(), 'en');
+
+        return [
+            new PreloadedExtension([$type], []),
+        ];
     }
 }

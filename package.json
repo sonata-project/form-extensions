@@ -1,12 +1,18 @@
 {
   "dependencies": {
-    "moment": "^2.29"
+    "@eonasdan/tempus-dominus": "^6.7",
+    "@hotwired/stimulus": "^3.2",
+    "@symfony/stimulus-bridge": "^3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.21",
     "@babel/eslint-parser": "^7.21",
     "@babel/preset-env": "^7.21",
     "@symfony/webpack-encore": "^4.3",
+    "@testing-library/dom": "^9.2",
+    "@testing-library/jest-dom": "^5.16",
+    "@testing-library/user-event": "^14.4",
+    "@vitest/coverage-c8": "^0.31",
     "autoprefixer": "^10.4",
     "eslint": "^8.39",
     "eslint-config-airbnb-base": "^15.0",
@@ -15,6 +21,7 @@
     "eslint-plugin-import": "^2.27",
     "eslint-webpack-plugin": "^4.0",
     "file-loader": "^6.2",
+    "jsdom": "^22.0",
     "postcss": "^8.4",
     "postcss-loader": "^7.2",
     "postcss-scss": "^4.0",
@@ -25,6 +32,8 @@
     "stylelint-config-standard-scss": "^9.0",
     "stylelint-order": "^6.0",
     "stylelint-webpack-plugin": "^4.1",
+    "vitest": "^0.31",
+    "vitest-github-actions-reporter": "^0.10",
     "webpack": "^5.80",
     "webpack-cli": "^5.0"
   },
