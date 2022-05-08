@@ -17,7 +17,7 @@ permissions:
     contents: read
 
 jobs:
-    webpack-encore:
+    build:
         name: Webpack Encore
 
         runs-on: ubuntu-latest
@@ -48,3 +48,23 @@ jobs:
 
             - name: Check if the compilation is up to date
               run: git diff --no-patch --exit-code
+
+    test:
+        name: Jest
+
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Install Node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '18'
+
+            - name: Install NPM dependencies
+              uses: bahmutov/npm-install@v1
+
+            - name: Run Jest
+              run: npx jest

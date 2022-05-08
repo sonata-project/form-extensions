@@ -17,9 +17,16 @@ use Sonata\Form\Twig\CanonicalizeRuntime;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
+/**
+ * NEXT_MAJOR: Remove this class.
+ *
+ * @deprecated since sonata-project/form-extensions 2.x, to be removed on 3.0.
+ */
 final class CanonicalizeExtension extends AbstractExtension
 {
     /**
+     * @psalm-suppress DeprecatedClass
+     *
      * @return TwigFunction[]
      */
     public function getFunctions(): array

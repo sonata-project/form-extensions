@@ -13,33 +13,20 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\Type;
 
-use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Sonata\Form\Date\MomentFormatConverter;
 use Sonata\Form\Tests\Fixtures\Type\DummyPickerType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
 final class BasePickerTypeTest extends TestCase
 {
-    /**
-     * @var Stub&TranslatorInterface
-     */
-    private TranslatorInterface $translator;
-
-    private MomentFormatConverter $momentFormatConverter;
-
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->momentFormatConverter = new MomentFormatConverter();
-        $this->translator = $this->createStub(TranslatorInterface::class);
     }
 
     /**
@@ -50,18 +37,13 @@ final class BasePickerTypeTest extends TestCase
      */
     public function testFinishView(array $expectedOptions, array $options): void
     {
-        $type = new DummyPickerType(
-            $this->momentFormatConverter,
-            $this->translator,
-            'en'
-        );
+        $type = new DummyPickerType();
 
         $view = new FormView();
         $form = new Form($this->createStub(FormConfigInterface::class));
 
         $type->finishView($view, $form, $options);
 
-        static::assertArrayHasKey('moment_format', $view->vars);
         static::assertArrayHasKey('dp_options', $view->vars);
         static::assertArrayHasKey('datepicker_use_button', $view->vars);
         static::assertSame($expectedOptions['minDate'], $view->vars['dp_options']['minDate']);
@@ -89,11 +71,7 @@ final class BasePickerTypeTest extends TestCase
      */
     public function testTimePickerIntlFormater(array $expectedOptions, array $options): void
     {
-        $type = new DummyPickerType(
-            $this->momentFormatConverter,
-            $this->translator,
-            'en'
-        );
+        $type = new DummyPickerType();
 
         $view = new FormView();
         $form = new Form($this->createStub(FormConfigInterface::class));
@@ -106,7 +84,6 @@ final class BasePickerTypeTest extends TestCase
             static::assertFalse($view->vars['dp_options']['useSeconds']);
         }
 
-        static::assertSame($expectedOptions['moment_format'], $view->vars['moment_format']);
         static::assertSame($expectedOptions['maxDate'], $view->vars['dp_options']['maxDate']);
     }
 
@@ -117,7 +94,6 @@ final class BasePickerTypeTest extends TestCase
     {
         yield [
             [
-                'moment_format' => 'H:mm',
                 'minDate' => '1/1/1900',
                 'maxDate' => '0:00',
                 'useSeconds' => false,
@@ -133,7 +109,6 @@ final class BasePickerTypeTest extends TestCase
 
         yield [
             [
-                'moment_format' => 'YYYY-MM-DD',
                 'minDate' => '1/1/1900',
                 'maxDate' => '2001-01-01',
                 'useSeconds' => false,
@@ -149,7 +124,6 @@ final class BasePickerTypeTest extends TestCase
 
         yield [
             [
-                'moment_format' => 'H:mm',
                 'minDate' => '1/1/1900',
                 'maxDate' => '0:00',
                 'useSeconds' => false,
@@ -162,16 +136,5 @@ final class BasePickerTypeTest extends TestCase
                 'dp_pick_date' => false,
             ],
         ];
-    }
-
-    public function testTimePickerUsesDefaultLocaleWithoutRequest(): void
-    {
-        $type = new DummyPickerType(
-            $this->momentFormatConverter,
-            $this->translator,
-            'en'
-        );
-
-        static::assertSame('en', $type->getLocale());
     }
 }

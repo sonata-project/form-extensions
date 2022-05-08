@@ -19,8 +19,9 @@ module.exports = {
   env: {
     browser: true,
     jquery: true,
+    'jest/globals': true,
   },
-  plugins: ['header'],
+  plugins: ['header', 'jest'],
   rules: {
     'header/header': [
       2,

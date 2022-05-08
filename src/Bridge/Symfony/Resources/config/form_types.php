@@ -37,43 +37,19 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
         ->set('sonata.form.type.date_range', DateRangeType::class)
             ->tag('form.type', ['alias' => 'sonata_type_date_range'])
-            ->args([
-                service('translator'),
-            ])
 
         ->set('sonata.form.type.datetime_range', DateTimeRangeType::class)
             ->tag('form.type', ['alias' => 'sonata_type_datetime_range'])
-            ->args([
-                service('translator'),
-            ])
 
         ->set('sonata.form.type.date_picker', DatePickerType::class)
-            ->tag('kernel.locale_aware')
             ->tag('form.type', ['alias' => 'sonata_type_date_picker'])
-            ->args([
-                service('sonata.form.date.moment_format_converter'),
-                service('translator'),
-                param('kernel.default_locale'),
-            ])
 
         ->set('sonata.form.type.datetime_picker', DateTimePickerType::class)
-            ->tag('kernel.locale_aware')
             ->tag('form.type', ['alias' => 'sonata_type_datetime_picker'])
-            ->args([
-                service('sonata.form.date.moment_format_converter'),
-                service('translator'),
-                param('kernel.default_locale'),
-            ])
 
         ->set('sonata.form.type.date_range_picker', DateRangePickerType::class)
             ->tag('form.type', ['alias' => 'sonata_type_date_range_picker'])
-            ->args([
-                service('translator'),
-            ])
 
         ->set('sonata.form.type.datetime_range_picker', DateTimeRangePickerType::class)
-            ->tag('form.type', ['alias' => 'sonata_type_datetime_range_picker'])
-            ->args([
-                service('translator'),
-            ]);
+            ->tag('form.type', ['alias' => 'sonata_type_datetime_range_picker']);
 };

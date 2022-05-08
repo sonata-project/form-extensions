@@ -7,4 +7,7 @@
  * file that was distributed with this source code.
  */
 
-@import 'flatpickr';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'regenerator-runtime/runtime';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import '@testing-library/jest-dom';

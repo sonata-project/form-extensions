@@ -7,4 +7,9 @@
  * file that was distributed with this source code.
  */
 
-@import 'flatpickr';
+/** @type {import('@jest/types').Config.InitialOptions} */
+module.exports = {
+  setupFilesAfterEnv: ['./assets/js/controllers/setup.js'],
+  testEnvironment: 'jsdom',
+  testPathIgnorePatterns: ['/node_modules/', '/vendor/'],
+};

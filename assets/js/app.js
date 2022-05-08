@@ -10,14 +10,9 @@
 // Any SCSS/CSS you require will output into a single css file (app.css in this case)
 import '../scss/app.scss';
 
-import moment from 'moment';
+// eslint-disable-next-line import/no-unresolved, import/no-webpack-loader-syntax
+import DatePicker from '@symfony/stimulus-bridge/lazy-controller-loader?lazy=true!./controllers/datepicker_controller.js';
 
-// Eonasdan Bootstrap DateTimePicker in its version 3 does not
-// provide the scss or plain css, it only provides the less version
-// of its source files, that's why it is not included it via npm.
-import '../vendor/bootstrap-datetimepicker';
+const { sonataApplication } = global;
 
-// Create global moment variable to be used by the locale script.
-// It expects moment to be available on the global scope
-// in order to define the requested locale translations
-global.moment = moment;
+sonataApplication.register('datepicker', DatePicker);

@@ -13,55 +13,20 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Twig;
 
-use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\RuntimeExtensionInterface;
 
+/**
+ * NEXT_MAJOR: Remove this class.
+ *
+ * @deprecated since sonata-project/form-extensions 2.x, to be removed on 3.0.
+ */
 final class CanonicalizeRuntime implements RuntimeExtensionInterface
 {
-    // @todo: there are more locales which are not supported by "Moment.js" NPM library and they need to be translated/normalized/canonicalized here
-    private const MOMENT_UNSUPPORTED_LOCALES = [
-        'de' => ['de', 'de-at'],
-        'es' => ['es', 'es-do'],
-        'nl' => ['nl', 'nl-be'],
-        'fr' => ['fr', 'fr-ca', 'fr-ch'],
-    ];
-
     /**
-     * @internal This class should only be used through Twig
-     */
-    public function __construct(private RequestStack $requestStack)
-    {
-    }
-
-    /**
-     * Returns a canonicalized locale for "Moment.js" NPM library,
-     * or `null` if the locale's language is "en", which doesn't require localization.
+     * We return null instead of removing the extension to be compatible with SonataAdminBundle 4.x.
      */
     public function getCanonicalizedLocaleForMoment(): ?string
     {
-        $locale = $this->getLocale();
-
-        // "en" language doesn't require localization.
-        if (('en' === $lang = substr($locale, 0, 2)) && !\in_array($locale, ['en-au', 'en-ca', 'en-gb', 'en-ie', 'en-nz'], true)) {
-            return null;
-        }
-
-        foreach (self::MOMENT_UNSUPPORTED_LOCALES as $language => $locales) {
-            if ($language === $lang && !\in_array($locale, $locales, true)) {
-                $locale = $language;
-            }
-        }
-
-        return $locale;
-    }
-
-    private function getLocale(): string
-    {
-        $request = $this->requestStack->getCurrentRequest();
-        if (null === $request) {
-            throw new \LogicException('The request stack is empty.');
-        }
-
-        return str_replace('_', '-', $request->getLocale());
+        return null;
     }
 }
