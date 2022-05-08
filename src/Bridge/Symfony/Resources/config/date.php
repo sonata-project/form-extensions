@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use Sonata\Form\Date\MomentFormatConverter;
+use Sonata\Form\Date\JavaScriptFormatConverter;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->services()
 
-        ->set('sonata.form.date.moment_format_converter', MomentFormatConverter::class);
+        ->set('sonata.form.date.javascript_format_converter', JavaScriptFormatConverter::class);
 };

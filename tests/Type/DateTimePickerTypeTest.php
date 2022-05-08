@@ -13,37 +13,27 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\Type;
 
-use PHPUnit\Framework\MockObject\Stub;
-use Sonata\Form\Date\MomentFormatConverter;
+use Sonata\Form\Date\JavaScriptFormatConverter;
 use Sonata\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
 final class DateTimePickerTypeTest extends TypeTestCase
 {
-    /**
-     * @var Stub&TranslatorInterface
-     */
-    private TranslatorInterface $translator;
-
     protected function setUp(): void
     {
-        $this->translator = $this->createStub(TranslatorInterface::class);
-
         parent::setUp();
     }
 
     public function testParentIsDateTimeType(): void
     {
         $form = new DateTimePickerType(
-            new MomentFormatConverter(),
-            $this->translator,
+            new JavaScriptFormatConverter(),
             'en'
         );
 
@@ -53,8 +43,7 @@ final class DateTimePickerTypeTest extends TypeTestCase
     public function testGetName(): void
     {
         $type = new DateTimePickerType(
-            new MomentFormatConverter(),
-            $this->translator,
+            new JavaScriptFormatConverter(),
             'en'
         );
 
@@ -66,8 +55,14 @@ final class DateTimePickerTypeTest extends TypeTestCase
         \Locale::setDefault('en');
         $form = $this->factory->create(DateTimePickerType::class, new \DateTime('2018-06-03 20:02:03'), [
             'format' => \IntlDateFormatter::NONE,
-            'dp_pick_date' => false,
-            'dp_use_seconds' => false,
+            'datepicker_options' => [
+                'display' => [
+                    'components' => [
+                        'calendar' => false,
+                        'seconds' => true,
+                    ],
+                ],
+            ],
             'html5' => false,
         ]);
 
@@ -80,8 +75,14 @@ final class DateTimePickerTypeTest extends TypeTestCase
         \Locale::setDefault('en');
         $form = $this->factory->create(DateTimePickerType::class, new \DateTime('2018-06-03 20:02:03'), [
             'format' => \IntlDateFormatter::NONE,
-            'dp_pick_date' => false,
-            'dp_use_seconds' => false,
+            'datepicker_options' => [
+                'display' => [
+                    'components' => [
+                        'calendar' => false,
+                        'seconds' => false,
+                    ],
+                ],
+            ],
             'html5' => false,
         ]);
 
@@ -97,11 +98,7 @@ final class DateTimePickerTypeTest extends TypeTestCase
      */
     protected function getExtensions(): array
     {
-        $type = new DateTimePickerType(
-            new MomentFormatConverter(),
-            $this->translator,
-            'en'
-        );
+        $type = new DateTimePickerType(new JavaScriptFormatConverter(), 'en');
 
         return [
             new PreloadedExtension([$type], []),

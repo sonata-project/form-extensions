@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sonata\Form\Type;
 
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @psalm-suppress MissingTemplateParam https://github.com/phpstan/phpstan-symfony/issues/320
@@ -23,20 +22,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class DatePickerType extends BasePickerType
 {
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults(array_merge($this->getCommonDefaults(), [
-            'dp_pick_time' => false,
-            'format' => DateType::DEFAULT_FORMAT,
-            'html5' => false,
-        ]));
-
-        $resolver->setAllowedTypes('format', ['null', 'int', 'string']);
-        $resolver->setAllowedTypes('html5', 'bool');
-
-        parent::configureOptions($resolver);
-    }
-
     public function getParent(): string
     {
         return DateType::class;
@@ -44,6 +29,24 @@ final class DatePickerType extends BasePickerType
 
     public function getBlockPrefix(): string
     {
-        return 'sonata_type_date_picker';
+        return 'sonata_type_datetime_picker';
+    }
+
+    protected function getCommonDefaults(): array
+    {
+        return array_merge(parent::getCommonDefaults(), [
+            'format' => DateType::DEFAULT_FORMAT,
+        ]);
+    }
+
+    protected function getCommonDatepickerDefaults(): array
+    {
+        return array_merge_recursive(parent::getCommonDatepickerDefaults(), [
+            'display' => [
+                'components' => [
+                    'clock' => false,
+                ],
+            ],
+        ]);
     }
 }

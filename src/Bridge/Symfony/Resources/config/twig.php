@@ -16,6 +16,11 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 use Sonata\Form\Twig\CanonicalizeRuntime;
 use Sonata\Form\Twig\Extension\CanonicalizeExtension;
 
+/**
+ * NEXT_MAJOR: Remove this file.
+ *
+ * @psalm-suppress DeprecatedClass
+ */
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->services()
 

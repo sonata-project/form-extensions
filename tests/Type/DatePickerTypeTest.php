@@ -13,38 +13,28 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\Type;
 
-use PHPUnit\Framework\MockObject\Stub;
-use Sonata\Form\Date\MomentFormatConverter;
+use Sonata\Form\Date\JavaScriptFormatConverter;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @author Hugo Briand <briand@ekino.com>
  */
 final class DatePickerTypeTest extends TypeTestCase
 {
-    /**
-     * @var Stub&TranslatorInterface
-     */
-    private TranslatorInterface $translator;
-
     protected function setUp(): void
     {
-        $this->translator = $this->createStub(TranslatorInterface::class);
-
         parent::setUp();
     }
 
     public function testParentIsDateType(): void
     {
         $form = new DatePickerType(
-            new MomentFormatConverter(),
-            $this->translator,
-            'en'
+            new JavaScriptFormatConverter(),
+            'en',
         );
 
         static::assertSame(DateType::class, $form->getParent());
@@ -52,9 +42,12 @@ final class DatePickerTypeTest extends TypeTestCase
 
     public function testGetName(): void
     {
-        $type = new DatePickerType(new MomentFormatConverter(), $this->translator, 'en');
+        $type = new DatePickerType(
+            new JavaScriptFormatConverter(),
+            'en',
+        );
 
-        static::assertSame('sonata_type_date_picker', $type->getBlockPrefix());
+        static::assertSame('sonata_type_datetime_picker', $type->getBlockPrefix());
     }
 
     public function testSubmitValidData(): void
@@ -71,12 +64,32 @@ final class DatePickerTypeTest extends TypeTestCase
         static::assertTrue($form->isSynchronized());
     }
 
+    public function testDateConversion(): void
+    {
+        \Locale::setDefault('en');
+        $form = $this->factory->create(DatePickerType::class, new \DateTime('2018-06-03'), [
+            'format' => 'yyyy-MM-dd',
+            'html5' => false,
+            'datepicker_options' => [
+                'restrictions' => [
+                    'minDate' => new \DateTime('2018-06-01'),
+                    'disabledDates' => [new \DateTime('2018-06-02')],
+                ],
+            ],
+        ]);
+
+        static::assertSame('2018-06-03', $form->getViewData());
+        $form->submit('2018-06-05');
+        static::assertSame('2018-06-05', $form->getData()->format('Y-m-d'));
+        static::assertTrue($form->isSynchronized());
+    }
+
     /**
      * @return FormExtensionInterface[]
      */
     protected function getExtensions(): array
     {
-        $type = new DatePickerType(new MomentFormatConverter(), $this->translator, 'en');
+        $type = new DatePickerType(new JavaScriptFormatConverter(), 'en');
 
         return [
             new PreloadedExtension([$type], []),

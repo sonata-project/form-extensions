@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Type;
 
-use Sonata\Form\Date\MomentFormatConverter;
+use Sonata\Form\Date\JavaScriptFormatConverter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormInterface;
@@ -21,7 +21,6 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class BasePickerType (to factorize DatePickerType and DateTimePickerType code.
@@ -32,102 +31,100 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 abstract class BasePickerType extends AbstractType implements LocaleAwareInterface
 {
+    /**
+     * @var array<string, array<string>|string>
+     */
+    private const DATEPICKER_ALLOWED_OPTIONS = [
+        'allowInputToggle' => 'bool',
+        'dateRange' => 'bool',
+        'debug' => 'bool',
+        'defaultDate' => ['string', \DateTimeInterface::class],
+        'keepInvalid' => 'bool',
+        'multipleDates' => 'bool',
+        'multipleDatesSeparator' => 'string',
+        'promptTimeOnDateChange' => 'bool',
+        'promptTimeOnDateChangeTransitionDelay' => 'integer',
+        'stepping' => 'integer',
+        'useCurrent' => 'bool',
+        'viewDate' => ['string', \DateTimeInterface::class],
+    ];
+
+    /**
+     * @var array<string, array<string>|string>
+     */
+    private const RESTRICTIONS_OPTIONS = [
+        'minDate' => ['string', \DateTimeInterface::class],
+        'maxDate' => ['string', \DateTimeInterface::class],
+        'disabledDates' => ['string[]', 'DateTimeInterface[]'],
+        'enabledDates' => ['string[]', 'DateTimeInterface[]'],
+        'daysOfWeekDisabled' => 'integer[]',
+        'disabledHours' => 'integer[]',
+        'enabledHours' => 'integer[]',
+    ];
+
+    /**
+     * @var array<string, array<string>|string>
+     */
+    private const LOCALIZATION_OPTIONS = [
+        'locale' => 'string',
+    ];
+
+    /**
+     * @var array<string, array<string>|string>
+     */
+    private const DISPLAY_OPTIONS = [
+        'sideBySide' => 'bool',
+        'calendarWeeks' => 'bool',
+        'viewMode' => 'string',
+        'toolbarPlacement' => 'string',
+        'keepOpen' => 'bool',
+        'inline' => 'bool',
+        'theme' => 'string',
+    ];
+
+    /**
+     * @var array<string, array<string>|string>
+     */
+    private const DISPLAY_ICONS_OPTIONS = [
+        'time' => 'string',
+        'date' => 'string',
+        'up' => 'string',
+        'down' => 'string',
+        'previous' => 'string',
+        'next' => 'string',
+        'today' => 'string',
+        'clear' => 'string',
+        'close' => 'string',
+    ];
+
+    /**
+     * @var array<string, array<string>|string>
+     */
+    private const DISPLAY_BUTTONS_OPTIONS = [
+        'today' => 'bool',
+        'clear' => 'bool',
+        'close' => 'bool',
+    ];
+
+    /**
+     * @var array<string, array<string>|string>
+     */
+    private const DISPLAY_COMPONENTS_OPTIONS = [
+        'calendar' => 'bool',
+        'date' => 'bool',
+        'month' => 'bool',
+        'year' => 'bool',
+        'decades' => 'bool',
+        'clock' => 'bool',
+        'hours' => 'bool',
+        'minutes' => 'bool',
+        'seconds' => 'bool',
+    ];
+
     public function __construct(
-        private MomentFormatConverter $formatConverter,
-        protected TranslatorInterface $translator,
-        protected string $locale
+        private JavaScriptFormatConverter $formatConverter,
+        private string $locale
     ) {
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setNormalizer(
-            'format',
-            function (Options $options, int|string $format): string {
-                if (isset($options['date_format']) && \is_string($options['date_format'])) {
-                    return $options['date_format'];
-                }
-
-                if (\is_int($format)) {
-                    $timeFormat = \IntlDateFormatter::NONE;
-                    if (true === $options['dp_pick_time']) {
-                        $timeFormat = true === $options['dp_use_seconds'] ?
-                            DateTimeType::DEFAULT_TIME_FORMAT :
-                            \IntlDateFormatter::SHORT;
-                    }
-                    $intlDateFormatter = new \IntlDateFormatter(
-                        $this->locale,
-                        $format,
-                        $timeFormat,
-                        null,
-                        \IntlDateFormatter::GREGORIAN
-                    );
-
-                    return $intlDateFormatter->getPattern();
-                }
-
-                return $format;
-            }
-        );
-
-        $resolver->setAllowedTypes('format', ['null', 'int', 'string']);
-        $resolver->setAllowedTypes('widget', 'string');
-        $resolver->setAllowedTypes('datepicker_use_button', 'bool');
-        $resolver->setAllowedTypes('dp_pick_time', 'bool');
-        $resolver->setAllowedTypes('dp_pick_date', 'bool');
-        $resolver->setAllowedTypes('dp_use_current', 'bool');
-        $resolver->setAllowedTypes('dp_min_date', ['null', 'string', \DateTimeInterface::class]);
-        $resolver->setAllowedTypes('dp_max_date', ['null', 'string', \DateTimeInterface::class]);
-        $resolver->setAllowedTypes('dp_show_today', 'bool');
-        $resolver->setAllowedTypes('dp_language', 'string');
-        $resolver->setAllowedTypes('dp_default_date', ['null', 'string']);
-        $resolver->setAllowedTypes('dp_disabled_dates', 'array');
-        $resolver->setAllowedTypes('dp_enabled_dates', 'array');
-        $resolver->setAllowedTypes('dp_icons', 'array');
-        $resolver->setAllowedTypes('dp_use_strict', 'bool');
-        $resolver->setAllowedTypes('dp_side_by_side', 'bool');
-        $resolver->setAllowedTypes('dp_days_of_week_disabled', 'array');
-        $resolver->setAllowedTypes('dp_collapse', 'bool');
-        $resolver->setAllowedTypes('dp_calendar_weeks', 'bool');
-        $resolver->setAllowedTypes('dp_view_mode', 'string');
-        $resolver->setAllowedTypes('dp_min_view_mode', 'string');
-    }
-
-    public function finishView(FormView $view, FormInterface $form, array $options): void
-    {
-        $format = $options['format'];
-
-        // use seconds if it's allowed in format
-        $options['dp_use_seconds'] = str_contains($format, 's');
-
-        if ($options['dp_min_date'] instanceof \DateTimeInterface) {
-            $options['dp_min_date'] = $this->formatObject($options['dp_min_date'], $format);
-        }
-        if ($options['dp_max_date'] instanceof \DateTimeInterface) {
-            $options['dp_max_date'] = $this->formatObject($options['dp_max_date'], $format);
-        }
-
-        $view->vars['moment_format'] = $this->formatConverter->convert($format);
-
-        $view->vars['type'] = 'text';
-
-        $dpOptions = [];
-        foreach ($options as $key => $value) {
-            if (str_contains($key, 'dp_')) {
-                // We remove 'dp_' and camelize the options names
-                $dpKey = substr($key, 3);
-                $dpKey = preg_replace_callback(
-                    '/_([a-z])/',
-                    static fn (array $c): string => strtoupper($c[1]),
-                    $dpKey
-                );
-
-                $dpOptions[$dpKey] = $value;
-            }
-        }
-
-        $view->vars['datepicker_use_button'] = isset($options['datepicker_use_button']) && true === $options['datepicker_use_button'];
-        $view->vars['dp_options'] = $dpOptions;
     }
 
     public function getLocale(): string
@@ -140,8 +137,98 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
         $this->locale = $locale;
     }
 
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults($this->getCommonDefaults());
+
+        $resolver->setDefault('datepicker_options', function (OptionsResolver $datePickerResolver) {
+            $datePickerResolver->setDefined(array_keys(self::DATEPICKER_ALLOWED_OPTIONS));
+
+            foreach (self::DATEPICKER_ALLOWED_OPTIONS as $option => $allowedTypes) {
+                $datePickerResolver->setAllowedTypes($option, $allowedTypes);
+            }
+
+            $datePickerResolver->setNormalizer('defaultDate', $this->dateTimeNormalizer());
+            $datePickerResolver->setNormalizer('viewDate', $this->dateTimeNormalizer());
+
+            $defaults = $this->getCommonDatepickerDefaults();
+
+            $datePickerResolver->setDefaults($defaults);
+            $datePickerResolver->setDefault('localization', $this->defineLocalizationOptions($defaults['localization'] ?? []));
+            $datePickerResolver->setDefault('restrictions', $this->defineRestrictionsOptions($defaults['restrictions'] ?? []));
+            $datePickerResolver->setDefault('display', $this->defineDisplayOptions($defaults['display'] ?? []));
+        });
+
+        $resolver->setNormalizer(
+            'format',
+            function (Options $options, int|string $format): string {
+                if (\is_int($format)) {
+                    $timeFormat = \IntlDateFormatter::NONE;
+
+                    if (true === ($options['datepicker_options']['display']['components']['clock'] ?? true)) {
+                        $timeFormat = true === ($options['datepicker_options']['display']['components']['seconds'] ?? false) ?
+                            DateTimeType::DEFAULT_TIME_FORMAT :
+                            \IntlDateFormatter::SHORT;
+                    }
+
+                    return (new \IntlDateFormatter(
+                        $this->locale,
+                        $format,
+                        $timeFormat,
+                        null,
+                        \IntlDateFormatter::GREGORIAN
+                    ))->getPattern();
+                }
+
+                return $format;
+            }
+        );
+
+        $resolver->setAllowedTypes('datepicker_use_button', 'bool');
+    }
+
+    public function finishView(FormView $view, FormInterface $form, array $options): void
+    {
+        $datePickerOptions = $options['datepicker_options'] ?? [];
+
+        if (isset($datePickerOptions['display']['icons']) &&
+            [] === $datePickerOptions['display']['icons']) {
+            unset($datePickerOptions['display']['icons']);
+        }
+
+        if (isset($datePickerOptions['display']['buttons']) &&
+            [] === $datePickerOptions['display']['buttons']) {
+            unset($datePickerOptions['display']['buttons']);
+        }
+
+        if (isset($datePickerOptions['display']['components']) &&
+            [] === $datePickerOptions['display']['components']) {
+            unset($datePickerOptions['display']['components']);
+        }
+
+        if (isset($datePickerOptions['display']) &&
+            [] === $datePickerOptions['display']) {
+            unset($datePickerOptions['display']);
+        }
+
+        if (isset($datePickerOptions['restrictions']) &&
+            [] === $datePickerOptions['restrictions']) {
+            unset($datePickerOptions['restrictions']);
+        }
+
+        if (!isset($datePickerOptions['localization'])) {
+            $datePickerOptions['localization'] = [];
+        }
+
+        $datePickerOptions['localization']['format'] = $this->formatConverter->convert($options['format'] ?? '');
+
+        $view->vars['datepicker_options'] = $datePickerOptions;
+        $view->vars['datepicker_use_button'] = $options['datepicker_use_button'] ?? false;
+    }
+
     /**
-     * Gets base default options for the date pickers.
+     * Gets base default options for the form types
+     * (except `datepicker_options` which should be handled with `getCommonDatepickerDefaults()`).
      *
      * @return array<string, mixed>
      */
@@ -150,42 +237,175 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
         return [
             'widget' => 'single_text',
             'datepicker_use_button' => true,
-            'dp_pick_time' => true,
-            'dp_pick_date' => true,
-            'dp_use_current' => true,
-            'dp_min_date' => '1/1/1900',
-            'dp_max_date' => null,
-            'dp_show_today' => true,
-            'dp_language' => $this->locale,
-            'dp_default_date' => '',
-            'dp_disabled_dates' => [],
-            'dp_enabled_dates' => [],
-            'dp_icons' => [
-                'time' => 'fa fa-clock-o',
-                'date' => 'fa fa-calendar',
-                'up' => 'fa fa-chevron-up',
-                'down' => 'fa fa-chevron-down',
-            ],
-            'dp_use_strict' => false,
-            'dp_side_by_side' => false,
-            'dp_days_of_week_disabled' => [],
-            'dp_collapse' => true,
-            'dp_calendar_weeks' => false,
-            'dp_view_mode' => 'days',
-            'dp_min_view_mode' => 'days',
+            'html5' => false,
         ];
     }
 
-    private function formatObject(\DateTimeInterface $dateTime, string $format): string
+    /**
+     * Gets base default options for the `datepicker_options` option.
+     *
+     * @return array<string, mixed>
+     */
+    protected function getCommonDatepickerDefaults(): array
     {
-        $formatter = new \IntlDateFormatter($this->locale, \IntlDateFormatter::NONE, \IntlDateFormatter::NONE);
-        $formatter->setPattern($format);
+        return [
+            'display' => [
+                'theme' => 'light',
+            ],
+            'localization' => [
+                'locale' => $this->locale,
+            ],
+        ];
+    }
 
-        $formatted = $formatter->format($dateTime);
-        if (!\is_string($formatted)) {
-            throw new \RuntimeException(sprintf('The format "%s" is invalid.', $format));
-        }
+    /**
+     * @param array<string, mixed> $defaults
+     */
+    private function defineLocalizationOptions(array $defaults): callable
+    {
+        return static function (OptionsResolver $resolver) use ($defaults): void {
+            $resolver->setDefined(array_keys(self::LOCALIZATION_OPTIONS));
 
-        return $formatted;
+            foreach (self::LOCALIZATION_OPTIONS as $option => $allowedTypes) {
+                $resolver->setAllowedTypes($option, $allowedTypes);
+            }
+
+            $resolver->setDefaults($defaults);
+        };
+    }
+
+    /**
+     * @param array<string, mixed> $defaults
+     */
+    private function defineRestrictionsOptions(array $defaults): callable
+    {
+        return function (OptionsResolver $resolver) use ($defaults): void {
+            $resolver->setDefined(array_keys(self::RESTRICTIONS_OPTIONS));
+
+            foreach (self::RESTRICTIONS_OPTIONS as $option => $allowedTypes) {
+                $resolver->setAllowedTypes($option, $allowedTypes);
+            }
+
+            $resolver->setAllowedValues(
+                'daysOfWeekDisabled',
+                static fn (array $value) => array_filter(
+                    $value,
+                    static fn ($day) => \is_int($day) && $day >= 0 && $day <= 6
+                ) === $value
+            );
+
+            $resolver->setAllowedValues(
+                'enabledHours',
+                static fn (array $value) => array_filter(
+                    $value,
+                    static fn ($hour) => \is_int($hour) && $hour >= 0 && $hour <= 23
+                ) === $value
+            );
+
+            $resolver->setAllowedValues(
+                'disabledHours',
+                static fn (array $value) => array_filter(
+                    $value,
+                    static fn ($hour) => \is_int($hour) && $hour >= 0 && $hour <= 23
+                ) === $value
+            );
+
+            $resolver->setNormalizer('minDate', $this->dateTimeNormalizer());
+            $resolver->setNormalizer('maxDate', $this->dateTimeNormalizer());
+            $resolver->setNormalizer('disabledDates', $this->dateTimeNormalizer());
+            $resolver->setNormalizer('enabledDates', $this->dateTimeNormalizer());
+
+            $resolver->setDefaults($defaults);
+        };
+    }
+
+    /**
+     * @param array<string, mixed> $defaults
+     */
+    private function defineDisplayOptions(array $defaults): callable
+    {
+        return function (OptionsResolver $resolver) use ($defaults): void {
+            $resolver->setDefined(array_keys(self::DISPLAY_OPTIONS));
+
+            foreach (self::DISPLAY_OPTIONS as $option => $allowedTypes) {
+                $resolver->setAllowedTypes($option, $allowedTypes);
+            }
+
+            $resolver->setAllowedValues('viewMode', ['clock', 'calendar', 'months', 'years', 'decades']);
+            $resolver->setAllowedValues('toolbarPlacement', ['top', 'bottom']);
+            $resolver->setAllowedValues('theme', ['light', 'dark', 'auto']);
+
+            $resolver->setDefaults($defaults);
+            $resolver->setDefault('icons', $this->defineDisplayIconsOptions($defaults['icons'] ?? []));
+            $resolver->setDefault('buttons', $this->defineDisplayButtonsOptions($defaults['buttons'] ?? []));
+            $resolver->setDefault('components', $this->defineDisplayComponentsOptions($defaults['components'] ?? []));
+        };
+    }
+
+    /**
+     * @param array<string, mixed> $defaults
+     */
+    private function defineDisplayIconsOptions(array $defaults): callable
+    {
+        return static function (OptionsResolver $resolver) use ($defaults): void {
+            $resolver->setDefined(array_keys(self::DISPLAY_ICONS_OPTIONS));
+
+            foreach (self::DISPLAY_ICONS_OPTIONS as $option => $allowedTypes) {
+                $resolver->setAllowedTypes($option, $allowedTypes);
+            }
+
+            $resolver->setDefaults($defaults);
+        };
+    }
+
+    /**
+     * @param array<string, mixed> $defaults
+     */
+    private function defineDisplayButtonsOptions(array $defaults): callable
+    {
+        return static function (OptionsResolver $resolver) use ($defaults): void {
+            $resolver->setDefined(array_keys(self::DISPLAY_BUTTONS_OPTIONS));
+
+            foreach (self::DISPLAY_BUTTONS_OPTIONS as $option => $allowedTypes) {
+                $resolver->setAllowedTypes($option, $allowedTypes);
+            }
+
+            $resolver->setDefaults($defaults);
+        };
+    }
+
+    /**
+     * @param array<string, mixed> $defaults
+     */
+    private function defineDisplayComponentsOptions(array $defaults): callable
+    {
+        return static function (OptionsResolver $resolver) use ($defaults): void {
+            $resolver->setDefined(array_keys(self::DISPLAY_COMPONENTS_OPTIONS));
+
+            foreach (self::DISPLAY_COMPONENTS_OPTIONS as $option => $allowedTypes) {
+                $resolver->setAllowedTypes($option, $allowedTypes);
+            }
+
+            $resolver->setDefaults($defaults);
+        };
+    }
+
+    private function dateTimeNormalizer(): \Closure
+    {
+        return static function (OptionsResolver $options, string|array|\DateTimeInterface $value): string|array {
+            if ($value instanceof \DateTimeInterface) {
+                return $value->format(\DateTimeInterface::ATOM);
+            }
+
+            if (\is_array($value)) {
+                foreach ($value as $key => $singleValue) {
+                    if ($singleValue instanceof \DateTimeInterface) {
+                        $value[$key] = $singleValue->format(\DateTimeInterface::ATOM);
+                    }
+                }
+            }
+
+            return $value;
+        };
     }
 }
