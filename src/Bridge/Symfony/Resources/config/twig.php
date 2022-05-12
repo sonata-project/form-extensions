@@ -11,13 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+namespace Symfony\Component\DependencyInjection\Loader\Configurator;
+
 use Sonata\Form\Twig\CanonicalizeRuntime;
 use Sonata\Form\Twig\Extension\CanonicalizeExtension;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    // Use "service" function for creating references to services when dropping support for Symfony 4.4
     $containerConfigurator->services()
 
         ->set('sonata.form.twig.canonicalize_extension', CanonicalizeExtension::class)
@@ -26,6 +25,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->set('sonata.form.twig.canonicalize_runtime', CanonicalizeRuntime::class)
             ->tag('twig.runtime')
             ->args([
-                new ReferenceConfigurator('request_stack'),
+                service('request_stack'),
             ]);
 };
