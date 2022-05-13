@@ -29,7 +29,10 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
  */
 final class ErrorElementTest extends TestCase
 {
-    private ErrorElement $errorElement;
+    /**
+     * @var ErrorElement
+     */
+    private $errorElement;
 
     /**
      * @var ExecutionContextInterface&MockObject
@@ -41,7 +44,10 @@ final class ErrorElementTest extends TestCase
      */
     private $contextualValidator;
 
-    private Foo $subject;
+    /**
+     * @var Foo
+     */
+    private $subject;
 
     protected function setUp(): void
     {
