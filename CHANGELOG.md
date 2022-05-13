@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.15.0](https://github.com/sonata-project/form-extensions/compare/1.14.0...1.15.0) - 2022-05-12
+### Added
+- [[#336](https://github.com/sonata-project/form-extensions/pull/336)] Add momentjs locale canonicalizer. ([@jordisala1991](https://github.com/jordisala1991))
+
 ## [1.14.0](https://github.com/sonata-project/form-extensions/compare/1.13.1...1.14.0) - 2022-05-08
 ### Added
 - [[#329](https://github.com/sonata-project/form-extensions/pull/329)] Add webpack configuration to compile the date picker scripts used by the form types. ([@jordisala1991](https://github.com/jordisala1991))
