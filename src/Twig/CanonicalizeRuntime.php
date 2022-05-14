@@ -26,7 +26,10 @@ final class CanonicalizeRuntime implements RuntimeExtensionInterface
         'fr' => ['fr', 'fr-ca', 'fr-ch'],
     ];
 
-    private RequestStack $requestStack;
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
 
     /**
      * @internal This class should only be used through Twig
