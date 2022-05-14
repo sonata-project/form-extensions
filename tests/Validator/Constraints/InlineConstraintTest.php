@@ -39,9 +39,7 @@ final class InlineConstraintTest extends TestCase
 
     public function testGetClosure(): void
     {
-        $closure = static function (): string {
-            return 'FOO';
-        };
+        $closure = static fn (): string => 'FOO';
 
         $constraint = new InlineConstraint(['service' => 'foo', 'method' => $closure, 'serializingWarning' => true]);
         static::assertSame($closure, $constraint->getClosure());

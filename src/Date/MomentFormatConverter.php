@@ -28,7 +28,7 @@ class MomentFormatConverter
      *                            For ICU formats see http://userguide.icu-project.org/formatparse/datetime#TOC-Date-Time-Format-Syntax
      *                            For Moment formats see http://momentjs.com/docs/#/displaying/format/
      */
-    private static $formatConvertRules = [
+    private static array $formatConvertRules = [
         // year
         'yyyy' => 'YYYY', 'yy' => 'YY', 'y' => 'YYYY',
         // month
