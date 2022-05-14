@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.15.1](https://github.com/sonata-project/form-extensions/compare/1.15.0...1.15.1) - 2022-05-14
+### Fixed
+- [[#341](https://github.com/sonata-project/form-extensions/pull/341)] Fix compatibility with PHP 7.3. ([@VincentLanglet](https://github.com/VincentLanglet))
+
 ## [1.15.0](https://github.com/sonata-project/form-extensions/compare/1.14.0...1.15.0) - 2022-05-12
 ### Added
 - [[#336](https://github.com/sonata-project/form-extensions/pull/336)] Add momentjs locale canonicalizer. ([@jordisala1991](https://github.com/jordisala1991))
