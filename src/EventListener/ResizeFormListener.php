@@ -25,19 +25,25 @@ use Symfony\Component\Form\FormEvents;
  */
 final class ResizeFormListener implements EventSubscriberInterface
 {
-    private string $type;
+    /**
+     * @var string
+     */
+    private $type;
 
-    private bool $resizeOnSubmit;
+    /**
+     * @var bool
+     */
+    private $resizeOnSubmit;
 
     /**
      * @var array<string, mixed>
      */
-    private array $typeOptions;
+    private $typeOptions;
 
     /**
      * @var string[]
      */
-    private array $removed = [];
+    private $removed = [];
 
     /**
      * @var \Closure|null
