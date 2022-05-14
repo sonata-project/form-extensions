@@ -20,9 +20,15 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 final class CanonicalizeRuntimeTest extends TestCase
 {
-    private Request $request;
+    /**
+     * @var Request
+     */
+    private $request;
 
-    private CanonicalizeRuntime $canonicalizeRuntime;
+    /**
+     * @var CanonicalizeRuntime
+     */
+    private $canonicalizeRuntime;
 
     protected function setUp(): void
     {
