@@ -34,10 +34,7 @@ final class BasePickerTypeTest extends TestCase
      */
     private $translator;
 
-    /**
-     * @var MomentFormatConverter
-     */
-    private $momentFormatConverter;
+    private MomentFormatConverter $momentFormatConverter;
 
     protected function setUp(): void
     {

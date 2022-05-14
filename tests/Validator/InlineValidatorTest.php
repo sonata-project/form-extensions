@@ -49,6 +49,8 @@ final class InlineValidatorTest extends TestCase
         $this->container = $this->createMock(ContainerInterface::class);
         $this->constraintValidatorFactory = $this->createMock(ConstraintValidatorFactoryInterface::class);
         $this->context = $this->createMock(ExecutionContextInterface::class);
+
+        $this->context->method('getPropertyPath')->willReturn('propertyPath');
     }
 
     public function testGetErrorElement(): void

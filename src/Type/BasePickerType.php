@@ -41,10 +41,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
      */
     protected $locale;
 
-    /**
-     * @var MomentFormatConverter
-     */
-    private $formatConverter;
+    private MomentFormatConverter $formatConverter;
 
     /**
      * NEXT_MAJOR: Add "string" typehint to $requestStackOrDefaultLocale and change the name to defaultLocale.
@@ -135,9 +132,11 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
             if (false !== strpos($key, 'dp_')) {
                 // We remove 'dp_' and camelize the options names
                 $dpKey = substr($key, 3);
-                $dpKey = preg_replace_callback('/_([a-z])/', static function (array $c): string {
-                    return strtoupper($c[1]);
-                }, $dpKey);
+                $dpKey = preg_replace_callback(
+                    '/_([a-z])/',
+                    static fn (array $c): string => strtoupper($c[1]),
+                    $dpKey
+                );
 
                 $dpOptions[$dpKey] = $value;
             }
