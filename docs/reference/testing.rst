@@ -13,7 +13,7 @@ You can write unit tests for Twig form rendering with the following code::
 
     class CustomTest extends AbstractWidgetTestCase
     {
-        public function testAcmeWidget()
+        public function testAcmeWidget(): void
         {
             $options = [
                 'foo' => 'bar',

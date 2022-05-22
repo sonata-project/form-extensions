@@ -40,19 +40,6 @@ corresponding configuration node accordingly:
         sonata_form:
             form_type: horizontal
 
-If you are using ``jms/serializer`` subscribing methods you will need to configure the
-return formats:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # config/packages/sonata_form.yaml
-
-        sonata_form:
-            serializer:
-                formats: ['json', 'xml', 'yml']
-
 Please note that if you are using the admin bundle, this is actually optional:
 The core bundle extension will detect if the configuration node that deals with
 the form style in the admin bundle is set and will configure the core bundle for you.
