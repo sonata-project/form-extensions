@@ -6,43 +6,6 @@ Form Types
 
 The bundle comes with some handy form types.
 
-DoctrineORMSerializationType
-----------------------------
-
-This form type reads ``JMSSerializer`` serialization class metadata and uses ``Doctrine`` ORM entity metadata to generate form fields and correct types.
-
-All you have to do is to define a form type service for each entity for which you want to use a form type, like this:
-
-.. configuration-block::
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-
-        <service id="my.custom.form.type.comment" class="Sonata\Form\Type\DoctrineORMSerializationType">
-            <argument type="service" id="jms_serializer.metadata_factory"/>
-            <argument type="service" id="doctrine"/>
-            <argument>my_custom_form_type_comment</argument>
-            <argument>App\Entity\Comment</argument>
-            <argument>a_serialization_group</argument>
-            <tag name="form.type" alias="my_custom_form_type_comment"/>
-        </service>
-
-The service definition should contain the following arguments:
-
-* The JMSSerializer metadata factory,
-* The Doctrine ORM entity manager,
-* The form type name,
-* The entity class name for which you want to build form,
-* The serialization group you want serialization fields have.
-
-.. warning::
-
-    ``DoctrineORMSerializationType`` cannot be used directly with
-    Symfony3.0, you need to extend the class
-    ``BaseDoctrineORMSerializationType`` with an empty class to have a
-    unique FQCN.
-
 ImmutableArrayType
 ------------------
 
@@ -67,12 +30,12 @@ Each value has a different type: `integer`, `url`, or `string` for instance::
             'redirect' => '',
         [;
 
-        public function setOptions(array $options)
+        public function setOptions(array $options): void
         {
             $this->options = $options;
         }
 
-        public function getOptions()
+        public function getOptions(): array
         {
             return $this->options;
         }
@@ -86,7 +49,7 @@ Now, the property can be edited by setting a type for each type::
 
     final class PageAdmin extends AbstractAdmin
     {
-        protected function configureFormFields(FormMapper $formMapper)
+        protected function configureFormFields(FormMapper $formMapper): void
         {
             $formMapper
                 ->add('options', ImmutableArrayType::class, [
@@ -118,7 +81,7 @@ translated with the Symfony Translator component. The type has one extra paramet
 
     final class DeliveryAdmin extends AbstractAdmin
     {
-        protected function configureFormFields(FormMapper $formMapper)
+        protected function configureFormFields(FormMapper $formMapper): void
         {
             $formMapper
                 ->add('deliveryStatus', TranslatableChoiceType::class, [
@@ -134,7 +97,7 @@ translated with the Symfony Translator component. The type has one extra paramet
 
     class Delivery
     {
-        public static function getStatusList()
+        public static function getStatusList(): array
         {
             return [
                 self::STATUS_OPEN      => 'status_open',
@@ -165,7 +128,7 @@ to the underlying forms::
 
     final class ProductAdmin extends AbstractAdmin
     {
-        protected function configureFormFields(FormMapper $formMapper)
+        protected function configureFormFields(FormMapper $formMapper): void
         {
             $formMapper
                 ->add('sales', CollectionType::class, [
@@ -215,7 +178,7 @@ Now, you want to create a form type to expose those values::
 
     class Delivery
     {
-        public static function getStatusList()
+        public static function getStatusList(): array
         {
             return [
                 self::STATUS_OPEN      => 'status_open',
@@ -250,7 +213,7 @@ And the type can now be used::
 
     final class DeliveryAdmin extends AbstractAdmin
     {
-        protected function configureFormFields(FormMapper $formMapper)
+        protected function configureFormFields(FormMapper $formMapper): void
         {
             $formMapper
                 ->add('deliveryStatus', OrderStatusType::class)
@@ -271,10 +234,6 @@ DatePickerType / DateTimePickerType
 Those types integrate `Eonasdan's Bootstrap datetimepicker`_ into a
 Symfony form. They both are available as services and inherit from
 ``date`` and ``datetime`` default form types.
-
-.. note::
-
-    These form types require you to have bootstrap and jquery assets available in your project.
 
 They will allow you to have a JS date picker onto your form fields as follows:
 
@@ -299,12 +258,8 @@ adapt this to your needs, for instance, to use with assetic):
 
     <head>
         <!-- ... -->
-        <script type="text/javascript" src="path_to_jquery.min.js"></script>
-        <script type="text/javascript" src="/bundles/sonataForm/vendor/moment/min/moment-with-locales.min.js"></script>
-        <script type="text/javascript" src="path_to_bootstrap.min.js"></script>
-        <script type="text/javascript" src="/bundles/sonataForm/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-        <link rel="stylesheet" href="path_to_bootstrap.min.css"/>
-        <link rel="stylesheet" href="/bundles/sonataForm/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"/>
+        <script type="text/javascript" src="/bundles/sonataform/app.js"></script>
+        <link rel="stylesheet" href="/bundles/sonataform/app.css"/>
     </head>
 
 Finally, in your form, you may use the form type as follows::
@@ -316,7 +271,7 @@ Finally, in your form, you may use the form type as follows::
 
     final class PageAdmin extends AbstractAdmin
     {
-        protected function configureFormFields(FormMapper $formMapper)
+        protected function configureFormFields(FormMapper $formMapper): void
         {
             $formMapper
                 ->add('publicationDateStart', DateTimePickerType::class)
@@ -335,7 +290,7 @@ Many of the `standard date picker options`_ are available by adding options with
 
     final class PageAdmin extends AbstractAdmin
     {
-        protected function configureFormFields(FormMapper $formMapper)
+        protected function configureFormFields(FormMapper $formMapper): void
         {
             $formMapper
                 ->add('publicationDateStart', DateTimePickerType::class, [
@@ -380,7 +335,7 @@ Example with ``Sonata\DoctrineORMAdminBundle\Filter\DateRangeFilter`` filter::
 
     final class PostAdmin extends AbstractAdmin
     {
-        protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+        protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
         {
             $datagridMapper
                 ->add('createdAt', DateRangeFilter::class, [
@@ -416,7 +371,7 @@ Finally, in your form, you may use the form type as follows::
 
     final class PageAdmin extends AbstractAdmin
     {
-        protected function configureFormFields(FormMapper $formMapper)
+        protected function configureFormFields(FormMapper $formMapper): void
         {
             $formMapper
                 ->add('color', ColorType::class);
