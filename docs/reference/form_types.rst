@@ -49,9 +49,9 @@ Now, the property can be edited by setting a type for each type::
 
     final class PageAdmin extends AbstractAdmin
     {
-        protected function configureFormFields(FormMapper $formMapper): void
+        protected function configureFormFields(FormMapper $form): void
         {
-            $formMapper
+            $form
                 ->add('options', ImmutableArrayType::class, [
                     'keys' => [
                         ['ttl', 'text', ['required' => false]],
@@ -81,9 +81,9 @@ translated with the Symfony Translator component. The type has one extra paramet
 
     final class DeliveryAdmin extends AbstractAdmin
     {
-        protected function configureFormFields(FormMapper $formMapper): void
+        protected function configureFormFields(FormMapper $form): void
         {
-            $formMapper
+            $form
                 ->add('deliveryStatus', TranslatableChoiceType::class, [
                     'choices' => Delivery::getStatusList(),
                     'catalogue' => 'SonataOrderBundle'
@@ -128,9 +128,9 @@ to the underlying forms::
 
     final class ProductAdmin extends AbstractAdmin
     {
-        protected function configureFormFields(FormMapper $formMapper): void
+        protected function configureFormFields(FormMapper $form): void
         {
-            $formMapper
+            $form
                 ->add('sales', CollectionType::class, [
 
                     // Prevents the "Delete" option from being displayed
@@ -213,9 +213,9 @@ And the type can now be used::
 
     final class DeliveryAdmin extends AbstractAdmin
     {
-        protected function configureFormFields(FormMapper $formMapper): void
+        protected function configureFormFields(FormMapper $form): void
         {
-            $formMapper
+            $form
                 ->add('deliveryStatus', OrderStatusType::class)
                 // ...
             ;
@@ -271,9 +271,9 @@ Finally, in your form, you may use the form type as follows::
 
     final class PageAdmin extends AbstractAdmin
     {
-        protected function configureFormFields(FormMapper $formMapper): void
+        protected function configureFormFields(FormMapper $form): void
         {
-            $formMapper
+            $form
                 ->add('publicationDateStart', DateTimePickerType::class)
 
                 // or DatePickerType if you don't need the time
@@ -290,9 +290,9 @@ Many of the `standard date picker options`_ are available by adding options with
 
     final class PageAdmin extends AbstractAdmin
     {
-        protected function configureFormFields(FormMapper $formMapper): void
+        protected function configureFormFields(FormMapper $form): void
         {
-            $formMapper
+            $form
                 ->add('publicationDateStart', DateTimePickerType::class, [
                     'dp_side_by_side'       => true,
                     'dp_use_current'        => false,
@@ -335,9 +335,9 @@ Example with ``Sonata\DoctrineORMAdminBundle\Filter\DateRangeFilter`` filter::
 
     final class PostAdmin extends AbstractAdmin
     {
-        protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
+        protected function configureDatagridFilters(DatagridMapper $datagrid): void
         {
-            $datagridMapper
+            $datagrid
                 ->add('createdAt', DateRangeFilter::class, [
                     'field_type' => DateRangeType::class,
                 ]);
@@ -371,9 +371,9 @@ Finally, in your form, you may use the form type as follows::
 
     final class PageAdmin extends AbstractAdmin
     {
-        protected function configureFormFields(FormMapper $formMapper): void
+        protected function configureFormFields(FormMapper $form): void
         {
-            $formMapper
+            $form
                 ->add('color', ColorType::class);
         }
     }
