@@ -15,7 +15,7 @@ import moment from 'moment';
 // Eonasdan Bootstrap DateTimePicker in its version 3 does not
 // provide the scss or plain css, it only provides the less version
 // of its source files, that's why it is not included it via npm.
-import '../vendor/bootstrap-datetimepicker.min';
+import '../vendor/bootstrap-datetimepicker';
 
 // Create global moment variable to be used by the locale script.
 // It expects moment to be available on the global scope
