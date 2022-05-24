@@ -17,10 +17,13 @@ use Sonata\Form\Type\BooleanType;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
- * @phpstan-implements DataTransformerInterface<boolean, int>
+ * @phpstan-implements DataTransformerInterface<bool, int>
  */
 final class BooleanTypeToBooleanTransformer implements DataTransformerInterface
 {
+    /**
+     * @phpstan-param mixed $value
+     */
     public function transform(mixed $value): ?int
     {
         if (true === $value || BooleanType::TYPE_YES === (int) $value) {
@@ -33,6 +36,9 @@ final class BooleanTypeToBooleanTransformer implements DataTransformerInterface
         return null;
     }
 
+    /**
+     * @phpstan-param mixed $value
+     */
     public function reverseTransform(mixed $value): ?bool
     {
         if (BooleanType::TYPE_YES === $value) {

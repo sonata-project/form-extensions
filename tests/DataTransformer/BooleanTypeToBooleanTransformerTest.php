@@ -20,16 +20,16 @@ use Sonata\Form\Type\BooleanType;
 final class BooleanTypeToBooleanTransformerTest extends TestCase
 {
     /**
-     * @dataProvider getReverseTransformData
+     * @dataProvider getTransformData
      */
-    public function testReverseTransform(mixed $value, ?int $expected): void
+    public function testTransform(mixed $value, ?int $expected): void
     {
         $transformer = new BooleanTypeToBooleanTransformer();
 
         static::assertSame($expected, $transformer->transform($value));
     }
 
-    public function testTransform(): void
+    public function testReverseTransform(): void
     {
         $transformer = new BooleanTypeToBooleanTransformer();
         static::assertTrue($transformer->reverseTransform(BooleanType::TYPE_YES));
@@ -43,7 +43,7 @@ final class BooleanTypeToBooleanTransformerTest extends TestCase
     /**
      * @return iterable<array{mixed, int|null}>
      */
-    public function getReverseTransformData(): iterable
+    public function getTransformData(): iterable
     {
         return [
             [true, BooleanType::TYPE_YES],

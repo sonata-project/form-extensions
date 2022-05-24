@@ -42,7 +42,7 @@ final class DateTimePickerTypeTest extends TypeTestCase
     public function testParentIsDateTimeType(): void
     {
         $form = new DateTimePickerType(
-            $this->createMock(MomentFormatConverter::class),
+            new MomentFormatConverter(),
             $this->translator,
             'en'
         );
