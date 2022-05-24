@@ -52,10 +52,7 @@ final class InlineValidator extends ConstraintValidator
         \call_user_func($function, $this->getErrorElement($value), $value);
     }
 
-    /**
-     * @param mixed $value
-     */
-    protected function getErrorElement($value): ErrorElement
+    protected function getErrorElement(mixed $value): ErrorElement
     {
         return new ErrorElement(
             $value,

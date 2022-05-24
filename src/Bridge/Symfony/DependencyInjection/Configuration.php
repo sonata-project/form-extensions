@@ -23,7 +23,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  * @author Alexander <iam.asm89@gmail.com>
  */
-class Configuration implements ConfigurationInterface
+final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {

@@ -21,7 +21,7 @@ namespace Sonata\Form\Date;
  * @author Hugo Briand <briand@ekino.com>
  * @author Andrej Hudec <pulzarraider@gmail.com>
  */
-class MomentFormatConverter
+final class MomentFormatConverter
 {
     /**
      * This defines the mapping between PHP ICU date format (key) and moment.js date format (value)

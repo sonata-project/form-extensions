@@ -21,10 +21,7 @@ use Symfony\Component\Form\DataTransformerInterface;
  */
 final class BooleanTypeToBooleanTransformer implements DataTransformerInterface
 {
-    /**
-     * @param mixed $value
-     */
-    public function transform($value): ?int
+    public function transform(mixed $value): ?int
     {
         if (true === $value || BooleanType::TYPE_YES === (int) $value) {
             return BooleanType::TYPE_YES;
@@ -36,10 +33,7 @@ final class BooleanTypeToBooleanTransformer implements DataTransformerInterface
         return null;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function reverseTransform($value): ?bool
+    public function reverseTransform(mixed $value): ?bool
     {
         if (BooleanType::TYPE_YES === $value) {
             return true;
