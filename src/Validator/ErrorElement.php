@@ -201,7 +201,14 @@ final class ErrorElement
      */
     public function addViolation($message, array $parameters = [], $value = null, string $translationDomain = self::DEFAULT_TRANSLATION_DOMAIN): self
     {
+        // NEXT_MAJOR: Remove this code and restrict param to string.
         if (\is_array($message)) {
+            @trigger_error(sprintf(
+                'Passing an array as argument 1 to "%s()" is deprecated'
+                .' since sonata-project/form-extensions 1.6 and will throw an error in 2.0.',
+                __METHOD__
+            ), \E_USER_DEPRECATED);
+
             $value = $message[2] ?? $value;
             // @phpstan-ignore-next-line see https://github.com/sonata-project/form-extensions/issues/358
             $parameters = isset($message[1]) ? (array) $message[1] : [];
