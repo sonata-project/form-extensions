@@ -1,6 +1,22 @@
 UPGRADE 1.x
 ===========
 
+UPGRADE FROM 1.16 to 1.17
+=========================
+
+## Sonata\Form\Validator\ErrorElement
+
+Deprecate passing an array as first parameter of `addViolation`
+```php
+$errorElement->addViolation(['Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR']);
+```
+
+You MUST call
+```php
+$errorElement->addViolation('Foo error message', ['bar_param' => 'bar_param_lvalue'], 'BAR');
+```
+instead.
+
 UPGRADE FROM 1.6 to 1.7
 =======================
 
