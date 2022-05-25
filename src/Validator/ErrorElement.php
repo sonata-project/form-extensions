@@ -169,20 +169,12 @@ final class ErrorElement
     }
 
     /**
-     * @param string|array{0?:string, 1?:array<string, mixed>, 2?:mixed} $message
-     * @param array<string, mixed>                                       $parameters
+     * @param array<string, mixed> $parameters
      *
      * @return $this
      */
-    public function addViolation(string | array $message, array $parameters = [], mixed $value = null, string $translationDomain = self::DEFAULT_TRANSLATION_DOMAIN): self
+    public function addViolation(string $message, array $parameters = [], mixed $value = null, string $translationDomain = self::DEFAULT_TRANSLATION_DOMAIN): self
     {
-        if (\is_array($message)) {
-            $value = $message[2] ?? $value;
-            // @phpstan-ignore-next-line see https://github.com/sonata-project/form-extensions/issues/358
-            $parameters = isset($message[1]) ? (array) $message[1] : [];
-            $message = $message[0] ?? 'error';
-        }
-
         $subPath = (string) $this->getCurrentPropertyPath();
 
         $this->context->buildViolation($message)
