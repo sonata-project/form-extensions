@@ -68,7 +68,7 @@ final class ResizeFormListener implements EventSubscriberInterface
 
         // First remove all rows except for the prototype row
         foreach ($form as $name => $child) {
-            $form->remove((string) $name);
+            $form->remove($name);
         }
 
         // Then add all rows again in the correct order
@@ -106,7 +106,7 @@ final class ResizeFormListener implements EventSubscriberInterface
 
         // Remove all empty rows except for the prototype row
         foreach ($form as $name => $child) {
-            $form->remove((string) $name);
+            $form->remove($name);
         }
 
         // Add all additional rows
