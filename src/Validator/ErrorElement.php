@@ -210,7 +210,6 @@ final class ErrorElement
             ), \E_USER_DEPRECATED);
 
             $value = $message[2] ?? $value;
-            // @phpstan-ignore-next-line see https://github.com/sonata-project/form-extensions/issues/358
             $parameters = isset($message[1]) ? (array) $message[1] : [];
             $message = $message[0] ?? 'error';
         }
