@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.17.0](https://github.com/sonata-project/form-extensions/compare/1.16.1...1.17.0) - 2022-06-14
+### Deprecated
+- [[#359](https://github.com/sonata-project/form-extensions/pull/359)] Passing an array as first element of `ErrorElement::addViolation()` ([@VincentLanglet](https://github.com/VincentLanglet))
+
+### Fixed
+- [[#365](https://github.com/sonata-project/form-extensions/pull/365)] Datepicker positionning bug when bottom viewport is to small (https://github.com/Eonasdan/tempus-dominus/pull/1203) ([@Geekimo](https://github.com/Geekimo))
+
+### Removed
+- [[#364](https://github.com/sonata-project/form-extensions/pull/364)] Support of Symfony 5.3 ([@franmomu](https://github.com/franmomu))
+
 ## [1.16.1](https://github.com/sonata-project/form-extensions/compare/1.16.0...1.16.1) - 2022-05-24
 ### Changed
 - [[#357](https://github.com/sonata-project/form-extensions/pull/357)] Fix compatibility of `bootstrap-datetimepicker` with jQuery 3 ([@franmomu](https://github.com/franmomu))
