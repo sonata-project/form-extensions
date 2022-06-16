@@ -90,6 +90,7 @@ final class ResizeFormListener implements EventSubscriberInterface
         // First remove all rows except for the prototype row
         // Type cast to string, because Symfony form can returns integer keys
         foreach ($form as $name => $child) {
+            // @phpstan-ignore-next-line
             $form->remove((string) $name);
         }
 
@@ -129,6 +130,7 @@ final class ResizeFormListener implements EventSubscriberInterface
         // Remove all empty rows except for the prototype row
         // Type cast to string, because Symfony form can returns integer keys
         foreach ($form as $name => $child) {
+            // @phpstan-ignore-next-line
             $form->remove((string) $name);
         }
 
