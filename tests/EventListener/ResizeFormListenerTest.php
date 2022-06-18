@@ -190,23 +190,37 @@ final class ResizeFormListenerTest extends TestCase
 
         $listener = new ResizeFormListener('form', $typeOptions, true, null);
 
-        $options = [
+        $options1 = [
             'property_path' => '[baz]',
+            'default' => 'option',
+        ];
+
+        $options2 = [
+            'property_path' => '[0]',
             'default' => 'option',
         ];
 
         $form = $this->createMock(Form::class);
         $form->expects(static::once())
             ->method('getIterator')
-            ->willReturn(new \ArrayIterator(['foo' => 'bar']));
-        $form->expects(static::once())
+            ->willReturn(new \ArrayIterator([
+                'foo' => 'bar',
+                0 => 'daz',
+            ]));
+        $form->expects(static::exactly(2))
             ->method('remove')
-            ->with('foo');
-        $form->expects(static::once())
+            ->withConsecutive(
+                ['foo'],
+                [0]
+            );
+        $form->expects(static::exactly(2))
             ->method('add')
-            ->with('baz', 'form', $options);
+            ->withConsecutive(
+                ['baz', 'form', $options1],
+                [0, 'form', $options2]
+            );
 
-        $data = ['baz' => 'caz'];
+        $data = ['baz' => 'caz', 0 => 'daz'];
 
         $event = new FormEvent($form, $data);
 
@@ -295,23 +309,26 @@ final class ResizeFormListenerTest extends TestCase
 
         $form = $this->createMock(Form::class);
         $form
-            ->expects(static::exactly(3))
+            ->expects(static::exactly(4))
             ->method('has')
             ->withConsecutive(
                 ['foo'],
                 ['bar'],
-                ['baz']
+                ['baz'],
+                [0]
             )
             ->willReturnOnConsecutiveCalls(
                 false,
                 false,
-                true
+                true,
+                false,
             );
 
         $data = [
             'foo' => 'foo-value',
             'bar' => 'bar-value',
             'baz' => 'baz-value',
+            0 => '0-value',
         ];
 
         $removedData = [

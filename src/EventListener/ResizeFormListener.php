@@ -67,8 +67,10 @@ final class ResizeFormListener implements EventSubscriberInterface
         }
 
         // First remove all rows except for the prototype row
+        // Type cast to string, because Symfony form can returns integer keys
         foreach ($form as $name => $child) {
-            $form->remove($name);
+            // @phpstan-ignore-next-line
+            $form->remove((string) $name);
         }
 
         // Then add all rows again in the correct order
@@ -105,12 +107,15 @@ final class ResizeFormListener implements EventSubscriberInterface
         }
 
         // Remove all empty rows except for the prototype row
+        // Type cast to string, because Symfony form can returns integer keys
         foreach ($form as $name => $child) {
-            $form->remove($name);
+            // @phpstan-ignore-next-line
+            $form->remove((string) $name);
         }
 
         // Add all additional rows
         foreach ($data as $name => $value) {
+            // Type cast to string, because Symfony form can returns integer keys
             if (!$form->has((string) $name)) {
                 $buildOptions = [
                     'property_path' => '['.$name.']',
@@ -162,6 +167,7 @@ final class ResizeFormListener implements EventSubscriberInterface
          * @see https://github.com/vimeo/psalm/issues/7928
          */
         foreach ($data as $name => $child) {
+            // Type cast to string, because Symfony form can returns integer keys
             if (!$form->has((string) $name)) {
                 unset($data[$name]);
             }
