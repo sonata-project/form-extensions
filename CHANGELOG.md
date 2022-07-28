@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.18.0](https://github.com/sonata-project/form-extensions/compare/1.17.1...1.18.0) - 2022-07-28
+### Added
+- [[#376](https://github.com/sonata-project/form-extensions/pull/376)] Support for `sonata-project/doctrine-extensions` ^2 ([@VincentLanglet](https://github.com/VincentLanglet))
+
+### Changed
+- [[#375](https://github.com/sonata-project/form-extensions/pull/375)] Bump terser to 5.14.2 ([@dependabot[bot]](https://github.com/apps/dependabot))
+- [[#374](https://github.com/sonata-project/form-extensions/pull/374)] Bump moment to 2.29.4 ([@dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [1.17.1](https://github.com/sonata-project/form-extensions/compare/1.17.0...1.17.1) - 2022-06-17
 ### Fixed
 - [[#369](https://github.com/sonata-project/form-extensions/pull/369)] Added the type casting to string, because Symfony forms can return integer keys. ([@willemverspyck](https://github.com/willemverspyck))
