@@ -145,8 +145,8 @@ class BaseDoctrineORMSerializationType extends AbstractType
 
                 if (isset($associationMetadata['joinColumns']['nullable'])) {
                     $nullable = $associationMetadata['joinColumns']['nullable'];
-                } elseif (isset($associationMetadata['inverseJoinColumns']['nullable'])) {
-                    $nullable = $associationMetadata['inverseJoinColumns']['nullable'];
+                } elseif (isset($associationMetadata['joinTable']['inverseJoinColumns']['nullable'])) {
+                    $nullable = $associationMetadata['joinTable']['inverseJoinColumns']['nullable'];
                 }
             }
 
