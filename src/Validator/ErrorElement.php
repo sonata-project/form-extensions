@@ -266,9 +266,9 @@ final class ErrorElement
     /**
      * @param array<string, mixed> $options
      *
-     * @throws \RuntimeException
-     *
      * @return Constraint
+     *
+     * @throws \RuntimeException
      */
     private function newConstraint(string $name, array $options = [])
     {
