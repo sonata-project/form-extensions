@@ -53,6 +53,7 @@ class BaseDoctrineORMSerializationType extends AbstractType
 
     /**
      * @var string
+     *
      * @phpstan-var class-string
      */
     protected $class;

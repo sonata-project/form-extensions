@@ -196,8 +196,6 @@ final class ErrorElement
      * @param string|array{0?:string, 1?:array<string, mixed>, 2?:mixed} $message
      * @param array<string, mixed>                                       $parameters
      * @param mixed                                                      $value
-     *
-     * @return ErrorElement
      */
     public function addViolation($message, array $parameters = [], $value = null, string $translationDomain = self::DEFAULT_TRANSLATION_DOMAIN): self
     {
@@ -266,9 +264,9 @@ final class ErrorElement
     /**
      * @param array<string, mixed> $options
      *
-     * @return Constraint
-     *
      * @throws \RuntimeException
+     *
+     * @return Constraint
      */
     private function newConstraint(string $name, array $options = [])
     {
