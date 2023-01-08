@@ -32,17 +32,17 @@ final class InlineValidatorTest extends TestCase
     /**
      * @var ContainerInterface&MockObject
      */
-    private $container;
+    private ContainerInterface $container;
 
     /**
      * @var ConstraintValidatorFactoryInterface&MockObject
      */
-    private $constraintValidatorFactory;
+    private ConstraintValidatorFactoryInterface $constraintValidatorFactory;
 
     /**
      * @var ExecutionContextInterface&MockObject
      */
-    private $context;
+    private ExecutionContextInterface $context;
 
     protected function setUp(): void
     {

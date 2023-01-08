@@ -32,7 +32,7 @@ final class BasePickerTypeTest extends TestCase
     /**
      * @var Stub&TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     private MomentFormatConverter $momentFormatConverter;
 
