@@ -34,12 +34,12 @@ final class ErrorElementTest extends TestCase
     /**
      * @var ExecutionContextInterface&MockObject
      */
-    private $context;
+    private ExecutionContextInterface $context;
 
     /**
      * @var ContextualValidatorInterface&MockObject
      */
-    private $contextualValidator;
+    private ContextualValidatorInterface $contextualValidator;
 
     private Foo $subject;
 
