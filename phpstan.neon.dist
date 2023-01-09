@@ -19,5 +19,3 @@ parameters:
     checkMissingVarTagTypehint: true
     checkMissingTypehints: true
     checkUninitializedProperties: true
-    scanFiles:
-        - vendor/symfony/dependency-injection/Loader/Configurator/ContainerConfigurator.php
