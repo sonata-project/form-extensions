@@ -32,33 +32,26 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 abstract class BasePickerType extends AbstractType implements LocaleAwareInterface
 {
     /**
-     * @var TranslatorInterface|null
-     */
-    protected $translator;
-
-    /**
      * @var string
      */
     protected $locale;
-
-    private MomentFormatConverter $formatConverter;
 
     /**
      * NEXT_MAJOR: Add "string" typehint to $requestStackOrDefaultLocale and change the name to defaultLocale.
      *
      * @param string|RequestStack $requestStackOrDefaultLocale
      */
-    public function __construct(MomentFormatConverter $formatConverter, TranslatorInterface $translator, $requestStackOrDefaultLocale)
-    {
-        $this->formatConverter = $formatConverter;
-        $this->translator = $translator;
-
+    public function __construct(
+        private MomentFormatConverter $formatConverter,
+        protected TranslatorInterface $translator,
+        $requestStackOrDefaultLocale
+    ) {
         // NEXT_MAJOR: Remove this block
         if (!\is_string($requestStackOrDefaultLocale) && !$requestStackOrDefaultLocale instanceof RequestStack) {
             throw new \InvalidArgumentException(sprintf(
                 'Argument 3 passed to "%s()" must be of type string or an instance of %s, %s given.',
                 __METHOD__,
-                \is_object($requestStackOrDefaultLocale) ? 'instance of '.\get_class($requestStackOrDefaultLocale) : \gettype($requestStackOrDefaultLocale),
+                \is_object($requestStackOrDefaultLocale) ? 'instance of '.$requestStackOrDefaultLocale::class : \gettype($requestStackOrDefaultLocale),
                 RequestStack::class
             ));
         }
@@ -114,7 +107,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
         $format = $options['format'];
 
         // use seconds if it's allowed in format
-        $options['dp_use_seconds'] = false !== strpos($format, 's');
+        $options['dp_use_seconds'] = str_contains($format, 's');
 
         if ($options['dp_min_date'] instanceof \DateTimeInterface) {
             $options['dp_min_date'] = $this->formatObject($options['dp_min_date'], $format);
@@ -129,7 +122,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
         $dpOptions = [];
         foreach ($options as $key => $value) {
-            if (false !== strpos($key, 'dp_')) {
+            if (str_contains($key, 'dp_')) {
                 // We remove 'dp_' and camelize the options names
                 $dpKey = substr($key, 3);
                 $dpKey = preg_replace_callback(

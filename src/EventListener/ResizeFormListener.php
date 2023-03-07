@@ -25,24 +25,10 @@ use Symfony\Component\Form\FormEvents;
  */
 final class ResizeFormListener implements EventSubscriberInterface
 {
-    private string $type;
-
-    private bool $resizeOnSubmit;
-
-    /**
-     * @var array<string, mixed>
-     */
-    private array $typeOptions;
-
     /**
      * @var string[]
      */
     private array $removed = [];
-
-    /**
-     * @var \Closure|null
-     */
-    private $preSubmitDataCallback;
 
     /**
      * @param string               $type
@@ -51,15 +37,11 @@ final class ResizeFormListener implements EventSubscriberInterface
      * @param \Closure|null        $preSubmitDataCallback
      */
     public function __construct(
-        $type,
-        array $typeOptions = [],
-        $resizeOnSubmit = false,
-        $preSubmitDataCallback = null
+        private $type,
+        private array $typeOptions = [],
+        private $resizeOnSubmit = false,
+        private $preSubmitDataCallback = null
     ) {
-        $this->type = $type;
-        $this->resizeOnSubmit = $resizeOnSubmit;
-        $this->typeOptions = $typeOptions;
-        $this->preSubmitDataCallback = $preSubmitDataCallback;
     }
 
     public static function getSubscribedEvents(): array

@@ -20,30 +20,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 abstract class BaseStatusType extends AbstractType
 {
     /**
-     * @var string
-     *
-     * @phpstan-var class-string
-     */
-    protected $class;
-
-    /**
-     * @var string
-     */
-    protected $getter;
-
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
      * @phpstan-param class-string $class
      */
-    public function __construct(string $class, string $getter, string $name)
-    {
-        $this->class = $class;
-        $this->getter = $getter;
-        $this->name = $name;
+    public function __construct(
+        protected string $class,
+        protected string $getter,
+        protected string $name
+    ) {
     }
 
     public function getParent(): string

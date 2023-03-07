@@ -30,11 +30,6 @@ use Sonata\Doctrine\Model\ManagerInterface;
 abstract class BaseSerializerHandler implements SerializerHandlerInterface
 {
     /**
-     * @var ManagerInterface<object>
-     */
-    protected $manager;
-
-    /**
      * @var string[]
      */
     protected static $formats = [];
@@ -42,9 +37,8 @@ abstract class BaseSerializerHandler implements SerializerHandlerInterface
     /**
      * @param ManagerInterface<object> $manager
      */
-    public function __construct(ManagerInterface $manager)
+    public function __construct(protected ManagerInterface $manager)
     {
-        $this->manager = $manager;
     }
 
     /**

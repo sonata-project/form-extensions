@@ -37,38 +37,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class BaseDoctrineORMSerializationType extends AbstractType
 {
     /**
-     * @var ManagerRegistry
-     */
-    protected $registry;
-
-    /**
-     * @var MetadataFactoryInterface
-     */
-    protected $metadataFactory;
-
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var string
-     *
-     * @phpstan-var class-string
-     */
-    protected $class;
-
-    /**
-     * @var string
-     */
-    protected $group;
-
-    /**
-     * @var bool
-     */
-    protected $identifierOverwrite;
-
-    /**
      * @param MetadataFactoryInterface $metadataFactory     Serializer metadata factory
      * @param ManagerRegistry          $registry            Doctrine registry
      * @param string                   $name                Form type name
@@ -78,14 +46,14 @@ class BaseDoctrineORMSerializationType extends AbstractType
      *
      * @phpstan-param class-string $class
      */
-    public function __construct(MetadataFactoryInterface $metadataFactory, ManagerRegistry $registry, $name, $class, $group, $identifierOverwrite = false)
-    {
-        $this->metadataFactory = $metadataFactory;
-        $this->registry = $registry;
-        $this->name = $name;
-        $this->class = $class;
-        $this->group = $group;
-        $this->identifierOverwrite = $identifierOverwrite;
+    public function __construct(
+        protected MetadataFactoryInterface $metadataFactory,
+        protected ManagerRegistry $registry,
+        protected $name,
+        protected $class,
+        protected $group,
+        protected $identifierOverwrite = false
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

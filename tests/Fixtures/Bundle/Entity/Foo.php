@@ -28,10 +28,7 @@ final class Foo
         return $this->bar;
     }
 
-    /**
-     * @param mixed $bar
-     */
-    public function setBar($bar): void
+    public function setBar(mixed $bar): void
     {
         $this->bar = $bar;
     }
