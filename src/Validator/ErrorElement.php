@@ -81,10 +81,6 @@ final class ErrorElement
 {
     private const DEFAULT_TRANSLATION_DOMAIN = 'validators';
 
-    private ExecutionContextInterface $context;
-
-    private ?string $group;
-
     /**
      * @var string[]
      */
@@ -94,11 +90,6 @@ final class ErrorElement
      * @var PropertyPathInterface[]
      */
     private array $propertyPaths = [];
-
-    /**
-     * @var mixed
-     */
-    private $subject;
 
     private string $current = '';
 
@@ -112,19 +103,14 @@ final class ErrorElement
     /**
      * NEXT_MAJOR: Remove `$constraintValidatorFactory` from the signature.
      *
-     * @param mixed $subject
-     *
      * @phpstan-ignore-next-line
      */
     public function __construct(
-        $subject,
+        private mixed $subject,
         ConstraintValidatorFactoryInterface $constraintValidatorFactory,
-        ExecutionContextInterface $context,
-        ?string $group
+        private ExecutionContextInterface $context,
+        private ?string $group
     ) {
-        $this->subject = $subject;
-        $this->context = $context;
-        $this->group = $group;
         $this->basePropertyPath = $this->context->getPropertyPath();
     }
 
@@ -135,7 +121,7 @@ final class ErrorElement
      */
     public function __call(string $name, array $arguments = []): self
     {
-        if ('assert' === substr($name, 0, 6)) {
+        if (str_starts_with($name, 'assert')) {
             $this->validate($this->newConstraint(substr($name, 6), $arguments[0] ?? []));
         } else {
             throw new \RuntimeException('Unable to recognize the command');
@@ -195,9 +181,8 @@ final class ErrorElement
     /**
      * @param string|array{0?:string, 1?:array<string, mixed>, 2?:mixed} $message
      * @param array<string, mixed>                                       $parameters
-     * @param mixed                                                      $value
      */
-    public function addViolation($message, array $parameters = [], $value = null, string $translationDomain = self::DEFAULT_TRANSLATION_DOMAIN): self
+    public function addViolation(string|array $message, array $parameters = [], mixed $value = null, string $translationDomain = self::DEFAULT_TRANSLATION_DOMAIN): self
     {
         // NEXT_MAJOR: Remove this code and restrict param to string.
         if (\is_array($message)) {
@@ -270,7 +255,7 @@ final class ErrorElement
      */
     private function newConstraint(string $name, array $options = [])
     {
-        if (false !== strpos($name, '\\') && class_exists($name)) {
+        if (str_contains($name, '\\') && class_exists($name)) {
             $className = $name;
         } else {
             $className = 'Symfony\\Component\\Validator\\Constraints\\'.$name;
