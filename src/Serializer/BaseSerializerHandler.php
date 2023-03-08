@@ -37,7 +37,7 @@ abstract class BaseSerializerHandler implements SerializerHandlerInterface
     /**
      * @param ManagerInterface<object> $manager
      */
-    public function __construct(protected ManagerInterface $manager)
+    public function __construct(protected $manager)
     {
     }
 

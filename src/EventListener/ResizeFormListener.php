@@ -31,15 +31,13 @@ final class ResizeFormListener implements EventSubscriberInterface
     private array $removed = [];
 
     /**
-     * @param string               $type
      * @param array<string, mixed> $typeOptions
-     * @param bool                 $resizeOnSubmit
      * @param \Closure|null        $preSubmitDataCallback
      */
     public function __construct(
-        private $type,
+        private string $type,
         private array $typeOptions = [],
-        private $resizeOnSubmit = false,
+        private bool $resizeOnSubmit = false,
         private $preSubmitDataCallback = null
     ) {
     }

@@ -20,12 +20,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 abstract class BaseStatusType extends AbstractType
 {
     /**
+     * @param string $class
+     * @param string $getter
+     * @param string $name
+     *
      * @phpstan-param class-string $class
      */
     public function __construct(
-        protected string $class,
-        protected string $getter,
-        protected string $name
+        protected $class,
+        protected $getter,
+        protected $name
     ) {
     }
 
