@@ -39,11 +39,12 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
     /**
      * NEXT_MAJOR: Add "string" typehint to $requestStackOrDefaultLocale and change the name to defaultLocale.
      *
+     * @param TranslatorInterface $translator
      * @param string|RequestStack $requestStackOrDefaultLocale
      */
     public function __construct(
         private MomentFormatConverter $formatConverter,
-        protected TranslatorInterface $translator,
+        protected $translator,
         $requestStackOrDefaultLocale
     ) {
         // NEXT_MAJOR: Remove this block
