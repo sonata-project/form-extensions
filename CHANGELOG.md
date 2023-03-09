@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.18.1](https://github.com/sonata-project/form-extensions/compare/1.18.0...1.18.1) - 2023-03-09
+### Changed
+- [[#387](https://github.com/sonata-project/form-extensions/pull/387)] Update frontend depencies ([@jordisala1991](https://github.com/jordisala1991))
+
 ## [1.18.0](https://github.com/sonata-project/form-extensions/compare/1.17.1...1.18.0) - 2022-07-28
 ### Added
 - [[#376](https://github.com/sonata-project/form-extensions/pull/376)] Support for `sonata-project/doctrine-extensions` ^2 ([@VincentLanglet](https://github.com/VincentLanglet))
