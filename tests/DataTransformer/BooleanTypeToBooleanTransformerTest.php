@@ -20,9 +20,15 @@ use Sonata\Form\Type\BooleanType;
 final class BooleanTypeToBooleanTransformerTest extends TestCase
 {
     /**
+<<<<<<< HEAD
      * @dataProvider getTransformData
      */
     public function testTransform(mixed $value, ?int $expected): void
+=======
+     * @dataProvider getReverseTransformData
+     */
+    public function testReverseTransform(mixed $value, ?int $expected): void
+>>>>>>> 1.x
     {
         $transformer = new BooleanTypeToBooleanTransformer();
 
