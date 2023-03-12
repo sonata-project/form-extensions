@@ -16,7 +16,7 @@ namespace Sonata\Form\Type;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * DateTimeRangePickerType.
+ * @psalm-suppress MissingTemplateParam https://github.com/phpstan/phpstan-symfony/issues/320
  *
  * @author Andrej Hudec <pulzarraider@gmail.com>
  */

@@ -27,6 +27,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * NEXT_MAJOR: Remove this class.
  *
+ * @psalm-suppress MissingTemplateParam https://github.com/phpstan/phpstan-symfony/issues/320
+ *
  * @deprecated since sonata-project/form-extensions version 1.13 and will be removed in 2.0.
  *
  * This is a doctrine serialization form type that generates a form type from class serialization metadata
@@ -146,6 +148,10 @@ class BaseDoctrineORMSerializationType extends AbstractType
         }
     }
 
+    /**
+     * @return string
+     */
+    #[\ReturnTypeWillChange]
     public function getBlockPrefix()
     {
         return $this->name;

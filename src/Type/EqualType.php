@@ -20,6 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * NEXT_MAJOR: remove this class.
  *
+ * @psalm-suppress MissingTemplateParam https://github.com/phpstan/phpstan-symfony/issues/320
+ *
  * @deprecated since sonata-project/form-extensions 1.2, to be removed with 2.0
  */
 final class EqualType extends AbstractType
