@@ -17,6 +17,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @psalm-suppress MissingTemplateParam https://github.com/phpstan/phpstan-symfony/issues/320
+ */
 final class ImmutableArrayType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -50,7 +53,7 @@ final class ImmutableArrayType extends AbstractType
             'keys' => [],
         ]);
 
-        $resolver->setAllowedValues('keys', static function ($value): bool {
+        $resolver->setAllowedValues('keys', static function (array $value): bool {
             foreach ($value as $subValue) {
                 if (!$subValue instanceof FormBuilderInterface && (!\is_array($subValue) || 3 !== \count($subValue))) {
                     return false;

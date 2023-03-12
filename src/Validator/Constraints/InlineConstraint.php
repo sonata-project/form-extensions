@@ -30,15 +30,18 @@ final class InlineConstraint extends Constraint
     protected $service;
 
     /**
-     * @var mixed
+     * @var string|callable
      */
     protected $method;
 
     /**
-     * @var mixed
+     * @var bool
      */
     protected $serializingWarning;
 
+    /**
+     * @param mixed $options
+     */
     public function __construct($options = null)
     {
         parent::__construct($options);
@@ -106,7 +109,7 @@ final class InlineConstraint extends Constraint
     }
 
     /**
-     * @return mixed string|callable
+     * @return string|callable
      */
     public function getMethod()
     {
@@ -122,7 +125,7 @@ final class InlineConstraint extends Constraint
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function getSerializingWarning()
     {
