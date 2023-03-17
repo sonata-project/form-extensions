@@ -179,6 +179,8 @@ final class ErrorElement
     }
 
     /**
+     * @psalm-suppress RedundantCastGivenDocblockType
+     *
      * @param string|array{0?:string, 1?:array<string, mixed>, 2?:mixed} $message
      * @param array<string, mixed>                                       $parameters
      */
@@ -247,6 +249,8 @@ final class ErrorElement
     }
 
     /**
+     * @psalm-suppress UnsafeInstantiation -- it is supposed that Constraint constructor is not going to change
+     *
      * @param array<string, mixed> $options
      *
      * @throws \RuntimeException

@@ -108,10 +108,7 @@ final class InlineConstraint extends Constraint
         ];
     }
 
-    /**
-     * @return string|callable
-     */
-    public function getMethod()
+    public function getMethod(): string|callable
     {
         return $this->method;
     }

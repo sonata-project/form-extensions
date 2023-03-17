@@ -23,6 +23,8 @@ use Sonata\Doctrine\Model\ManagerInterface;
 /**
  * NEXT_MAJOR: Remove this class.
  *
+ * @psalm-suppress DeprecatedInterface
+ *
  * @deprecated since sonata-project/form-extensions version 1.13 and will be removed in 2.0.
  *
  * @author Sylvain Deloux <sylvain.deloux@ekino.com>

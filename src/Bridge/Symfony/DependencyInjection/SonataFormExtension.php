@@ -62,6 +62,8 @@ final class SonataFormExtension extends Extension implements PrependExtensionInt
     /**
      * NEXT_MAJOR: Remove this method.
      *
+     * @psalm-suppress DeprecatedClass
+     *
      * @param mixed[] $config
      */
     private function configureSerializerFormats(array $config): void
