@@ -223,6 +223,8 @@ final class ErrorElement
     }
 
     /**
+     * @psalm-suppress UnsafeInstantiation -- it is supposed that Constraint constructor is not going to change
+     *
      * @param array<string, mixed> $options
      *
      * @throws \RuntimeException

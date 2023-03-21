@@ -67,9 +67,12 @@ final class ResizeFormListener implements EventSubscriberInterface
         }
 
         // First remove all rows except for the prototype row
-        // Type cast to string, because Symfony form can returns integer keys
+        // Type cast to string, because Symfony form can return integer keys
+        /**
+         * @psalm-suppress RedundantCastGivenDocblockType -- Remove this and the casting when dropping support of < Symfony 6.2
+         */
         foreach ($form as $name => $child) {
-            // @phpstan-ignore-next-line
+            // @phpstan-ignore-next-line -- Remove this and the casting when dropping support of < Symfony 6.2
             $form->remove((string) $name);
         }
 
@@ -107,9 +110,12 @@ final class ResizeFormListener implements EventSubscriberInterface
         }
 
         // Remove all empty rows except for the prototype row
-        // Type cast to string, because Symfony form can returns integer keys
+        // Type cast to string, because Symfony form can return integer keys
+        /**
+         * @psalm-suppress RedundantCastGivenDocblockType -- Remove this and the casting when dropping support of < Symfony 6.2
+         */
         foreach ($form as $name => $child) {
-            // @phpstan-ignore-next-line
+            // @phpstan-ignore-next-line -- Remove this and the casting when dropping support of < Symfony 6.2
             $form->remove((string) $name);
         }
 
@@ -139,6 +145,8 @@ final class ResizeFormListener implements EventSubscriberInterface
     }
 
     /**
+     * @psalm-suppress PossibleRawObjectIteration -- https://github.com/vimeo/psalm/issues/9489
+     *
      * @throws UnexpectedTypeException
      */
     public function onSubmit(FormEvent $event): void

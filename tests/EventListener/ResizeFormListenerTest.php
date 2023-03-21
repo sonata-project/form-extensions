@@ -15,16 +15,41 @@ namespace Sonata\Form\Tests\EventListener;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\Form\EventListener\ResizeFormListener;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Symfony\Component\Form\Form;
+use Symfony\Component\Form\Extension\Core\DataMapper\DataMapper;
+use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormFactoryBuilder;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * @author Ahmet Akbana <ahmetakbana@gmail.com>
  */
 final class ResizeFormListenerTest extends TestCase
 {
+    private FormFactoryInterface $factory;
+    private FormInterface $form;
+
+    /**
+     * @psalm-suppress UndefinedMethod -- https://github.com/vimeo/psalm/issues/9104
+     */
+    protected function setUp(): void
+    {
+        $this->factory = (new FormFactoryBuilder())->getFormFactory();
+        $this->form = $this->getBuilder()
+            ->setCompound(true)
+            // TODO: Use "new DataMapper()" when removing support for Symfony 4.4 instead of "$this->getDataMapper()"
+            ->setDataMapper($this->getDataMapper())
+            ->getForm();
+    }
+
     public function testGetSubscribedEvents(): void
     {
         $events = ResizeFormListener::getSubscribedEvents();
@@ -39,72 +64,48 @@ final class ResizeFormListenerTest extends TestCase
 
     public function testPreSetDataWithNullData(): void
     {
-        $listener = new ResizeFormListener('form', [], false, null);
+        $listener = new ResizeFormListener(FormType::class, [], false, null);
 
-        $form = $this->createMock(Form::class);
-        $form->expects(static::once())
-            ->method('getIterator')
-            ->willReturn(new \ArrayIterator());
-        $form->expects(static::never())
-            ->method('add');
-
-        $event = new FormEvent($form, null);
+        $event = new FormEvent($this->form, null);
 
         $listener->preSetData($event);
+
+        static::assertCount(0, $this->form);
     }
 
     public function testPreSetDataWithArrayData(): void
     {
-        $listener = new ResizeFormListener('form', [], false, null);
+        $listener = new ResizeFormListener(FormType::class, [], false, null);
 
-        $form = $this->createMock(Form::class);
-        $form
-            ->method('getIterator')
-            ->willReturn(new \ArrayIterator());
-        $form
-            ->expects(static::exactly(2))
-            ->method('add')
-            ->withConsecutive(
-                ['0'],
-                ['1'],
-            );
-
-        $event = new FormEvent($form, ['foo', 'bar']);
+        $event = new FormEvent($this->form, [1 => 'foo', 2 => 'bar']);
 
         $listener->preSetData($event);
+
+        static::assertCount(2, $this->form);
+        static::assertFalse($this->form->has('0'));
+        static::assertTrue($this->form->has('1'));
+        static::assertTrue($this->form->has('2'));
     }
 
     public function testPreSubmitWithArrayData(): void
     {
-        $listener = new ResizeFormListener('form', [], true, null);
+        $listener = new ResizeFormListener(FormType::class, [], true, null);
 
-        $form = $this->createMock(Form::class);
-        $form
-            ->method('getIterator')
-            ->willReturn(new \ArrayIterator());
-        $form
-            ->method('has')
-            ->willReturn(false);
-        $form
-            ->expects(static::exactly(2))
-            ->method('add')
-            ->withConsecutive(
-                ['0'],
-                ['1'],
-            );
-
-        $event = new FormEvent($form, ['foo', 'bar']);
+        $event = new FormEvent($this->form, [1 => 'foo', 2 => 'bar']);
 
         $listener->preSubmit($event);
+
+        static::assertCount(2, $this->form);
+        static::assertFalse($this->form->has('0'));
+        static::assertTrue($this->form->has('1'));
+        static::assertTrue($this->form->has('2'));
     }
 
     public function testPreSetDataThrowsExceptionWithStringEventData(): void
     {
-        $listener = new ResizeFormListener('form', [], false, null);
+        $listener = new ResizeFormListener(FormType::class, [], false, null);
 
-        $form = $this->createMock(Form::class);
-
-        $event = new FormEvent($form, '');
+        $event = new FormEvent($this->form, '');
 
         $this->expectException(UnexpectedTypeException::class);
 
@@ -113,69 +114,62 @@ final class ResizeFormListenerTest extends TestCase
 
     public function testPreSetData(): void
     {
+        $attr = ['maxlength' => 10];
         $typeOptions = [
-            'default' => 'option',
+            'attr' => $attr,
         ];
 
-        $listener = new ResizeFormListener('form', $typeOptions, false, null);
+        $listener = new ResizeFormListener(TextType::class, $typeOptions, false, null);
 
-        $options = [
-            'property_path' => '[baz]',
-            'data' => 'caz',
-            'default' => 'option',
-        ];
-
-        $form = $this->createMock(Form::class);
-        $form->expects(static::once())
-            ->method('getIterator')
-            ->willReturn(new \ArrayIterator(['foo' => 'bar']));
-        $form->expects(static::once())
-            ->method('remove')
-            ->with('foo');
-        $form->expects(static::once())
-            ->method('add')
-            ->with('baz', 'form', $options);
+        $this->form->add($this->getForm('foo'));
 
         $data = ['baz' => 'caz'];
 
-        $event = new FormEvent($form, $data);
+        $event = new FormEvent($this->form, $data);
 
         $listener->preSetData($event);
+
+        static::assertCount(1, $this->form);
+        static::assertFalse($this->form->has('foo'));
+        static::assertTrue($this->form->has('baz'));
+        static::assertSame($attr, $this->form->get('baz')->getConfig()->getOption('attr'));
     }
 
     public function testPreSubmitWithResizeOnBindFalse(): void
     {
-        $listener = new ResizeFormListener('form', [], false, null);
+        $listener = new ResizeFormListener(FormType::class, [], false, null);
 
-        $event = $this->createMock(FormEvent::class);
-        $event->expects(static::never())
-            ->method('getForm');
+        $this->form->add($this->getForm('foo'));
+
+        $data = ['baz' => 'caz'];
+
+        $event = new FormEvent($this->form, $data);
 
         $listener->preSubmit($event);
+
+        static::assertCount(1, $this->form);
+        static::assertFalse($this->form->has('baz'));
+        static::assertTrue($this->form->has('foo'));
     }
 
     public function testPreSubmitDataWithNullData(): void
     {
-        $listener = new ResizeFormListener('form', [], true, null);
+        $listener = new ResizeFormListener(FormType::class, [], true, null);
 
-        $form = $this->createMock(Form::class);
-        $form->expects(static::once())
-            ->method('getIterator')
-            ->willReturn(new \ArrayIterator(['foo' => 'bar']));
-        $form->expects(static::never())
-            ->method('has');
+        $this->form->add($this->getForm('foo'));
 
-        $event = new FormEvent($form, null);
+        $event = new FormEvent($this->form, null);
 
         $listener->preSubmit($event);
+
+        static::assertCount(0, $this->form);
     }
 
     public function testPreSubmitThrowsExceptionWithIntEventData(): void
     {
-        $listener = new ResizeFormListener('form', [], true, null);
+        $listener = new ResizeFormListener(FormType::class, [], true, null);
 
-        $form = $this->createMock(Form::class);
-        $event = new FormEvent($form, 123);
+        $event = new FormEvent($this->form, 123);
 
         $this->expectException(UnexpectedTypeException::class);
 
@@ -184,114 +178,69 @@ final class ResizeFormListenerTest extends TestCase
 
     public function testPreSubmitData(): void
     {
-        $typeOptions = [
-            'default' => 'option',
-        ];
-
-        $listener = new ResizeFormListener('form', $typeOptions, true, null);
-
-        $options1 = [
-            'property_path' => '[baz]',
-            'default' => 'option',
-        ];
-
-        $options2 = [
-            'property_path' => '[0]',
-            'default' => 'option',
-        ];
-
-        $form = $this->createMock(Form::class);
-        $form->expects(static::once())
-            ->method('getIterator')
-            ->willReturn(new \ArrayIterator([
-                'foo' => 'bar',
-                0 => 'daz',
-            ]));
-        $form->expects(static::exactly(2))
-            ->method('remove')
-            ->withConsecutive(
-                ['foo'],
-                [0]
-            );
-        $form->expects(static::exactly(2))
-            ->method('add')
-            ->withConsecutive(
-                ['baz', 'form', $options1],
-                [0, 'form', $options2]
-            );
+        $listener = new ResizeFormListener(TextType::class, [], true, null);
 
         $data = ['baz' => 'caz', 0 => 'daz'];
 
-        $event = new FormEvent($form, $data);
+        $event = new FormEvent($this->form, $data);
 
         $listener->preSubmit($event);
+
+        static::assertCount(2, $this->form);
+        static::assertTrue($this->form->has('baz'));
+        static::assertSame('[baz]', $this->form->get('baz')->getConfig()->getOption('property_path'));
+        static::assertTrue($this->form->has('0'));
+        static::assertSame('[0]', $this->form->get('0')->getConfig()->getOption('property_path'));
     }
 
     public function testPreSubmitDataWithClosure(): void
     {
-        $typeOptions = [
-            'default' => 'option',
-        ];
-
         $data = ['baz' => 'caz'];
 
         $closure = static fn (): string => $data['baz'];
 
-        $listener = new ResizeFormListener('form', $typeOptions, true, $closure);
+        $listener = new ResizeFormListener(TextType::class, [], true, $closure);
 
-        $options = [
-            'property_path' => '[baz]',
-            'default' => 'option',
-            'data' => 'caz',
-        ];
-
-        $form = $this->createMock(Form::class);
-        $form->expects(static::once())
-            ->method('getIterator')
-            ->willReturn(new \ArrayIterator(['foo' => 'bar']));
-        $form->expects(static::once())
-            ->method('remove')
-            ->with('foo');
-        $form->expects(static::once())
-            ->method('add')
-            ->with('baz', 'form', $options);
-
-        $event = new FormEvent($form, $data);
+        $event = new FormEvent($this->form, $data);
 
         $listener->preSubmit($event);
+
+        static::assertCount(1, $this->form);
+        static::assertTrue($this->form->has('baz'));
+        static::assertSame('caz', $this->form->get('baz')->getData());
     }
 
     public function testOnSubmitWithResizeOnBindFalse(): void
     {
-        $listener = new ResizeFormListener('form', [], false, null);
+        $listener = new ResizeFormListener(FormType::class, [], false, null);
 
-        $event = $this->createMock(FormEvent::class);
-        $event->expects(static::never())
-            ->method('getForm');
+        $data = ['baz' => 'caz'];
+
+        $event = new FormEvent($this->form, $data);
+
+        $listener->preSubmit($event);
 
         $listener->onSubmit($event);
+
+        static::assertCount(0, $this->form);
     }
 
     public function testOnSubmitDataWithNullData(): void
     {
-        $listener = new ResizeFormListener('form', [], true, null);
+        $listener = new ResizeFormListener(FormType::class, [], true, null);
 
-        $form = $this->createMock(Form::class);
-        $form->expects(static::never())
-            ->method('has');
-
-        $event = new FormEvent($form, null);
+        $event = new FormEvent($this->form, null);
 
         $listener->onSubmit($event);
+
+        static::assertCount(0, $this->form);
     }
 
     public function testOnSubmitThrowsExceptionWithIntEventData(): void
     {
-        $listener = new ResizeFormListener('form', [], true, null);
+        $listener = new ResizeFormListener(FormType::class, [], true, null);
 
-        $form = $this->createMock(Form::class);
-
-        $event = new FormEvent($form, 123);
+        $event = new FormEvent($this->form, 123);
 
         $this->expectException(UnexpectedTypeException::class);
 
@@ -300,52 +249,57 @@ final class ResizeFormListenerTest extends TestCase
 
     public function testOnSubmit(): void
     {
-        $listener = new ResizeFormListener('form', [], true, null);
+        $listener = new ResizeFormListener(FormType::class, [], true, null);
 
         $reflector = new \ReflectionClass(ResizeFormListener::class);
         $reflectedMethod = $reflector->getProperty('removed');
         $reflectedMethod->setAccessible(true);
         $reflectedMethod->setValue($listener, ['foo', 'bar']);
 
-        $form = $this->createMock(Form::class);
-        $form
-            ->expects(static::exactly(4))
-            ->method('has')
-            ->withConsecutive(
-                ['foo'],
-                ['bar'],
-                ['baz'],
-                [0]
-            )
-            ->willReturnOnConsecutiveCalls(
-                false,
-                false,
-                true,
-                false,
-            );
+        $this->form->add($this->getForm('foo'));
+        $this->form->add($this->getForm('bar'));
+        $this->form->add($this->getForm('baz'));
+        $this->form->add($this->getForm('0'));
 
         $data = [
             'foo' => 'foo-value',
             'bar' => 'bar-value',
             'baz' => 'baz-value',
-            0 => '0-value',
+            '0' => '0-value',
         ];
 
-        $removedData = [
-            'baz' => 'baz-value',
-        ];
-
-        $event = $this->createMock(FormEvent::class);
-        $event->expects(static::once())
-            ->method('getForm')
-            ->willReturn($form);
-        $event->expects(static::once())
-            ->method('getData')
-            ->willReturn($data);
-        $event->expects(static::once())
-            ->method('setData')
-            ->with($removedData);
+        $event = new FormEvent($this->form, $data);
 
         $listener->onSubmit($event);
+
+        static::assertSame([
+            'baz' => 'baz-value',
+            '0' => '0-value',
+        ], $event->getData());
+    }
+
+    private function getBuilder(string $name = 'name'): FormBuilder
+    {
+        return new FormBuilder($name, null, new EventDispatcher(), $this->factory);
+    }
+
+    private function getForm(string $name = 'name'): FormInterface
+    {
+        return $this->getBuilder($name)->getForm();
+    }
+
+    /**
+     * TODO: Remove this method when removing support for Symfony 4.4.
+     *
+     * @psalm-suppress UndefinedClass, InvalidReturnStatement, InvalidReturnType
+     */
+    private function getDataMapper(): DataMapperInterface
+    {
+        if (class_exists(DataMapper::class)) {
+            return new DataMapper();
+        }
+
+        // @phpstan-ignore-next-line -- BC layer for Symfony 4.4
+        return new PropertyPathMapper();
     }
 }

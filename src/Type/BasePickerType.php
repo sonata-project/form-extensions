@@ -26,6 +26,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Class BasePickerType (to factorize DatePickerType and DateTimePickerType code.
  *
+ * @psalm-suppress MissingTemplateParam https://github.com/phpstan/phpstan-symfony/issues/320
+ *
  * @author Hugo Briand <briand@ekino.com>
  */
 abstract class BasePickerType extends AbstractType implements LocaleAwareInterface
@@ -41,7 +43,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
     {
         $resolver->setNormalizer(
             'format',
-            function (Options $options, int|string $format) {
+            function (Options $options, int|string $format): string {
                 if (isset($options['date_format']) && \is_string($options['date_format'])) {
                     return $options['date_format'];
                 }

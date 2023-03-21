@@ -21,6 +21,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @psalm-suppress MissingTemplateParam https://github.com/phpstan/phpstan-symfony/issues/320
+ */
 final class CollectionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

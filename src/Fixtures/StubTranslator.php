@@ -18,7 +18,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class StubTranslator implements TranslatorInterface
 {
     /**
-     * @param mixed[] $parameters
+     * @param string      $id
+     * @param mixed[]     $parameters
+     * @param string|null $domain
+     * @param string|null $locale
      */
     public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
     {

@@ -16,6 +16,7 @@ namespace Sonata\Form\Tests\Bridge\Symfony\DependencyInjection;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Sonata\Form\Bridge\Symfony\DependencyInjection\SonataFormExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 
 final class SonataFormExtensionTest extends AbstractExtensionTestCase
 {
@@ -53,27 +54,34 @@ final class SonataFormExtensionTest extends AbstractExtensionTestCase
 
     public function testPrepend(): void
     {
-        $containerBuilder = $this->createMock(ContainerBuilder::class);
+        $containerBuilder = new ContainerBuilder();
+        $containerBuilder->registerExtension(new class() extends Extension {
+            public function load(array $configs, ContainerBuilder $container): void
+            {
+            }
 
-        $containerBuilder
-            ->method('getExtensionConfig')
-            ->with('sonata_admin')
-            ->willReturn([
-                ['some_key_we_do_not_care_about' => 42],
-                ['options' => ['form_type' => 'standard']],
-                ['options' => ['form_type' => 'horizontal']],
-            ]);
+            public function getAlias(): string
+            {
+                return 'sonata_admin';
+            }
+        });
+        $containerBuilder->loadFromExtension('sonata_admin', [
+            'some_key_we_do_not_care_about' => 42,
+            'options' => ['form_type' => 'standard'],
+        ]);
+        $containerBuilder->loadFromExtension('sonata_admin', [
+            'options' => ['form_type' => 'horizontal'],
+        ]);
 
-        $containerBuilder
-            ->expects(static::exactly(2))
-            ->method('prependExtensionConfig')
-            ->withConsecutive(
-                ['sonata_form', ['form_type' => 'standard']],
-                ['sonata_form', ['form_type' => 'horizontal']]
-            );
+        static::assertSame([], $containerBuilder->getExtensionConfig('sonata_form'));
 
         $extension = new SonataFormExtension();
         $extension->prepend($containerBuilder);
+
+        static::assertSame([
+            ['form_type' => 'horizontal'],
+            ['form_type' => 'standard'],
+        ], $containerBuilder->getExtensionConfig('sonata_form'));
     }
 
     protected function getContainerExtensions(): array

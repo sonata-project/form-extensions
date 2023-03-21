@@ -17,6 +17,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
+ * @psalm-suppress MissingTemplateParam https://github.com/phpstan/phpstan-symfony/issues/320
+ *
  * @author Hugo Briand <briand@ekino.com>
  */
 final class DatePickerType extends BasePickerType
