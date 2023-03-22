@@ -21,14 +21,14 @@
     "homepage": "https://docs.sonata-project.org/projects/form-extensions",
     "require": {
         "php": "^8.0",
-        "symfony/event-dispatcher": "^5.4 || ^6.0",
-        "symfony/form": "^5.4 || ^6.0",
-        "symfony/options-resolver": "^5.4 || ^6.0",
-        "symfony/property-access": "^5.4 || ^6.0",
-        "symfony/security-csrf": "^5.4 || ^6.0",
-        "symfony/translation": "^5.4 || ^6.0",
+        "symfony/event-dispatcher": "^5.4 || ^6.2",
+        "symfony/form": "^5.4 || ^6.2",
+        "symfony/options-resolver": "^5.4 || ^6.2",
+        "symfony/property-access": "^5.4 || ^6.2",
+        "symfony/security-csrf": "^5.4 || ^6.2",
+        "symfony/translation": "^5.4 || ^6.2",
         "symfony/translation-contracts": "^2.5 || ^3.0",
-        "symfony/validator": "^5.4 || ^6.0",
+        "symfony/validator": "^5.4 || ^6.2",
         "twig/twig": "^3.0"
     },
     "require-dev": {
@@ -42,7 +42,7 @@
         "phpstan/phpstan-symfony": "^1.0",
         "phpunit/phpunit": "^9.5",
         "psalm/plugin-phpunit": "^0.18",
-        "psalm/plugin-symfony": "^4.0 || ^5.0",
+        "psalm/plugin-symfony": "^^5.0",
         "rector/rector": "^0.15",
         "symfony/config": "^5.4 || ^6.2",
         "symfony/dependency-injection": "^5.4 || ^6.2",
@@ -51,7 +51,7 @@
         "symfony/http-kernel": "^5.4 || ^6.2",
         "symfony/phpunit-bridge": "^6.2",
         "symfony/twig-bridge": "^5.4 || ^6.2",
-        "vimeo/psalm": "^4.7.2 || ^5.8"
+        "vimeo/psalm": "^5.8"
     },
     "autoload": {
         "psr-4": {
