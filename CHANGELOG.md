@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.19.0](https://github.com/sonata-project/form-extensions/compare/1.18.1...1.19.0) - 2023-04-10
+### Fixed
+- [[#414](https://github.com/sonata-project/form-extensions/pull/414)] Do not trigger validation on deleted rows of CollectionType ([@jordisala1991](https://github.com/jordisala1991))
+
+### Removed
+- [[#407](https://github.com/sonata-project/form-extensions/pull/407)] Drop support for `doctrine/persistence` 1.0 and 2.0. ([@jordisala1991](https://github.com/jordisala1991))
+
 ## [1.18.1](https://github.com/sonata-project/form-extensions/compare/1.18.0...1.18.1) - 2023-03-09
 ### Changed
 - [[#387](https://github.com/sonata-project/form-extensions/pull/387)] Update frontend depencies ([@jordisala1991](https://github.com/jordisala1991))
