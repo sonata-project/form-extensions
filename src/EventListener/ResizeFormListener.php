@@ -26,11 +26,6 @@ use Symfony\Component\Form\FormEvents;
 final class ResizeFormListener implements EventSubscriberInterface
 {
     /**
-     * @var string[]
-     */
-    private array $removed = [];
-
-    /**
      * @param array<string, mixed> $typeOptions
      * @param \Closure|null        $preSubmitDataCallback
      */
@@ -122,6 +117,13 @@ final class ResizeFormListener implements EventSubscriberInterface
 
         // Add all additional rows
         foreach ($data as $name => $value) {
+            // remove selected elements before adding them again
+            if (isset($value['_delete'])) {
+                unset($data[$name]);
+
+                continue;
+            }
+
             // Type cast to string, because Symfony form can returns integer keys
             if (!$form->has((string) $name)) {
                 $buildOptions = [
@@ -138,11 +140,9 @@ final class ResizeFormListener implements EventSubscriberInterface
 
                 $form->add($name, $this->type, $options);
             }
-
-            if (isset($value['_delete'])) {
-                $this->removed[] = $name;
-            }
         }
+
+        $event->setData($data);
     }
 
     /**
@@ -175,11 +175,6 @@ final class ResizeFormListener implements EventSubscriberInterface
             if (!$form->has((string) $name)) {
                 unset($data[$name]);
             }
-        }
-
-        // remove selected elements
-        foreach ($this->removed as $pos) {
-            unset($data[$pos]);
         }
 
         $event->setData($data);
