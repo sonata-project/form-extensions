@@ -86,6 +86,8 @@ final class ResizeFormListener implements EventSubscriberInterface
     }
 
     /**
+     * @psalm-suppress PossibleRawObjectIteration -- https://github.com/vimeo/psalm/issues/9489
+     *
      * @throws UnexpectedTypeException
      */
     public function preSubmit(FormEvent $event): void
