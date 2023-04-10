@@ -251,30 +251,26 @@ final class ResizeFormListenerTest extends TestCase
     {
         $listener = new ResizeFormListener(FormType::class, [], true, null);
 
-        $reflector = new \ReflectionClass(ResizeFormListener::class);
-        $reflectedMethod = $reflector->getProperty('removed');
-        $reflectedMethod->setAccessible(true);
-        $reflectedMethod->setValue($listener, ['foo', 'bar']);
-
         $this->form->add($this->getForm('foo'));
         $this->form->add($this->getForm('bar'));
         $this->form->add($this->getForm('baz'));
         $this->form->add($this->getForm('0'));
 
         $data = [
-            'foo' => 'foo-value',
-            'bar' => 'bar-value',
-            'baz' => 'baz-value',
-            '0' => '0-value',
+            'foo' => ['_delete' => true, 'value' => 'foo-value'],
+            'bar' => ['_delete' => true, 'value' => 'bar-value'],
+            'baz' => ['value' => 'baz-value'],
+            '0' => ['value' => '0-value'],
         ];
 
         $event = new FormEvent($this->form, $data);
 
+        $listener->preSubmit($event);
         $listener->onSubmit($event);
 
         static::assertSame([
-            'baz' => 'baz-value',
-            '0' => '0-value',
+            'baz' => ['value' => 'baz-value'],
+            '0' => ['value' => '0-value'],
         ], $event->getData());
     }
 

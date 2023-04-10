@@ -101,8 +101,11 @@ final class ResizeFormListener implements EventSubscriberInterface
             $data = [];
         }
 
-        if (!\is_array($data) && !$data instanceof \Traversable) {
-            throw new UnexpectedTypeException($data, 'array or \Traversable');
+        if (
+            !\is_array($data)
+            && (!$data instanceof \Traversable || !$data instanceof \ArrayAccess)
+        ) {
+            throw new UnexpectedTypeException($data, 'array or \Traversable&\ArrayAccess');
         }
 
         // Remove all empty rows except for the prototype row
