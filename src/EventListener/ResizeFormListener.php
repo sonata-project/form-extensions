@@ -122,6 +122,13 @@ final class ResizeFormListener implements EventSubscriberInterface
 
         // Add all additional rows
         foreach ($data as $name => $value) {
+            // remove selected elements before adding them again
+            if (isset($value['_delete'])) {
+                unset($data[$name]);
+
+                continue;
+            }
+
             // Type cast to string, because Symfony form can returns integer keys
             if (!$form->has((string) $name)) {
                 $buildOptions = [
@@ -137,11 +144,6 @@ final class ResizeFormListener implements EventSubscriberInterface
                 $name = \is_int($name) ? (string) $name : $name;
 
                 $form->add($name, $this->type, $options);
-            }
-
-            // remove selected elements before adding them again
-            if (isset($value['_delete'])) {
-                unset($data[$name]);
             }
         }
 
