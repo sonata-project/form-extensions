@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.19.1](https://github.com/sonata-project/form-extensions/compare/1.19.0...1.19.1) - 2023-04-30
+### Fixed
+- [[#416](https://github.com/sonata-project/form-extensions/pull/416)] Date pickers now select the correct locale when language and country parts are the same, eg: `it-IT` ([@jgtrescazes](https://github.com/jgtrescazes))
+
 ## [1.19.0](https://github.com/sonata-project/form-extensions/compare/1.18.1...1.19.0) - 2023-04-10
 ### Fixed
 - [[#414](https://github.com/sonata-project/form-extensions/pull/414)] Do not trigger validation on deleted rows of CollectionType ([@jordisala1991](https://github.com/jordisala1991))
