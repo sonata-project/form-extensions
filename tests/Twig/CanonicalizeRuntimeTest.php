@@ -103,6 +103,7 @@ final class CanonicalizeRuntimeTest extends TestCase
             ['id', 'id'],
             ['is', 'is'],
             ['it', 'it'],
+            ['it', 'it-IT'],
             ['ja', 'ja'],
             ['jv', 'jv'],
             ['ka', 'ka'],

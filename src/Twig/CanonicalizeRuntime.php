@@ -52,6 +52,14 @@ final class CanonicalizeRuntime implements RuntimeExtensionInterface
             }
         }
 
+        // Handle locales that has equal langage part and country part.
+        if (str_contains($locale, '-')) {
+            $localeParts = explode('-', strtolower($locale));
+            if ($localeParts[0] === $localeParts[1]) {
+                $locale = $localeParts[0];
+            }
+        }
+
         return $locale;
     }
 
