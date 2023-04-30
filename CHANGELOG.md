@@ -13,6 +13,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - [[#387](https://github.com/sonata-project/form-extensions/pull/387)] Update frontend depencies ([@jordisala1991](https://github.com/jordisala1991))
 
+### Removed
+- [[#400](https://github.com/sonata-project/form-extensions/pull/400)] Support for PHP 7.4 ([@SonataCI](https://github.com/SonataCI))
+- [[#400](https://github.com/sonata-project/form-extensions/pull/400)] Support for Symfony 6.0 and 6.1 ([@SonataCI](https://github.com/SonataCI))
+
 ## [1.18.0](https://github.com/sonata-project/form-extensions/compare/1.17.1...1.18.0) - 2022-07-28
 ### Added
 - [[#376](https://github.com/sonata-project/form-extensions/pull/376)] Support for `sonata-project/doctrine-extensions` ^2 ([@VincentLanglet](https://github.com/VincentLanglet))
