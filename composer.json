@@ -66,6 +66,8 @@
     "suggest": {
         "doctrine/persistence": "If you want to use BaseDoctrineORMSerializationType"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Sonata\\Form\\": "src/"
