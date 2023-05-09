@@ -53,6 +53,8 @@
         "symfony/twig-bridge": "^5.4 || ^6.2",
         "vimeo/psalm": "^5.8"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Sonata\\Form\\": "src/"
