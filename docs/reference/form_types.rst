@@ -193,17 +193,15 @@ Now, you want to create a form type to expose those values::
 
 This can be done by declaring a new service:
 
-.. configuration-block::
+.. code-block:: xml
 
-    .. code-block:: xml
+    <service id="sonata.order.form.status_type" class="Sonata\Form\Type\StatusType">
+        <tag name="form.type"/>
 
-        <service id="sonata.order.form.status_type" class="Sonata\Form\Type\StatusType">
-            <tag name="form.type"/>
-
-            <argument>%sonata.order.order.class%</argument>
-            <argument>getStatusList</argument>
-            <argument>sonata_order_status</argument>
-        </service>
+        <argument>%sonata.order.order.class%</argument>
+        <argument>getStatusList</argument>
+        <argument>sonata_order_status</argument>
+    </service>
 
 And the type can now be used::
 
@@ -359,15 +357,13 @@ This is HTML5 input type color.
 
 In order to use it, you'll need to perform a bit of setup:
 
-.. configuration-block::
+.. code-block:: yaml
 
-    .. code-block:: yaml
+    # config/packages/twig.yaml
 
-        # config/packages/twig.yaml
-
-        twig:
-            form_themes:
-                - '@SonataForm/Form/color.html.twig'
+    twig:
+        form_themes:
+            - '@SonataForm/Form/color.html.twig'
 
 Finally, in your form, you may use the form type as follows::
 

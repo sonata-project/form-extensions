@@ -31,14 +31,12 @@ horizontal style.
 If you are using the horizontal style, you will need to configure the
 corresponding configuration node accordingly:
 
-.. configuration-block::
+.. code-block:: yaml
 
-    .. code-block:: yaml
+    # config/packages/sonata_form.yaml
 
-        # config/packages/sonata_form.yaml
-
-        sonata_form:
-            form_type: horizontal
+    sonata_form:
+        form_type: horizontal
 
 Please note that if you are using the admin bundle, this is actually optional:
 The core bundle extension will detect if the configuration node that deals with
