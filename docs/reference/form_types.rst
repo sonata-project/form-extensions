@@ -13,20 +13,18 @@ This form type reads ``JMSSerializer`` serialization class metadata and uses ``D
 
 All you have to do is to define a form type service for each entity for which you want to use a form type, like this:
 
-.. configuration-block::
+.. code-block:: xml
 
-    .. code-block:: xml
+    <!-- config/services.xml -->
 
-        <!-- config/services.xml -->
-
-        <service id="my.custom.form.type.comment" class="Sonata\Form\Type\DoctrineORMSerializationType">
-            <argument type="service" id="jms_serializer.metadata_factory"/>
-            <argument type="service" id="doctrine"/>
-            <argument>my_custom_form_type_comment</argument>
-            <argument>App\Entity\Comment</argument>
-            <argument>a_serialization_group</argument>
-            <tag name="form.type" alias="my_custom_form_type_comment"/>
-        </service>
+    <service id="my.custom.form.type.comment" class="Sonata\Form\Type\DoctrineORMSerializationType">
+        <argument type="service" id="jms_serializer.metadata_factory"/>
+        <argument type="service" id="doctrine"/>
+        <argument>my_custom_form_type_comment</argument>
+        <argument>App\Entity\Comment</argument>
+        <argument>a_serialization_group</argument>
+        <tag name="form.type" alias="my_custom_form_type_comment"/>
+    </service>
 
 The service definition should contain the following arguments:
 
@@ -230,17 +228,15 @@ Now, you want to create a form type to expose those values::
 
 This can be done by declaring a new service:
 
-.. configuration-block::
+.. code-block:: xml
 
-    .. code-block:: xml
+    <service id="sonata.order.form.status_type" class="Sonata\Form\Type\StatusType">
+        <tag name="form.type"/>
 
-        <service id="sonata.order.form.status_type" class="Sonata\Form\Type\StatusType">
-            <tag name="form.type"/>
-
-            <argument>%sonata.order.order.class%</argument>
-            <argument>getStatusList</argument>
-            <argument>sonata_order_status</argument>
-        </service>
+        <argument>%sonata.order.order.class%</argument>
+        <argument>getStatusList</argument>
+        <argument>sonata_order_status</argument>
+    </service>
 
 And the type can now be used::
 
@@ -282,15 +278,13 @@ They will allow you to have a JS date picker onto your form fields as follows:
 
 In order to use them, you'll need to perform a bit of setup:
 
-.. configuration-block::
+.. code-block:: yaml
 
-    .. code-block:: yaml
+    # config/packages/twig.yaml
 
-        # config/packages/twig.yaml
-
-        twig:
-            form_themes:
-                - '@SonataForm/Form/datepicker.html.twig'
+    twig:
+        form_themes:
+            - '@SonataForm/Form/datepicker.html.twig'
 
 In your layout, you'll need to add the assets dependencies (feel free to
 adapt this to your needs, for instance, to use with assetic):
@@ -398,15 +392,13 @@ This is HTML5 input type color.
 
 In order to use it, you'll need to perform a bit of setup:
 
-.. configuration-block::
+.. code-block:: yaml
 
-    .. code-block:: yaml
+    # config/packages/twig.yaml
 
-        # config/packages/twig.yaml
-
-        twig:
-            form_themes:
-                - '@SonataForm/Form/color.html.twig'
+    twig:
+        form_themes:
+            - '@SonataForm/Form/color.html.twig'
 
 Finally, in your form, you may use the form type as follows::
 
