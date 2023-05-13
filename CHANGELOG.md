@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.0-alpha-1](https://github.com/sonata-project/form-extensions/compare/1.x...2.0.0-alpha-1) - 2023-05-13
+### Changed
+- [[#427](https://github.com/sonata-project/form-extensions/pull/427)] Upgrade DatePicker to v6 (name changed from `eonasdan/bootstrap-datetimepicker` to `eonasdan/tempus-dominus`) ([@jordisala1991](https://github.com/jordisala1991))
+- [[#328](https://github.com/sonata-project/form-extensions/pull/328)] Options passed to form types are now narrowed down to the allowed ones only. ([@jordisala1991](https://github.com/jordisala1991))
+
+### Removed
+- [[#433](https://github.com/sonata-project/form-extensions/pull/433)] `sonata_form_canonicalize_locale_for_moment` twig function ([@jordisala1991](https://github.com/jordisala1991))
+- [[#326](https://github.com/sonata-project/form-extensions/pull/326)] Remove support for PHP 7. ([@jordisala1991](https://github.com/jordisala1991))
+- [[#321](https://github.com/sonata-project/form-extensions/pull/321)] Remove support for Symfony ^4.4 and 5.3.x ([@jordisala1991](https://github.com/jordisala1991))
+- [[#321](https://github.com/sonata-project/form-extensions/pull/321)] Remove support for Twig ^2 ([@jordisala1991](https://github.com/jordisala1991))
+
 ## [1.19.1](https://github.com/sonata-project/form-extensions/compare/1.19.0...1.19.1) - 2023-04-30
 ### Fixed
 - [[#416](https://github.com/sonata-project/form-extensions/pull/416)] Date pickers now select the correct locale when language and country parts are the same, eg: `it-IT` ([@jgtrescazes](https://github.com/jgtrescazes))
