@@ -1,6 +1,10 @@
 UPGRADE 2.0
 ===========
 
+## Remove canonicalize extension
+
+It is no longer needed with the new Date Picker library, the locale is automatically detected in the browser.
+
 ## Upgrade Date Picker
 
 Since the begining, Sonata was using Eonasdan Bootstrap Datepicker in its version 3.1.3 to provide date picker capabilities.

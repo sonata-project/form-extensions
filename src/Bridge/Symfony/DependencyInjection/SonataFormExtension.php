@@ -48,8 +48,6 @@ final class SonataFormExtension extends Extension implements PrependExtensionInt
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('date.php');
         $loader->load('form_types.php');
-        // NEXT_MAJOR: Remove next line.
-        $loader->load('twig.php');
         $loader->load('validator.php');
 
         $container->setParameter('sonata.form.form_type', $config['form_type']);
