@@ -13,6 +13,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - [[#321](https://github.com/sonata-project/form-extensions/pull/321)] Remove support for Symfony ^4.4 and 5.3.x ([@jordisala1991](https://github.com/jordisala1991))
 - [[#321](https://github.com/sonata-project/form-extensions/pull/321)] Remove support for Twig ^2 ([@jordisala1991](https://github.com/jordisala1991))
 
+See UPGRADE-2.0.md for all changes
+
 ## [1.19.1](https://github.com/sonata-project/form-extensions/compare/1.19.0...1.19.1) - 2023-04-30
 ### Fixed
 - [[#416](https://github.com/sonata-project/form-extensions/pull/416)] Date pickers now select the correct locale when language and country parts are the same, eg: `it-IT` ([@jgtrescazes](https://github.com/jgtrescazes))
