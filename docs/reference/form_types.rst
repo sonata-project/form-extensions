@@ -348,38 +348,6 @@ Example with ``Sonata\DoctrineORMAdminBundle\Filter\DateRangeFilter`` filter::
         }
     }
 
-ColorType
----------
-
-This is HTML5 input type color.
-
-.. image:: ../images/color.png
-
-In order to use it, you'll need to perform a bit of setup:
-
-.. code-block:: yaml
-
-    # config/packages/twig.yaml
-
-    twig:
-        form_themes:
-            - '@SonataForm/Form/color.html.twig'
-
-Finally, in your form, you may use the form type as follows::
-
-    // src/Admin/PageAdmin.php
-
-    use Sonata\Form\Type\ColorType;
-
-    final class PageAdmin extends AbstractAdmin
-    {
-        protected function configureFormFields(FormMapper $form): void
-        {
-            $form
-                ->add('color', ColorType::class);
-        }
-    }
-
 .. _`ChoiceType documentation`: https://symfony.com/doc/current/reference/forms/types/choice.html
 .. _`Eonasdan's Tempus Dominus`: https://github.com/Eonasdan/tempus-dominus
 .. _`standard date picker options`: https://getdatepicker.com/6/options/
