@@ -37,9 +37,6 @@ final class ResizeFormListenerTest extends TestCase
     private FormFactoryInterface $factory;
     private FormInterface $form;
 
-    /**
-     * @psalm-suppress UndefinedMethod -- https://github.com/vimeo/psalm/issues/9104
-     */
     protected function setUp(): void
     {
         $this->factory = (new FormFactoryBuilder())->getFormFactory();
