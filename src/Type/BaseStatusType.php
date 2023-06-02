@@ -46,10 +46,7 @@ abstract class BaseStatusType extends AbstractType
         return $this->name;
     }
 
-    /**
-     * @return void
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $callable = [$this->class, $this->getter];
         if (!\is_callable($callable)) {

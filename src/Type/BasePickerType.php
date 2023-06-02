@@ -73,9 +73,6 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
         $this->locale = $requestStackOrDefaultLocale;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setNormalizer(
