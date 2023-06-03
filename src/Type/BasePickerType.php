@@ -191,28 +191,28 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
     {
         $datePickerOptions = $options['datepicker_options'] ?? [];
 
-        if (isset($datePickerOptions['display']['icons']) &&
-            [] === $datePickerOptions['display']['icons']) {
+        if (isset($datePickerOptions['display']['icons'])
+            && [] === $datePickerOptions['display']['icons']) {
             unset($datePickerOptions['display']['icons']);
         }
 
-        if (isset($datePickerOptions['display']['buttons']) &&
-            [] === $datePickerOptions['display']['buttons']) {
+        if (isset($datePickerOptions['display']['buttons'])
+            && [] === $datePickerOptions['display']['buttons']) {
             unset($datePickerOptions['display']['buttons']);
         }
 
-        if (isset($datePickerOptions['display']['components']) &&
-            [] === $datePickerOptions['display']['components']) {
+        if (isset($datePickerOptions['display']['components'])
+            && [] === $datePickerOptions['display']['components']) {
             unset($datePickerOptions['display']['components']);
         }
 
-        if (isset($datePickerOptions['display']) &&
-            [] === $datePickerOptions['display']) {
+        if (isset($datePickerOptions['display'])
+            && [] === $datePickerOptions['display']) {
             unset($datePickerOptions['display']);
         }
 
-        if (isset($datePickerOptions['restrictions']) &&
-            [] === $datePickerOptions['restrictions']) {
+        if (isset($datePickerOptions['restrictions'])
+            && [] === $datePickerOptions['restrictions']) {
             unset($datePickerOptions['restrictions']);
         }
 
