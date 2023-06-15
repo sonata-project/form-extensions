@@ -276,32 +276,7 @@ They will allow you to have a JS date picker onto your form fields as follows:
 
 .. image:: ../images/datepicker.png
 
-In order to use them, you'll need to perform a bit of setup:
-
-.. code-block:: yaml
-
-    # config/packages/twig.yaml
-
-    twig:
-        form_themes:
-            - '@SonataForm/Form/datepicker.html.twig'
-
-In your layout, you'll need to add the assets dependencies (feel free to
-adapt this to your needs, for instance, to use with assetic):
-
-.. code-block:: html
-
-    <head>
-        <!-- ... -->
-        <script type="text/javascript" src="path_to_jquery.min.js"></script>
-        <script type="text/javascript" src="/bundles/sonataForm/vendor/moment/min/moment-with-locales.min.js"></script>
-        <script type="text/javascript" src="path_to_bootstrap.min.js"></script>
-        <script type="text/javascript" src="/bundles/sonataForm/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-        <link rel="stylesheet" href="path_to_bootstrap.min.css"/>
-        <link rel="stylesheet" href="/bundles/sonataForm/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"/>
-    </head>
-
-Finally, in your form, you may use the form type as follows::
+In your form, you may use the form type as follows::
 
     // src/Admin/PageAdmin.php
 
