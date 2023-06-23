@@ -37,6 +37,13 @@ final class SonataFormExtension extends Extension implements PrependExtensionInt
                 );
             }
         }
+
+        // add custom form widgets
+        if ($container->hasExtension('twig')) {
+            $container->prependExtensionConfig('twig', [
+                'form_themes' => ['@SonataForm/Form/datepicker.html.twig'],
+            ]);
+        }
     }
 
     public function load(array $configs, ContainerBuilder $container): void

@@ -237,17 +237,7 @@ They will allow you to have a JS date picker onto your form fields as follows:
 
 .. image:: ../images/datepicker.png
 
-In order to use them, you'll need to perform a bit of setup:
-
-.. code-block:: yaml
-
-    # config/packages/twig.yaml
-
-    twig:
-        form_themes:
-            - '@SonataForm/Form/datepicker.html.twig'
-
-Finally, in your form, you may use the form type as follows::
+In your form, you may use the form type as follows::
 
     // src/Admin/PageAdmin.php
 
