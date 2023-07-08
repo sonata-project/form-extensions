@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.0](https://github.com/sonata-project/form-extensions/compare/2.0.0-alpha-1...2.0.0) - 2023-07-08
+### Added
+- [[#444](https://github.com/sonata-project/form-extensions/pull/444)] Add datepicker twig template to the global ones ([@Hanmac](https://github.com/Hanmac))
+
 ## [2.0.0-alpha-1](https://github.com/sonata-project/form-extensions/compare/1.x...2.0.0-alpha-1) - 2023-05-13
 ### Changed
 - [[#427](https://github.com/sonata-project/form-extensions/pull/427)] Upgrade DatePicker to v6 (name changed from `eonasdan/bootstrap-datetimepicker` to `eonasdan/tempus-dominus`) ([@jordisala1991](https://github.com/jordisala1991))
