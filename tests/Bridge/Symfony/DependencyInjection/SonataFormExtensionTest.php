@@ -123,7 +123,7 @@ final class SonataFormExtensionTest extends AbstractExtensionTestCase
 
         static::assertArrayHasKey(0, $twigConfigurations);
         static::assertArrayHasKey('form_themes', $twigConfigurations[0]);
-        static::assertEquals(['@SonataForm/Form/datepicker.html.twig'], $twigConfigurations[0]['form_themes']);
+        static::assertSame(['@SonataForm/Form/datepicker.html.twig'], $twigConfigurations[0]['form_themes']);
     }
 
     public function testTwigConfigParameterIsNotSet(): void
