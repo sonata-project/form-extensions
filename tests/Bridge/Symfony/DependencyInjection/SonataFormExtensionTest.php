@@ -25,7 +25,7 @@ final class SonataFormExtensionTest extends AbstractExtensionTestCase
     {
         $this->container->setParameter('kernel.bundles', []);
         $this->load();
-        $this->assertContainerBuilderHasParameter(
+        static::assertContainerBuilderHasParameter(
             'sonata.form.form_type'
         );
         static::assertSame(
@@ -42,7 +42,7 @@ final class SonataFormExtensionTest extends AbstractExtensionTestCase
         $this->load([
             'form_type' => 'horizontal',
         ]);
-        $this->assertContainerBuilderHasParameter(
+        static::assertContainerBuilderHasParameter(
             'sonata.form.form_type'
         );
         static::assertSame(
@@ -85,18 +85,18 @@ final class SonataFormExtensionTest extends AbstractExtensionTestCase
         ], $containerBuilder->getExtensionConfig('sonata_form'));
     }
 
-    public function testTwigConfigParameterIsSetting()
+    public function testTwigConfigParameterIsSetting(): void
     {
         $fakeContainer = $this->getMockBuilder(ContainerBuilder::class)
             ->onlyMethods(['hasExtension', 'prependExtensionConfig'])
             ->getMock();
 
-        $fakeContainer->expects($this->once())
+        $fakeContainer->expects(static::once())
             ->method('hasExtension')
-            ->with($this->equalTo('twig'))
+            ->with(static::equalTo('twig'))
             ->willReturn(true);
 
-        $fakeContainer->expects($this->once())
+        $fakeContainer->expects(static::once())
             ->method('prependExtensionConfig')
             ->with('twig', ['form_themes' => ['@SonataForm/Form/datepicker.html.twig']]);
 
@@ -107,11 +107,11 @@ final class SonataFormExtensionTest extends AbstractExtensionTestCase
         }
     }
 
-    public function testTwigConfigParameterIsSet()
+    public function testTwigConfigParameterIsSet(): void
     {
         $fakeTwigExtension = $this->getMockBuilder(Extension::class)->onlyMethods(['load', 'getAlias'])->getMock();
 
-        $fakeTwigExtension->expects($this->any())
+        $fakeTwigExtension->expects(static::any())
             ->method('getAlias')
             ->willReturn('twig');
 
@@ -121,18 +121,18 @@ final class SonataFormExtensionTest extends AbstractExtensionTestCase
 
         $twigConfigurations = $this->container->getExtensionConfig('twig');
 
-        $this->assertArrayHasKey(0, $twigConfigurations);
-        $this->assertArrayHasKey('form_themes', $twigConfigurations[0]);
-        $this->assertEquals(['@SonataForm/Form/datepicker.html.twig'], $twigConfigurations[0]['form_themes']);
+        static::assertArrayHasKey(0, $twigConfigurations);
+        static::assertArrayHasKey('form_themes', $twigConfigurations[0]);
+        static::assertEquals(['@SonataForm/Form/datepicker.html.twig'], $twigConfigurations[0]['form_themes']);
     }
 
-    public function testTwigConfigParameterIsNotSet()
+    public function testTwigConfigParameterIsNotSet(): void
     {
         $this->load();
 
         $twigConfigurations = $this->container->getExtensionConfig('twig');
 
-        $this->assertArrayNotHasKey(0, $twigConfigurations);
+        static::assertArrayNotHasKey(0, $twigConfigurations);
     }
 
     protected function getContainerExtensions(): array
