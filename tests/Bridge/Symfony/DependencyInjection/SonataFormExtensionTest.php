@@ -17,6 +17,7 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Sonata\Form\Bridge\Symfony\DependencyInjection\SonataFormExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 
 final class SonataFormExtensionTest extends AbstractExtensionTestCase
 {
@@ -82,6 +83,56 @@ final class SonataFormExtensionTest extends AbstractExtensionTestCase
             ['form_type' => 'horizontal'],
             ['form_type' => 'standard'],
         ], $containerBuilder->getExtensionConfig('sonata_form'));
+    }
+
+    public function testTwigConfigParameterIsSetting()
+    {
+        $fakeContainer = $this->getMockBuilder(ContainerBuilder::class)
+            ->onlyMethods(['hasExtension', 'prependExtensionConfig'])
+            ->getMock();
+
+        $fakeContainer->expects($this->once())
+            ->method('hasExtension')
+            ->with($this->equalTo('twig'))
+            ->willReturn(true);
+
+        $fakeContainer->expects($this->once())
+            ->method('prependExtensionConfig')
+            ->with('twig', ['form_themes' => ['@SonataForm/Form/datepicker.html.twig']]);
+
+        foreach ($this->getContainerExtensions() as $extension) {
+            if ($extension instanceof PrependExtensionInterface) {
+                $extension->prepend($fakeContainer);
+            }
+        }
+    }
+
+    public function testTwigConfigParameterIsSet()
+    {
+        $fakeTwigExtension = $this->getMockBuilder(Extension::class)->onlyMethods(['load', 'getAlias'])->getMock();
+
+        $fakeTwigExtension->expects($this->any())
+            ->method('getAlias')
+            ->willReturn('twig');
+
+        $this->container->registerExtension($fakeTwigExtension);
+
+        $this->load();
+
+        $twigConfigurations = $this->container->getExtensionConfig('twig');
+
+        $this->assertArrayHasKey(0, $twigConfigurations);
+        $this->assertArrayHasKey('form_themes', $twigConfigurations[0]);
+        $this->assertEquals(['@SonataForm/Form/datepicker.html.twig'], $twigConfigurations[0]['form_themes']);
+    }
+
+    public function testTwigConfigParameterIsNotSet()
+    {
+        $this->load();
+
+        $twigConfigurations = $this->container->getExtensionConfig('twig');
+
+        $this->assertArrayNotHasKey(0, $twigConfigurations);
     }
 
     protected function getContainerExtensions(): array
