@@ -15,6 +15,7 @@ namespace Sonata\Form\Tests\Bridge\Symfony\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Sonata\Form\Bridge\Symfony\DependencyInjection\SonataFormExtension;
+use Symfony\Bundle\TwigBundle\DependencyInjection\TwigExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
@@ -124,6 +125,23 @@ final class SonataFormExtensionTest extends AbstractExtensionTestCase
         static::assertArrayHasKey(0, $twigConfigurations);
         static::assertArrayHasKey('form_themes', $twigConfigurations[0]);
         static::assertSame(['@SonataForm/Form/datepicker.html.twig'], $twigConfigurations[0]['form_themes']);
+    }
+
+    public function testTwigBundleLoadParameter(): void
+    {
+        $this->setParameter('kernel.bundles', [
+            SonataFormExtension::class => true
+        ]);
+        $this->setParameter('kernel.bundles_metadata', []);
+        $this->setParameter('kernel.project_dir', __DIR__);
+        $this->setParameter('kernel.root_dir', __DIR__);
+        $this->setParameter('kernel.debug', false);
+
+        $this->container->registerExtension(new TwigExtension());
+        $this->compile();
+
+        $resources = $this->container->getParameter('twig.form.resources');
+        self::assertContains('@SonataForm/Form/datepicker.html.twig', $resources);
     }
 
     public function testTwigConfigParameterIsNotSet(): void
