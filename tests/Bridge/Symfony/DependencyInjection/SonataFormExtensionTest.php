@@ -130,7 +130,7 @@ final class SonataFormExtensionTest extends AbstractExtensionTestCase
     public function testTwigBundleLoadParameter(): void
     {
         $this->setParameter('kernel.bundles', [
-            SonataFormExtension::class => true
+            SonataFormExtension::class => true,
         ]);
         $this->setParameter('kernel.bundles_metadata', []);
         $this->setParameter('kernel.project_dir', __DIR__);
@@ -140,8 +140,11 @@ final class SonataFormExtensionTest extends AbstractExtensionTestCase
         $this->container->registerExtension(new TwigExtension());
         $this->compile();
 
+        /**
+         * @var string[] $resources
+         */
         $resources = $this->container->getParameter('twig.form.resources');
-        self::assertContains('@SonataForm/Form/datepicker.html.twig', $resources);
+        static::assertContains('@SonataForm/Form/datepicker.html.twig', $resources);
     }
 
     public function testTwigConfigParameterIsNotSet(): void
