@@ -253,7 +253,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
                 'theme' => 'light',
             ],
             'localization' => [
-                'locale' => $this->locale,
+                'locale' => str_replace('_', '-', $this->locale),
             ],
         ];
     }
