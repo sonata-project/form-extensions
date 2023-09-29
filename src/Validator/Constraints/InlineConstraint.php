@@ -21,6 +21,8 @@ use Symfony\Component\Validator\Constraint;
  * @Annotation
  *
  * @Target({"CLASS"})
+ *
+ * @psalm-suppress PropertyNotSetInConstructor
  */
 final class InlineConstraint extends Constraint
 {

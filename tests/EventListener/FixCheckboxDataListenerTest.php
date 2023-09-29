@@ -24,7 +24,7 @@ use Symfony\Component\Form\Forms;
 class FixCheckboxDataListenerTest extends TestCase
 {
     /**
-     * @dataProvider valuesProvider
+     * @dataProvider provideFixCheckboxCases
      */
     public function testFixCheckbox(
         mixed $data,
@@ -54,11 +54,9 @@ class FixCheckboxDataListenerTest extends TestCase
     /**
      * @return iterable<array{mixed, mixed, EventSubscriberInterface|null, BooleanToStringTransformer}>
      */
-    public function valuesProvider(): iterable
+    public function provideFixCheckboxCases(): iterable
     {
-        return [
-            ['0', true, null, new BooleanToStringTransformer('1')],
-            ['0', false, new FixCheckboxDataListener(), new BooleanToStringTransformer('1')],
-        ];
+        yield ['0', true, null, new BooleanToStringTransformer('1')];
+        yield ['0', false, new FixCheckboxDataListener(), new BooleanToStringTransformer('1')];
     }
 }

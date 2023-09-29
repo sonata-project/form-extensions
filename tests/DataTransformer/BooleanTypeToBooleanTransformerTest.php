@@ -20,7 +20,7 @@ use Sonata\Form\Type\BooleanType;
 final class BooleanTypeToBooleanTransformerTest extends TestCase
 {
     /**
-     * @dataProvider getTransformData
+     * @dataProvider provideTransformCases
      */
     public function testTransform(mixed $value, ?int $expected): void
     {
@@ -43,15 +43,13 @@ final class BooleanTypeToBooleanTransformerTest extends TestCase
     /**
      * @return iterable<array{mixed, int|null}>
      */
-    public function getTransformData(): iterable
+    public function provideTransformCases(): iterable
     {
-        return [
-            [true, BooleanType::TYPE_YES],
-            [false, BooleanType::TYPE_NO],
-            ['wrong', null],
-            ['1', BooleanType::TYPE_YES],
-            ['2', BooleanType::TYPE_NO],
-            ['3', null], // default value is null ...
-        ];
+        yield [true, BooleanType::TYPE_YES];
+        yield [false, BooleanType::TYPE_NO];
+        yield ['wrong', null];
+        yield ['1', BooleanType::TYPE_YES];
+        yield ['2', BooleanType::TYPE_NO];
+        yield ['3', null];
     }
 }
