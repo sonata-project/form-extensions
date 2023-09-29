@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.1.0](https://github.com/sonata-project/form-extensions/compare/2.0.0...2.1.0) - 2023-09-29
+### Added
+- [[#455](https://github.com/sonata-project/form-extensions/pull/455)] CollectionType btn_translation_domain option ([@VincentLanglet](https://github.com/VincentLanglet))
+
+### Deprecated
+- [[#455](https://github.com/sonata-project/form-extensions/pull/455)] CollectionType btn_catalogue option ([@VincentLanglet](https://github.com/VincentLanglet))
+
+### Fixed
+- [[#455](https://github.com/sonata-project/form-extensions/pull/455)] CollectionType btn_add allowed types ([@VincentLanglet](https://github.com/VincentLanglet))
+- [[#452](https://github.com/sonata-project/form-extensions/pull/452)] Country specific locale issues (convert de_CH to de-CH) ([@toooni](https://github.com/toooni))
+
 ## [2.0.0](https://github.com/sonata-project/form-extensions/compare/2.0.0-alpha-1...2.0.0) - 2023-07-08
 ### Added
 - [[#444](https://github.com/sonata-project/form-extensions/pull/444)] Add datepicker twig template to the global ones ([@Hanmac](https://github.com/Hanmac))
