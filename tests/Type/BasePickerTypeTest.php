@@ -38,7 +38,7 @@ final class BasePickerTypeTest extends TestCase
      * @param array<string, mixed> $expectedOptions
      * @param array<string, mixed> $options
      *
-     * @dataProvider provideTypeOptions
+     * @dataProvider provideFinishViewCases
      */
     public function testFinishView(array $expectedOptions, array $options): void
     {
@@ -74,7 +74,7 @@ final class BasePickerTypeTest extends TestCase
     /**
      * @return iterable<array{array<string, mixed>, array<string, mixed>}>
      */
-    public function provideTypeOptions(): iterable
+    public function provideFinishViewCases(): iterable
     {
         yield [
             [
