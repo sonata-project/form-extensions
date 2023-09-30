@@ -145,7 +145,7 @@ to the underlying forms::
 
 The available options (which can be passed as a third parameter to ``FormMapper::add()``) are:
 
-btn_add and btn_catalogue:
+btn_add and btn_translation_domain:
   The label on the ``add`` button can be customized
   with this parameters. Setting it to ``false`` will hide the
   corresponding button. You can also specify a custom translation catalogue
