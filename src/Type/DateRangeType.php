@@ -55,9 +55,9 @@ class DateRangeType extends AbstractType
         );
     }
 
-    public function finishView(FormView $formView, FormInterface $form, array $options): void
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
-        $formView->children['start']->vars['linked_to'] = $formView->children['end']->vars['id'];
+        $view->children['start']->vars['linked_to'] = $view->children['end']->vars['id'];
     }
 
     public function getBlockPrefix(): string
