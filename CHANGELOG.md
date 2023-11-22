@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.0](https://github.com/sonata-project/form-extensions/compare/2.1.0...2.2.0) - 2023-11-22
+### Changed
+- [[#463](https://github.com/sonata-project/form-extensions/pull/463)] Updated and built all npm packages to the newest ones ([@haivala](https://github.com/haivala))
+
 ## [2.1.0](https://github.com/sonata-project/form-extensions/compare/2.0.0...2.1.0) - 2023-09-29
 ### Added
 - [[#455](https://github.com/sonata-project/form-extensions/pull/455)] CollectionType btn_translation_domain option ([@VincentLanglet](https://github.com/VincentLanglet))
