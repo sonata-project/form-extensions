@@ -67,6 +67,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
      */
     private const LOCALIZATION_OPTIONS = [
         'locale' => 'string',
+        'hourCycle' => 'string',
     ];
 
     /**
