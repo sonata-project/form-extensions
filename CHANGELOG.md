@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.3.0](https://github.com/sonata-project/form-extensions/compare/2.2.0...2.3.0) - 2023-11-23
+### Added
+- [[#461](https://github.com/sonata-project/form-extensions/pull/461)] Missing `hourCycle` localization option for DateTimePickerType ([@virtualize](https://github.com/virtualize))
+- [[#462](https://github.com/sonata-project/form-extensions/pull/462)] Support of Symfony 7 ([@pauljosephkrogulec](https://github.com/pauljosephkrogulec))
+
 ## [2.2.0](https://github.com/sonata-project/form-extensions/compare/2.1.0...2.2.0) - 2023-11-22
 ### Changed
 - [[#463](https://github.com/sonata-project/form-extensions/pull/463)] Updated and built all npm packages to the newest ones ([@haivala](https://github.com/haivala))
