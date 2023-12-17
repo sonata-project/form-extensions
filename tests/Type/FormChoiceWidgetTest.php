@@ -36,7 +36,7 @@ final class FormChoiceWidgetTest extends AbstractWidgetTestCase
         );
 
         $html = $this->renderWidget($choice->createView());
-        if (0 !== preg_match("/7\..\../", Kernel::VERSION)) {
+        if (version_compare(Kernel::VERSION, '6.4.0', '>=')) {
             static::assertStringContainsString(
                 $this->cleanHtmlWhitespace(
                     <<<'HTML'
