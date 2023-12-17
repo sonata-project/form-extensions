@@ -38,7 +38,7 @@ final class Configuration implements ConfigurationInterface
     /**
      * Returns configuration for flash messages.
      *
-     * @psalm-suppress PossiblyNullReference, UndefinedInterfaceMethod
+     * @psalm-suppress UndefinedInterfaceMethod
      *
      * @see https://github.com/psalm/psalm-plugin-symfony/issues/174
      */
