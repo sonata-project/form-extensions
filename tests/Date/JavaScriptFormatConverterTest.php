@@ -23,7 +23,7 @@ final class JavaScriptFormatConverterTest extends TestCase
 {
     public function testPhpToJavaScript(): void
     {
-        $mfc = new JavascriptFormatConverter();
+        $mfc = new JavaScriptFormatConverter();
 
         $phpFormat = "yyyy-MM-dd'T'HH:mm:ss";
         static::assertSame('yyyy-MM-ddTHH:mm:ss', $mfc->convert($phpFormat));
