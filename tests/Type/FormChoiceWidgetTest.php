@@ -15,7 +15,6 @@ namespace Sonata\Form\Tests\Type;
 
 use Sonata\Form\Test\AbstractWidgetTestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * @author Christian Gripp <mail@core23.de>
@@ -36,35 +35,19 @@ final class FormChoiceWidgetTest extends AbstractWidgetTestCase
         );
 
         $html = $this->renderWidget($choice->createView());
-        if (version_compare(Kernel::VERSION, '6.4.0', '>=')) {
-            static::assertStringContainsString(
-                $this->cleanHtmlWhitespace(
-                    <<<'HTML'
-                        <div id="choice">
-                            <input type="checkbox" id="choice_0" name="choice[]" value="0" >
-                            <label for="choice_0">[trans]some[/trans]</label>
-                            <input type="checkbox" id="choice_1" name="choice[]" value="1" >
-                            <label for="choice_1">[trans]choices[/trans]</label>
-                        </div>
-                        HTML
-                ),
-                $this->cleanHtmlWhitespace($html)
-            );
-        } else {
-            static::assertStringContainsString(
-                $this->cleanHtmlWhitespace(
-                    <<<'HTML'
-                        <div id="choice">
-                            <input type="checkbox" id="choice_0" name="choice[]" value="0" />
-                            <label for="choice_0">[trans]some[/trans]</label>
-                            <input type="checkbox" id="choice_1" name="choice[]" value="1" />
-                            <label for="choice_1">[trans]choices[/trans]</label>
-                        </div>
-                        HTML
-                ),
-                $this->cleanHtmlWhitespace($html)
-            );
-        }
+        static::assertStringContainsString(
+            $this->cleanHtmlWhitespace(
+                <<<'HTML'
+                    <div id="choice">
+                        <input type="checkbox" id="choice_0" name="choice[]" value="0" />
+                        <label for="choice_0">[trans]some[/trans]</label>
+                        <input type="checkbox" id="choice_1" name="choice[]" value="1" />
+                        <label for="choice_1">[trans]choices[/trans]</label>
+                    </div>
+                    HTML
+            ),
+            $this->cleanHtmlWhitespace($html)
+        );
     }
 
     public function testDefaultValueRendering(): void
