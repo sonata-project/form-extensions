@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.4.0](https://github.com/sonata-project/form-extensions/compare/2.3.0...2.4.0) - 2024-04-13
+### Added
+- [[#481](https://github.com/sonata-project/form-extensions/pull/481)] `name` field to `package.json`, avoiding webpack globals conflicts issues with other webpack projects ([@PierreMigani](https://github.com/PierreMigani))
+
 ## [2.3.0](https://github.com/sonata-project/form-extensions/compare/2.2.0...2.3.0) - 2023-11-23
 ### Added
 - [[#461](https://github.com/sonata-project/form-extensions/pull/461)] Missing `hourCycle` localization option for DateTimePickerType ([@virtualize](https://github.com/virtualize))
