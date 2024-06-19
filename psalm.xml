@@ -7,16 +7,6 @@
             <directory name="vendor"/>
         </ignoreFiles>
     </projectFiles>
-    <issueHandlers>
-        <!-- Psalm equivalent of PHPStan config `treatPhpDocTypesAsCertain: false` -->
-        <DocblockTypeContradiction errorLevel="suppress"/>
-        <RedundantConditionGivenDocblockType errorLevel="suppress"/>
-        <DeprecatedClass>
-            <errorLevel type="suppress">
-                <referencedClass name="Sonata\Form\Type\EqualType"/>
-            </errorLevel>
-        </DeprecatedClass>
-    </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
@@ -26,9 +16,6 @@
         <DocblockTypeContradiction errorLevel="suppress"/>
         <RedundantConditionGivenDocblockType errorLevel="suppress"/>
         <RedundantCastGivenDocblockType errorLevel="suppress"/>
-        <!-- Suppress internal usage -->
-        <InternalClass errorLevel="suppress"/>
-        <InternalMethod errorLevel="suppress"/>
-        <InternalProperty errorLevel="suppress"/>
+        <MissingClassConstType errorLevel="suppress"/>
     </issueHandlers>
 </psalm>
