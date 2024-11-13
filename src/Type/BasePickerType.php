@@ -124,7 +124,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     public function __construct(
         private JavaScriptFormatConverter $formatConverter,
-        private string $locale
+        private string $locale,
     ) {
     }
 

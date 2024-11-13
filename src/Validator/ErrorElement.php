@@ -102,7 +102,7 @@ final class ErrorElement
     public function __construct(
         private mixed $subject,
         private ExecutionContextInterface $context,
-        private ?string $group
+        private ?string $group,
     ) {
         $this->basePropertyPath = $this->context->getPropertyPath();
     }
@@ -157,7 +157,7 @@ final class ErrorElement
     {
         $propertyPath = $this->getCurrentPropertyPath();
         if (null !== $propertyPath) {
-            return sprintf('%s.%s', $this->basePropertyPath, (string) $propertyPath);
+            return \sprintf('%s.%s', $this->basePropertyPath, (string) $propertyPath);
         }
 
         return $this->basePropertyPath;
@@ -236,7 +236,7 @@ final class ErrorElement
         } else {
             $className = 'Symfony\\Component\\Validator\\Constraints\\'.$name;
             if (!class_exists($className)) {
-                throw new \RuntimeException(sprintf(
+                throw new \RuntimeException(\sprintf(
                     'Cannot find the class "%s".',
                     $className
                 ));
@@ -244,7 +244,7 @@ final class ErrorElement
         }
 
         if (!is_a($className, Constraint::class, true)) {
-            throw new \RuntimeException(sprintf(
+            throw new \RuntimeException(\sprintf(
                 'The class "%s" MUST implement "%s".',
                 $className,
                 Constraint::class
