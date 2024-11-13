@@ -28,7 +28,7 @@ abstract class BaseStatusType extends AbstractType
     public function __construct(
         protected string $class,
         protected string $getter,
-        protected string $name
+        protected string $name,
     ) {
     }
 
@@ -46,7 +46,7 @@ abstract class BaseStatusType extends AbstractType
     {
         $callable = [$this->class, $this->getter];
         if (!\is_callable($callable)) {
-            throw new \RuntimeException(sprintf(
+            throw new \RuntimeException(\sprintf(
                 'The class "%s" has no method "%s()".',
                 $this->class,
                 $this->getter

@@ -30,7 +30,7 @@ class FixCheckboxDataListenerTest extends TestCase
         mixed $data,
         mixed $expected,
         ?EventSubscriberInterface $subscriber,
-        BooleanToStringTransformer $transformer
+        BooleanToStringTransformer $transformer,
     ): void {
         $dispatcher = new EventDispatcher();
 

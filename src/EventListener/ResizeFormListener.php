@@ -32,7 +32,7 @@ final class ResizeFormListener implements EventSubscriberInterface
         private string $type,
         private array $typeOptions = [],
         private bool $resizeOnSubmit = false,
-        private ?\Closure $preSubmitDataCallback = null
+        private ?\Closure $preSubmitDataCallback = null,
     ) {
     }
 
