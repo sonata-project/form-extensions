@@ -56,8 +56,8 @@ final class ImmutableArrayTypeTest extends TypeTestCase
 
         $optionsCallback = static function (FormBuilderInterface $builder, string $name, string $type, array $extra): array {
             static::assertSame(['foo', 'bar'], $extra);
-            static::assertSame($name, 'ttl');
-            static::assertSame($type, TextType::class);
+            static::assertSame('ttl', $name);
+            static::assertSame(TextType::class, $type);
             static::assertInstanceOf(TestFormBuilderInterface::class, $builder);
 
             return ['1' => '1'];

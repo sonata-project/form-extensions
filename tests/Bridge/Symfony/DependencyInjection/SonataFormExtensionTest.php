@@ -57,7 +57,7 @@ final class SonataFormExtensionTest extends AbstractExtensionTestCase
     public function testPrepend(): void
     {
         $containerBuilder = new ContainerBuilder();
-        $containerBuilder->registerExtension(new class() extends Extension {
+        $containerBuilder->registerExtension(new class extends Extension {
             public function load(array $configs, ContainerBuilder $container): void
             {
             }

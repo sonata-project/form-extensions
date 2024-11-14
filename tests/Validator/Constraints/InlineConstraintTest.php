@@ -93,8 +93,8 @@ final class InlineConstraintTest extends TestCase
 
         $constraint = unserialize($data);
 
-        static::assertSame($constraint->getService(), 'foo');
-        static::assertSame($constraint->getMethod(), 'bar');
+        static::assertSame('foo', $constraint->getService());
+        static::assertSame('bar', $constraint->getMethod());
         static::assertFalse($constraint->getSerializingWarning());
     }
 

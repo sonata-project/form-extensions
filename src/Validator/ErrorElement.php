@@ -20,61 +20,61 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * @method self assertBic(array $options = [])
- * @method self assertBlank(array $options = [])
- * @method self assertCallback(array $options = [])
- * @method self assertCardScheme(array $options = [])
- * @method self assertChoice(array $options = [])
- * @method self assertCollection(array $options = [])
- * @method self assertCount(array $options = [])
- * @method self assertCountry(array $options = [])
- * @method self assertCurrency(array $options = [])
- * @method self assertDate(array $options = [])
- * @method self assertDateTime(array $options = [])
- * @method self assertDisableAutoMapping(array $options = [])
- * @method self assertDivisibleBy(array $options = [])
- * @method self assertEmail(array $options = [])
- * @method self assertEnableAutoMapping(array $options = [])
- * @method self assertEqualTo(array $options = [])
- * @method self assertExpression(array $options = [])
- * @method self assertFile(array $options = [])
- * @method self assertGreaterThan(array $options = [])
- * @method self assertGreaterThanOrEqual(array $options = [])
- * @method self assertIban(array $options = [])
- * @method self assertIdenticalTo(array $options = [])
- * @method self assertImage(array $options = [])
- * @method self assertIp(array $options = [])
- * @method self assertIsbn(array $options = [])
- * @method self assertIsFalse(array $options = [])
- * @method self assertIsNull(array $options = [])
- * @method self assertIssn(array $options = [])
- * @method self assertIsTrue(array $options = [])
- * @method self assertJson(array $options = [])
- * @method self assertLanguage(array $options = [])
- * @method self assertLength(array $options = [])
- * @method self assertLessThan(array $options = [])
- * @method self assertLessThanOrEqual(array $options = [])
- * @method self assertLocale(array $options = [])
- * @method self assertLuhn(array $options = [])
- * @method self assertNegative(array $options = [])
- * @method self assertNegativeOrZero(array $options = [])
- * @method self assertNotBlank(array $options = [])
- * @method self assertNotCompromisedPassword(array $options = [])
- * @method self assertNotEqualTo(array $options = [])
- * @method self assertNotIdentificalTo(array $options = [])
- * @method self assertNotNull(array $options = [])
- * @method self assertPositive(array $options = [])
- * @method self assertPositiveOrZero(array $options = [])
- * @method self assertRange(array $options = [])
- * @method self assertRegex(array $options = [])
- * @method self assertTime(array $options = [])
- * @method self assertTimezone(array $options = [])
- * @method self assertTraverse(array $options = [])
- * @method self assertType(array $options = [])
- * @method self assertUnique(array $options = [])
- * @method self assertUrl(array $options = [])
- * @method self assertUuid(array $options = [])
- * @method self assertValid(array $options = [])
+ * @method self assertBic(mixed[] $options = [])
+ * @method self assertBlank(mixed[] $options = [])
+ * @method self assertCallback(mixed[] $options = [])
+ * @method self assertCardScheme(mixed[] $options = [])
+ * @method self assertChoice(mixed[] $options = [])
+ * @method self assertCollection(mixed[] $options = [])
+ * @method self assertCount(mixed[] $options = [])
+ * @method self assertCountry(mixed[] $options = [])
+ * @method self assertCurrency(mixed[] $options = [])
+ * @method self assertDate(mixed[] $options = [])
+ * @method self assertDateTime(mixed[] $options = [])
+ * @method self assertDisableAutoMapping(mixed[] $options = [])
+ * @method self assertDivisibleBy(mixed[] $options = [])
+ * @method self assertEmail(mixed[] $options = [])
+ * @method self assertEnableAutoMapping(mixed[] $options = [])
+ * @method self assertEqualTo(mixed[] $options = [])
+ * @method self assertExpression(mixed[] $options = [])
+ * @method self assertFile(mixed[] $options = [])
+ * @method self assertGreaterThan(mixed[] $options = [])
+ * @method self assertGreaterThanOrEqual(mixed[] $options = [])
+ * @method self assertIban(mixed[] $options = [])
+ * @method self assertIdenticalTo(mixed[] $options = [])
+ * @method self assertImage(mixed[] $options = [])
+ * @method self assertIp(mixed[] $options = [])
+ * @method self assertIsbn(mixed[] $options = [])
+ * @method self assertIsFalse(mixed[] $options = [])
+ * @method self assertIsNull(mixed[] $options = [])
+ * @method self assertIssn(mixed[] $options = [])
+ * @method self assertIsTrue(mixed[] $options = [])
+ * @method self assertJson(mixed[] $options = [])
+ * @method self assertLanguage(mixed[] $options = [])
+ * @method self assertLength(mixed[] $options = [])
+ * @method self assertLessThan(mixed[] $options = [])
+ * @method self assertLessThanOrEqual(mixed[] $options = [])
+ * @method self assertLocale(mixed[] $options = [])
+ * @method self assertLuhn(mixed[] $options = [])
+ * @method self assertNegative(mixed[] $options = [])
+ * @method self assertNegativeOrZero(mixed[] $options = [])
+ * @method self assertNotBlank(mixed[] $options = [])
+ * @method self assertNotCompromisedPassword(mixed[] $options = [])
+ * @method self assertNotEqualTo(mixed[] $options = [])
+ * @method self assertNotIdentificalTo(mixed[] $options = [])
+ * @method self assertNotNull(mixed[] $options = [])
+ * @method self assertPositive(mixed[] $options = [])
+ * @method self assertPositiveOrZero(mixed[] $options = [])
+ * @method self assertRange(mixed[] $options = [])
+ * @method self assertRegex(mixed[] $options = [])
+ * @method self assertTime(mixed[] $options = [])
+ * @method self assertTimezone(mixed[] $options = [])
+ * @method self assertTraverse(mixed[] $options = [])
+ * @method self assertType(mixed[] $options = [])
+ * @method self assertUnique(mixed[] $options = [])
+ * @method self assertUrl(mixed[] $options = [])
+ * @method self assertUuid(mixed[] $options = [])
+ * @method self assertValid(mixed[] $options = [])
  */
 final class ErrorElement
 {
@@ -102,7 +102,7 @@ final class ErrorElement
     public function __construct(
         private mixed $subject,
         private ExecutionContextInterface $context,
-        private ?string $group
+        private ?string $group,
     ) {
         $this->basePropertyPath = $this->context->getPropertyPath();
     }
@@ -157,7 +157,7 @@ final class ErrorElement
     {
         $propertyPath = $this->getCurrentPropertyPath();
         if (null !== $propertyPath) {
-            return sprintf('%s.%s', $this->basePropertyPath, (string) $propertyPath);
+            return \sprintf('%s.%s', $this->basePropertyPath, (string) $propertyPath);
         }
 
         return $this->basePropertyPath;
@@ -236,7 +236,7 @@ final class ErrorElement
         } else {
             $className = 'Symfony\\Component\\Validator\\Constraints\\'.$name;
             if (!class_exists($className)) {
-                throw new \RuntimeException(sprintf(
+                throw new \RuntimeException(\sprintf(
                     'Cannot find the class "%s".',
                     $className
                 ));
@@ -244,7 +244,7 @@ final class ErrorElement
         }
 
         if (!is_a($className, Constraint::class, true)) {
-            throw new \RuntimeException(sprintf(
+            throw new \RuntimeException(\sprintf(
                 'The class "%s" MUST implement "%s".',
                 $className,
                 Constraint::class

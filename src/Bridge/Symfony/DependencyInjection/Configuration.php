@@ -50,12 +50,12 @@ final class Configuration implements ConfigurationInterface
                     ->defaultValue('standard')
                     ->validate()
                     ->ifNotInArray($validFormTypes = ['standard', 'horizontal'])
-                        ->thenInvalid(sprintf(
+                        ->thenInvalid(\sprintf(
                             'The form_type option value must be one of %s',
                             $validFormTypesString = implode(', ', $validFormTypes)
                         ))
                     ->end()
-                    ->info(sprintf('Must be one of %s', $validFormTypesString))
+                    ->info(\sprintf('Must be one of %s', $validFormTypesString))
                 ->end()
             ->end();
     }
