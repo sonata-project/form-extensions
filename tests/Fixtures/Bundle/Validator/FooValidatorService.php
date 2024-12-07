@@ -26,7 +26,7 @@ final class FooValidatorService
     /**
      * @throws ValidatorException
      */
-    public function fooValidatorMethod(ErrorElement $errorElement, string $value): void
+    public function fooValidatorMethod(ErrorElement $errorElement, string $value): never
     {
         throw new ValidatorException($errorElement->getSubject().' is equal to '.$value);
     }
