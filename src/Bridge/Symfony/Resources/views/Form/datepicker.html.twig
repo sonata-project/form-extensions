@@ -38,13 +38,11 @@ file that was distributed with this source code.
 {% endblock sonata_type_datetime_picker_widget_html %}
 
 {% block sonata_type_datetime_picker_widget %}
-    {% apply spaceless %}
-        {% if wrap_fields_with_addons %}
-            <div class="input-group">
-                {{ block('sonata_type_datetime_picker_widget_html') }}
-            </div>
-        {% else %}
+    {% if wrap_fields_with_addons %}
+        <div class="input-group">
             {{ block('sonata_type_datetime_picker_widget_html') }}
-        {% endif %}
-    {% endapply %}
+        </div>
+    {% else %}
+        {{ block('sonata_type_datetime_picker_widget_html') }}
+    {% endif %}
 {% endblock sonata_type_datetime_picker_widget %}
