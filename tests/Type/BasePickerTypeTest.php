@@ -48,7 +48,7 @@ final class BasePickerTypeTest extends TestCase
         );
 
         $view = new FormView();
-        $form = new Form($this->createStub(FormConfigInterface::class));
+        $form = new Form(static::createStub(FormConfigInterface::class));
 
         $type->finishView($view, $form, $options);
 
