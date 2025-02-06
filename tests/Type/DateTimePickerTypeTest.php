@@ -86,9 +86,9 @@ final class DateTimePickerTypeTest extends TypeTestCase
             'html5' => false,
         ]);
 
-        static::assertSame('8:02 PM', $form->getViewData());
+        static::assertSame("8:02\u{202F}PM", $form->getViewData());
 
-        $form->submit('5:23 AM');
+        $form->submit("5:23\u{202F}AM");
         static::assertSame('1970-01-01 05:23:00', $form->getData()->format('Y-m-d H:i:s'));
         static::assertTrue($form->isSynchronized());
     }

@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.4.1](https://github.com/sonata-project/form-extensions/compare/2.4.0...2.4.1) - 2025-02-05
+### Fixed
+- [[#523](https://github.com/sonata-project/form-extensions/pull/523)] Deprecated usages of `spaceless` twig filter ([@dmaicher](https://github.com/dmaicher))
+- [[#498](https://github.com/sonata-project/form-extensions/pull/498)] Symfony 7.1 deprecation about `Symfony\Component\HttpKernel\DependencyInjection\Extension` usage ([@VincentLanglet](https://github.com/VincentLanglet))
+
 ## [2.4.0](https://github.com/sonata-project/form-extensions/compare/2.3.0...2.4.0) - 2024-04-13
 ### Added
 - [[#481](https://github.com/sonata-project/form-extensions/pull/481)] `name` field to `package.json`, avoiding webpack globals conflicts issues with other webpack projects ([@PierreMigani](https://github.com/PierreMigani))
