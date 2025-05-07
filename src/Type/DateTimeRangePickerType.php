@@ -19,6 +19,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * @psalm-suppress MissingTemplateParam https://github.com/phpstan/phpstan-symfony/issues/320
  *
  * @author Andrej Hudec <pulzarraider@gmail.com>
+ *
+ * NEXT_MAJOR: Declare the class as final.
+ *
+ * @final since 2.5.0.
  */
 class DateTimeRangePickerType extends DateTimeRangeType
 {
