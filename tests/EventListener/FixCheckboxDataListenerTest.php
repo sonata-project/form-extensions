@@ -21,7 +21,7 @@ use Symfony\Component\Form\Extension\Core\DataTransformer\BooleanToStringTransfo
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Forms;
 
-class FixCheckboxDataListenerTest extends TestCase
+final class FixCheckboxDataListenerTest extends TestCase
 {
     /**
      * @dataProvider provideFixCheckboxCases
