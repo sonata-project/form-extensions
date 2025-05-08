@@ -132,8 +132,13 @@ final class ErrorElement
 
     public function with(string $name, bool $key = false): self
     {
-        $key = $key ? $name.'.'.$key : $name;
-        $this->stack[] = $key;
+        /*
+         * Existing code was
+         * $key = $key ? $name.'.'.$key : $name;
+         *
+         * There is certainly a bug here or we should deprecate the key param.
+         */
+        $this->stack[] = $key ? $name.'.1' : $name;
 
         $this->current = implode('.', $this->stack);
 
