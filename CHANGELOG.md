@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.5.0](https://github.com/sonata-project/form-extensions/compare/2.4.1...2.5.0) - 2025-05-16
+### Deprecated
+- [[#535](https://github.com/sonata-project/form-extensions/pull/535)] Extending DateTimeRangePickerType ([@VincentLanglet](https://github.com/VincentLanglet))
+
+### Fixed
+- [[#530](https://github.com/sonata-project/form-extensions/pull/530)] Bg translations for date range ([@michal-tupy-defend](https://github.com/michal-tupy-defend))
+
 ## [2.4.1](https://github.com/sonata-project/form-extensions/compare/2.4.0...2.4.1) - 2025-02-05
 ### Fixed
 - [[#523](https://github.com/sonata-project/form-extensions/pull/523)] Deprecated usages of `spaceless` twig filter ([@dmaicher](https://github.com/dmaicher))
