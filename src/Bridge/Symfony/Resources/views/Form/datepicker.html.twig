@@ -1,12 +1,11 @@
 {#
+ This file is part of the Sonata package.
+ Originally developed by Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ Modified by AGBOKOUDJO Franck <internationaleswebservices@gmail.com>
+Phone: +229 0167 25 18 86
+ Company: INTERNATIONALES WEB SERVICES
 
-This file is part of the Sonata package.
-
-(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
-
-For the full copyright and license information, please view the LICENSE
-file that was distributed with this source code.
-
+ See LICENSE file for full MIT license text.
 #}
 
 {% block sonata_type_datetime_picker_widget_html %}
@@ -21,13 +20,14 @@ file that was distributed with this source code.
     >
         {% set attr = attr|merge({
             'data-td-target': '#' ~ id ~ '_controller',
+            'class': (attr.class|default('') ~ ' form-control')|trim,
         }) %}
 
         {{ block('datetime_widget') }}
 
         {% if datepicker_use_button %}
             <span
-                class="input-group-addon"
+                class="input-group-text"
                 data-td-target="#{{ id ~ '_controller' }}"
                 data-td-toggle="datetimepicker"
             >
