@@ -135,6 +135,8 @@ final class SonataFormExtensionTest extends AbstractExtensionTestCase
         $this->setParameter('kernel.bundles_metadata', []);
         $this->setParameter('kernel.project_dir', __DIR__);
         $this->setParameter('kernel.root_dir', __DIR__);
+        $this->setParameter('kernel.build_dir', __DIR__);
+        $this->setParameter('kernel.cache_dir', __DIR__);
         $this->setParameter('kernel.debug', false);
 
         $this->container->registerExtension(new TwigExtension());
