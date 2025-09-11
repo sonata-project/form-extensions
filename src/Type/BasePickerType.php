@@ -142,7 +142,8 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
     {
         $resolver->setDefaults($this->getCommonDefaults());
 
-        $resolver->setDefault('datepicker_options', function (OptionsResolver $datePickerResolver) {
+        $resolverSetOptionsMethod = method_exists($resolver, 'setOptions') ? 'setOptions' : 'setDefault';
+        $resolver->{$resolverSetOptionsMethod}('datepicker_options', function (OptionsResolver $datePickerResolver) use ($resolverSetOptionsMethod) {
             $datePickerResolver->setDefined(array_keys(self::DATEPICKER_ALLOWED_OPTIONS));
 
             foreach (self::DATEPICKER_ALLOWED_OPTIONS as $option => $allowedTypes) {
@@ -155,9 +156,9 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
             $defaults = $this->getCommonDatepickerDefaults();
 
             $datePickerResolver->setDefaults($defaults);
-            $datePickerResolver->setDefault('localization', $this->defineLocalizationOptions($defaults['localization'] ?? []));
-            $datePickerResolver->setDefault('restrictions', $this->defineRestrictionsOptions($defaults['restrictions'] ?? []));
-            $datePickerResolver->setDefault('display', $this->defineDisplayOptions($defaults['display'] ?? []));
+            $datePickerResolver->{$resolverSetOptionsMethod}('localization', $this->defineLocalizationOptions($defaults['localization'] ?? []));
+            $datePickerResolver->{$resolverSetOptionsMethod}('restrictions', $this->defineRestrictionsOptions($defaults['restrictions'] ?? []));
+            $datePickerResolver->{$resolverSetOptionsMethod}('display', $this->defineDisplayOptions($defaults['display'] ?? []));
         });
 
         $resolver->setNormalizer(
@@ -261,10 +262,12 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     /**
      * @param array<string, mixed> $defaults
+     *
+     * @return \Closure(OptionsResolver, Options): void
      */
     private function defineLocalizationOptions(array $defaults): callable
     {
-        return static function (OptionsResolver $resolver) use ($defaults): void {
+        return static function (OptionsResolver $resolver, Options $options) use ($defaults): void {
             $resolver->setDefined(array_keys(self::LOCALIZATION_OPTIONS));
 
             foreach (self::LOCALIZATION_OPTIONS as $option => $allowedTypes) {
@@ -277,10 +280,12 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     /**
      * @param array<string, mixed> $defaults
+     *
+     * @return \Closure(OptionsResolver, Options): void
      */
     private function defineRestrictionsOptions(array $defaults): callable
     {
-        return function (OptionsResolver $resolver) use ($defaults): void {
+        return function (OptionsResolver $resolver, Options $options) use ($defaults): void {
             $resolver->setDefined(array_keys(self::RESTRICTIONS_OPTIONS));
 
             foreach (self::RESTRICTIONS_OPTIONS as $option => $allowedTypes) {
@@ -322,10 +327,12 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     /**
      * @param array<string, mixed> $defaults
+     *
+     * @return \Closure(OptionsResolver, Options): void
      */
     private function defineDisplayOptions(array $defaults): callable
     {
-        return function (OptionsResolver $resolver) use ($defaults): void {
+        return function (OptionsResolver $resolver, Options $options) use ($defaults): void {
             $resolver->setDefined(array_keys(self::DISPLAY_OPTIONS));
 
             foreach (self::DISPLAY_OPTIONS as $option => $allowedTypes) {
@@ -337,18 +344,21 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
             $resolver->setAllowedValues('theme', ['light', 'dark', 'auto']);
 
             $resolver->setDefaults($defaults);
-            $resolver->setDefault('icons', $this->defineDisplayIconsOptions($defaults['icons'] ?? []));
-            $resolver->setDefault('buttons', $this->defineDisplayButtonsOptions($defaults['buttons'] ?? []));
-            $resolver->setDefault('components', $this->defineDisplayComponentsOptions($defaults['components'] ?? []));
+            $resolverSetOptionsMethod = method_exists($resolver, 'setOptions') ? 'setOptions' : 'setDefault';
+            $resolver->{$resolverSetOptionsMethod}('icons', $this->defineDisplayIconsOptions($defaults['icons'] ?? []));
+            $resolver->{$resolverSetOptionsMethod}('buttons', $this->defineDisplayButtonsOptions($defaults['buttons'] ?? []));
+            $resolver->{$resolverSetOptionsMethod}('components', $this->defineDisplayComponentsOptions($defaults['components'] ?? []));
         };
     }
 
     /**
      * @param array<string, mixed> $defaults
+     *
+     * @return \Closure(OptionsResolver, Options): void
      */
     private function defineDisplayIconsOptions(array $defaults): callable
     {
-        return static function (OptionsResolver $resolver) use ($defaults): void {
+        return static function (OptionsResolver $resolver, Options $options) use ($defaults): void {
             $resolver->setDefined(array_keys(self::DISPLAY_ICONS_OPTIONS));
 
             foreach (self::DISPLAY_ICONS_OPTIONS as $option => $allowedTypes) {
@@ -361,10 +371,12 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     /**
      * @param array<string, mixed> $defaults
+     *
+     * @return \Closure(OptionsResolver, Options): void
      */
     private function defineDisplayButtonsOptions(array $defaults): callable
     {
-        return static function (OptionsResolver $resolver) use ($defaults): void {
+        return static function (OptionsResolver $resolver, Options $options) use ($defaults): void {
             $resolver->setDefined(array_keys(self::DISPLAY_BUTTONS_OPTIONS));
 
             foreach (self::DISPLAY_BUTTONS_OPTIONS as $option => $allowedTypes) {
@@ -377,10 +389,12 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     /**
      * @param array<string, mixed> $defaults
+     *
+     * @return \Closure(OptionsResolver, Options): void
      */
     private function defineDisplayComponentsOptions(array $defaults): callable
     {
-        return static function (OptionsResolver $resolver) use ($defaults): void {
+        return static function (OptionsResolver $resolver, Options $options) use ($defaults): void {
             $resolver->setDefined(array_keys(self::DISPLAY_COMPONENTS_OPTIONS));
 
             foreach (self::DISPLAY_COMPONENTS_OPTIONS as $option => $allowedTypes) {
