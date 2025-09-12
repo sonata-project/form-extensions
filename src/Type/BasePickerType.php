@@ -142,7 +142,13 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
     {
         $resolver->setDefaults($this->getCommonDefaults());
 
+        /**
+         * TODO: use `setOptions` directly once we drop support for Symfony < 7.3.
+         *
+         * @phpstan-ignore function.alreadyNarrowedType
+         */
         $resolverSetOptionsMethod = method_exists($resolver, 'setOptions') ? 'setOptions' : 'setDefault';
+        /* @phpstan-ignore method.dynamicName */
         $resolver->{$resolverSetOptionsMethod}('datepicker_options', function (OptionsResolver $datePickerResolver) use ($resolverSetOptionsMethod) {
             $datePickerResolver->setDefined(array_keys(self::DATEPICKER_ALLOWED_OPTIONS));
 
@@ -156,8 +162,11 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
             $defaults = $this->getCommonDatepickerDefaults();
 
             $datePickerResolver->setDefaults($defaults);
+            /* @phpstan-ignore method.dynamicName */
             $datePickerResolver->{$resolverSetOptionsMethod}('localization', $this->defineLocalizationOptions($defaults['localization'] ?? []));
+            /* @phpstan-ignore method.dynamicName */
             $datePickerResolver->{$resolverSetOptionsMethod}('restrictions', $this->defineRestrictionsOptions($defaults['restrictions'] ?? []));
+            /* @phpstan-ignore method.dynamicName */
             $datePickerResolver->{$resolverSetOptionsMethod}('display', $this->defineDisplayOptions($defaults['display'] ?? []));
         });
 
@@ -263,11 +272,11 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
     /**
      * @param array<string, mixed> $defaults
      *
-     * @return \Closure(OptionsResolver, Options): void
+     * @return \Closure(OptionsResolver): void
      */
     private function defineLocalizationOptions(array $defaults): callable
     {
-        return static function (OptionsResolver $resolver, Options $options) use ($defaults): void {
+        return static function (OptionsResolver $resolver) use ($defaults): void {
             $resolver->setDefined(array_keys(self::LOCALIZATION_OPTIONS));
 
             foreach (self::LOCALIZATION_OPTIONS as $option => $allowedTypes) {
@@ -281,11 +290,11 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
     /**
      * @param array<string, mixed> $defaults
      *
-     * @return \Closure(OptionsResolver, Options): void
+     * @return \Closure(OptionsResolver): void
      */
     private function defineRestrictionsOptions(array $defaults): callable
     {
-        return function (OptionsResolver $resolver, Options $options) use ($defaults): void {
+        return function (OptionsResolver $resolver) use ($defaults): void {
             $resolver->setDefined(array_keys(self::RESTRICTIONS_OPTIONS));
 
             foreach (self::RESTRICTIONS_OPTIONS as $option => $allowedTypes) {
@@ -328,11 +337,11 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
     /**
      * @param array<string, mixed> $defaults
      *
-     * @return \Closure(OptionsResolver, Options): void
+     * @return \Closure(OptionsResolver): void
      */
     private function defineDisplayOptions(array $defaults): callable
     {
-        return function (OptionsResolver $resolver, Options $options) use ($defaults): void {
+        return function (OptionsResolver $resolver) use ($defaults): void {
             $resolver->setDefined(array_keys(self::DISPLAY_OPTIONS));
 
             foreach (self::DISPLAY_OPTIONS as $option => $allowedTypes) {
@@ -344,9 +353,21 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
             $resolver->setAllowedValues('theme', ['light', 'dark', 'auto']);
 
             $resolver->setDefaults($defaults);
+
+            /**
+             * TODO: use `setOptions` directly once we drop support for Symfony < 7.3.
+             *
+             * @psalm-suppress RedundantCondition
+             *
+             * @phpstan-ignore function.alreadyNarrowedType
+             */
             $resolverSetOptionsMethod = method_exists($resolver, 'setOptions') ? 'setOptions' : 'setDefault';
+
+            /* @phpstan-ignore method.dynamicName */
             $resolver->{$resolverSetOptionsMethod}('icons', $this->defineDisplayIconsOptions($defaults['icons'] ?? []));
+            /* @phpstan-ignore method.dynamicName */
             $resolver->{$resolverSetOptionsMethod}('buttons', $this->defineDisplayButtonsOptions($defaults['buttons'] ?? []));
+            /* @phpstan-ignore method.dynamicName */
             $resolver->{$resolverSetOptionsMethod}('components', $this->defineDisplayComponentsOptions($defaults['components'] ?? []));
         };
     }
@@ -354,11 +375,11 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
     /**
      * @param array<string, mixed> $defaults
      *
-     * @return \Closure(OptionsResolver, Options): void
+     * @return \Closure(OptionsResolver): void
      */
     private function defineDisplayIconsOptions(array $defaults): callable
     {
-        return static function (OptionsResolver $resolver, Options $options) use ($defaults): void {
+        return static function (OptionsResolver $resolver) use ($defaults): void {
             $resolver->setDefined(array_keys(self::DISPLAY_ICONS_OPTIONS));
 
             foreach (self::DISPLAY_ICONS_OPTIONS as $option => $allowedTypes) {
@@ -372,11 +393,11 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
     /**
      * @param array<string, mixed> $defaults
      *
-     * @return \Closure(OptionsResolver, Options): void
+     * @return \Closure(OptionsResolver): void
      */
     private function defineDisplayButtonsOptions(array $defaults): callable
     {
-        return static function (OptionsResolver $resolver, Options $options) use ($defaults): void {
+        return static function (OptionsResolver $resolver) use ($defaults): void {
             $resolver->setDefined(array_keys(self::DISPLAY_BUTTONS_OPTIONS));
 
             foreach (self::DISPLAY_BUTTONS_OPTIONS as $option => $allowedTypes) {
@@ -390,11 +411,11 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
     /**
      * @param array<string, mixed> $defaults
      *
-     * @return \Closure(OptionsResolver, Options): void
+     * @return \Closure(OptionsResolver): void
      */
     private function defineDisplayComponentsOptions(array $defaults): callable
     {
-        return static function (OptionsResolver $resolver, Options $options) use ($defaults): void {
+        return static function (OptionsResolver $resolver) use ($defaults): void {
             $resolver->setDefined(array_keys(self::DISPLAY_COMPONENTS_OPTIONS));
 
             foreach (self::DISPLAY_COMPONENTS_OPTIONS as $option => $allowedTypes) {
