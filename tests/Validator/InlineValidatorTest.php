@@ -54,7 +54,6 @@ final class InlineValidatorTest extends TestCase
 
         $reflectorObject = new \ReflectionObject($inlineValidator);
         $reflectedMethod = $reflectorObject->getMethod('getErrorElement');
-        $reflectedMethod->setAccessible(true);
 
         $errorElement = $reflectedMethod->invokeArgs($inlineValidator, ['foo']);
 
