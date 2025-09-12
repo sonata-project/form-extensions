@@ -142,7 +142,14 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
     {
         $resolver->setDefaults($this->getCommonDefaults());
 
-        $resolver->setDefault('datepicker_options', function (OptionsResolver $datePickerResolver) {
+        /**
+         * TODO: use `setOptions` directly once we drop support for Symfony < 7.3.
+         *
+         * @phpstan-ignore function.alreadyNarrowedType
+         */
+        $resolverSetOptionsMethod = method_exists($resolver, 'setOptions') ? 'setOptions' : 'setDefault';
+        /* @phpstan-ignore method.dynamicName */
+        $resolver->{$resolverSetOptionsMethod}('datepicker_options', function (OptionsResolver $datePickerResolver) use ($resolverSetOptionsMethod) {
             $datePickerResolver->setDefined(array_keys(self::DATEPICKER_ALLOWED_OPTIONS));
 
             foreach (self::DATEPICKER_ALLOWED_OPTIONS as $option => $allowedTypes) {
@@ -155,9 +162,12 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
             $defaults = $this->getCommonDatepickerDefaults();
 
             $datePickerResolver->setDefaults($defaults);
-            $datePickerResolver->setDefault('localization', $this->defineLocalizationOptions($defaults['localization'] ?? []));
-            $datePickerResolver->setDefault('restrictions', $this->defineRestrictionsOptions($defaults['restrictions'] ?? []));
-            $datePickerResolver->setDefault('display', $this->defineDisplayOptions($defaults['display'] ?? []));
+            /* @phpstan-ignore method.dynamicName */
+            $datePickerResolver->{$resolverSetOptionsMethod}('localization', $this->defineLocalizationOptions($defaults['localization'] ?? []));
+            /* @phpstan-ignore method.dynamicName */
+            $datePickerResolver->{$resolverSetOptionsMethod}('restrictions', $this->defineRestrictionsOptions($defaults['restrictions'] ?? []));
+            /* @phpstan-ignore method.dynamicName */
+            $datePickerResolver->{$resolverSetOptionsMethod}('display', $this->defineDisplayOptions($defaults['display'] ?? []));
         });
 
         $resolver->setNormalizer(
@@ -261,6 +271,8 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     /**
      * @param array<string, mixed> $defaults
+     *
+     * @return \Closure(OptionsResolver): void
      */
     private function defineLocalizationOptions(array $defaults): callable
     {
@@ -277,6 +289,8 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     /**
      * @param array<string, mixed> $defaults
+     *
+     * @return \Closure(OptionsResolver): void
      */
     private function defineRestrictionsOptions(array $defaults): callable
     {
@@ -322,6 +336,8 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     /**
      * @param array<string, mixed> $defaults
+     *
+     * @return \Closure(OptionsResolver): void
      */
     private function defineDisplayOptions(array $defaults): callable
     {
@@ -337,14 +353,29 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
             $resolver->setAllowedValues('theme', ['light', 'dark', 'auto']);
 
             $resolver->setDefaults($defaults);
-            $resolver->setDefault('icons', $this->defineDisplayIconsOptions($defaults['icons'] ?? []));
-            $resolver->setDefault('buttons', $this->defineDisplayButtonsOptions($defaults['buttons'] ?? []));
-            $resolver->setDefault('components', $this->defineDisplayComponentsOptions($defaults['components'] ?? []));
+
+            /**
+             * TODO: use `setOptions` directly once we drop support for Symfony < 7.3.
+             *
+             * @psalm-suppress RedundantCondition
+             *
+             * @phpstan-ignore function.alreadyNarrowedType
+             */
+            $resolverSetOptionsMethod = method_exists($resolver, 'setOptions') ? 'setOptions' : 'setDefault';
+
+            /* @phpstan-ignore method.dynamicName */
+            $resolver->{$resolverSetOptionsMethod}('icons', $this->defineDisplayIconsOptions($defaults['icons'] ?? []));
+            /* @phpstan-ignore method.dynamicName */
+            $resolver->{$resolverSetOptionsMethod}('buttons', $this->defineDisplayButtonsOptions($defaults['buttons'] ?? []));
+            /* @phpstan-ignore method.dynamicName */
+            $resolver->{$resolverSetOptionsMethod}('components', $this->defineDisplayComponentsOptions($defaults['components'] ?? []));
         };
     }
 
     /**
      * @param array<string, mixed> $defaults
+     *
+     * @return \Closure(OptionsResolver): void
      */
     private function defineDisplayIconsOptions(array $defaults): callable
     {
@@ -361,6 +392,8 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     /**
      * @param array<string, mixed> $defaults
+     *
+     * @return \Closure(OptionsResolver): void
      */
     private function defineDisplayButtonsOptions(array $defaults): callable
     {
@@ -377,6 +410,8 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
     /**
      * @param array<string, mixed> $defaults
+     *
+     * @return \Closure(OptionsResolver): void
      */
     private function defineDisplayComponentsOptions(array $defaults): callable
     {
