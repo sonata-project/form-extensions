@@ -9,7 +9,7 @@
     "@babel/core": "^7.21",
     "@babel/eslint-parser": "^7.21",
     "@babel/preset-env": "^7.21",
-    "@symfony/webpack-encore": "^4.3",
+    "@symfony/webpack-encore": "^5.2",
     "@testing-library/dom": "^9.2",
     "@testing-library/jest-dom": "^5.16",
     "@testing-library/user-event": "^14.4",
