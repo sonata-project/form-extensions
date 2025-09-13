@@ -9,8 +9,6 @@
 
 // eslint-disable-next-line import/no-unresolved
 import { defineConfig } from 'vitest/config';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import GithubActionsReporter from 'vitest-github-actions-reporter';
 
 export default defineConfig({
   test: {
@@ -22,7 +20,7 @@ export default defineConfig({
       reporter: ['text', 'json', 'html', 'lcovonly'],
       exclude: ['assets/js/**/*.test.js'],
     },
-    reporters: process.env.GITHUB_ACTIONS ? ['default', new GithubActionsReporter()] : 'default',
+    reporters: process.env.GITHUB_ACTIONS ? ['default', 'github-actions'] : 'default',
     environment: 'jsdom',
   },
 });
