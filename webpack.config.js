@@ -19,7 +19,6 @@ Encore.setOutputPath('./src/Bridge/Symfony/Resources/public')
   .enablePostCssLoader()
   .enableVersioning(false)
   .enableSourceMaps(false)
-  .enableEslintPlugin()
   .disableSingleRuntimeChunk()
 
   .addExternals({
