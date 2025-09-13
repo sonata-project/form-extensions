@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.5.1](https://github.com/sonata-project/form-extensions/compare/2.5.0...2.5.1) - 2025-09-12
+### Fixed
+- [[#546](https://github.com/sonata-project/form-extensions/pull/546)] Replace deprecated use of `OptionsResolver::setDefault()` by `OptionsResolver::setOptions()` ([@AirBair](https://github.com/AirBair))
+
 ## [2.5.0](https://github.com/sonata-project/form-extensions/compare/2.4.1...2.5.0) - 2025-05-16
 ### Deprecated
 - [[#535](https://github.com/sonata-project/form-extensions/pull/535)] Extending DateTimeRangePickerType ([@VincentLanglet](https://github.com/VincentLanglet))
