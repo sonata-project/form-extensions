@@ -13,15 +13,14 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\DataTransformer;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Sonata\Form\DataTransformer\BooleanTypeToBooleanTransformer;
 use Sonata\Form\Type\BooleanType;
 
 final class BooleanTypeToBooleanTransformerTest extends TestCase
 {
-    /**
-     * @dataProvider provideTransformCases
-     */
+    #[DataProvider('provideTransformCases')]
     public function testTransform(mixed $value, ?int $expected): void
     {
         $transformer = new BooleanTypeToBooleanTransformer();
@@ -43,7 +42,7 @@ final class BooleanTypeToBooleanTransformerTest extends TestCase
     /**
      * @return iterable<array{mixed, int|null}>
      */
-    public function provideTransformCases(): iterable
+    public static function provideTransformCases(): iterable
     {
         yield [true, BooleanType::TYPE_YES];
         yield [false, BooleanType::TYPE_NO];

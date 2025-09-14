@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\Type;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Sonata\Form\Date\JavaScriptFormatConverter;
 use Sonata\Form\Tests\Fixtures\Type\DummyPickerType;
@@ -37,9 +38,8 @@ final class BasePickerTypeTest extends TestCase
     /**
      * @param array<string, mixed> $expectedOptions
      * @param array<string, mixed> $options
-     *
-     * @dataProvider provideFinishViewCases
      */
+    #[DataProvider('provideFinishViewCases')]
     public function testFinishView(array $expectedOptions, array $options): void
     {
         $type = new DummyPickerType(
@@ -74,7 +74,7 @@ final class BasePickerTypeTest extends TestCase
     /**
      * @return iterable<array{array<string, mixed>, array<string, mixed>}>
      */
-    public function provideFinishViewCases(): iterable
+    public static function provideFinishViewCases(): iterable
     {
         yield [
             [
