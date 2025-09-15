@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\EventListener;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Sonata\Form\EventListener\FixCheckboxDataListener;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -23,9 +24,7 @@ use Symfony\Component\Form\Forms;
 
 final class FixCheckboxDataListenerTest extends TestCase
 {
-    /**
-     * @dataProvider provideFixCheckboxCases
-     */
+    #[DataProvider('provideFixCheckboxCases')]
     public function testFixCheckbox(
         mixed $data,
         mixed $expected,
@@ -54,7 +53,7 @@ final class FixCheckboxDataListenerTest extends TestCase
     /**
      * @return iterable<array{mixed, mixed, EventSubscriberInterface|null, BooleanToStringTransformer}>
      */
-    public function provideFixCheckboxCases(): iterable
+    public static function provideFixCheckboxCases(): iterable
     {
         yield ['0', true, null, new BooleanToStringTransformer('1')];
         yield ['0', false, new FixCheckboxDataListener(), new BooleanToStringTransformer('1')];
