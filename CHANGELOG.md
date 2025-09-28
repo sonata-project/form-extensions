@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.5.2](https://github.com/sonata-project/form-extensions/compare/2.5.1...2.5.2) - 2025-09-28
+### Fixed
+- [[#555](https://github.com/sonata-project/form-extensions/pull/555)] Symfony 7.3 deprecations for constraint constructor options array usage ([@dmaicher](https://github.com/dmaicher))
+
 ## [2.5.1](https://github.com/sonata-project/form-extensions/compare/2.5.0...2.5.1) - 2025-09-12
 ### Fixed
 - [[#546](https://github.com/sonata-project/form-extensions/pull/546)] Replace deprecated use of `OptionsResolver::setDefault()` by `OptionsResolver::setOptions()` ([@AirBair](https://github.com/AirBair))
