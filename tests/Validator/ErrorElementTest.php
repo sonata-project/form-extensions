@@ -13,14 +13,12 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Tests\Validator;
 
-use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\Form\Tests\Fixtures\Bundle\Entity\Foo;
 use Sonata\Form\Validator\ErrorElement;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\Exception\InvalidOptionsException;
 use Symfony\Component\Validator\Validator\ContextualValidatorInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
@@ -140,10 +138,9 @@ final class ErrorElementTest extends TestCase
         $this->errorElement->end();
     }
 
-    #[IgnoreDeprecations]
     public function testAsserCallWithInvalidOption(): void
     {
-        self::expectException(InvalidOptionsException::class);
+        self::expectExceptionMessage('Unknown named parameter $foo');
 
         $this->errorElement->assertNotNull([
             'foo' => 'bar',

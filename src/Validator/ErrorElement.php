@@ -256,17 +256,7 @@ final class ErrorElement
             ));
         }
 
-        $constructorArgumentNames = array_map(
-            static fn (\ReflectionParameter $parameter) => $parameter->name,
-            (new \ReflectionClass($className))->getConstructor()?->getParameters() ?? [],
-        );
-
-        if ([] === array_diff_key($options, array_flip($constructorArgumentNames))) {
-            return new $className(...$options);
-        }
-
-        // this will either trigger Symfony deprecations on 7.3|7.4 or fail entirely on Symfony 8
-        return new $className($options);
+        return new $className(...$options);
     }
 
     private function getCurrentPropertyPath(): ?PropertyPathInterface
