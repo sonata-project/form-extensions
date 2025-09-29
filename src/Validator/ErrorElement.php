@@ -256,7 +256,7 @@ final class ErrorElement
             ));
         }
 
-        return new $className($options);
+        return new $className(...$options);
     }
 
     private function getCurrentPropertyPath(): ?PropertyPathInterface

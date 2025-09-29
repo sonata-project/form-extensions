@@ -138,6 +138,15 @@ final class ErrorElementTest extends TestCase
         $this->errorElement->end();
     }
 
+    public function testAsserCallWithInvalidOption(): void
+    {
+        self::expectExceptionMessage('Unknown named parameter $foo');
+
+        $this->errorElement->assertNotNull([
+            'foo' => 'bar',
+        ]);
+    }
+
     /**
      * @psalm-suppress UndefinedMagicMethod
      */
