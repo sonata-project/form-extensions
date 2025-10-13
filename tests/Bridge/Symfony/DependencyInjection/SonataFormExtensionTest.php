@@ -58,10 +58,16 @@ final class SonataFormExtensionTest extends AbstractExtensionTestCase
     {
         $containerBuilder = new ContainerBuilder();
         $containerBuilder->registerExtension(new class extends Extension {
+            /**
+             * @phpstan-throws void
+             */
             public function load(array $configs, ContainerBuilder $container): void
             {
             }
 
+            /**
+             * @phpstan-throws void
+             */
             public function getAlias(): string
             {
                 return 'sonata_admin';
