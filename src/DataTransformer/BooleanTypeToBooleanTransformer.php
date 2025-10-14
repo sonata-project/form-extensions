@@ -22,6 +22,8 @@ use Symfony\Component\Form\DataTransformerInterface;
 final class BooleanTypeToBooleanTransformer implements DataTransformerInterface
 {
     /**
+     * @phpstan-throws void
+     *
      * @phpstan-param mixed $value
      */
     public function transform(mixed $value): ?int
@@ -37,6 +39,8 @@ final class BooleanTypeToBooleanTransformer implements DataTransformerInterface
     }
 
     /**
+     * @phpstan-throws void
+     *
      * @phpstan-param mixed $value
      */
     public function reverseTransform(mixed $value): ?bool
