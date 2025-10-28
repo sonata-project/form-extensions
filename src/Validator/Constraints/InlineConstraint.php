@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\Form\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 /**
  * Constraint which allows inline-validation inside services.
@@ -28,13 +29,42 @@ final class InlineConstraint extends Constraint
 {
     protected mixed $service = null;
 
-    protected mixed $method = null;
+    /**
+     * @param array<string, mixed>|null $options
+     */
+    public function __construct(
+        mixed $service = null,
+        protected mixed $method = null,
+        protected bool $serializingWarning = false,
+        ?array $groups = null,
+        ?array $options = null,
+    ) {
+        if (\is_array($service) || \is_array($options)) {
+            trigger_deprecation(
+                'sonata-project/form-extensions',
+                '2.6.0',
+                'Passing an array of options to configure the "%s" constraint is deprecated. Use named arguments instead.',
+                self::class,
+            );
 
-    protected bool $serializingWarning = false;
+            $options ??= [];
+            if (!\is_array($service)) {
+                $this->service = $service;
+            } else {
+                $options = array_merge($options, $service);
+            }
+            parent::__construct($options, groups: $groups);
+        } else {
+            $this->service = $service;
+            parent::__construct(groups: $groups);
+        }
 
-    public function __construct(mixed $options = null)
-    {
-        parent::__construct($options);
+        if (null === $this->service || null === $this->method) {
+            throw new MissingOptionsException(
+                \sprintf('The required options/arguments "service" and "method" must be set for constraint "%s"', self::class),
+                ['service', 'method'],
+            );
+        }
 
         if ((!\is_string($this->service) || !\is_string($this->method)) && true !== $this->serializingWarning) {
             throw new \RuntimeException('You are using a closure with the `InlineConstraint`, this constraint'.
@@ -53,6 +83,15 @@ final class InlineConstraint extends Constraint
         }
 
         return array_keys(get_object_vars($this));
+    }
+
+    public function __serialize(): array
+    {
+        if (!\is_string($this->service) || !\is_string($this->method)) {
+            return [];
+        }
+
+        return get_object_vars($this);
     }
 
     public function __wakeup(): void
@@ -85,14 +124,6 @@ final class InlineConstraint extends Constraint
     public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
-    }
-
-    public function getRequiredOptions(): array
-    {
-        return [
-            'service',
-            'method',
-        ];
     }
 
     public function getMethod(): mixed
