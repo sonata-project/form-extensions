@@ -27,17 +27,15 @@ use Symfony\Component\Validator\Exception\MissingOptionsException;
  */
 final class InlineConstraint extends Constraint
 {
-    protected mixed $service = null;
-
     /**
      * @param array<string, mixed>|null $options
      */
     public function __construct(
-        mixed $service = null,
-        protected mixed $method = null,
-        protected bool $serializingWarning = false,
+        protected mixed $service = null, // NEXT_MAJOR: make private and non-nullable (and narrow the type?)
+        protected mixed $method = null, // NEXT_MAJOR: make private and non-nullable (and narrow the type?)
+        protected bool $serializingWarning = false, // NEXT_MAJOR: make private
         ?array $groups = null,
-        ?array $options = null,
+        ?array $options = null, // NEXT_MAJOR: remove
     ) {
         if (\is_array($service) || \is_array($options)) {
             trigger_deprecation(
@@ -73,12 +71,13 @@ final class InlineConstraint extends Constraint
         }
     }
 
+    // TODO: remove when support for Symfony < 7.4 is dropped
     public function __sleep(): array
     {
         // @phpstan-ignore-next-line to initialize "groups" option if it is not set
         $this->groups;
 
-        if (!\is_string($this->service) || !\is_string($this->method)) {
+        if (!\is_string($this->getService()) || !\is_string($this->getMethod())) {
             return [];
         }
 
@@ -87,7 +86,7 @@ final class InlineConstraint extends Constraint
 
     public function __serialize(): array
     {
-        if (!\is_string($this->service) || !\is_string($this->method)) {
+        if (!\is_string($this->getService()) || !\is_string($this->getMethod())) {
             return [];
         }
 
@@ -96,7 +95,7 @@ final class InlineConstraint extends Constraint
 
     public function __wakeup(): void
     {
-        if (\is_string($this->service) && \is_string($this->method)) {
+        if (\is_string($this->getService()) && \is_string($this->getMethod())) {
             return;
         }
 
@@ -113,12 +112,12 @@ final class InlineConstraint extends Constraint
 
     public function isClosure(): bool
     {
-        return $this->method instanceof \Closure;
+        return $this->getMethod() instanceof \Closure;
     }
 
     public function getClosure(): mixed
     {
-        return $this->method;
+        return $this->method ?? null;
     }
 
     public function getTargets(): string
@@ -128,12 +127,12 @@ final class InlineConstraint extends Constraint
 
     public function getMethod(): mixed
     {
-        return $this->method;
+        return $this->method ?? null;
     }
 
     public function getService(): mixed
     {
-        return $this->service;
+        return $this->service ?? null;
     }
 
     public function getSerializingWarning(): bool

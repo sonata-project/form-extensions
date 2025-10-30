@@ -104,6 +104,9 @@ final class InlineConstraintTest extends TestCase
         static::assertInstanceOf(\Closure::class, $constraint->getMethod());
         static::assertEmpty($constraint->getService());
         static::assertTrue($constraint->getSerializingWarning());
+
+        // serialize again gives the same
+        static::assertSame($expected, serialize($constraint));
     }
 
     public function testStandardSerialization(): void
