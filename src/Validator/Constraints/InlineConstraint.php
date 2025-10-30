@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\Form\Validator\Constraints;
 
+use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
 
@@ -30,6 +31,7 @@ final class InlineConstraint extends Constraint
     /**
      * @param array<string, mixed>|null $options
      */
+    #[HasNamedArguments]
     public function __construct(
         protected mixed $service = null, // NEXT_MAJOR: make private and non-nullable (and narrow the type?)
         protected mixed $method = null, // NEXT_MAJOR: make private and non-nullable (and narrow the type?)
