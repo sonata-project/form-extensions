@@ -66,13 +66,13 @@ final class InlineValidatorTest extends TestCase
         $this->expectException(ValidatorException::class);
         $this->expectExceptionMessage('foo is equal to foo');
 
-        $constraint = new InlineConstraint([
-            'method' => static function (ErrorElement $errorElement, string $value): void {
+        $constraint = new InlineConstraint(
+            service: '',
+            method: static function (ErrorElement $errorElement, string $value): void {
                 throw new ValidatorException($errorElement->getSubject().' is equal to '.$value);
             },
-            'service' => '',
-            'serializingWarning' => true,
-        ]);
+            serializingWarning: true,
+        );
 
         $inlineValidator = new InlineValidator($this->container);
 
@@ -83,10 +83,10 @@ final class InlineValidatorTest extends TestCase
 
     public function testValidateWithConstraintGetServiceIsString(): void
     {
-        $constraint = new InlineConstraint([
-            'method' => 'fooValidatorMethod',
-            'service' => 'string',
-        ]);
+        $constraint = new InlineConstraint(
+            service: 'string',
+            method: 'fooValidatorMethod',
+        );
 
         $this->container->expects(static::once())
             ->method('get')
@@ -105,11 +105,11 @@ final class InlineValidatorTest extends TestCase
 
     public function testValidateWithConstraintGetServiceIsNotString(): void
     {
-        $constraint = new InlineConstraint([
-            'method' => 'fooValidatorMethod',
-            'service' => new FooValidatorService(),
-            'serializingWarning' => true,
-        ]);
+        $constraint = new InlineConstraint(
+            service: new FooValidatorService(),
+            method: 'fooValidatorMethod',
+            serializingWarning: true,
+        );
 
         $inlineValidator = new InlineValidator($this->container);
 
