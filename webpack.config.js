@@ -11,7 +11,7 @@ const Encore = require('@symfony/webpack-encore');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 Encore.setOutputPath('./src/Bridge/Symfony/Resources/public')
-  .setPublicPath('/bundles/sonataform')
+  .setPublicPath('.')
   .setManifestKeyPrefix('bundles/sonataform')
 
   .cleanupOutputBeforeBuild()
