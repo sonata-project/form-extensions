@@ -39,6 +39,8 @@ Encore.setOutputPath('./src/Bridge/Symfony/Resources/public')
     })
   )
 
+  // As async loading of chunks is using a wrong base URL
+  // we make sure we never load any additional chunks and everything is inlined into the entrypoint assets
   .addPlugin(
     new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1,
