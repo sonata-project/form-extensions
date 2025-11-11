@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 
+const webpack = require('webpack');
 const Encore = require('@symfony/webpack-encore');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
@@ -35,6 +36,12 @@ Encore.setOutputPath('./src/Bridge/Symfony/Resources/public')
     new StyleLintPlugin({
       context: 'assets/scss',
       emitWarning: true,
+    })
+  )
+
+  .addPlugin(
+    new webpack.optimize.LimitChunkCountPlugin({
+        maxChunks: 1,
     })
   )
 
