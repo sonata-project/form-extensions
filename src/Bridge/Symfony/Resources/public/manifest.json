@@ -1,23 +1,4 @@
 {
-  "bundles/sonataform/app.css": "/bundles/sonataform/app.css",
-  "bundles/sonataform/app.js": "/bundles/sonataform/app.js",
-  "bundles/sonataform/466.js": "/bundles/sonataform/466.js",
-  "bundles/sonataform/200.js": "/bundles/sonataform/200.js",
-  "bundles/sonataform/785.js": "/bundles/sonataform/785.js",
-  "bundles/sonataform/358.js": "/bundles/sonataform/358.js",
-  "bundles/sonataform/854.js": "/bundles/sonataform/854.js",
-  "bundles/sonataform/876.js": "/bundles/sonataform/876.js",
-  "bundles/sonataform/929.js": "/bundles/sonataform/929.js",
-  "bundles/sonataform/14.js": "/bundles/sonataform/14.js",
-  "bundles/sonataform/987.js": "/bundles/sonataform/987.js",
-  "bundles/sonataform/102.js": "/bundles/sonataform/102.js",
-  "bundles/sonataform/329.js": "/bundles/sonataform/329.js",
-  "bundles/sonataform/51.js": "/bundles/sonataform/51.js",
-  "bundles/sonataform/0.js": "/bundles/sonataform/0.js",
-  "bundles/sonataform/38.js": "/bundles/sonataform/38.js",
-  "bundles/sonataform/77.js": "/bundles/sonataform/77.js",
-  "bundles/sonataform/459.js": "/bundles/sonataform/459.js",
-  "bundles/sonataform/969.js": "/bundles/sonataform/969.js",
-  "bundles/sonataform/964.js": "/bundles/sonataform/964.js",
-  "bundles/sonataform/639.js": "/bundles/sonataform/639.js"
+  "bundles/sonataform/app.css": "./app.css",
+  "bundles/sonataform/app.js": "./app.js"
 }
