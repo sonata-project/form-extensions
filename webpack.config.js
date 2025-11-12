@@ -7,11 +7,12 @@
  * file that was distributed with this source code.
  */
 
+const webpack = require('webpack');
 const Encore = require('@symfony/webpack-encore');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 Encore.setOutputPath('./src/Bridge/Symfony/Resources/public')
-  .setPublicPath('/bundles/sonataform')
+  .setPublicPath('.')
   .setManifestKeyPrefix('bundles/sonataform')
 
   .cleanupOutputBeforeBuild()
@@ -35,6 +36,14 @@ Encore.setOutputPath('./src/Bridge/Symfony/Resources/public')
     new StyleLintPlugin({
       context: 'assets/scss',
       emitWarning: true,
+    })
+  )
+
+  // As async loading of chunks is using a wrong base URL
+  // we make sure we never load any additional chunks and everything is inlined into the entrypoint assets
+  .addPlugin(
+    new webpack.optimize.LimitChunkCountPlugin({
+        maxChunks: 1,
     })
   )
 
