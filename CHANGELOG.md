@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.6.0](https://github.com/sonata-project/form-extensions/compare/2.5.2...2.6.0) - 2025-11-11
+### Added
+- [[#561](https://github.com/sonata-project/form-extensions/pull/561)] Add `#[HasNamedArguments]` for `InlineConstraint::__construct` ([@dmaicher](https://github.com/dmaicher))
+
+### Deprecated
+- [[#560](https://github.com/sonata-project/form-extensions/pull/560)] Passing an array of options to `InlineConstraint::__construct` is deprecated. Use named arguments instead. ([@dmaicher](https://github.com/dmaicher))
+
+### Fixed
+- [[#562](https://github.com/sonata-project/form-extensions/pull/562)] Changed the public path of the webpack build assets to support url prefixes ([@Hanmac](https://github.com/Hanmac))
+
 ## [2.5.2](https://github.com/sonata-project/form-extensions/compare/2.5.1...2.5.2) - 2025-09-28
 ### Fixed
 - [[#555](https://github.com/sonata-project/form-extensions/pull/555)] Symfony 7.3 deprecations for constraint constructor options array usage ([@dmaicher](https://github.com/dmaicher))
