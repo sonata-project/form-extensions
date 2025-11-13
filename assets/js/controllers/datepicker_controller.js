@@ -21,6 +21,7 @@ export default class extends Controller {
   #allowedLocales = [
     'ar',
     'ar-SA',
+    'ca',
     'de',
     'es',
     'fi',
