@@ -208,7 +208,7 @@ describe('DatepickerController', () => {
 
     expect(tempusDominusCalendar().querySelector('.picker-switch')).toHaveProperty(
       'title',
-      'Select Month'
+      'Seleccionar mes'
     );
   });
 
@@ -237,7 +237,7 @@ describe('DatepickerController', () => {
 
     expect(tempusDominusCalendar().querySelector('.picker-switch')).toHaveProperty(
       'title',
-      'Select Month'
+      'Seleccionar mes'
     );
   });
 
