@@ -189,14 +189,14 @@ describe('DatepickerController', () => {
         id="datepicker"
         data-controller="datepicker"
         data-datepicker-options-value='${JSON.stringify({
-          localization: { locale: 'ca' },
+          localization: { locale: 'zh' },
         })}'
         data-td-target-input="nearest"
         data-td-target-toggle="nearest"
       >${innerDatepickerTest}</div>
     `);
 
-    expect(datePicker.optionsStore.options.localization.locale).toBe('ca');
+    expect(datePicker.optionsStore.options.localization.locale).toBe('zh');
 
     const icon = getByTestId(document, 'icon');
 
@@ -208,7 +208,7 @@ describe('DatepickerController', () => {
 
     expect(tempusDominusCalendar().querySelector('.picker-switch')).toHaveProperty(
       'title',
-      'Seleccionar mes'
+      'Select Month'
     );
   });
 
@@ -218,14 +218,14 @@ describe('DatepickerController', () => {
         id="datepicker"
         data-controller="datepicker"
         data-datepicker-options-value='${JSON.stringify({
-          localization: { locale: 'ca-ES' },
+          localization: { locale: 'zh-CN' },
         })}'
         data-td-target-input="nearest"
         data-td-target-toggle="nearest"
       >${innerDatepickerTest}</div>
     `);
 
-    expect(datePicker.optionsStore.options.localization.locale).toBe('ca-ES');
+    expect(datePicker.optionsStore.options.localization.locale).toBe('zh-CN');
 
     const icon = getByTestId(document, 'icon');
 
@@ -237,7 +237,7 @@ describe('DatepickerController', () => {
 
     expect(tempusDominusCalendar().querySelector('.picker-switch')).toHaveProperty(
       'title',
-      'Seleccionar mes'
+      'Select Month'
     );
   });
 
