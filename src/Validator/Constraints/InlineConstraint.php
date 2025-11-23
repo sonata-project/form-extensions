@@ -23,8 +23,6 @@ use Symfony\Component\Validator\Exception\MissingOptionsException;
  * @Annotation
  *
  * @Target({"CLASS"})
- *
- * @psalm-suppress PropertyNotSetInConstructor
  */
 final class InlineConstraint extends Constraint
 {

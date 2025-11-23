@@ -147,9 +147,6 @@ final class ErrorElementTest extends TestCase
         ]);
     }
 
-    /**
-     * @psalm-suppress UndefinedMagicMethod
-     */
     public function testCallException(): void
     {
         $this->expectException(\RuntimeException::class);
