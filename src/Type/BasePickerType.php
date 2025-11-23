@@ -25,8 +25,6 @@ use Symfony\Contracts\Translation\LocaleAwareInterface;
 /**
  * Class BasePickerType (to factorize DatePickerType and DateTimePickerType code.
  *
- * @psalm-suppress MissingTemplateParam https://github.com/phpstan/phpstan-symfony/issues/320
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 abstract class BasePickerType extends AbstractType implements LocaleAwareInterface
@@ -356,8 +354,6 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
 
             /**
              * TODO: use `setOptions` directly once we drop support for Symfony < 7.3.
-             *
-             * @psalm-suppress RedundantCondition
              *
              * @phpstan-ignore function.alreadyNarrowedType
              */

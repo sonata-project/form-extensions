@@ -21,9 +21,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class InlineValidator extends ConstraintValidator
 {
-    /**
-     * @psalm-suppress ContainerDependency
-     */
     public function __construct(private ContainerInterface $container)
     {
     }
