@@ -16,6 +16,7 @@ namespace Sonata\Form\Test\Validator\Constraints;
 use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\TestCase;
 use Sonata\Form\Validator\Constraints\InlineConstraint;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * @author Andrej Hudec <pulzarraider@gmail.com>
@@ -25,6 +26,10 @@ final class InlineConstraintTest extends TestCase
     #[IgnoreDeprecations]
     public function testInstantiateWithDeprecatedOptionsArray(): void
     {
+        if (str_starts_with(Kernel::VERSION, '8.')) {
+            static::markTestSkipped('Skipping test on Symfony 8');
+        }
+
         $constraint = new InlineConstraint(['service' => 'foo', 'method' => 'bar', 'groups' => ['foo']]);
         static::assertSame('foo', $constraint->getService());
         static::assertSame('bar', $constraint->getMethod());
@@ -34,6 +39,10 @@ final class InlineConstraintTest extends TestCase
     #[IgnoreDeprecations]
     public function testInstantiateWithDeprecatedNamedOptionsArray(): void
     {
+        if (str_starts_with(Kernel::VERSION, '8.')) {
+            static::markTestSkipped('Skipping test on Symfony 8');
+        }
+
         $constraint = new InlineConstraint(options: ['service' => 'foo', 'method' => 'bar', 'groups' => ['foo']]);
         static::assertSame('foo', $constraint->getService());
         static::assertSame('bar', $constraint->getMethod());
