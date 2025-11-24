@@ -16,8 +16,6 @@ namespace Sonata\Form\Type;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 /**
- * @psalm-suppress MissingTemplateParam https://github.com/phpstan/phpstan-symfony/issues/320
- *
  * @author Hugo Briand <briand@ekino.com>
  */
 final class DatePickerType extends BasePickerType

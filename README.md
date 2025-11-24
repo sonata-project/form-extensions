@@ -10,7 +10,6 @@ Symfony form extensions
 
 [![Latest Stable Version](https://poser.pugx.org/sonata-project/form-extensions/v/stable)](https://packagist.org/packages/sonata-project/form-extensions)
 [![Latest Unstable Version](https://poser.pugx.org/sonata-project/form-extensions/v/unstable)](https://packagist.org/packages/sonata-project/form-extensions)
-[![Psalm Type Coverage][shepherd_stable_badge]][shepherd_stable_link]
 [![License](https://poser.pugx.org/sonata-project/form-extensions/license)](https://packagist.org/packages/sonata-project/form-extensions)
 
 [![Total Downloads](https://poser.pugx.org/sonata-project/form-extensions/downloads)](https://packagist.org/packages/sonata-project/form-extensions)

@@ -231,8 +231,6 @@ final class ErrorElement
      * @param array<string, mixed> $options
      *
      * @throws \RuntimeException
-     *
-     * @psalm-suppress UnsafeInstantiation -- it is supposed that Constraint constructor is not going to change
      */
     private function newConstraint(string $name, array $options = []): Constraint
     {

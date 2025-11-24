@@ -16,10 +16,8 @@ namespace Sonata\Form\Tests\EventListener;
 use PHPUnit\Framework\TestCase;
 use Sonata\Form\EventListener\ResizeFormListener;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\Extension\Core\DataMapper\DataMapper;
-use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilder;
@@ -42,8 +40,7 @@ final class ResizeFormListenerTest extends TestCase
         $this->factory = (new FormFactoryBuilder())->getFormFactory();
         $this->form = $this->getBuilder()
             ->setCompound(true)
-            // TODO: Use "new DataMapper()" when removing support for Symfony 4.4 instead of "$this->getDataMapper()"
-            ->setDataMapper($this->getDataMapper())
+            ->setDataMapper(new DataMapper())
             ->getForm();
     }
 
@@ -279,20 +276,5 @@ final class ResizeFormListenerTest extends TestCase
     private function getForm(string $name = 'name'): FormInterface
     {
         return $this->getBuilder($name)->getForm();
-    }
-
-    /**
-     * TODO: Remove this method when removing support for Symfony 4.4.
-     *
-     * @psalm-suppress UndefinedClass, InvalidReturnStatement, InvalidReturnType
-     */
-    private function getDataMapper(): DataMapperInterface
-    {
-        if (class_exists(DataMapper::class)) {
-            return new DataMapper();
-        }
-
-        // @phpstan-ignore-next-line -- BC layer for Symfony 4.4
-        return new PropertyPathMapper();
     }
 }
