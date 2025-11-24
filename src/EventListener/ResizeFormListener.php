@@ -164,9 +164,6 @@ final class ResizeFormListener implements EventSubscriberInterface
             throw new UnexpectedTypeException($data, 'array or \Traversable&\ArrayAccess');
         }
 
-        /*
-         * @see https://github.com/vimeo/psalm/issues/7928
-         */
         foreach ($data as $name => $child) {
             // Type cast to string, because Symfony form can returns integer keys
             if (!$form->has((string) $name)) {
