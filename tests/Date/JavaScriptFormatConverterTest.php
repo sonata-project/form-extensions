@@ -26,7 +26,7 @@ final class JavaScriptFormatConverterTest extends TestCase
         $mfc = new JavaScriptFormatConverter();
 
         $phpFormat = "yyyy-MM-dd'T'HH:mm:ss";
-        static::assertSame('yyyy-MM-ddTHH:mm:ss', $mfc->convert($phpFormat));
+        static::assertSame('yyyy-MM-dd[T]HH:mm:ss', $mfc->convert($phpFormat));
 
         $phpFormat = 'yyyy-MM-dd HH:mm:ss';
         static::assertSame('yyyy-MM-dd HH:mm:ss', $mfc->convert($phpFormat));
