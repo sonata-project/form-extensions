@@ -229,7 +229,17 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
             $datePickerOptions['localization'] = [];
         }
 
-        $datePickerOptions['localization']['format'] = $this->formatConverter->convert($options['format'] ?? '');
+        $format = $options['format'] ?? '';
+        $datePickerOptions['localization']['format'] = $this->formatConverter->convert($format);
+
+        // Symfony renders the HTML5 format without seconds unless "with_seconds" is enabled,
+        // so the picker must not require them either.
+        if (DateTimeType::HTML5_FORMAT === $format && false === ($options['with_seconds'] ?? true)) {
+            $datePickerOptions['localization']['format'] = $this->formatConverter->convert(
+                str_replace(':ss', '', $format)
+            );
+            $datePickerOptions['display']['components']['seconds'] = false;
+        }
 
         $view->vars['datepicker_options'] = $datePickerOptions;
         $view->vars['datepicker_use_button'] = $options['datepicker_use_button'] ?? false;
