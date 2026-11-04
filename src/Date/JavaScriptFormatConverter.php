@@ -48,21 +48,15 @@ final class JavaScriptFormatConverter
         for ($i = 0; $i < $size; ++$i) {
             // if finds a '
             if ("'" === $format[$i]) {
-                // if the next character are T' forming 'T', send a T to the
-                // output
-                if ('T' === $format[$i + 1] && '\'' === $format[$i + 2]) {
-                    $output .= 'T';
-                    $i += 2;
-                } else {
-                    // if it's no a 'T' then send whatever is inside the '' to
-                    // the output, but send it inside [] (useful for cases like
-                    // the brazilian translation that uses a 'de' in the date)
-                    $output .= '[';
-                    $temp = current(explode("'", substr($format, $i + 1)));
-                    $output .= $temp;
-                    $output .= ']';
-                    $i += \strlen($temp) + 1;
-                }
+                // send whatever is inside the '' to the output, but send it
+                // inside [] so that JavaScript treats it as a literal (like the
+                // 'T' of the HTML5 format, which would otherwise be read as the
+                // AM/PM token, or the 'de' of the brazilian translation)
+                $output .= '[';
+                $temp = current(explode("'", substr($format, $i + 1)));
+                $output .= $temp;
+                $output .= ']';
+                $i += \strlen($temp) + 1;
             } else {
                 // if no ' is found, then search all the rules, see if any of
                 // them matchs
