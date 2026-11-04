@@ -93,6 +93,39 @@ final class DateTimePickerTypeTest extends TypeTestCase
         static::assertTrue($form->isSynchronized());
     }
 
+    public function testHtml5FormatWithoutSeconds(): void
+    {
+        $form = $this->factory->create(DateTimePickerType::class, new \DateTime('2018-06-03 20:02:03'), [
+            'format' => DateTimeType::HTML5_FORMAT,
+        ]);
+        $view = $form->createView();
+
+        static::assertSame('2018-06-03T20:02', $form->getViewData());
+        static::assertSame('yyyy-MM-dd[T]HH:mm', $view->vars['datepicker_options']['localization']['format']);
+        static::assertFalse($view->vars['datepicker_options']['display']['components']['seconds']);
+
+        $form->submit('2018-06-05T05:23');
+        static::assertSame('2018-06-05 05:23:00', $form->getData()->format('Y-m-d H:i:s'));
+        static::assertTrue($form->isSynchronized());
+    }
+
+    public function testHtml5FormatWithSeconds(): void
+    {
+        $form = $this->factory->create(DateTimePickerType::class, new \DateTime('2018-06-03 20:02:03'), [
+            'format' => DateTimeType::HTML5_FORMAT,
+            'with_seconds' => true,
+        ]);
+        $view = $form->createView();
+
+        static::assertSame('2018-06-03T20:02:03', $form->getViewData());
+        static::assertSame('yyyy-MM-dd[T]HH:mm:ss', $view->vars['datepicker_options']['localization']['format']);
+        static::assertTrue($view->vars['datepicker_options']['display']['components']['seconds']);
+
+        $form->submit('2018-06-05T05:23:45');
+        static::assertSame('2018-06-05 05:23:45', $form->getData()->format('Y-m-d H:i:s'));
+        static::assertTrue($form->isSynchronized());
+    }
+
     /**
      * @return FormExtensionInterface[]
      */

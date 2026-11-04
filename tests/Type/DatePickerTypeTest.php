@@ -15,6 +15,7 @@ namespace Sonata\Form\Tests\Type;
 
 use Sonata\Form\Date\JavaScriptFormatConverter;
 use Sonata\Form\Type\DatePickerType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\PreloadedExtension;
@@ -82,6 +83,18 @@ final class DatePickerTypeTest extends TypeTestCase
         $form->submit('2018-06-05');
         static::assertSame('2018-06-05', $form->getData()->format('Y-m-d'));
         static::assertTrue($form->isSynchronized());
+    }
+
+    public function testHtml5DateTimeFormatKeepsSeconds(): void
+    {
+        $form = $this->factory->create(DatePickerType::class, new \DateTime('2018-06-03'), [
+            'format' => DateTimeType::HTML5_FORMAT,
+            'html5' => false,
+        ]);
+        $view = $form->createView();
+
+        static::assertSame('2018-06-03T00:00:00', $form->getViewData());
+        static::assertSame('yyyy-MM-dd[T]HH:mm:ss', $view->vars['datepicker_options']['localization']['format']);
     }
 
     /**
