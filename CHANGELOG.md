@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.8.0](https://github.com/sonata-project/form-extensions/compare/2.7.0...2.8.0) - 2026-11-15
+### Fixed
+- [[#594](https://github.com/sonata-project/form-extensions/pull/594)] Escaping of the `'T'` literal in JavaScript date formats ([@werwolf666](https://github.com/werwolf666))
+- [[#594](https://github.com/sonata-project/form-extensions/pull/594)] Picker format of `DateTimePickerType` with `DateTimeType::HTML5_FORMAT` and `with_seconds` disabled ([@werwolf666](https://github.com/werwolf666))
+
+### Removed
+- [[#595](https://github.com/sonata-project/form-extensions/pull/595)] Support for Symfony 7.3 and 8.0 ([@dmaicher](https://github.com/dmaicher))
+
 ## [2.7.0](https://github.com/sonata-project/form-extensions/compare/2.6.1...2.7.0) - 2025-11-23
 ### Added
 - [[#570](https://github.com/sonata-project/form-extensions/pull/570)] Support for Symfony 8 ([@dmaicher](https://github.com/dmaicher))
