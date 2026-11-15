@@ -86,7 +86,8 @@ final class DateTimePickerTypeTest extends TypeTestCase
             'html5' => false,
         ]);
 
-        static::assertSame("8:02\u{202F}PM", $form->getViewData());
+        // Recent Symfony patch releases normalize the narrow no-break space used by ICU 72+ to a regular space
+        static::assertSame('8:02 PM', str_replace("\u{202F}", ' ', $form->getViewData()));
 
         $form->submit("5:23\u{202F}AM");
         static::assertSame('1970-01-01 05:23:00', $form->getData()->format('Y-m-d H:i:s'));

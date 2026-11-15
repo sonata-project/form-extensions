@@ -60,8 +60,9 @@ final class FormChoiceWidgetTest extends AbstractWidgetTestCase
 
         $html = $this->renderWidget($choice->createView());
 
-        static::assertStringContainsString(
-            '<option value="" selected="selected">[trans]Choose an option[/trans]</option>',
+        // Symfony 8.1+ renders the placeholder of required fields with the "hidden" attribute
+        static::assertMatchesRegularExpression(
+            '#<option value=""( hidden="hidden")? selected="selected">\\[trans\\]Choose an option\\[/trans\\]</option>#',
             $this->cleanHtmlWhitespace($html)
         );
     }
