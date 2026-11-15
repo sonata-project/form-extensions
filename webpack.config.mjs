@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-const webpack = require('webpack');
-const Encore = require('@symfony/webpack-encore');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
+import webpack from 'webpack';
+import Encore from '@symfony/webpack-encore';
+import StyleLintPlugin from 'stylelint-webpack-plugin';
 
 Encore.setOutputPath('./src/Bridge/Symfony/Resources/public')
   .setPublicPath('.')
@@ -26,9 +26,12 @@ Encore.setOutputPath('./src/Bridge/Symfony/Resources/public')
     '@hotwired/stimulus': 'stimulus',
   })
 
-  .configureCssMinimizerPlugin((options) => {
-    options.minimizerOptions = {
-      preset: ['default', { discardComments: { removeAll: true } }],
+  .configureCssMinimizerPlugin((options, MinimizerPlugin) => {
+    options.minify = {
+      implementation: MinimizerPlugin.cssnanoMinify,
+      options: {
+        preset: ['default', { discardComments: { removeAll: true } }],
+      },
     };
   })
 
@@ -47,13 +50,14 @@ Encore.setOutputPath('./src/Bridge/Symfony/Resources/public')
     })
   )
 
-  .configureTerserPlugin((options) => {
-    options.terserOptions = {
-      output: { comments: false },
+  .configureJsMinimizerPlugin((options, MinimizerPlugin) => {
+    options.minify = {
+      implementation: MinimizerPlugin.terserMinify,
+      options: { format: { comments: false } },
     };
     options.extractComments = false;
   })
 
   .addEntry('app', './assets/js/app.js');
 
-module.exports = Encore.getWebpackConfig();
+export default await Encore.getWebpackConfig();

@@ -6,15 +6,15 @@
     "@symfony/stimulus-bridge": "^3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.29",
-    "@babel/eslint-parser": "^7.21",
-    "@babel/preset-env": "^7.21",
-    "@symfony/webpack-encore": "^5.2",
+    "@babel/core": "^8.1",
+    "@babel/preset-env": "^8.0",
+    "@symfony/webpack-encore": "^7.2",
     "@testing-library/dom": "^9.2",
     "@testing-library/jest-dom": "^5.16",
     "@testing-library/user-event": "^14.4",
     "@vitest/coverage-v8": "^5.1",
     "autoprefixer": "^10.4",
+    "cssnano": "^9.9",
     "eslint": "^8.39",
     "eslint-config-airbnb-base": "^15.0",
     "eslint-config-prettier": "^8.8",
@@ -23,8 +23,8 @@
     "eslint-webpack-plugin": "^4.0",
     "file-loader": "^6.2",
     "jsdom": "^22.0",
-    "postcss": "^8.4",
-    "postcss-loader": "^7.2",
+    "postcss": "^8.5",
+    "postcss-loader": "^8.2",
     "postcss-scss": "^4.0",
     "prettier": "^2.8",
     "sass-embedded": "^1.62",
@@ -34,11 +34,11 @@
     "stylelint-order": "^6.0",
     "stylelint-webpack-plugin": "^4.1",
     "vitest": "^5.1",
-    "webpack": "^5.98",
-    "webpack-cli": "^5.0"
+    "webpack": "^5.101",
+    "webpack-cli": "^7.3"
   },
   "engines": {
-    "node": ">=18"
+    "node": "^22.22.3 || ^24.15.0 || >=26.0"
   },
   "license": "MIT",
   "private": true,
