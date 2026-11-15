@@ -53,9 +53,7 @@ final class ResizeFormListener implements EventSubscriberInterface
         $form = $event->getForm();
         $data = $event->getData();
 
-        if (null === $data) {
-            $data = [];
-        }
+        $data ??= [];
 
         if (!\is_array($data) && !$data instanceof \Traversable) {
             throw new UnexpectedTypeException($data, 'array or \Traversable');
@@ -153,9 +151,7 @@ final class ResizeFormListener implements EventSubscriberInterface
         $form = $event->getForm();
         $data = $event->getData();
 
-        if (null === $data) {
-            $data = [];
-        }
+        $data ??= [];
 
         if (
             !\is_array($data)

@@ -96,7 +96,7 @@ final class ImmutableArrayTypeTest extends TypeTestCase
 
         static::assertArrayHasKey(
             'keys',
-            $optionsResolver->resolve(['keys' => [$this->createMock(
+            $optionsResolver->resolve(['keys' => [static::createStub(
                 FormBuilderInterface::class
             )]])
         );

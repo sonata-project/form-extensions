@@ -42,7 +42,7 @@ abstract class AbstractWidgetTestCase extends TypeTestCase
 
         $this->renderer = new FormRenderer(
             $this->getRenderingEngine($environment),
-            $this->createMock(CsrfTokenManagerInterface::class)
+            static::createStub(CsrfTokenManagerInterface::class)
         );
 
         $environment->addRuntimeLoader(new FactoryRuntimeLoader([

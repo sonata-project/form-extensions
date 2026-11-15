@@ -225,9 +225,7 @@ abstract class BasePickerType extends AbstractType implements LocaleAwareInterfa
             unset($datePickerOptions['restrictions']);
         }
 
-        if (!isset($datePickerOptions['localization'])) {
-            $datePickerOptions['localization'] = [];
-        }
+        $datePickerOptions['localization'] ??= [];
 
         $datePickerOptions['localization']['format'] = $this->formatConverter->convert($options['format'] ?? '');
 
