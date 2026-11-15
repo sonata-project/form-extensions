@@ -111,7 +111,7 @@ final class InlineConstraintTest extends TestCase
         $constraint = unserialize($expected);
 
         static::assertInstanceOf(\Closure::class, $constraint->getMethod());
-        static::assertEmpty($constraint->getService());
+        static::assertNull($constraint->getService());
         static::assertTrue($constraint->getSerializingWarning());
 
         // serialize again gives the same
