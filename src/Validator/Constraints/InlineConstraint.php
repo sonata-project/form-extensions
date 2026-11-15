@@ -93,9 +93,22 @@ final class InlineConstraint extends Constraint
         return get_object_vars($this);
     }
 
-    public function __wakeup(): void
+    /**
+     * @param array<string, mixed> $data
+     */
+    public function __unserialize(array $data): void
     {
-        if (\is_string($this->getService()) && \is_string($this->getMethod())) {
+        $this->service = null;
+        $this->method = null;
+        $this->serializingWarning = false;
+
+        // Restore the data returned by __serialize(), like PHP does when __unserialize() is not implemented
+        foreach ($data as $property => $value) {
+            /* @phpstan-ignore property.dynamicName */
+            $this->{$property} = $value;
+        }
+
+        if (\is_string($this->service) && \is_string($this->method)) {
             return;
         }
 
@@ -117,7 +130,7 @@ final class InlineConstraint extends Constraint
 
     public function getClosure(): mixed
     {
-        return $this->method ?? null;
+        return $this->method;
     }
 
     public function getTargets(): string
@@ -127,12 +140,12 @@ final class InlineConstraint extends Constraint
 
     public function getMethod(): mixed
     {
-        return $this->method ?? null;
+        return $this->method;
     }
 
     public function getService(): mixed
     {
-        return $this->service ?? null;
+        return $this->service;
     }
 
     public function getSerializingWarning(): bool
